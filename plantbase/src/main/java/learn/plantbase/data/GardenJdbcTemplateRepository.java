@@ -1,11 +1,10 @@
 package learn.plantbase.data;
 
 import learn.plantbase.data.mappers.GardenMapper;
-import learn.plantbase.data.mappers.PlantMapper;
 import learn.plantbase.data.mappers.PostMapper;
 import learn.plantbase.models.Garden;
-import learn.plantbase.models.Plant;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -23,6 +22,7 @@ public class GardenJdbcTemplateRepository implements GardenRepository {
     }
 
     @Override
+    @Transactional
     public Garden findById(int gardenId) {
         final String sql = "select garden_id from garden where garden_id = ?;";
         Garden garden = jdbcTemplate.query(sql, new GardenMapper(), gardenId).stream().findFirst().orElse(null);

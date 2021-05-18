@@ -6,6 +6,7 @@ import learn.plantbase.models.Plant;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -27,6 +28,7 @@ public class PlantJdbcTemplateRepository implements PlantRepository{
     }
 
     @Override
+    @Transactional
     public Plant findByPlantId(int plantId) {
         final String sql = "select plant_id, my_garden_id, plant_description, photo, plant_name, plant_type, gotcha_date " +
                 "from plant where plant_id = ?";
@@ -39,6 +41,7 @@ public class PlantJdbcTemplateRepository implements PlantRepository{
 
     // ???? Check Please!
     @Override
+    @Transactional
     public List<Plant> findByGardenId(int myGardenId) {
         final String sql = "select plant_id, my_garden_id, plant_description, photo, plant_name, plant_type, gotcha_date " +
                 "from plant where my_garden_id = ?";
@@ -95,6 +98,7 @@ public class PlantJdbcTemplateRepository implements PlantRepository{
     }
 
     @Override
+    @Transactional
     public boolean deleteById(int plantId) {
         jdbcTemplate.update("delete from post where plant_id = ?;", plantId);
         return jdbcTemplate.update("delete from plant where plant_id = ?;", plantId) > 0;
