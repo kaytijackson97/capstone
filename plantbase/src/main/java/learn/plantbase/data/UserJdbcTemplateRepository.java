@@ -1,5 +1,6 @@
 package learn.plantbase.data;
 
+import learn.plantbase.data.mappers.PostMapper;
 import learn.plantbase.data.mappers.UserMapper;
 import learn.plantbase.models.Post;
 import learn.plantbase.models.User;

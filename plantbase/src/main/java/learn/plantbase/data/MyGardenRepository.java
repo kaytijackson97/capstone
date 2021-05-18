@@ -13,7 +13,7 @@ public interface MyGardenRepository {
 
     public MyGarden addMyGarden(MyGarden myGarden);
 
-    public boolean editMyGarden(int myGardenId);
+    public boolean editMyGarden(MyGarden myGarden);
 
     public boolean deleteById(int myGardenId);
 }
