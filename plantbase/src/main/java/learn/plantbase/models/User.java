@@ -40,5 +40,4 @@ public class User {
     @Getter
     @Setter
     private List<Post> posts = new ArrayList<>();
-
 }

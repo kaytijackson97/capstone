@@ -23,4 +23,5 @@ public class Role {
     @Getter
     @Setter
     private List<User> users = new ArrayList<>();
+
 }

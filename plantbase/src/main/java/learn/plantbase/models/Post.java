@@ -50,5 +50,4 @@ public class Post {
     @Setter
     private List<Reply> replies = new ArrayList<>();
 
-
 }
