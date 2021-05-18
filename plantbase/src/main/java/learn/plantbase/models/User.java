@@ -34,11 +34,14 @@ public class User {
     @Getter
     @Setter
     @NotBlank(message = "Email is required.")
-    @Size(max = 50, message = "Emai cannot be greater than 50 characters.")
+    @Size(max = 50, message = "Email cannot be greater than 50 characters.")
     private String email;
 
-    @Getter
+
     @Setter
     private List<Post> posts = new ArrayList<>();
 
+    public List<Post> getPosts() {
+        return new ArrayList<>(posts);
+    }
 }

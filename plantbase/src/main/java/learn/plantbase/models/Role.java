@@ -20,7 +20,10 @@ public class Role {
     @Size(max = 10, message = "Role title must be smaller than 10 characters.")
     private String role;
 
-    @Getter
     @Setter
     private List<User> users = new ArrayList<>();
+
+    public List<User> getUsers() {
+        return new ArrayList<>(users);
+    }
 }
