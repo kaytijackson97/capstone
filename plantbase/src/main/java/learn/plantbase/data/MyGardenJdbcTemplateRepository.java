@@ -2,18 +2,18 @@ package learn.plantbase.data;
 
 import learn.plantbase.data.mappers.MyGardenMapper;
 import learn.plantbase.data.mappers.PlantMapper;
-import learn.plantbase.data.mappers.PostMapper;
 import learn.plantbase.models.MyGarden;
-import learn.plantbase.models.Plant;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.Statement;
 import java.util.List;
 
+@Repository
 public class MyGardenJdbcTemplateRepository implements MyGardenRepository {
 
     private final JdbcTemplate jdbcTemplate;
@@ -29,6 +29,7 @@ public class MyGardenJdbcTemplateRepository implements MyGardenRepository {
     }
 
     @Override
+    @Transactional
     public MyGarden findById(int myGardenId) {
         final String sql = "select my_garden_id, user_id, garden_name, bio, photo from my_garden where my_garden_id = ?;";
         MyGarden myGarden = jdbcTemplate.query(sql, new MyGardenMapper(), myGardenId).stream().findFirst().orElse(null);
@@ -83,18 +84,17 @@ public class MyGardenJdbcTemplateRepository implements MyGardenRepository {
     }
 
     @Override
+    @Transactional
     public boolean deleteById(int myGardenId) {
         jdbcTemplate.update("delete from plant where my_garden_id = ?;", myGardenId);
         return jdbcTemplate.update("delete from my_garden where my_garden_id = ?;", myGardenId) > 0;
     }
 
     private void addPlants(MyGarden myGarden) {
-
-
-//        final String sql = "select post_id, user_id, plant_id, garden_id, caption, photo, datetimePosted, likeCount " +
-//                "from post " +
-//                "where plant_id = ?;";
-//        var posts = jdbcTemplate.query(sql, new PostMapper(), plant.getPlantId());
-//        plant.setPosts(posts);
+        final String sql = "select plant_id, my_garden_id, plant_description, photo, plant_name, plant_type, gotcha_date " +
+                "from plant " +
+                "where my_garden_id = ?;";
+        var plants = jdbcTemplate.query(sql, new PlantMapper(), myGarden.getMyGardenId());
+        myGarden.setPlants(plants);
     }
 }
