@@ -12,6 +12,7 @@ import java.util.List;
 public class User {
 
     @Getter
+    @Setter
     private int userId;
 
     @Getter

@@ -53,4 +53,5 @@ public class Plant {
     public List<Post> getPosts() {
         return new ArrayList<>(posts);
     }
+
 }

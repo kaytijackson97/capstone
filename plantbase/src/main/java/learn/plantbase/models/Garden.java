@@ -17,4 +17,5 @@ public class Garden {
     public List<Post> getPosts() {
         return new ArrayList<>(posts);
     }
+
 }

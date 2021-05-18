@@ -37,4 +37,5 @@ public class Reply {
     @Setter
     @Min(value = 1, message = "Post id must be at least 1.")
     private int postId;
+
 }
