@@ -8,6 +8,7 @@ import java.util.List;
 
 public class Garden {
     @Getter
+    @Setter
     private int gardenId;
 
     @Setter

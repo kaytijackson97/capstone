@@ -12,6 +12,7 @@ import java.util.List;
 public class Plant {
 
     @Getter
+    @Setter
     private int plantId;
 
     @Getter
