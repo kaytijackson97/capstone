@@ -34,32 +34,40 @@ class PostJDBCTemplateRepositoryTest {
 
     @Test
     void shouldFindByIdIfValid() {
-
+        Post post = repository.findById(1);
+        assertNotNull(post);
+        assertEquals(1, post.getUserId());
     }
 
     @Test
     void shouldNotFindByIdIfValid() {
-
+        Post post = repository.findById(10);
+        assertNull(post);
     }
 
     @Test
     void shouldFindAllPostsByValidUser() {
-
+        List<Post> posts = repository.findByUserId(1);
+        assertNotNull(posts);
+        assertEquals(1, posts.size());
     }
 
     @Test
     void shouldNotFindAnyPostsIfInvalidUser() {
-
+        List<Post> posts = repository.findByUserId(10);
+        assertNotNull(posts);
+        assertEquals(0, posts.size());
     }
 
     @Test
     void shouldAddIfValid() {
-
+        
     }
 
     @Test
     void shouldNotAddIfNull() {
-
+        Post post = repository.addPost(null);
+        assertNull(post);
     }
 
     @Test
