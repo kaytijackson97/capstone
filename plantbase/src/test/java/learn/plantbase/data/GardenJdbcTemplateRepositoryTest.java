@@ -36,6 +36,6 @@ class GardenJdbcTemplateRepositoryTest {
     @Test
     void shouldFindGardenWithId1() {
         Garden garden = repository.findById(1);
-        assertNotNull(garden);
+        assertEquals(1, garden.getGardenId());
     }
 }
