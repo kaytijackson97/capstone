@@ -4,10 +4,12 @@ import learn.plantbase.data.mappers.GardenMapper;
 import learn.plantbase.data.mappers.PostMapper;
 import learn.plantbase.models.Garden;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+@Repository
 public class GardenJdbcTemplateRepository implements GardenRepository {
 
     private final JdbcTemplate jdbcTemplate;
