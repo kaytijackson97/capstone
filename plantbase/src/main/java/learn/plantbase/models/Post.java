@@ -11,6 +11,7 @@ import java.util.List;
 
 public class Post {
     @Getter
+    @Setter
     @Min(value = 0, message = "Id must be greater than or equal to 0.")
     private int postId;
 
@@ -18,6 +19,11 @@ public class Post {
     @Setter
     @Min(value = 0, message = "Id must be greater than or equal to 0.")
     private int userId;
+
+    @Getter
+    @Setter
+    @Min(value = 0, message = "Id must be greater than or equal to 0.")
+    private int gardenId;
 
     @Getter
     @Setter
