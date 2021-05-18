@@ -33,9 +33,23 @@ create table my_garden (
         references user_profile(user_id)
 );
 
+create table plant (
+	plant_id int primary key auto_increment,
+    my_garden_id int not null,
+    plant_description varchar(250) not null,
+    photo varchar(1000) default "",
+    plant_name varchar(50),
+    plant_type varchar(50),
+    gotcha_date date null,
+	constraint fk_plant_my_garden_id
+		foreign key (my_garden_id)
+        references my_garden(my_garden_id)
+);
+
 create table post (
 	post_id int primary key auto_increment,
     user_id int not null,
+    plant_id int not null,
     garden_id int not null,
     caption varchar(250) not null,
     photo varchar(1000) default "",
@@ -44,6 +58,9 @@ create table post (
     constraint fk_post_user_id
 		foreign key (user_id)
         references user_profile(user_id),
+	constraint fk_post_plant_id
+		foreign key (plant_id)
+        references plant(plant_id),
 	constraint fk_post_garden_id
 		foreign key (garden_id)
         references garden(garden_id)
@@ -64,22 +81,6 @@ create table reply (
         references post(post_id)
 );
 
-create table plant (
-	plant_id int primary key auto_increment,
-    post_id int not null,
-    my_garden_id int not null,
-    plant_description varchar(250) not null,
-    photo varchar(1000) default "",
-    plant_name varchar(50),
-    plant_type varchar(50),
-    gotcha_date date null,
-    constraint fk_plant_post_id
-		foreign key (post_id)
-        references post(post_id),
-	constraint fk_plant_my_garden_id
-		foreign key (my_garden_id)
-        references my_garden(my_garden_id)
-);
 
 insert into plantbase_role (role_id, role_name)
 	values
@@ -99,16 +100,16 @@ insert into my_garden (my_garden_id, user_id, garden_name, bio, photo)
 
 insert into garden (garden_id)
 	values (1);
-    
-insert into post (post_id, user_id, garden_id, caption, photo, datetime_posted, like_count)
+
+insert into plant (plant_id, my_garden_id, plant_description, photo, plant_name, plant_type, gotcha_date)
 	values
-    (1, 1, 1, 'test post', 'test_post.png', '2021-05-18 10:43:18', 0);
-        
+    (1, 1, 'pink', 'test.png', 'katy', 'double flower flaming katy', '2021-05-13');
+    
+insert into post (post_id, user_id, plant_id, garden_id, caption, photo, datetime_posted, like_count)
+	values
+    (1, 1, 1, 1, 'test post', 'test_post.png', '2021-05-18 10:43:18', 0);
+    
 insert into reply (reply_id, user_id, post_id, reply, datetime_posted, like_count)
 	values
     (1, 1, 1, 'test reply', '2021-05-18 10:43:18', 0);
-
-insert into plant (plant_id, post_id, my_garden_id, plant_description, photo, plant_name, plant_type, gotcha_date)
-	values
-    (1, 1, 1, 'pink', 'test.png', 'katy', 'double flower flaming katy', '2021-05-13');
     
