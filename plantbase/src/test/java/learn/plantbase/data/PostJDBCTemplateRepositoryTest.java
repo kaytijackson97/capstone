@@ -61,14 +61,14 @@ class PostJDBCTemplateRepositoryTest {
         assertEquals(0, posts.size());
     }
 
-//    @Test
-//    void shouldAddIfValid() {
-//        Post post = makeNewPost();
-//        Post actual = repository.addPost(post);
-//        List<Post> posts = repository.findAll();
-//        assertEquals(actual, post);
-//        assertEquals(2, posts.size());
-//    }
+    @Test
+    void shouldAddIfValid() {
+        Post post = makeNewPost();
+        Post actual = repository.addPost(post);
+        List<Post> posts = repository.findAll();
+        assertEquals(actual, post);
+        assertEquals(2, posts.size());
+    }
 
     @Test
     void shouldNotAddIfNull() {
