@@ -1,5 +1,6 @@
 package learn.plantbase.data;
 
+import learn.plantbase.data.mappers.PostMapper;
 import learn.plantbase.data.mappers.UserMapper;
 import learn.plantbase.models.Post;
 import learn.plantbase.models.User;
@@ -86,6 +87,7 @@ public class UserJdbcTemplateRepository implements UserRepository {
 
     @Override
     public boolean deleteByUser(int userId) {
+        jdbcTemplate.update("delete from post where user_id = ?;", userId);
         return jdbcTemplate.update(
                 "delete from user_profile where user_id = ?", userId) > 0;
     }
