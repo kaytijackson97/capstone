@@ -85,20 +85,20 @@ create table reply (
 delimiter //
 create procedure set_known_good_state()
 begin
-	delete from plantbase_role;
-    alter table plantbase_role auto_increment = 1;
-    delete from user_profile;
-    alter table user_profile auto_increment = 1;
-    delete from garden;
-    alter table garden auto_increment = 1;
-    delete from my_garden;
-    alter table my_garden auto_increment = 1;
-    delete from post;
-    alter table post auto_increment = 1;
-    delete from reply;
-    alter table reply auto_increment = 1;
-    delete from plant;
-    alter table plant auto_increment = 1;
+-- 	delete from plantbase_role;
+--     alter table plantbase_role auto_increment = 1;
+--     delete from user_profile;
+--     alter table user_profile auto_increment = 1;
+--     delete from garden;
+--     alter table garden auto_increment = 1;
+--     delete from my_garden;
+--     alter table my_garden auto_increment = 1;
+--     delete from post;
+--     alter table post auto_increment = 1;
+--     delete from reply;
+--     alter table reply auto_increment = 1;
+--     delete from plant;
+--     alter table plant auto_increment = 1;
 
 	insert into plantbase_role (role_id, role_name)
 		values
