@@ -11,6 +11,7 @@ import java.time.LocalDateTime;
 
 public class Reply {
     @Getter
+    @Setter
     private int replyId;
 
     @Getter
