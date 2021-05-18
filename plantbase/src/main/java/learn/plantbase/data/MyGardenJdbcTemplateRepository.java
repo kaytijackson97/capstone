@@ -2,6 +2,7 @@ package learn.plantbase.data;
 
 import learn.plantbase.data.mappers.MyGardenMapper;
 import learn.plantbase.data.mappers.PlantMapper;
+import learn.plantbase.data.mappers.PostMapper;
 import learn.plantbase.models.MyGarden;
 import learn.plantbase.models.Plant;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -68,15 +69,32 @@ public class MyGardenJdbcTemplateRepository implements MyGardenRepository {
     }
 
     @Override
-    public boolean editMyGarden(int myGardenId) {
-        return false;
+    public boolean editMyGarden(MyGarden myGarden) {
+        final String sql = "update my_garden set " +
+                "garden_name = ?, " +
+                "bio = ?, " +
+                "photo = ? " +
+                "where my_garden_id = ?;";
+        return jdbcTemplate.update(sql,
+                myGarden.getGardenName(),
+                myGarden.getBio(),
+                myGarden.getPhoto(),
+                myGarden.getMyGardenId()) > 0;
     }
 
     @Override
     public boolean deleteById(int myGardenId) {
-        return false;
+        jdbcTemplate.update("delete from plant where my_garden_id = ?;", myGardenId);
+        return jdbcTemplate.update("delete from my_garden where my_garden_id = ?;", myGardenId) > 0;
     }
 
     private void addPlants(MyGarden myGarden) {
+
+
+//        final String sql = "select post_id, user_id, plant_id, garden_id, caption, photo, datetimePosted, likeCount " +
+//                "from post " +
+//                "where plant_id = ?;";
+//        var posts = jdbcTemplate.query(sql, new PostMapper(), plant.getPlantId());
+//        plant.setPosts(posts);
     }
 }
