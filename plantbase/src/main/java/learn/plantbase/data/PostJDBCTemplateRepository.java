@@ -45,6 +45,10 @@ public class PostJDBCTemplateRepository implements PostRepository {
 
     @Override
     public Post addPost(Post post) {
+        if (post == null) {
+            return null;
+        }
+
         final String sql = "insert into post (post_id, user_id, plant_id, garden_id, caption, photo, datetime_posted, like_count) " +
                 "values (?, ?, ?, ?, ?, ?, ?);";
 
