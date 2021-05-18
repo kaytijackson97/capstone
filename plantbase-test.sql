@@ -1,6 +1,6 @@
-drop database if exists plantbase;
-create database plantbase;
-use plantbase;
+drop database if exists plantbase_test;
+create database plantbase_test;
+use plantbase_test;
 
 create table plantbase_role (
 	role_id int primary key auto_increment,

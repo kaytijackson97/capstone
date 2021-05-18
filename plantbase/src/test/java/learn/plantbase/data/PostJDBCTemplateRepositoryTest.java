@@ -1,9 +1,12 @@
 package learn.plantbase.data;
 
+import learn.plantbase.models.Post;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -25,7 +28,8 @@ class PostJDBCTemplateRepositoryTest {
 
     @Test
     void shouldFindAll(){
-
+        List<Post> all = repository.findAll();
+        assertEquals(1, all.size());
     }
 
     @Test
