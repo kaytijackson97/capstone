@@ -61,6 +61,12 @@ class PostJDBCTemplateRepositoryTest {
 
     @Test
     void shouldAddIfValid() {
+        Post post = new Post();
+        post.setPostId(2);
+        post.setUserId(1);
+        post.setGardenId(1);
+        post.setPlantId(1);
+        post.setCaption("test caption");
         
     }
 
