@@ -1,6 +1,7 @@
 package learn.plantbase.data;
 
 import learn.plantbase.data.mappers.PlantMapper;
+import learn.plantbase.data.mappers.PostMapper;
 import learn.plantbase.models.Plant;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
@@ -101,10 +102,10 @@ public class PlantJdbcTemplateRepository implements PlantRepository{
 
     //commented out until PostMapper is merged
     private void addPosts(Plant plant) {
-//        final String sql = "select post_id, user_id, caption, photo, datetimePosted, likeCount, plant_id " +
-//                "from post " +
-//                "where plant_id = ?;";
-//        var posts = jdbcTemplate.query(sql, new PostMapper(), plant.getPlantId());
-//        plant.setPosts(posts);
+        final String sql = "select post_id, user_id, plant_id, garden_id, caption, photo, datetimePosted, likeCount " +
+                "from post " +
+                "where plant_id = ?;";
+        var posts = jdbcTemplate.query(sql, new PostMapper(), plant.getPlantId());
+        plant.setPosts(posts);
     }
 }
