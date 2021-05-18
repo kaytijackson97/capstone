@@ -39,16 +39,17 @@ public class Post {
     @Getter
     @Setter
     @Min(value = 0, message = "Id must be greater than or equal to 0.")
-    private int likecount;
+    private int likeCount;
 
     @Getter
     @Setter
     @Min(value = 0, message = "Id must be greater than or equal to 0.")
     private int plantId;
 
-    @Getter
     @Setter
     private List<Reply> replies = new ArrayList<>();
 
-
+    public List<Reply> getReplies() {
+        return new ArrayList<>(replies);
+    }
 }

@@ -40,5 +40,5 @@ public class MyGarden {
     @Setter
     private List<Plant> plants = new ArrayList<>();
 
-    public List<Plant> getPlants() = { return new ArrayList<>(plants); }
+    public List<Plant> getPlants() { return new ArrayList<>(plants); }
 }
