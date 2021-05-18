@@ -68,5 +68,38 @@ class PostJDBCTemplateRepositoryTest {
         
     }
 
+    @Test
+    void shouldNotEditUserId() {
 
+    }
+
+    @Test
+    void shouldNotEditPostId() {
+
+    }
+
+    @Test
+    void shouldNotEditGardenId() {
+
+    }
+
+    @Test
+    void shouldNotEditDateTimePosted() {
+
+    }
+
+    @Test
+    void shouldNotEditLikeCount() {
+
+    }
+
+    @Test
+    void shouldDeleteIfValidId() {
+
+    }
+
+    @Test
+    void shouldNotDeleteIfInvalidId() {
+
+    }
 }
