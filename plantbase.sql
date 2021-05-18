@@ -25,6 +25,7 @@ create table user_profile (
 create table my_garden (
 	my_garden_id int primary key auto_increment,
     user_id int not null,
+    garden_name varchar(50),
     bio varchar(100) default "",
     photo varchar(1000) default "",
     constraint fk_my_garden_user_id
@@ -92,9 +93,9 @@ insert into user_profile (user_id, role_id, first_name, last_name, email)
     (3, 2, 'Rachel', 'Cuccia', '1234@asdf.com'),
     (4, 2, 'Ashley', 'Edmunds', 'lkjf@asdf.com');
     
-insert into my_garden (my_garden_id, user_id, bio, photo)
+insert into my_garden (my_garden_id, user_id, garden_name, bio, photo)
 	values
-    (1, 1, 'test bio', 'fkdk.jpeg');
+    (1, 1, 'John', 'test bio', 'fkdk.jpeg');
 
 insert into garden (garden_id)
 	values (1);
