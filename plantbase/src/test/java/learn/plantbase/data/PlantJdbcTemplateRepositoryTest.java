@@ -43,13 +43,13 @@ class PlantJdbcTemplateRepositoryTest {
 
     @Test
     void shouldFindListOfPlantsForGardenId() {
-        List<Plant> plants = repository.findByGardenId(1);
+        List<Plant> plants = repository.findByMyGardenId(1);
         assertNotNull(plants);
     }
 
     @Test
     void shouldNotFindAnyPlantsIfInvalidGardenId() {
-        List<Plant> plants = repository.findByGardenId(100);
+        List<Plant> plants = repository.findByMyGardenId(100);
         assertEquals(0, plants.size());
     }
 
