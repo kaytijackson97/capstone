@@ -28,9 +28,9 @@ class GardenJdbcTemplateRepositoryTest {
     }
 
     @Test
-    void shouldFindOne() {
+    void shouldFindOver2() {
         List<Garden> gardens = repository.findAll();
-        assertEquals(1, gardens.size());
+        assertTrue(gardens.size() > 2);
     }
 
     @Test

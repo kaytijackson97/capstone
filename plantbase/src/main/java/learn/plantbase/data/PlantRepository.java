@@ -10,7 +10,7 @@ public interface PlantRepository {
 
     public Plant findByPlantId(int postId);
 
-    public List<Plant> findByGardenId(int myGardenId);
+    public List<Plant> findByMyGardenId(int myGardenId);
 
     public Plant addPlant(Plant plant);
 
