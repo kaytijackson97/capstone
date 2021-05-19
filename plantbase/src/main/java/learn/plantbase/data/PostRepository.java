@@ -1,6 +1,7 @@
 package learn.plantbase.data;
 
 import learn.plantbase.models.Post;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -15,5 +16,6 @@ public interface PostRepository {
 
     boolean editPost(Post post);
 
+    @Transactional
     boolean deletePost(int postId);
 }

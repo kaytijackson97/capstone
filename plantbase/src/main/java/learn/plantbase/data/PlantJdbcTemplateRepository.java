@@ -58,6 +58,9 @@ public class PlantJdbcTemplateRepository implements PlantRepository{
 
     @Override
     public Plant addPlant(Plant plant) {
+        if (plant == null) {
+            return null;
+        }
         final String sql = "insert into plant (my_garden_id, plant_description, photo, plant_name, plant_type, gotcha_date) " +
                 " values (?,?,?,?,?,?);";
         KeyHolder keyHolder = new GeneratedKeyHolder();
@@ -109,7 +112,7 @@ public class PlantJdbcTemplateRepository implements PlantRepository{
 
     //commented out until PostMapper is merged
     private void addPosts(Plant plant) {
-        final String sql = "select post_id, user_id, plant_id, garden_id, caption, photo, datetimePosted, likeCount " +
+        final String sql = "select post_id, user_id, plant_id, garden_id, caption, photo, datetime_posted, like_count " +
                 "from post " +
                 "where plant_id = ?;";
         var posts = jdbcTemplate.query(sql, new PostMapper(), plant.getPlantId());
