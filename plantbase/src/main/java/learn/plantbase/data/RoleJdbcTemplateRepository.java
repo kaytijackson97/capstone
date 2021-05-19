@@ -19,12 +19,12 @@ public class RoleJdbcTemplateRepository implements RoleRepository{
     }
 
     @Override
-    public List<User> findAll() {
+    public List<Role> findAll() {
 
-        final String sql = "select user_id, role_id, first_name, last_name, email "
-                + "from user_profile limit 1000;";
+        final String sql = "select role_id, role_name "
+                + "from plantbase_role;";
 
-        return jdbcTemplate.query(sql, new UserMapper());
+        return jdbcTemplate.query(sql, new RoleMapper());
     }
 
     @Override
