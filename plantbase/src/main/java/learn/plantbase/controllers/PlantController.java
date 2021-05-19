@@ -1,9 +1,14 @@
 package learn.plantbase.controllers;
 
 import learn.plantbase.domain.PlantService;
+import learn.plantbase.domain.Result;
 import learn.plantbase.models.Plant;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -26,5 +31,39 @@ public class PlantController {
     @GetMapping("/byMyGarden/{myGardenId}")
     public List<Plant> findByMyGardenId(@PathVariable int myGardenId) { return service.findByMyGardenId(myGardenId); }
 
+    @PostMapping
+    public ResponseEntity<Object> add(@RequestBody @Valid Plant plant, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return new ResponseEntity<>(bindingResult.getAllErrors(), HttpStatus.BAD_REQUEST);
+        }
+        Result<Plant> result = service.add(plant);
+        if (result.isSuccess()) {
+            return new ResponseEntity<>(result.getPayload(), HttpStatus.CREATED);
+        }
+        return ErrorResponse.build(result);
+    }
 
+    @PutMapping("/{plantId}")
+    public ResponseEntity<Object> update(@PathVariable int plantId, @RequestBody @Valid Plant plant,
+                                         BindingResult bindingResult) {
+        if (plantId != plant.getPlantId()) {
+            return new ResponseEntity<>(HttpStatus.CONFLICT);
+        }
+        if (bindingResult.hasErrors()) {
+            return new ResponseEntity<>(bindingResult.getAllErrors(), HttpStatus.BAD_REQUEST);
+        }
+        Result<Plant> result = service.edit(plant);
+        if (result.isSuccess()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return ErrorResponse.build(result);
+    }
+
+    @DeleteMapping("/{plantId}")
+    public ResponseEntity<Void> deleteById(@PathVariable int plantId) {
+        if (service.deleteById(plantId)) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
 }

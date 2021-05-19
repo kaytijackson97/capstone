@@ -12,12 +12,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
+import javax.validation.ConstraintViolation;
+import javax.validation.Validation;
+import javax.validation.Validator;
+import javax.validation.ValidatorFactory;
+
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -52,22 +58,31 @@ class PlantServiceTest {
     void shouldNotAddNullPlantName() {
         Plant plant = makePlant();
         plant.setPlantName(null);
-        Result<Plant> result = service.add(plant);
-        assertEquals(ResultType.INVALID, result.getType());
+
+        // Grab a Validator instance and validate the ticket.
+        ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+        Validator validator = factory.getValidator();
+        Set<ConstraintViolation<Plant>> violations = validator.validate(plant);
+
+        assertEquals(2, violations.size());
     }
 
     @Test
     void shouldNotAddBlankPlantName() {
         Plant plant = makePlant();
         plant.setPlantName("    ");
-        Result<Plant> result = service.add(plant);
-        assertEquals(ResultType.INVALID, result.getType());
+
+        // Grab a Validator instance and validate the ticket.
+        ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+        Validator validator = factory.getValidator();
+        Set<ConstraintViolation<Plant>> violations = validator.validate(plant);
+
+        assertEquals(1, violations.size());
     }
 
     @Test
     void shouldNotAddNullPlant() {
-        Plant plant = new Plant();
-        Result<Plant> result = service.add(plant);
+        Result<Plant> result = service.add(null);
         assertEquals(ResultType.INVALID, result.getType());
     }
 
@@ -75,32 +90,52 @@ class PlantServiceTest {
     void shouldNotAddNullPlantType() {
         Plant plant = makePlant();
         plant.setPlantType(null);
-        Result<Plant> result = service.add(plant);
-        assertEquals(ResultType.INVALID, result.getType());
+
+        // Grab a Validator instance and validate the ticket.
+        ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+        Validator validator = factory.getValidator();
+        Set<ConstraintViolation<Plant>> violations = validator.validate(plant);
+
+        assertEquals(2, violations.size());
     }
 
     @Test
     void shouldNotAddBlankPlantType() {
         Plant plant = makePlant();
         plant.setPlantType("    ");
-        Result<Plant> result = service.add(plant);
-        assertEquals(ResultType.INVALID, result.getType());
+
+        // Grab a Validator instance and validate the ticket.
+        ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+        Validator validator = factory.getValidator();
+        Set<ConstraintViolation<Plant>> violations = validator.validate(plant);
+
+        assertEquals(1, violations.size());
     }
 
     @Test
     void shouldNotAddFutureGotchaDate() {
         Plant plant = makePlant();
         plant.setGotchaDate(LocalDate.now().plusDays(1));
-        Result<Plant> result = service.add(plant);
-        assertEquals(ResultType.INVALID, result.getType());
+
+        // Grab a Validator instance and validate the ticket.
+        ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+        Validator validator = factory.getValidator();
+        Set<ConstraintViolation<Plant>> violations = validator.validate(plant);
+
+        assertEquals(1, violations.size());
     }
 
     @Test
     void shouldNotAddZeroMyGardenId() {
         Plant plant = makePlant();
         plant.setMyGardenId(0);
-        Result<Plant> result = service.add(plant);
-        assertEquals(ResultType.INVALID, result.getType());
+
+        // Grab a Validator instance and validate the ticket.
+        ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+        Validator validator = factory.getValidator();
+        Set<ConstraintViolation<Plant>> violations = validator.validate(plant);
+
+        assertEquals(1, violations.size());
     }
 
     @Test
@@ -123,10 +158,12 @@ class PlantServiceTest {
         plant.setPlantId(1);
         plant.setPlantName(null);
 
-        when(repository.editPlant(plant)).thenReturn(false);
+        // Grab a Validator instance and validate the ticket.
+        ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+        Validator validator = factory.getValidator();
+        Set<ConstraintViolation<Plant>> violations = validator.validate(plant);
 
-        Result<Plant> actual = service.edit(plant);
-        assertEquals(ResultType.INVALID, actual.getType());
+        assertEquals(2, violations.size());
     }
 
     @Test
@@ -135,10 +172,12 @@ class PlantServiceTest {
         plant.setPlantId(1);
         plant.setPlantName("     ");
 
-        when(repository.editPlant(plant)).thenReturn(false);
+        // Grab a Validator instance and validate the ticket.
+        ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+        Validator validator = factory.getValidator();
+        Set<ConstraintViolation<Plant>> violations = validator.validate(plant);
 
-        Result<Plant> actual = service.edit(plant);
-        assertEquals(ResultType.INVALID, actual.getType());
+        assertEquals(1, violations.size());
     }
 
     @Test
@@ -147,10 +186,12 @@ class PlantServiceTest {
         plant.setPlantId(1);
         plant.setPlantType(null);
 
-        when(repository.editPlant(plant)).thenReturn(false);
+        // Grab a Validator instance and validate the ticket.
+        ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+        Validator validator = factory.getValidator();
+        Set<ConstraintViolation<Plant>> violations = validator.validate(plant);
 
-        Result<Plant> actual = service.edit(plant);
-        assertEquals(ResultType.INVALID, actual.getType());
+        assertEquals(2, violations.size());
     }
 
     @Test
@@ -159,10 +200,12 @@ class PlantServiceTest {
         plant.setPlantId(1);
         plant.setPlantType("     ");
 
-        when(repository.editPlant(plant)).thenReturn(false);
+        // Grab a Validator instance and validate the ticket.
+        ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+        Validator validator = factory.getValidator();
+        Set<ConstraintViolation<Plant>> violations = validator.validate(plant);
 
-        Result<Plant> actual = service.edit(plant);
-        assertEquals(ResultType.INVALID, actual.getType());
+        assertEquals(1, violations.size());
     }
 
     @Test
@@ -171,10 +214,12 @@ class PlantServiceTest {
         plant.setPlantId(1);
         plant.setGotchaDate(LocalDate.now().plusDays(1));
 
-        when(repository.editPlant(plant)).thenReturn(false);
+        // Grab a Validator instance and validate the ticket.
+        ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+        Validator validator = factory.getValidator();
+        Set<ConstraintViolation<Plant>> violations = validator.validate(plant);
 
-        Result<Plant> actual = service.edit(plant);
-        assertEquals(ResultType.INVALID, actual.getType());
+        assertEquals(1, violations.size());
     }
 
     @Test
