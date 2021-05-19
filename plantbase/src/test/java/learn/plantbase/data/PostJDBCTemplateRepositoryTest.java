@@ -38,6 +38,7 @@ class PostJDBCTemplateRepositoryTest {
         Post post = repository.findById(1);
         assertNotNull(post);
         assertEquals(1, post.getUserId());
+        assertNotNull(post.getReplies());
     }
 
     @Test
@@ -97,6 +98,11 @@ class PostJDBCTemplateRepositoryTest {
     @Test
     void shouldDeleteIfValidId() {
         assertTrue(repository.deletePost(3));
+    }
+
+    @Test
+    void shouldDeleteRepliesIfPostIsDeleted() {
+
     }
 
     @Test
