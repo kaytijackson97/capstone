@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface UserRepository {
 
-    List<Post> findAll();
+    List<User> findAll();
 
     User findByUser(int userId);
 

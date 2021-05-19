@@ -23,12 +23,12 @@ public class UserJdbcTemplateRepository implements UserRepository {
     }
 
     @Override
-    public List<Post> findAll() {
+    public List<User> findAll() {
 
-        final String sql = "select post_id, user_id, plant_id, garden_id, caption, photo, datetime_posted, like_count "
-            + "from post limit 1000;";
+        final String sql = "select user_id, role_id, first_name, last_name, email "
+                + "from user_profile;";
 
-        return jdbcTemplate.query(sql, new PostMapper());
+        return jdbcTemplate.query(sql, new UserMapper());
     }
 
     @Override
