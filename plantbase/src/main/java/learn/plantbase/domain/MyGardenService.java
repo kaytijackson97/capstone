@@ -27,6 +27,7 @@ public class MyGardenService {
     public Result<MyGarden> add(MyGarden myGarden) {
         Result<MyGarden> result = validate(myGarden);
         if (!result.isSuccess()) {
+            result.addMessage("Not a valid myGarden.", ResultType.INVALID);
             return result;
         }
         if (myGarden.getMyGardenId() != 0) {
