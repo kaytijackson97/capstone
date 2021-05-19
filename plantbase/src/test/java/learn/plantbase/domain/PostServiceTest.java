@@ -64,6 +64,21 @@ class PostServiceTest {
     }
 
     @Test
+    void shouldNotAddIfPostIdIsSet() {
+        Post expected = makeNewPost(1);
+        Result<Post> actual = service.addPost(expected);
+        assertEquals("Post id cannot be set", actual.getMessages().get(0));
+    }
+
+    @Test
+    void shouldNotAddIfRepositoryAddFailed() {
+        Post expected = makeNewPost(0);
+        when(repository.addPost(expected)).thenReturn(null);
+        Result<Post> actual = service.addPost(expected);
+        assertEquals("Add failed", actual.getMessages().get(0));
+    }
+
+    @Test
     void shouldNotAddIfInvalidUserId() {
         Post expected = makeNewPost(0);
         expected.setUserId(10);
