@@ -100,36 +100,36 @@ begin
     delete from plantbase_role;
     alter table plantbase_role auto_increment = 1;
 
-	insert into plantbase_role (role_id, role_name)
+	insert into plantbase_role (role_name)
 		values
-		(1, 'ADMIN'),
-		(2, 'USER');
+		('ADMIN'),
+		('USER');
 
-	insert into user_profile (user_id, role_id, first_name, last_name, email)
+	insert into user_profile (role_id, first_name, last_name, email)
 		values 
-		(1, 1, 'John', 'Smith', 'john@smith.com'),
-		(2, 2, 'Kayti', 'Wiita', 'asdf@asdf.com'),
-		(3, 2, 'Rachel', 'Cuccia', '1234@asdf.com'),
-		(4, 2, 'Ashley', 'Edmunds', 'lkjf@asdf.com');
+		(1, 'John', 'Smith', 'john@smith.com'),
+		(2, 'Kayti', 'Wiita', 'asdf@asdf.com'),
+		(2, 'Rachel', 'Cuccia', '1234@asdf.com'),
+		(2, 'Ashley', 'Edmunds', 'lkjf@asdf.com');
 		
-	insert into my_garden (my_garden_id, user_id, garden_name, bio, photo)
+	insert into my_garden (user_id, garden_name, bio, photo)
 		values
-		(1, 1, 'John', 'test bio', 'fkdk.jpeg');
+		(1, 'John', 'test bio', 'fkdk.jpeg');
 
 	insert into garden (garden_id)
 		values (1);
 
-	insert into plant (plant_id, my_garden_id, plant_description, photo, plant_name, plant_type, gotcha_date)
+	insert into plant (my_garden_id, plant_description, photo, plant_name, plant_type, gotcha_date)
 		values
-		(1, 1, 'pink', 'test.png', 'katy', 'double flower flaming katy', '2021-05-13');
+		(1, 'pink', 'test.png', 'katy', 'double flower flaming katy', '2021-05-13');
         
-	insert into post (post_id, plant_id, user_id, garden_id, caption, photo, datetime_posted, like_count)
+	insert into post (plant_id, user_id, garden_id, caption, photo, datetime_posted, like_count)
 		values
-		(1, 1, 1, 1, 'test post', 'test_post.png', '2021-05-18 10:43:18', 0);
+		(1, 1, 1, 'test post', 'test_post.png', '2021-05-18 10:43:18', 0);
 			
-	insert into reply (reply_id, user_id, post_id, reply, datetime_posted, like_count)
+	insert into reply (user_id, post_id, reply, datetime_posted, like_count)
 		values
-		(1, 1, 1, 'test reply', '2021-05-18 10:43:18', 0);
+		(1, 1, 'test reply', '2021-05-18 10:43:18', 0);
         
 end //
 delimiter ;

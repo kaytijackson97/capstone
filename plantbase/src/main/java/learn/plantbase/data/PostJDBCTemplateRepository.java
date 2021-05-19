@@ -49,18 +49,19 @@ public class PostJDBCTemplateRepository implements PostRepository {
             return null;
         }
 
-        final String sql = "insert into post (post_id, user_id, plant_id, garden_id, caption, photo, datetime_posted, like_count) " +
+        final String sql = "insert into post (user_id, plant_id, garden_id, caption, photo, datetime_posted, like_count) " +
                 "values (?, ?, ?, ?, ?, ?, ?);";
 
         KeyHolder keyHolder = new GeneratedKeyHolder();
         int rowsAffected = template.update(connection -> {
             PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             ps.setInt(1, post.getUserId());
-            ps.setInt(2, post.getGardenId());
-            ps.setString(3, post.getCaption());
-            ps.setString(4, post.getPhoto());
-            ps.setString(5, post.getDatetimePosted().toString());
-            ps.setInt(6, post.getLikeCount());
+            ps.setInt(2, post.getPlantId());
+            ps.setInt(3, post.getGardenId());
+            ps.setString(4, post.getCaption());
+            ps.setString(5, post.getPhoto());
+            ps.setString(6, post.getDatetimePosted().toString());
+            ps.setInt(7, post.getLikeCount());
 
             return ps;
         }, keyHolder);
