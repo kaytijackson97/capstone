@@ -36,7 +36,7 @@ public class GardenJdbcTemplateRepository implements GardenRepository {
 
     //commented out until PostMapper is merged
     private void addPosts(Garden garden) {
-        final String sql = "select post_id, user_id, plant_id, garden_id, caption, photo, datetimePosted, likeCount " +
+        final String sql = "select post_id, user_id, plant_id, garden_id, caption, photo, datetime_posted, like_count " +
                 "from post " +
                 "where garden_id = ?;";
         var posts = jdbcTemplate.query(sql, new PostMapper(), garden.getGardenId());

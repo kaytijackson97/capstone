@@ -1,11 +1,13 @@
 package learn.plantbase.data;
 
 import learn.plantbase.models.MyGarden;
+import learn.plantbase.models.Plant;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -45,34 +47,56 @@ class MyGardenJdbcTemplateRepositoryTest {
         assertEquals("John", myGarden.getGardenName());
     }
 
+    @Test
+    void shouldNotFindInvalidId() {
+        MyGarden myGarden = repository.findById(100);
+        assertNull(myGarden);
+    }
 
-//            shouldNotFindInvalidId
+    @Test
+    void shouldFindMyGardenForUserId() {
+        MyGarden myGarden = repository.findByUser(1);
+        assertNotNull(myGarden);
+    }
 
+    @Test
+    void shouldNotFindMyGardenIfInvalidUserId() {
+        MyGarden myGarden = repository.findByUser(100);
+        assertNull(myGarden);
+    }
 
-//    shouldFindListOfPlantsForId
+    @Test
+    void shouldAddMyGarden() {
+        MyGarden myGarden = makeMyGarden();
+        MyGarden actual = repository.addMyGarden(myGarden);
+        assertEquals(2, actual.getMyGardenId());
+    }
 
+    @Test
+    void shouldNotAddNullMyGarden() {
+        MyGarden myGarden = new MyGarden();
+        MyGarden actual = repository.addMyGarden(myGarden);
+        assertNull(actual);
+    }
 
-//            shouldNotFindAnyPlantsIfInvalidId
+    @Test
+    void shouldDeleteByValidId() {
+        assertTrue(repository.deleteById(1));
+    }
 
+    @Test
+    void shouldNotDeleteWithInvalidId() {
+        assertFalse(repository.deleteById(100));
+    }
 
-//    shouldAddMyGarden
-
-
-//            shouldNotAddNullMyGarden
-
-
-//    shouldNotAddMyGardenWithInvalidUser
-
-
-//            shouldEditMyGardenWithValidId
-
-
-//    shouldNotEditMyGardenWithInvalidId
-
-
-//            shouldDeleteByValidId
-
-
-//    shouldNotDeleteWithInvalidId
-
+    MyGarden makeMyGarden() {
+        MyGarden myGarden = new MyGarden();
+        myGarden.setMyGardenId(2);
+        myGarden.setGardenName("Rachel");
+        myGarden.setPhoto("image.png");
+        myGarden.setBio("Welcome to my garden");
+        myGarden.setUserId(3);
+        myGarden.setPlants(new ArrayList<>());
+        return myGarden;
+    }
 }
