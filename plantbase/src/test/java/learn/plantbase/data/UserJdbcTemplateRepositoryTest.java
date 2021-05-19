@@ -1,5 +1,6 @@
 package learn.plantbase.data;
 
+import learn.plantbase.models.Plant;
 import learn.plantbase.models.Post;
 import learn.plantbase.models.Role;
 import learn.plantbase.models.User;
@@ -8,6 +9,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -54,7 +56,6 @@ public class UserJdbcTemplateRepositoryTest {
         assertTrue(users.size() >= 2);
     }
 
-    // TODO fail
     @Test
     void shouldNotAddNullUser() {
         User user = repository.addUser(null);
@@ -68,14 +69,22 @@ public class UserJdbcTemplateRepositoryTest {
         assertTrue(repository.editUser(user));
     }
 
-    // TODO fail
     @Test
     void shouldNotEditUserWithInvalidUser() {
-        User user = makeNewUser(7);
-        assertFalse(repository.editUser(user));
+        User actual = new User();
+        actual.setRoleId(1);
+        actual.setFirstName("Robert");
+        actual.setLastName("Fall");
+        actual.setEmail("robertf@aol.com");
+        actual.setUserId(100);
+        boolean success = repository.editUser(actual);
+        assertFalse(success);
     }
 
-    // TODO should not edit if null
+    @Test
+    void shouldNotEditIfNull() {
+        assertFalse(repository.editUser(null));
+    }
 
     @Test
     void shouldDeleteByValidUser() {
