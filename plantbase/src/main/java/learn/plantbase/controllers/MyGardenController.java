@@ -43,4 +43,29 @@ public class MyGardenController {
         }
         return ErrorResponse.build(result);
     }
+
+    @PutMapping("/{myGardenId}")
+    public ResponseEntity<Object> update(@PathVariable int myGardenId,
+        @RequestBody @Valid MyGarden myGarden, BindingResult bindingResult) {
+        if (myGardenId != myGarden.getMyGardenId()) {
+            return new ResponseEntity<>(HttpStatus.CONFLICT);
+        }
+        if (bindingResult.hasErrors()) {
+            return new ResponseEntity<>(bindingResult.getAllErrors(), HttpStatus.BAD_REQUEST);
+        }
+        Result<MyGarden> result = service.edit(myGarden);
+        if (result.isSuccess()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return ErrorResponse.build(result);
+    }
+
+    @DeleteMapping("/{myGardenId}")
+    public ResponseEntity<Void> deleteById(@PathVariable int myGardenId) {
+        if (service.deleteById(myGardenId)) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+
 }
