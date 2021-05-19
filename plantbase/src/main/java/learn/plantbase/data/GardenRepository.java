@@ -6,4 +6,6 @@ import java.util.List;
 
 public interface GardenRepository {
     public List<Garden> findAll();
+
+    public Garden findById(int gardenId);
 }
