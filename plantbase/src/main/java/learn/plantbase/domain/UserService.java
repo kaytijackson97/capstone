@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @Service
 public class UserService {
@@ -81,20 +83,30 @@ public class UserService {
                 .anyMatch(i -> i.getRoleId() == user.getRoleId());
 
         if (!roleExists) {
-            result.addMessage("Invalid role id", ResultType.INVALID);
+            result.addMessage("invalid role id", ResultType.INVALID);
             return result;
         }
 
-        if (user.getFirstName().isBlank()) {
+        if (user.getFirstName() == null ||user.getFirstName().isBlank()) {
             result.addMessage("firstName is required", ResultType.INVALID);
         }
 
-        if (user.getLastName().isBlank()) {
+        if (user.getLastName() == null || user.getLastName().isBlank()) {
             result.addMessage("lastName is required", ResultType.INVALID);
         }
 
-        if (user.getEmail().isBlank()) {
+        if (user.getEmail() == null || user.getEmail().isBlank()) {
             result.addMessage("email is required", ResultType.INVALID);
+        }
+
+        if (user.getEmail() != null) {
+            String emailRegex = "^[\\w!#$%&'*+/=?`{|}~^-]+(?:\\.[\\w!#$%&'*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$";
+            Pattern pattern = Pattern.compile(emailRegex);
+            Matcher matcher = pattern.matcher(user.getEmail());
+
+            if (!matcher.matches()) {
+                result.addMessage("invalid email", ResultType.INVALID);
+            }
         }
 
         return result;
