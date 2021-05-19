@@ -14,7 +14,6 @@ import static org.junit.jupiter.api.Assertions.*;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE)
 class PostJDBCTemplateRepositoryTest {
 
-    final static int NEXT_ID = 4;
     final static LocalDateTime DATE_TIME_POSTED = LocalDateTime.now();
 
     @Autowired
@@ -31,7 +30,7 @@ class PostJDBCTemplateRepositoryTest {
     @Test
     void shouldFindAll(){
         List<Post> all = repository.findAll();
-        assertEquals(1, all.size());
+        assertTrue(all.size() >= 2);
     }
 
     @Test
@@ -43,7 +42,7 @@ class PostJDBCTemplateRepositoryTest {
 
     @Test
     void shouldNotFindByIdIfValid() {
-        Post post = repository.findById(10);
+        Post post = repository.findById(5);
         assertNull(post);
     }
 
@@ -51,23 +50,24 @@ class PostJDBCTemplateRepositoryTest {
     void shouldFindAllPostsByValidUser() {
         List<Post> posts = repository.findByUserId(1);
         assertNotNull(posts);
-        assertEquals(1, posts.size());
+        assertTrue(posts.size() >= 1);
     }
 
     @Test
     void shouldNotFindAnyPostsIfInvalidUser() {
-        List<Post> posts = repository.findByUserId(10);
+        List<Post> posts = repository.findByUserId(5);
         assertNotNull(posts);
         assertEquals(0, posts.size());
     }
 
     @Test
     void shouldAddIfValid() {
-        Post post = makeNewPost();
+        Post post = makeNewPost(4);
         Post actual = repository.addPost(post);
-        List<Post> posts = repository.findAll();
         assertEquals(actual, post);
-        assertEquals(2, posts.size());
+
+        List<Post> posts = repository.findAll();
+        assertTrue(posts.size() >= 2);
     }
 
     @Test
@@ -75,55 +75,38 @@ class PostJDBCTemplateRepositoryTest {
         Post post = repository.addPost(null);
         assertNull(post);
     }
-//
-//    @Test
-//    void shouldEditIfValid() {
-//        Post post.
-//    }
-//
-//    @Test
-//    void shouldNotEditIfInvalidPostId() {
-//
-//    }
-//
-//    @Test
-//    void shouldNotEditUserId() {
-//
-//    }
-//
-//    @Test
-//    void shouldNotEditPostId() {
-//
-//    }
-//
-//    @Test
-//    void shouldNotEditGardenId() {
-//
-//    }
-//
-//    @Test
-//    void shouldNotEditDateTimePosted() {
-//
-//    }
-//
-//    @Test
-//    void shouldNotEditLikeCount() {
-//
-//    }
-//
-//    @Test
-//    void shouldDeleteIfValidId() {
-//
-//    }
-//
-//    @Test
-//    void shouldNotDeleteIfInvalidId() {
-//
-//    }
 
-    private Post makeNewPost() {
+    @Test
+    void shouldEditIfValid() {
+        Post post = repository.findById(2);
+        post.setCaption("new test caption");
+        assertTrue(repository.editPost(post));
+    }
+
+    @Test
+    void shouldNotEditIfInvalidPostId() {
+        Post post = makeNewPost(5);
+        assertFalse(repository.editPost(post));
+    }
+
+    @Test
+    void shouldNotEditIfNull() {
+        assertFalse(repository.editPost(null));
+    }
+
+    @Test
+    void shouldDeleteIfValidId() {
+        assertTrue(repository.deletePost(3));
+    }
+
+    @Test
+    void shouldNotDeleteIfInvalidId() {
+        assertFalse(repository.deletePost(5));
+    }
+
+    private Post makeNewPost(int postId) {
         Post post = new Post();
-        post.setPostId(2);
+        post.setPostId(postId);
         post.setUserId(1);
         post.setGardenId(1);
         post.setPlantId(1);
