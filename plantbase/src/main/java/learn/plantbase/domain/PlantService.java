@@ -24,6 +24,7 @@ public class PlantService {
     public Result<Plant> add(Plant plant) {
         Result<Plant> result = validate(plant);
         if (!result.isSuccess()) {
+            result.addMessage("plant is invalid", ResultType.INVALID);
             return result;
         }
         if (plant.getPlantId() != 0) {
