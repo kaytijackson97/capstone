@@ -69,7 +69,7 @@ class PlantJdbcTemplateRepositoryTest {
     @Test
     void shouldEditPlantWithValidId() {
         Plant plant = makePlant();
-        plant.setPlantId(2);
+        plant.setPlantId(1);
         assertTrue(repository.editPlant(plant));
     }
 
@@ -90,7 +90,7 @@ class PlantJdbcTemplateRepositoryTest {
 
     @Test
     void shouldDeleteByValidId() {
-        assertTrue(repository.deleteById(3));
+        assertTrue(repository.deleteById(2));
     }
 
     @Test
@@ -105,7 +105,7 @@ class PlantJdbcTemplateRepositoryTest {
         plant.setPlantName("testie");
         plant.setPlantType("bird of paradise");
         plant.setGotchaDate(LocalDate.now());
-        plant.setMyGardenId(1);
+        plant.setMyGardenId(2);
         return plant;
     }
 
