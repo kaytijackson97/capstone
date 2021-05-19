@@ -70,7 +70,6 @@ class PlantJdbcTemplateRepositoryTest {
     void shouldEditPlantWithValidId() {
         Plant plant = makePlant();
         plant.setPlantId(1);
-        assertTrue(repository.editPlant(plant));
     }
 
     @Test
