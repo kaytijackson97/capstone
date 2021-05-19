@@ -27,7 +27,6 @@ public class Post {
 
     @Getter
     @Setter
-    @NotNull
     @Size(max=250, message = "file name is too big.")
     private String caption;
 
@@ -38,7 +37,6 @@ public class Post {
 
     @Getter
     @Setter
-    @NotNull
     @Past
     private LocalDateTime datetimePosted;
 
