@@ -104,7 +104,7 @@ class PlantJdbcTemplateRepositoryTest {
         plant.setPlantName("testie");
         plant.setPlantType("bird of paradise");
         plant.setGotchaDate(LocalDate.now());
-        plant.setMyGardenId(2);
+        plant.setMyGardenId(1);
         return plant;
     }
 
