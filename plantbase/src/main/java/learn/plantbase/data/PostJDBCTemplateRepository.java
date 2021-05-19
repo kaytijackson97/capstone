@@ -38,6 +38,14 @@ public class PostJDBCTemplateRepository implements PostRepository {
     }
 
     @Override
+    public List<Post> findByPlantId(int plantId) {
+        final String sql = "select post_id, user_id, plant_id, garden_id, caption, photo, datetime_posted, like_count from " +
+                "post " +
+                "where plant_id = ?;";
+        return template.query(sql, new PostMapper(), plantId);
+    }
+
+    @Override
     public Post findById(int postId) {
         final String sql = "select post_id, user_id, plant_id, garden_id, caption, photo, datetime_posted, like_count from " +
                 "post " +

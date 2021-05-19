@@ -53,6 +53,21 @@ class ReplyServiceTest {
     }
 
     @Test
+    void shouldNotAddIfReplyIdIsSet() {
+        Reply expected = makeNewReply(1);
+        Result<Reply> actual = service.addReply(expected);
+        assertEquals("Reply id cannot be set", actual.getMessages().get(0));
+    }
+
+    @Test
+    void shouldNotAddIfRepositoryAddFailed() {
+        Reply expected = makeNewReply(0);
+        when(repository.addReply(expected)).thenReturn(null);
+        Result<Reply> actual = service.addReply(expected);
+        assertEquals("Add failed", actual.getMessages().get(0));
+    }
+
+    @Test
     void shouldNotAddIfInvalidUserId() {
         Reply expected = makeNewReply(0);
         expected.setUserId(10);
