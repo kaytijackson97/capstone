@@ -102,6 +102,7 @@ public class PlantJdbcTemplateRepository implements PlantRepository{
     @Override
     @Transactional
     public boolean deleteById(int plantId) {
+        // delete replies
         jdbcTemplate.update("delete from post where plant_id = ?;", plantId);
         return jdbcTemplate.update("delete from plant where plant_id = ?;", plantId) > 0;
     }
