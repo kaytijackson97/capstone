@@ -76,6 +76,10 @@ public class PostJDBCTemplateRepository implements PostRepository {
 
     @Override
     public boolean editPost(Post post) {
+        if (post == null) {
+            return false;
+        }
+
         final String sql = "update post set " +
                 "caption = ?, " +
                 "photo = ? " +

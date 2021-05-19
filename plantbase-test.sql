@@ -103,7 +103,8 @@ begin
 	insert into plantbase_role (role_name)
 		values
 		('ADMIN'),
-		('USER');
+		('USER'),
+        ('TEST');
 
 	insert into user_profile (role_id, first_name, last_name, email)
 		values 
@@ -114,22 +115,34 @@ begin
 		
 	insert into my_garden (user_id, garden_name, bio, photo)
 		values
-		(1, 'John', 'test bio', 'fkdk.jpeg');
+		(1, 'John', 'test bio', 'fkdk.jpeg'),
+        (2, 'Kayti', 'test bio', 'fkdk.jpeg'),
+        (3, 'Rachel', 'test bio', 'fkdk.jpeg'),
+        (4, 'Ashley', 'test bio', 'fkdk.jpeg');
 
 	insert into garden (garden_id)
-		values (1);
+		values 
+        (1),
+        (2),
+        (3);
 
 	insert into plant (my_garden_id, plant_description, photo, plant_name, plant_type, gotcha_date)
 		values
-		(1, 'pink', 'test.png', 'katy', 'double flower flaming katy', '2021-05-13');
+		(1, 'pink', 'test.png', 'katy', 'double flower flaming katy', '2021-05-13'),
+        (1, 'blue', 'second_test.png', 'second test', 'double flower flaming katy', '2021-05-13'),
+        (1, 'green', 'third_test.png', 'third test', 'double flower flaming katy', '2021-05-13');
         
 	insert into post (plant_id, user_id, garden_id, caption, photo, datetime_posted, like_count)
 		values
-		(1, 1, 1, 'test post', 'test_post.png', '2021-05-18 10:43:18', 0);
+		(1, 1, 1, 'test post', 'test_post.png', '2021-05-18 10:43:18', 0),
+        (1, 1, 1, 'second test post', 'test_post.png', '2021-05-18 10:43:18', 0),
+        (1, 1, 1, 'third test post', 'test_post.png', '2021-05-18 10:43:18', 0);
 			
 	insert into reply (user_id, post_id, reply, datetime_posted, like_count)
 		values
-		(1, 1, 'test reply', '2021-05-18 10:43:18', 0);
+		(1, 1, 'test reply', '2021-05-18 10:43:18', 0),
+        (1, 1, 'second test reply', '2021-05-18 10:43:18', 0),
+        (1, 1, 'third test reply', '2021-05-18 10:43:18', 0);
         
 end //
 delimiter ;

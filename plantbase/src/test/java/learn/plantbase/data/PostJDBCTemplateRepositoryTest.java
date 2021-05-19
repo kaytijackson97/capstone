@@ -30,7 +30,7 @@ class PostJDBCTemplateRepositoryTest {
     @Test
     void shouldFindAll(){
         List<Post> all = repository.findAll();
-        assertTrue(all.size() >= 1);
+        assertTrue(all.size() >= 2);
     }
 
     @Test
@@ -42,7 +42,7 @@ class PostJDBCTemplateRepositoryTest {
 
     @Test
     void shouldNotFindByIdIfValid() {
-        Post post = repository.findById(10);
+        Post post = repository.findById(5);
         assertNull(post);
     }
 
@@ -55,17 +55,18 @@ class PostJDBCTemplateRepositoryTest {
 
     @Test
     void shouldNotFindAnyPostsIfInvalidUser() {
-        List<Post> posts = repository.findByUserId(10);
+        List<Post> posts = repository.findByUserId(5);
         assertNotNull(posts);
         assertEquals(0, posts.size());
     }
 
     @Test
     void shouldAddIfValid() {
-        Post post = makeNewPost();
+        Post post = makeNewPost(4);
         Post actual = repository.addPost(post);
-        List<Post> posts = repository.findAll();
         assertEquals(actual, post);
+
+        List<Post> posts = repository.findAll();
         assertTrue(posts.size() >= 2);
     }
 
@@ -77,38 +78,35 @@ class PostJDBCTemplateRepositoryTest {
 
     @Test
     void shouldEditIfValid() {
-        Post post = makeNewPost();
-        post.setPostId(3);
-        Post added = repository.addPost(post);
-        added.setCaption("new test caption");
-        assertTrue(repository.editPost(added));
-
+        Post post = repository.findById(2);
+        post.setCaption("new test caption");
+        assertTrue(repository.editPost(post));
     }
 
     @Test
     void shouldNotEditIfInvalidPostId() {
-        Post post = makeNewPost();
-        post.setPostId(5);
+        Post post = makeNewPost(5);
         assertFalse(repository.editPost(post));
     }
 
     @Test
+    void shouldNotEditIfNull() {
+        assertFalse(repository.editPost(null));
+    }
+
+    @Test
     void shouldDeleteIfValidId() {
-        Post post = makeNewPost();
-        Post added = repository.addPost(post);
-        assertTrue(repository.deletePost(added.getPostId()));
+        assertTrue(repository.deletePost(3));
     }
 
     @Test
     void shouldNotDeleteIfInvalidId() {
-        Post post = makeNewPost();
-        post.setPostId(5);
         assertFalse(repository.deletePost(5));
     }
 
-    private Post makeNewPost() {
+    private Post makeNewPost(int postId) {
         Post post = new Post();
-        post.setPostId(2);
+        post.setPostId(postId);
         post.setUserId(1);
         post.setGardenId(1);
         post.setPlantId(1);
