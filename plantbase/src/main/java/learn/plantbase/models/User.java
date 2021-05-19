@@ -39,6 +39,10 @@ public class User {
     private String email;
 
 
+    @Getter
+    @Setter
+    private MyGarden myGarden;
+
     @Setter
     private List<Post> posts = new ArrayList<>();
 
