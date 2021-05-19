@@ -90,6 +90,8 @@ public class MyGardenJdbcTemplateRepository implements MyGardenRepository {
     @Override
     @Transactional
     public boolean deleteById(int myGardenId) {
+        // delete replies
+        // delete posts
         jdbcTemplate.update("delete from plant where my_garden_id = ?;", myGardenId);
         return jdbcTemplate.update("delete from my_garden where my_garden_id = ?;", myGardenId) > 0;
     }
