@@ -4,9 +4,11 @@ import learn.plantbase.data.PostRepository;
 import learn.plantbase.data.ReplyRepository;
 import learn.plantbase.data.UserRepository;
 import learn.plantbase.models.*;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class ReplyService {
 
     private final ReplyRepository repository;
@@ -48,7 +50,7 @@ public class ReplyService {
         return result;
     }
 
-    public Result<Reply> editPost(Reply reply) {
+    public Result<Reply> editReply(Reply reply) {
         Result<Reply> result = validateReply(reply);
         if (result.getType() != ResultType.SUCCESS) {
             return result;

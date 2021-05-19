@@ -8,6 +8,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
 import java.time.LocalDateTime;
+import java.time.Month;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -15,6 +16,8 @@ import static org.mockito.Mockito.when;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE)
 class PostServiceTest {
+
+    private static final LocalDateTime LOCAL_DATE_TIME = LocalDateTime.of(2019, Month.MARCH, 28, 14, 33, 48);
 
     @Autowired
     PostService service;
@@ -45,6 +48,12 @@ class PostServiceTest {
         when(repository.findById(1)).thenReturn(expected);
         Post actual = service.findById(1);
         assertEquals(expected, actual);
+    }
+
+    @Test
+    void shouldNotFindByIdIfInvalidId() {
+        Post actual = service.findById(5);
+        assertNull(actual);
     }
 
     @Test
@@ -146,40 +155,96 @@ class PostServiceTest {
         assertEquals(1, actual.getMessages().size());
     }
 
-//    @Test
-//    void shouldNotEditIfUserIdIsChanged() {
-//        Post post = makeNewPost(1);
-//        when(repository.editPost(post)).thenReturn(true);
-//        when(repository.findById(1)).thenReturn(post);
-//
-//        User user1 = makeNewUser(1);
-//        User user2 = makeNewUser(2);
-//        when(userRepository.findAll()).thenReturn(List.of(user1, user2));
-//        post.setUserId(2);
-//
-//        Result<Post> actual = service.editPost(post);
-//        assertEquals(1, actual.getMessages().size());
-//    }
-//
-//    @Test
-//    void shouldNotEditIfPlantIdIsChanged() {
-//
-//    }
-//
-//    @Test
-//    void shouldNotEditIfGardenIdIsChanged() {
-//
-//    }
-//
-//    @Test
-//    void shouldNotEditIfDateTimePostedIsChanged() {
-//
-//    }
-//
-//    @Test
-//    void shouldNotEditIfLikeCountIsChanged() {
-//
-//    }
+    @Test
+    void shouldNotEditIfUserIdIsChanged() {
+        Post post = makeNewPost(1);
+        when(repository.findById(1)).thenReturn(post);
+
+        Post updatedPost = makeNewPost(1);
+        updatedPost.setUserId(2);
+        when(repository.editPost(post)).thenReturn(true);
+
+        User user1 = new User();
+        user1.setUserId(1);
+
+        User user2 = new User();
+        user2.setUserId(2);
+        when(userRepository.findAll()).thenReturn(List.of(user1, user2));
+
+        Result<Post> actual = service.editPost(updatedPost);
+        assertEquals(1, actual.getMessages().size());
+        assertEquals("Cannot change user.", actual.getMessages().get(0));
+    }
+
+    @Test
+    void shouldNotEditIfPlantIdIsChanged() {
+        Post post = makeNewPost(1);
+        when(repository.findById(1)).thenReturn(post);
+
+        Post updatedPost = makeNewPost(1);
+        updatedPost.setPlantId(2);
+        when(repository.editPost(post)).thenReturn(true);
+
+        Plant plant1 = new Plant();
+        plant1.setPlantId(1);
+
+        Plant plant2 = new Plant();
+        plant2.setPlantId(2);
+        when(plantRepository.findAll()).thenReturn(List.of(plant1, plant2));
+
+        Result<Post> actual = service.editPost(updatedPost);
+        assertEquals(1, actual.getMessages().size());
+        assertEquals("Cannot change plant.", actual.getMessages().get(0));
+    }
+
+    @Test
+    void shouldNotEditIfGardenIdIsChanged() {
+        Post post = makeNewPost(1);
+        when(repository.findById(1)).thenReturn(post);
+
+        Post updatedPost = makeNewPost(1);
+        updatedPost.setGardenId(2);
+        when(repository.editPost(post)).thenReturn(true);
+
+        Garden garden1 = new Garden();
+        garden1.setGardenId(1);
+
+        Garden garden2 = new Garden();
+        garden2.setGardenId(2);
+        when(gardenRepository.findAll()).thenReturn(List.of(garden1, garden2));
+
+        Result<Post> actual = service.editPost(updatedPost);
+        assertEquals(1, actual.getMessages().size());
+        assertEquals("Cannot change garden.", actual.getMessages().get(0));
+    }
+
+    @Test
+    void shouldNotEditIfDateTimePostedIsChanged() {
+        Post post = makeNewPost(1);
+        when(repository.findById(1)).thenReturn(post);
+
+        Post updatedPost = makeNewPost(1);
+        updatedPost.setDatetimePosted(LOCAL_DATE_TIME.minusDays(10));
+        when(repository.editPost(post)).thenReturn(true);
+
+        Result<Post> actual = service.editPost(updatedPost);
+        assertEquals(1, actual.getMessages().size());
+        assertEquals("Cannot change datetimePosted.", actual.getMessages().get(0));
+    }
+
+    @Test
+    void shouldNotEditIfLikeCountIsChanged() {
+        Post post = makeNewPost(1);
+        when(repository.findById(1)).thenReturn(post);
+
+        Post updatedPost = makeNewPost(1);
+        updatedPost.setLikeCount(1000);
+        when(repository.editPost(post)).thenReturn(true);
+
+        Result<Post> actual = service.editPost(updatedPost);
+        assertEquals(1, actual.getMessages().size());
+        assertEquals("Cannot change like count.", actual.getMessages().get(0));
+    }
 
     @Test
     void shouldDeleteIfValidId() {
@@ -201,7 +266,7 @@ class PostServiceTest {
         post.setPlantId(1);
         post.setCaption("test caption");
         post.setPhoto("testPhoto.png");
-        post.setDatetimePosted(LocalDateTime.now());
+        post.setDatetimePosted(LOCAL_DATE_TIME);
         post.setLikeCount(0);
 
         when(repository.addPost(post)).thenReturn(post);
