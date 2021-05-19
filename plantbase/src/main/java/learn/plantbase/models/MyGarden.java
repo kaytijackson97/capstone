@@ -15,11 +15,13 @@ public class MyGarden {
     @Getter
     @Setter
     @NotBlank(message = "Garden name is required.")
+    @NotNull
     @Size(max = 50, message = "Garden name cannot be greater than 50 characters.")
     private String gardenName;
 
     @Getter
     @Setter
+    @NotNull
     @Min(value = 1, message = "MyGarden id must be at least 1.")
     private int userId;
 

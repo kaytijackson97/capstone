@@ -43,7 +43,7 @@ public class PlantJdbcTemplateRepository implements PlantRepository{
 
     @Override
     @Transactional
-    public List<Plant> findByGardenId(int myGardenId) {
+    public List<Plant> findByMyGardenId(int myGardenId) {
         final String sql = "select plant_id, my_garden_id, plant_description, photo, plant_name, plant_type, gotcha_date " +
                 "from plant where my_garden_id = ?";
         List<Plant> plants = jdbcTemplate.query(sql, new PlantMapper(), myGardenId);
