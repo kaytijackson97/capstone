@@ -28,17 +28,20 @@ public class Plant {
     @Getter
     @Setter
     @NotBlank(message = "Plant name is required.")
+    @NotNull
     @Size(max = 50, message = "Plant name cannot be greater than 50 characters.")
     private String plantName;
 
     @Getter
     @Setter
     @NotBlank(message = "Plant type is required.")
+    @NotNull
     @Size(max = 50, message = "Plant type cannot be greater than 50 characters.")
     private String plantType;
 
     @Getter
     @Setter
+    @NotNull
     @DateTimeFormat(pattern="yyyy-MM-dd")
     @PastOrPresent(message = "gotcha date cannot be in the future.")
     private LocalDate gotchaDate;

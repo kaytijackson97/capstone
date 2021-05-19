@@ -1,13 +1,16 @@
 package learn.plantbase.domain;
 
 import learn.plantbase.data.MyGardenRepository;
+import learn.plantbase.data.UserRepository;
 import learn.plantbase.models.MyGarden;
+import learn.plantbase.models.User;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import static org.mockito.Mockito.when;
 import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -18,6 +21,9 @@ class MyGardenServiceTest {
 
     @MockBean
     MyGardenRepository repository;
+
+    @MockBean
+    UserRepository userRepository;
 
     // finds are pass-through, don't need domain testing.
 
@@ -68,14 +74,26 @@ class MyGardenServiceTest {
     @Test
     void shouldAdd() {
         MyGarden myGarden = makeMyGarden();
+        MyGarden mockOut = makeMyGarden();
+        mockOut.setMyGardenId(1);
+
+        User user = makeNewUser(1);
+        when(userRepository.findAll()).thenReturn(List.of(user));
+
+        when(repository.addMyGarden(myGarden)).thenReturn(mockOut);
+
+
         Result<MyGarden> result = service.add(myGarden);
-        assertEquals(ResultType.INVALID, result.getType());
+        assertEquals(ResultType.SUCCESS, result.getType());
     }
 
     @Test
     void shouldEdit() {
         MyGarden myGarden = makeMyGarden();
-        myGarden.setMyGardenId(2);
+        myGarden.setMyGardenId(1);
+
+        User user = makeNewUser(1);
+        when(userRepository.findAll()).thenReturn(List.of(user));
 
         when(repository.editMyGarden(myGarden)).thenReturn(true);
 
@@ -159,8 +177,14 @@ class MyGardenServiceTest {
         myGarden.setGardenName("Rachel");
         myGarden.setPhoto("image.png");
         myGarden.setBio("Welcome to my garden");
-        myGarden.setUserId(3);
+        myGarden.setUserId(1);
         myGarden.setPlants(new ArrayList<>());
         return myGarden;
+    }
+
+    private User makeNewUser(int userId) {
+        User user = new User();
+        user.setUserId(userId);
+        return user;
     }
 }
