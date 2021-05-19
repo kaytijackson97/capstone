@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface RoleRepository {
 
-    List<User> findAll();
+    List<Role> findAll();
 
     Role findByRoleId(int roleId);
 
