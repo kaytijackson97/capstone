@@ -57,16 +57,56 @@ public class PostService {
             return result;
         }
 
+        Post addedPost = repository.addPost(post);
+        if (addedPost == null) {
+            result.addMessage("Add failed", ResultType.INVALID);
+            return result;
+        }
+        result.setPayload(addedPost);
         return result;
     }
 
     public Result<Post> editPost(Post post) {
         Result<Post> result = validatePost(post);
+        if (result.getType() != ResultType.SUCCESS) {
+            return result;
+        }
+        Post originalPost = repository.findById(post.getPostId());
+        if (originalPost.getUserId() != post.getUserId()) {
+            result.addMessage("Cannot change user.", ResultType.INVALID);
+            return result;
+        }
+
+        if (originalPost.getPlantId() != post.getPlantId()) {
+            result.addMessage("Cannot change plant.", ResultType.INVALID);
+            return result;
+        }
+
+        if (originalPost.getGardenId() != post.getGardenId()) {
+            result.addMessage("Cannot change garden.", ResultType.INVALID);
+            return result;
+        }
+
+        if (originalPost.getDatetimePosted() != post.getDatetimePosted()) {
+            result.addMessage("Cannot change datetimePosted.", ResultType.INVALID);
+            return result;
+        }
+
+        if (originalPost.getLikeCount() != post.getLikeCount()) {
+            result.addMessage("Cannot change like count.", ResultType.INVALID);
+            return result;
+        }
+
+        boolean isSuccessful = repository.editPost(post);
+        if (!isSuccessful) {
+            result.addMessage("Edit failed.", ResultType.INVALID);
+        }
+
         return result;
     }
 
     public boolean deleteById(int postId) {
-        return false;
+        return repository.deletePost(postId);
     }
 
     private Result<Post> validatePost(Post post) {
@@ -104,6 +144,11 @@ public class PostService {
             return result;
         }
 
+        if (isNullOrBlank(post.getCaption())) {
+            result.addMessage("Caption cannot be null or blank", ResultType.INVALID);
+            return result;
+        }
+
         if (post.getPhoto() != null) {
             String regex = "([^\\s]+(\\.(?i)(jpe?g|png|img))$)";
             Pattern pattern = Pattern.compile(regex);
@@ -113,10 +158,15 @@ public class PostService {
                 result.addMessage("Invalid image type", ResultType.INVALID);
             }
         }
+
         return result;
     }
 
     private boolean hasValue(int id) {
         return id > 0;
+    }
+
+    private boolean isNullOrBlank(String value) {
+        return value == null || value.isBlank();
     }
 }
