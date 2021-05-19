@@ -90,8 +90,23 @@ public class MyGardenJdbcTemplateRepository implements MyGardenRepository {
     @Override
     @Transactional
     public boolean deleteById(int myGardenId) {
+        jdbcTemplate.update("set sql_safe_updates = 0;");
         // delete replies
+        final String sql = "delete r from reply r " +
+                "inner join post p on r.post_id = p.post_id " +
+                "inner join plant pl on p.plant_id = pl.plant_id " +
+                "inner join my_garden g on pl.my_garden_id = g.my_garden_id " +
+                "where g.my_garden_id = ?;";
+        jdbcTemplate.update(sql, myGardenId);
         // delete posts
+        final String sql2 = "delete p from post p " +
+                "inner join plant pl on p.plant_id = pl.plant_id " +
+                "inner join my_garden g on pl.my_garden_id = g.my_garden_id " +
+                "where g.my_garden_id = ?;";
+        jdbcTemplate.update(sql2, myGardenId);
+
+        jdbcTemplate.update("set sql_safe_updates = 1;");
+
         jdbcTemplate.update("delete from plant where my_garden_id = ?;", myGardenId);
         return jdbcTemplate.update("delete from my_garden where my_garden_id = ?;", myGardenId) > 0;
     }

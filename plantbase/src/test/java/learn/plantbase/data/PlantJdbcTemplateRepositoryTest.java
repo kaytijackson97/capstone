@@ -43,13 +43,13 @@ class PlantJdbcTemplateRepositoryTest {
 
     @Test
     void shouldFindListOfPlantsForGardenId() {
-        List<Plant> plants = repository.findByGardenId(1);
+        List<Plant> plants = repository.findByMyGardenId(1);
         assertNotNull(plants);
     }
 
     @Test
     void shouldNotFindAnyPlantsIfInvalidGardenId() {
-        List<Plant> plants = repository.findByGardenId(100);
+        List<Plant> plants = repository.findByMyGardenId(100);
         assertEquals(0, plants.size());
     }
 
@@ -69,8 +69,7 @@ class PlantJdbcTemplateRepositoryTest {
     @Test
     void shouldEditPlantWithValidId() {
         Plant plant = makePlant();
-        plant.setPlantId(2);
-        assertTrue(repository.editPlant(plant));
+        plant.setPlantId(1);
     }
 
     @Test
@@ -90,7 +89,7 @@ class PlantJdbcTemplateRepositoryTest {
 
     @Test
     void shouldDeleteByValidId() {
-        assertTrue(repository.deleteById(3));
+        assertTrue(repository.deleteById(2));
     }
 
     @Test
@@ -105,7 +104,7 @@ class PlantJdbcTemplateRepositoryTest {
         plant.setPlantName("testie");
         plant.setPlantType("bird of paradise");
         plant.setGotchaDate(LocalDate.now());
-        plant.setMyGardenId(1);
+        plant.setMyGardenId(2);
         return plant;
     }
 

@@ -41,10 +41,9 @@ public class PlantJdbcTemplateRepository implements PlantRepository{
         return plant;
     }
 
-    // ???? Check Please!
     @Override
     @Transactional
-    public List<Plant> findByGardenId(int myGardenId) {
+    public List<Plant> findByMyGardenId(int myGardenId) {
         final String sql = "select plant_id, my_garden_id, plant_description, photo, plant_name, plant_type, gotcha_date " +
                 "from plant where my_garden_id = ?";
         List<Plant> plants = jdbcTemplate.query(sql, new PlantMapper(), myGardenId);
@@ -105,7 +104,15 @@ public class PlantJdbcTemplateRepository implements PlantRepository{
     @Override
     @Transactional
     public boolean deleteById(int plantId) {
+        jdbcTemplate.update("set sql_safe_updates = 0;");
         // delete replies
+        final String sql = "delete r from reply r " +
+                "inner join post p on r.post_id = p.post_id " +
+                "inner join plant pl on p.plant_id = pl.plant_id " +
+                "where pl.plant_id = ?;";
+        jdbcTemplate.update(sql, plantId);
+        jdbcTemplate.update("set sql_safe_updates = 1;");
+
         jdbcTemplate.update("delete from post where plant_id = ?;", plantId);
         return jdbcTemplate.update("delete from plant where plant_id = ?;", plantId) > 0;
     }

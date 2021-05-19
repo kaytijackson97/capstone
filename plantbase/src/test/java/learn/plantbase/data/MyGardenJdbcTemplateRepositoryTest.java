@@ -30,14 +30,14 @@ class MyGardenJdbcTemplateRepositoryTest {
     }
 
     @Test
-    void shouldFindOne() {
+    void shouldFindFive() {
         List<MyGarden> myGardenList = repository.findAll();
-        assertEquals(1, myGardenList.size());
+        assertEquals(4, myGardenList.size());
     }
 
     @Test
     void shouldFindValidId() {
-        MyGarden myGarden = repository.findById(1);
+        MyGarden myGarden = repository.findById(3);
         assertNotNull(myGarden);
     }
 
@@ -55,7 +55,7 @@ class MyGardenJdbcTemplateRepositoryTest {
 
     @Test
     void shouldFindMyGardenForUserId() {
-        MyGarden myGarden = repository.findByUser(1);
+        MyGarden myGarden = repository.findByUser(3);
         assertNotNull(myGarden);
     }
 
@@ -69,19 +69,18 @@ class MyGardenJdbcTemplateRepositoryTest {
     void shouldAddMyGarden() {
         MyGarden myGarden = makeMyGarden();
         MyGarden actual = repository.addMyGarden(myGarden);
-        assertEquals(2, actual.getMyGardenId());
+        assertEquals(5, actual.getMyGardenId());
     }
 
     @Test
     void shouldNotAddNullMyGarden() {
-        MyGarden myGarden = new MyGarden();
-        MyGarden actual = repository.addMyGarden(myGarden);
+        MyGarden actual = repository.addMyGarden(null);
         assertNull(actual);
     }
 
     @Test
     void shouldDeleteByValidId() {
-        assertTrue(repository.deleteById(1));
+        assertTrue(repository.deleteById(4));
     }
 
     @Test
