@@ -10,6 +10,8 @@ public interface PostRepository {
 
     List<Post> findByUserId(int userId);
 
+    List<Post> findByPlantId(int plantId);
+
     Post findById(int postId);
 
     Post addPost(Post post);

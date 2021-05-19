@@ -37,6 +37,10 @@ public class PostService {
         return repository.findByUserId(userId);
     }
 
+    public List<Post> findByPlantId(int plantId) {
+        return repository.findByPlantId(plantId);
+    }
+
     public Post findById(int postId) {
         return repository.findById(postId);
     }
