@@ -41,7 +41,7 @@ public class MyGardenJdbcTemplateRepository implements MyGardenRepository {
 
     @Override
     public MyGarden findByUser(int userId) {
-        final String sql = "select my_garden_id, user_id, garden_name, bio, photo from my_garden where userId = ?;";
+        final String sql = "select my_garden_id, user_id, garden_name, bio, photo from my_garden where user_id = ?;";
         MyGarden myGarden = jdbcTemplate.query(sql, new MyGardenMapper(), userId).stream().findFirst().orElse(null);
         if (myGarden != null) {
             addPlants(myGarden);
@@ -51,6 +51,10 @@ public class MyGardenJdbcTemplateRepository implements MyGardenRepository {
 
     @Override
     public MyGarden addMyGarden(MyGarden myGarden) {
+        if (myGarden == null) {
+            return null;
+        }
+
         final String sql = "insert into my_garden (user_id, garden_name, bio, photo) " +
                 "values (?,?,?,?);";
         KeyHolder keyHolder = new GeneratedKeyHolder();

@@ -25,11 +25,6 @@ public class MyGarden {
 
     @Getter
     @Setter
-    @Min(value = 1, message = "MyGarden id must be at least 1.")
-    private int plantId;
-
-    @Getter
-    @Setter
     @Size(max = 100, message = "Bio cannot be greater than 50 characters.")
     private String bio;
 
