@@ -1,11 +1,14 @@
 package learn.plantbase.data;
 
 import learn.plantbase.data.mappers.PostMapper;
+import learn.plantbase.data.mappers.ReplyMapper;
 import learn.plantbase.models.Post;
+import learn.plantbase.models.Reply;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.PreparedStatement;
 import java.sql.Statement;
@@ -39,8 +42,14 @@ public class PostJDBCTemplateRepository implements PostRepository {
         final String sql = "select post_id, user_id, plant_id, garden_id, caption, photo, datetime_posted, like_count from " +
                 "post " +
                 "where post_id = ?;";
-        return template.query(sql, new PostMapper(), postId).stream()
+        Post post = template.query(sql, new PostMapper(), postId).stream()
                 .findFirst().orElse(null);
+
+        if (post != null) {
+            addReplies(post);
+        }
+
+        return post;
     }
 
     @Override
@@ -88,8 +97,20 @@ public class PostJDBCTemplateRepository implements PostRepository {
     }
 
     @Override
+    @Transactional
     public boolean deletePost(int postId) {
+        template.update("set sql_safe_updates = 0;");
+        template.update("delete from reply where post_id = ?;", postId);
+        template.update("set sql_safe_updates = 1;");
         final String sql = "delete from post where post_id = ?";
+
         return template.update(sql, postId) > 0;
+    }
+
+    private void addReplies(Post post) {
+        final String sql = "select reply_id, user_id, post_id, reply, datetime_posted, like_count " +
+                "from reply where post_id = ?;";
+        List<Reply> replies = template.query(sql, new ReplyMapper(), post.getPostId());
+        post.setReplies(replies);
     }
 }
