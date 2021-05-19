@@ -1,5 +1,6 @@
 package learn.plantbase.data;
 
+import learn.plantbase.data.mappers.PostMapper;
 import learn.plantbase.data.mappers.ReplyMapper;
 import learn.plantbase.models.Reply;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import java.sql.PreparedStatement;
 import java.sql.Statement;
+import java.util.List;
 
 @Repository
 public class ReplyJDBCTemplateRepository implements ReplyRepository {
@@ -17,6 +19,14 @@ public class ReplyJDBCTemplateRepository implements ReplyRepository {
 
     public ReplyJDBCTemplateRepository(JdbcTemplate template) {
         this.template = template;
+    }
+
+    @Override
+    public List<Reply> findByPostId(int postId) {
+        final String sql = "select reply_id, user_id, post_id, reply, datetime_posted, like_count from " +
+                "post " +
+                "where post_id = ?;";
+        return template.query(sql, new ReplyMapper(), postId);
     }
 
     @Override

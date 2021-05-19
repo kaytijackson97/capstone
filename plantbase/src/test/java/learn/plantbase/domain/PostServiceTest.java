@@ -7,9 +7,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
+import javax.validation.ConstraintViolation;
+import javax.validation.Validation;
+import javax.validation.Validator;
+import javax.validation.ValidatorFactory;
 import java.time.LocalDateTime;
 import java.time.Month;
 import java.util.List;
+import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
@@ -17,7 +22,7 @@ import static org.mockito.Mockito.when;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE)
 class PostServiceTest {
 
-    private static final LocalDateTime LOCAL_DATE_TIME = LocalDateTime.of(2019, Month.MARCH, 28, 14, 33, 48);
+    private static final LocalDateTime DATE_TIME_POSTED = LocalDateTime.of(2019, Month.MARCH, 28, 14, 33, 48);
 
     @Autowired
     PostService service;
@@ -61,6 +66,12 @@ class PostServiceTest {
         Post expected = makeNewPost(0);
         Result<Post> actual = service.addPost(expected);
         assertEquals(0, actual.getMessages().size());
+    }
+
+    @Test
+    void shouldNotAddNull() {
+        Result<Post> actual = service.addPost(null);
+        assertEquals(1, actual.getMessages().size());
     }
 
     @Test
@@ -110,8 +121,11 @@ class PostServiceTest {
         Post expected = makeNewPost(0);
         expected.setCaption(null);
 
-        Result<Post> actual = service.addPost(expected);
-        assertEquals(1, actual.getMessages().size());
+        ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+        Validator validator = factory.getValidator();
+        Set<ConstraintViolation<Post>> violations = validator.validate(expected);
+
+        assertEquals(2, violations.size());
     }
 
     @Test
@@ -124,15 +138,17 @@ class PostServiceTest {
         assertEquals("Invalid image type", actual.getMessages().get(0));
     }
 
-    //come back to after controller
-//    @Test
-//    void shouldNotAddIfDateTimeInFuture() {
-//        Post expected = makeNewPost(0);
-//        expected.setDatetimePosted(LocalDateTime.now().plusWeeks(10));
-//
-//        Result<Post> actual = service.addPost(expected);
-//        assertEquals(1, actual.getMessages().size());
-//    }
+    @Test
+    void shouldNotAddIfDateTimeInFuture() {
+        Post expected = makeNewPost(0);
+        expected.setDatetimePosted(LocalDateTime.now().plusWeeks(10));
+
+        ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+        Validator validator = factory.getValidator();
+        Set<ConstraintViolation<Post>> violations = validator.validate(expected);
+
+        assertEquals(1, violations.size());
+    }
 
     @Test
     void shouldNotAddIfLikeCountIsSet() {
@@ -239,7 +255,7 @@ class PostServiceTest {
         when(repository.findById(1)).thenReturn(post);
 
         Post updatedPost = makeNewPost(1);
-        updatedPost.setDatetimePosted(LOCAL_DATE_TIME.minusDays(10));
+        updatedPost.setDatetimePosted(DATE_TIME_POSTED.minusDays(10));
         when(repository.editPost(post)).thenReturn(true);
 
         Result<Post> actual = service.editPost(updatedPost);
@@ -281,7 +297,7 @@ class PostServiceTest {
         post.setPlantId(1);
         post.setCaption("test caption");
         post.setPhoto("testPhoto.png");
-        post.setDatetimePosted(LOCAL_DATE_TIME);
+        post.setDatetimePosted(DATE_TIME_POSTED);
         post.setLikeCount(0);
 
         when(repository.addPost(post)).thenReturn(post);

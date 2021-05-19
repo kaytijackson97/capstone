@@ -75,29 +75,19 @@ public class PostService {
         if (result.getType() != ResultType.SUCCESS) {
             return result;
         }
+
         Post originalPost = repository.findById(post.getPostId());
-        if (originalPost.getUserId() != post.getUserId()) {
-            result.addMessage("Cannot change user.", ResultType.INVALID);
-            return result;
-        }
-
-        if (originalPost.getPlantId() != post.getPlantId()) {
-            result.addMessage("Cannot change plant.", ResultType.INVALID);
-            return result;
-        }
-
-        if (originalPost.getGardenId() != post.getGardenId()) {
-            result.addMessage("Cannot change garden.", ResultType.INVALID);
-            return result;
-        }
+        hasDifferentIds(result, originalPost.getUserId(), post.getUserId(), "Cannot change user.");
+        hasDifferentIds(result, originalPost.getPlantId(), post.getPlantId(), "Cannot change plant.");
+        hasDifferentIds(result, originalPost.getGardenId(), post.getGardenId(), "Cannot change garden.");
+        hasDifferentIds(result, originalPost.getLikeCount(), post.getLikeCount(), "Cannot change like count.");
 
         if (originalPost.getDatetimePosted() != post.getDatetimePosted()) {
             result.addMessage("Cannot change datetimePosted.", ResultType.INVALID);
             return result;
         }
 
-        if (originalPost.getLikeCount() != post.getLikeCount()) {
-            result.addMessage("Cannot change like count.", ResultType.INVALID);
+        if (result.getType() != ResultType.SUCCESS) {
             return result;
         }
 
@@ -148,11 +138,6 @@ public class PostService {
             return result;
         }
 
-        if (isNullOrBlank(post.getCaption())) {
-            result.addMessage("Caption cannot be null or blank", ResultType.INVALID);
-            return result;
-        }
-
         if (post.getPhoto() != null) {
             String regex = "([^\\s]+(\\.(?i)(jpe?g|png|img))$)";
             Pattern pattern = Pattern.compile(regex);
@@ -169,8 +154,12 @@ public class PostService {
     private boolean hasValue(int id) {
         return id > 0;
     }
+    private Result<Post> hasDifferentIds(Result<Post> result, int originalId, int newId, String error) {
+        if (originalId != newId) {
+            result.addMessage(error, ResultType.INVALID);
+        }
 
-    private boolean isNullOrBlank(String value) {
-        return value == null || value.isBlank();
+        return result;
     }
+
 }

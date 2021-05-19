@@ -7,9 +7,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
+import javax.validation.ConstraintViolation;
+import javax.validation.Validation;
+import javax.validation.Validator;
+import javax.validation.ValidatorFactory;
 import java.time.LocalDateTime;
 import java.time.Month;
 import java.util.List;
+import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
@@ -90,19 +95,24 @@ class ReplyServiceTest {
         Reply expected = makeNewReply(0);
         expected.setReply(null);
 
-        Result<Reply> actual = service.addReply(expected);
-        assertEquals(1, actual.getMessages().size());
+        ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+        Validator validator = factory.getValidator();
+        Set<ConstraintViolation<Reply>> violations = validator.validate(expected);
+
+        assertEquals(2, violations.size());
     }
 
-    //come back to after controller
-//    @Test
-//    void shouldNotAddIfDateTimeInFuture() {
-//        Post expected = makeNewPost(0);
-//        expected.setDatetimePosted(LocalDateTime.now().plusWeeks(10));
-//
-//        Result<Post> actual = service.addPost(expected);
-//        assertEquals(1, actual.getMessages().size());
-//    }
+    @Test
+    void shouldNotAddIfDateTimeInFuture() {
+        Reply expected = makeNewReply(0);
+        expected.setDatetimePosted(LocalDateTime.now().plusWeeks(10));
+
+        ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+        Validator validator = factory.getValidator();
+        Set<ConstraintViolation<Reply>> violations = validator.validate(expected);
+
+        assertEquals(1, violations.size());
+    }
 
     @Test
     void shouldNotAddIfLikeCountIsSet() {
