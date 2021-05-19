@@ -27,6 +27,8 @@ public class Post {
 
     @Getter
     @Setter
+    @NotBlank
+    @NotNull
     @Size(max=250, message = "file name is too big.")
     private String caption;
 

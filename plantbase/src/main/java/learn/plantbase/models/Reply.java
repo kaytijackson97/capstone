@@ -4,9 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 import java.time.LocalDateTime;
 
 public class Reply {
@@ -16,6 +14,8 @@ public class Reply {
 
     @Getter
     @Setter
+    @NotNull
+    @NotBlank
     @Size(max = 250, message = "Reply cannot be greater than 250 characters.")
     private String reply;
 
@@ -26,12 +26,11 @@ public class Reply {
 
     @Getter
     @Setter
-    @DateTimeFormat(pattern="yyyy-MM-dd")
+    @Past
     private LocalDateTime datetimePosted;
 
     @Getter
     @Setter
-    @NotBlank(message = "Like count is required.")
     private int likeCount;
 
     @Getter
