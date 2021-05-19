@@ -25,8 +25,8 @@ public class UserJdbcTemplateRepository implements UserRepository {
     @Override
     public List<User> findAll() {
 
-        final String sql = "select post_id, user_id, plant_id, garden_id, caption, photo, datetime_posted, like_count "
-            + "from post limit 1000;";
+        final String sql = "select user_id, role_id, first_name, last_name, email "
+                + "from user_profile;";
 
         return jdbcTemplate.query(sql, new UserMapper());
     }
@@ -46,8 +46,12 @@ public class UserJdbcTemplateRepository implements UserRepository {
     @Override
     public User addUser(User user) {
 
+        if (user == null) {
+            return null;
+        }
+
         final String sql = "insert into user_profile (role_id, first_name, last_name, email)"
-                + "values (?,?,?,?);";
+                + "values (?, ?, ?, ?);";
 
         KeyHolder keyHolder = new GeneratedKeyHolder();
         int rowsAffected = jdbcTemplate.update(connection -> {
@@ -70,15 +74,17 @@ public class UserJdbcTemplateRepository implements UserRepository {
     @Override
     public boolean editUser(User user) {
 
+        if (user == null) {
+            return false;
+        }
+
         final String sql = "update user_profile set "
-                + "role_id = ?, "
                 + "first_name = ?, "
                 + "last_name = ?, "
                 + "email = ? "
                 + "where user_id = ?;";
 
         return jdbcTemplate.update(sql,
-                user.getRoleId(),
                 user.getFirstName(),
                 user.getLastName(),
                 user.getEmail(),
