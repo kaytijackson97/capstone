@@ -32,7 +32,7 @@ public class MyGardenJdbcTemplateRepository implements MyGardenRepository {
     @Transactional
     public MyGarden findById(int myGardenId) {
         final String sql = "select my_garden_id, user_id, garden_name, bio, photo from my_garden where my_garden_id = ?;";
-        MyGarden myGarden = jdbcTemplate.query(sql, new MyGardenMapper(), myGardenId).stream().findFirst().orElse(null);
+        MyGarden myGarden = jdbcTemplate.query(sql, new MyGardenMapper(), myGardenId).stream().findAny().orElse(null);
         if (myGarden != null) {
             addPlants(myGarden);
         }
