@@ -32,6 +32,9 @@ function Nav() {
                 <Link style={navStyle} to="/reply" className="nav-link">
                     <li style={navStyle}>Reply</li>
                 </Link>
+                <Link style={navStyle} to="/plant" className="nav-link">
+                    <li style={navStyle}>Plant</li>
+                </Link>
                 {/* <Link style={navStyle} className="nav-link btn-secondary" to="/profile">
                     <li className="nav-item">
                         <strong>
