@@ -1,5 +1,10 @@
 import Nav from './components/Nav';
 import Welcome from './components/Welcome';
+import Post from './components/post/Post';
+// import Reply from './components/reply/Reply';
+import GardenApp from './components/gardens/Garden';
+import MyGardenApp from './components/my-gardens/MyGarden';
+
 import {
   BrowserRouter as Router,
   Switch,
@@ -16,6 +21,18 @@ function App() {
         <Route path="/" exact>
           <Welcome />
         </Route>
+        <Route path="/garden" exact>
+          <GardenApp/>
+        </Route>
+        <Route path="/my-garden" exact>
+          <MyGardenApp/>
+        </Route>
+        <Route path="/post" exact>
+          <Post />
+        </Route>
+        {/* <Route path="/reply" exact>
+          <Reply />
+        </Route> */}
       </Switch>
     </Router>
     </div>

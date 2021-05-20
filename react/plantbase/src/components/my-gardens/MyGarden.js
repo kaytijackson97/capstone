@@ -1,4 +1,4 @@
-function Reply() {
+function MyGarden() {
     return (
         <div>
             
@@ -6,4 +6,4 @@ function Reply() {
     );
 }
 
-export default Reply;
+export default MyGarden;
