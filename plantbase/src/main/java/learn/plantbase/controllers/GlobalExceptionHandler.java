@@ -5,8 +5,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.HttpMediaTypeNotSupportedException;
+import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
 @ControllerAdvice
 public class GlobalExceptionHandler {
@@ -19,6 +21,26 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<ErrorResponse>(
                 new ErrorResponse("Something went wrong in our database. :("),
                 HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    //invalid request for path
+    @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
+    public ResponseEntity<ErrorResponse> handleException(HttpRequestMethodNotSupportedException ex) {
+
+        // Log the exception?
+
+        return new ResponseEntity<>(
+                new ErrorResponse("That path does not support that function"), HttpStatus.BAD_REQUEST);
+    }
+
+    //invalid type for path (ie. editing a post "a" when only integers are accepted)
+    @ExceptionHandler(MethodArgumentTypeMismatchException.class)
+    public ResponseEntity<ErrorResponse> handleException(MethodArgumentTypeMismatchException ex) {
+
+        // Log the exception?
+
+        return new ResponseEntity<>(
+                new ErrorResponse("Not a valid path"), HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(IllegalArgumentException.class)
