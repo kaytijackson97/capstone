@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -35,6 +36,18 @@ class ReplyJDBCTemplateRepositoryTest {
     void shouldNotFindByIfInvalidId() {
         Reply reply = repository.findById(5);
         assertNull(reply);
+    }
+
+    @Test
+    void shouldFindByValidPostId() {
+        List<Reply> replies = repository.findByPostId(1);
+        assertTrue(replies.size() >= 2);
+    }
+
+    @Test
+    void shouldNotFindAnyIfInvalidPostId() {
+        List<Reply> replies = repository.findByPostId(5);
+        assertEquals(0, replies.size());
     }
 
     @Test

@@ -64,7 +64,7 @@ public class ReplyService {
         hasDifferentIds(result, originalReply.getPostId(), reply.getPostId(), "Cannot change post id.");
         hasDifferentIds(result, originalReply.getLikeCount(), reply.getLikeCount(), "Cannot change like count.");
 
-        if (originalReply.getDatetimePosted() != reply.getDatetimePosted()) {
+        if (!originalReply.getDatetimePosted().equals(reply.getDatetimePosted())) {
             result.addMessage("Cannot change datetimePosted.", ResultType.INVALID);
             return result;
         }
