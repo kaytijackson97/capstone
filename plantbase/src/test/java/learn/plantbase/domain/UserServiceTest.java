@@ -1,16 +1,25 @@
 package learn.plantbase.domain;
 
+import learn.plantbase.data.RoleRepository;
 import learn.plantbase.data.UserRepository;
 import learn.plantbase.models.MyGarden;
+import learn.plantbase.models.Post;
+import learn.plantbase.models.Role;
 import learn.plantbase.models.User;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
+import javax.validation.ConstraintViolation;
+import javax.validation.Validation;
+import javax.validation.Validator;
+import javax.validation.ValidatorFactory;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE)
@@ -22,53 +31,120 @@ public class UserServiceTest {
     @MockBean
     UserRepository repository;
 
-    // fail
+    @MockBean
+    RoleRepository roleRepository;
+
     @Test
     void shouldAddValidUser() {
         User user = makeNewUser();
-//        User mockOut = makeNewUser();
-//        mockOut.setUserId(4);
-//
-//        when(repository.addUser(user)).thenReturn(mockOut);
-
+        User mockout = makeNewUser();
+        mockout.setUserId(4);
+        Role role = new Role();
+        role.setRoleId(1);
+        when(roleRepository.findAll()).thenReturn(List.of(role));
+        when(repository.addUser(user)).thenReturn(mockout);
         Result<User> actual = service.addUser(user);
-        assertEquals(ResultType.SUCCESS, actual.getType());
-//        assertEquals(mockOut, actual.getPayload());
+        assertEquals(0, actual.getMessages().size());
     }
 
-    // TODO shouldNotAddNullUser
-    // TODO shouldNotAddIfInvalidEmail
-    // TODO shouldNotAddDuplicateUser
-    // TODO shouldNotAddNullOrBlankFields
-
+    @Test
+    void shouldNotAddNullUser() {
+        Result<User> result = service.addUser(null);
+        assertEquals(ResultType.INVALID, result.getType());
+    }
 
     @Test
-    void shouldNotAddNullFirstName() {
+    void shouldNotAddIfInvalidEmail() {
         User user = makeNewUser();
-        user.setFirstName("   ");
+        user.setEmail("ashley.com");
+        Result<User> result = service.addUser(user);
+        assertEquals(ResultType.INVALID, result.getType());
+    }
 
+    @Test
+    void shouldNotAddNullOrBlankFields() {
+        User user = makeNewUser();
         Result<User> actual = service.addUser(user);
+        assertEquals(ResultType.INVALID, actual.getType());
+
+        user = makeNewUser();
+        user.setFirstName(" ");
+        actual = service.addUser(user);
+        assertEquals(ResultType.INVALID, actual.getType());
+
+        user = makeNewUser();
+        user.setFirstName(null);
+        actual = service.addUser(user);
+        assertEquals(ResultType.INVALID, actual.getType());
+
+        user = makeNewUser();
+        user.setLastName(" ");
+        actual = service.addUser(user);
+        assertEquals(ResultType.INVALID, actual.getType());
+
+        user = makeNewUser();
+        user.setFirstName(null);
+        actual = service.addUser(user);
+        assertEquals(ResultType.INVALID, actual.getType());
+
+        user = makeNewUser();
+        user.setEmail(" ");
+        actual = service.addUser(user);
+        assertEquals(ResultType.INVALID, actual.getType());
+
+        user = makeNewUser();
+        user.setEmail(null);
+        actual = service.editUser(user);
         assertEquals(ResultType.INVALID, actual.getType());
     }
 
-    // TODO shouldEditValidUser
     @Test
     void shouldEditValidUser() {
         User user = makeNewUser();
         user.setUserId(1);
-
+        Role role = new Role();
+        role.setRoleId(1);
+        when(roleRepository.findAll()).thenReturn(List.of(role));
         when(repository.editUser(user)).thenReturn(true);
+        when(repository.findByUser(1)).thenReturn(user);
+        user.setFirstName("Molly");
 
         Result<User> actual = service.editUser(user);
-        assertEquals(ResultType.SUCCESS, actual.getType());
+        assertEquals(0, actual.getMessages().size());
     }
 
     // TODO shouldNotEditIfNullOrBlankFields
-    // TODO shouldNotEditIfChangedUser
-    // TODO shouldNotEditIfInvalidEmail
+    @Test
+    void shouldNotEditIfNullOrBlankFields() {
+        User user = makeNewUser();
+        user.setUserId(1);
+        user.setEmail(null);
+        Result<User> actual = service.editUser(user);
+        assertEquals(ResultType.INVALID, actual.getType());
+
+        user = makeNewUser();
+        user.setUserId(1);
+        user.setRoleId(0);
+        actual = service.editUser(user);
+        assertEquals(ResultType.INVALID, actual.getType());
+
+        user = makeNewUser();
+        user.setUserId(1);
+        user.setFirstName(" ");
+        actual = service.editUser(user);
+        assertEquals(ResultType.INVALID, actual.getType());
+    }
 
     @Test
-    void shouldNotEditIfInvalid() {
+    void shouldNotEditIfInvalidEmail() {
+        User user = makeNewUser();
+        user.setEmail("ashley.org");
+        Result<User> actual = service.editUser(user);
+        assertEquals(ResultType.INVALID, actual.getType());
+    }
+
+    @Test
+    void shouldNotEditIfInvalidId() {
         User user = makeNewUser();
         Result<User> actual = service.editUser(user);
         assertEquals(ResultType.INVALID, actual.getType());
@@ -84,11 +160,16 @@ public class UserServiceTest {
         assertEquals(ResultType.INVALID, actual.getType());
     }
 
-
-    // TODO shouldDelete
     @Test
-    void shouldDelete() {
+    void shouldDeleteUser() {
+        when(repository.deleteByUser(1)).thenReturn(true);
+        assertTrue(service.deleteByUser(1));
+    }
 
+    @Test
+    void shouldNotDeleteIfInvalidId() {
+        when(repository.deleteByUser(100)).thenReturn(false);
+        assertFalse(service.deleteByUser(100));
     }
 
     private User makeNewUser() {
@@ -97,7 +178,6 @@ public class UserServiceTest {
         user.setFirstName("Robert");
         user.setLastName("Fall");
         user.setEmail("robertf@aol.com");
-        user.setUserId(4);
         return user;
     }
 }
