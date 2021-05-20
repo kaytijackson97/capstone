@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import React, {useContext} from 'react';
 
+
 function Nav() {
     // const auth = useContext(AuthContext);
 
@@ -24,6 +25,12 @@ function Nav() {
                 </Link>
                 <Link style={navStyle} to="/my-garden" className="nav-link">
                     <li style={navStyle} >My Garden</li>
+                </Link>
+                <Link style={navStyle} to="/post" className="nav-link">
+                    <li style={navStyle}>Post</li>
+                </Link>
+                <Link style={navStyle} to="/reply" className="nav-link">
+                    <li style={navStyle}>Reply</li>
                 </Link>
                 {/* <Link style={navStyle} className="nav-link btn-secondary" to="/profile">
                     <li className="nav-item">

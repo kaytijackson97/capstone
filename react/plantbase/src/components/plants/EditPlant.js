@@ -1,4 +1,6 @@
-function Reply() {
+
+
+function EditPlant() {
     return (
         <div>
             
@@ -6,4 +8,4 @@ function Reply() {
     );
 }
 
-export default Reply;
+export default EditPlant;
