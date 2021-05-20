@@ -2,6 +2,7 @@ package learn.plantbase.controllers;
 
 import learn.plantbase.domain.PostService;
 import learn.plantbase.domain.Result;
+import learn.plantbase.domain.ResultType;
 import learn.plantbase.models.Post;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -28,8 +29,12 @@ public class PostController {
     }
 
     @GetMapping("/user/{userId}")
-    public List<Post> findByUserId(@PathVariable int userId) {
-        return service.findByUserId(userId);
+    public ResponseEntity<Object> findByUserId(@PathVariable int userId) {
+        List<Post> posts = service.findByUserId(userId);
+        if (posts.size() == 0) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(posts, HttpStatus.OK);
     }
 
     @GetMapping("/plant/{plantId}")
@@ -52,6 +57,9 @@ public class PostController {
         if (results.hasErrors()) {
             return new ResponseEntity<>(results.getAllErrors(), HttpStatus.BAD_REQUEST);
         }
+        if (result.getType() != ResultType.SUCCESS) {
+            return ErrorResponse.build(result);
+        }
         return new ResponseEntity<>(result.getPayload(), HttpStatus.CREATED);
     }
 
@@ -68,7 +76,11 @@ public class PostController {
             return new ResponseEntity<>(results.getAllErrors(), HttpStatus.BAD_REQUEST);
         }
 
-        return ErrorResponse.build(result);
+        if (result.getType() != ResultType.SUCCESS) {
+            return ErrorResponse.build(result);
+        }
+
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
     @DeleteMapping("/{postId}")

@@ -11,6 +11,7 @@ import learn.plantbase.models.User;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -82,7 +83,7 @@ public class PostService {
         hasDifferentIds(result, originalPost.getGardenId(), post.getGardenId(), "Cannot change garden.");
         hasDifferentIds(result, originalPost.getLikeCount(), post.getLikeCount(), "Cannot change like count.");
 
-        if (originalPost.getDatetimePosted() != post.getDatetimePosted()) {
+        if (!originalPost.getDatetimePosted().equals(post.getDatetimePosted())) {
             result.addMessage("Cannot change datetimePosted.", ResultType.INVALID);
             return result;
         }
@@ -95,7 +96,6 @@ public class PostService {
         if (!isSuccessful) {
             result.addMessage("Edit failed.", ResultType.INVALID);
         }
-
         return result;
     }
 
@@ -154,12 +154,27 @@ public class PostService {
     private boolean hasValue(int id) {
         return id > 0;
     }
+
     private Result<Post> hasDifferentIds(Result<Post> result, int originalId, int newId, String error) {
         if (originalId != newId) {
             result.addMessage(error, ResultType.INVALID);
         }
-
         return result;
     }
-
+//
+//    @Override
+//    public boolean equals(Object o) {
+//        if (this == o) return true;
+//        if (o == null || getClass() != o.getClass()) return false;
+//        PostService that = (PostService) o;
+//        return Objects.equals(repository, that.repository) &&
+//                Objects.equals(userRepository, that.userRepository) &&
+//                Objects.equals(plantRepository, that.plantRepository) &&
+//                Objects.equals(gardenRepository, that.gardenRepository);
+//    }
+//
+//    @Override
+//    public int hashCode() {
+//        return Objects.hash(repository, userRepository, plantRepository, gardenRepository);
+//    }
 }
