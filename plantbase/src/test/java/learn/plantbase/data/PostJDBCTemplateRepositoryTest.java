@@ -62,6 +62,20 @@ class PostJDBCTemplateRepositoryTest {
     }
 
     @Test
+    void shouldFindAllPostsByValidPlant() {
+        List<Post> posts = repository.findByPlantId(1);
+        assertNotNull(posts);
+        assertTrue(posts.size() >= 1);
+    }
+
+    @Test
+    void shouldNotFindAnyPostsIfInvalidPlant() {
+        List<Post> posts = repository.findByPlantId(5);
+        assertNotNull(posts);
+        assertEquals(0, posts.size());
+    }
+
+    @Test
     void shouldAddIfValid() {
         Post post = makeNewPost(4);
         Post actual = repository.addPost(post);
