@@ -1,0 +1,5 @@
+### Get all posts
+
+GET /api/post HTTP/1.1
+Host: localhost:8080
+Origin: http://localhost:3000
