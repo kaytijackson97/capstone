@@ -2,8 +2,9 @@ import Nav from './components/Nav';
 import Welcome from './components/Welcome';
 import Post from './components/post/Post';
 // import Reply from './components/reply/Reply';
-import GardenApp from './components/gardens/Garden';
-import MyGardenApp from './components/my-gardens/MyGarden';
+import GardenApp from './components/gardens/GardenApp';
+import MyGardenApp from './components/my-gardens/MyGardenApp';
+import Register from './components/Register';
 
 import {
   BrowserRouter as Router,
@@ -29,6 +30,9 @@ function App() {
         </Route>
         <Route path="/post" exact>
           <Post />
+        </Route>
+        <Route path="/register">
+          <Register />
         </Route>
         {/* <Route path="/reply" exact>
           <Reply />
