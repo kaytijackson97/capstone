@@ -87,18 +87,6 @@ public class UserService {
             return result;
         }
 
-        if (user.getFirstName() == null ||user.getFirstName().isBlank()) {
-            result.addMessage("firstName is required", ResultType.INVALID);
-        }
-
-        if (user.getLastName() == null || user.getLastName().isBlank()) {
-            result.addMessage("lastName is required", ResultType.INVALID);
-        }
-
-        if (user.getEmail() == null || user.getEmail().isBlank()) {
-            result.addMessage("email is required", ResultType.INVALID);
-        }
-
         if (user.getEmail() != null) {
             String emailRegex = "^[\\w!#$%&'*+/=?`{|}~^-]+(?:\\.[\\w!#$%&'*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$";
             Pattern pattern = Pattern.compile(emailRegex);
