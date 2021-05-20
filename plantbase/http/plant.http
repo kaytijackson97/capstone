@@ -13,6 +13,11 @@ Host: localhost:8080
 GET /api/plants/100 HTTP/1.1
 Host: localhost:8080
 
+### MyGarden GET for findById *fail* by invalid myGardenId
+
+GET /api/plants/-1 HTTP/1.1
+Host: localhost:8080
+
 ### MyGarden POST *pass*
 
 POST /api/plants HTTP/1.1
@@ -27,6 +32,16 @@ Content-Type: application/json
     "gotchaDate": "2021-02-02",
     "myGardenId": 1,
     "posts": []
+}
+
+### MyGarden POST *fail* by invalid plant
+
+POST /api/plants HTTP/1.1
+Host: localhost:8080
+Content-Type: application/json
+
+{
+    
 }
 
 ### MyGarden PUT *pass*

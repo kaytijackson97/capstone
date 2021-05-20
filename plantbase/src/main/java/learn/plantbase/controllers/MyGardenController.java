@@ -26,10 +26,22 @@ public class MyGardenController {
     public List<MyGarden> findAll() { return service.findAll(); }
 
     @GetMapping("/{myGardenId}")
-    public MyGarden findById(@PathVariable int myGardenId) { return service.findById(myGardenId); }
+    public ResponseEntity<MyGarden> findById(@PathVariable int myGardenId) {
+        MyGarden myGarden = service.findById(myGardenId);
+        if (myGarden == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return ResponseEntity.ok(myGarden);
+    }
 
     @GetMapping("/from-user/{userId}")
-    public MyGarden findByUser(@PathVariable int userId) { return service.findByUser(userId); }
+    public ResponseEntity<MyGarden> findByUser(@PathVariable int userId) {
+        MyGarden myGarden = service.findByUser(userId);
+        if (myGarden == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return ResponseEntity.ok(myGarden);
+    }
 
     @PostMapping
     public ResponseEntity<Object> add(@RequestBody @Valid MyGarden myGarden,

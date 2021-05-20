@@ -2,6 +2,9 @@ package learn.plantbase.controllers;
 
 import learn.plantbase.domain.GardenService;
 import learn.plantbase.models.Garden;
+import learn.plantbase.models.MyGarden;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -20,6 +23,12 @@ public class GardenController {
     public List<Garden> findAll() { return service.findAll(); }
 
     @GetMapping("{gardenId}")
-    public Garden findById(@PathVariable int gardenId) { return service.findById(gardenId); }
+    public ResponseEntity<Garden> findById(@PathVariable int gardenId) {
+        Garden garden = service.findById(gardenId);
+        if (garden == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return ResponseEntity.ok(garden);
+    }
 
 }
