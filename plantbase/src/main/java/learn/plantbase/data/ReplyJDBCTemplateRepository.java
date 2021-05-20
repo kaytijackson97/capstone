@@ -24,7 +24,7 @@ public class ReplyJDBCTemplateRepository implements ReplyRepository {
     @Override
     public List<Reply> findByPostId(int postId) {
         final String sql = "select reply_id, user_id, post_id, reply, datetime_posted, like_count from " +
-                "post " +
+                "reply " +
                 "where post_id = ?;";
         return template.query(sql, new ReplyMapper(), postId);
     }

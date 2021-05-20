@@ -1,0 +1,110 @@
+@hostname = localhost
+@port = 8080
+@host = {{hostname}}:{{port}}
+@baseurl = http://{{host}}
+
+### Should return a 403 status code
+
+POST {{baseurl}}/authenticate HTTP/1.1
+Content-Type: application/json
+
+{
+    "username": "user",
+    "password": "user"
+}
+
+### Should return a 200 status code with a JWT in the response body
+
+POST {{baseurl}}/authenticate HTTP/1.1
+Content-Type: application/json
+
+{
+    "username": "john@smith.com",
+    "password": "P@ssw0rd!"
+}
+
+### Should return a 400 status code with the validation messages in the response body
+
+POST {{baseurl}}/create_account HTTP/1.1
+Content-Type: application/json
+
+{
+  "username": "",
+  "password": ""
+}
+
+### Should return a 201 status code with the new user's ID in the response body
+
+POST {{baseurl}}/create_account HTTP/1.1
+Content-Type: application/json
+
+{
+  "username": "rcuccia",
+  "password": "bulbasaur1@"
+}
+
+### Should return a 200 status code with a JWT in the response body
+
+POST {{baseurl}}/authenticate HTTP/1.1
+Content-Type: application/json
+
+{
+    "username": "smashdev",
+    "password": "Asdff88f67!"
+}
+
+### Should return a 403 status code
+
+POST {{baseurl}}/refresh_token HTTP/1.1
+Content-Type: application/json
+
+{
+  "jwt_token": ""
+}
+
+### Should return a 200 status code with an refreshed token in the response body
+
+POST {{baseurl}}/refresh_token HTTP/1.1
+Content-Type: application/json
+
+{
+  "jwt_token": "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJkZXYxMC11c2Vycy1hcGkiLCJzdWIiOiJqb2huQHNtaXRoLmNvbSIsImlkIjoiOTgzZjEyMjQtYWY0Zi0xMWViLTgzNjgtMDI0MmFjMTEwMDAyIiwicm9sZXMiOiJBRE1JTiIsImV4cCI6MTYyMDQ5NTk1N30.2Z4k9hbY2GgfwPc-u3ARVMdRutbPrZ9svD2pvEHdkPs"
+}
+
+###
+
+POST http://localhost:8080/api/agent HTTP/1.1
+Content-Type: application/json
+{
+  "firstName": "tom",
+  "middleName": "e",
+  "lastName": "nook",
+  "dob": "2002-02-02",
+  "heightInInches": "40"
+}
+
+###
+
+GET http://localhost:8080/api/plants HTTP/1.1
+
+###
+
+POST http://localhost:8080/api/plants HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJwbGFudGJhc2UiLCJzdWIiOiJ1c2VyIiwiYXV0aG9yaXRpZXMiOiJST0xFX1VTRVIiLCJleHAiOjE2MjE1Mzc3NjF9.z58VX9VgVGjb_jy-VqRq3wEbZYqd8dlJCSZC7_hoQxM
+Content-Type: application/json
+
+{
+    "plantDescription": "purple",
+    "photo": "plant.png",
+    "plantName": "bonnie",
+    "plantType": "bonsai ficus",
+    "gotchaDate": "2021-02-02",
+    "myGardenId": 1,
+    "posts": []
+}
+
+
+###
+
+DELETE http://localhost:8080/api/plants/4 HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJwbGFudGJhc2UiLCJzdWIiOiJ1c2VyIiwiYXV0aG9yaXRpZXMiOiJST0xFX1VTRVIiLCJleHAiOjE2MjE1Mzc3NjF9.z58VX9VgVGjb_jy-VqRq3wEbZYqd8dlJCSZC7_hoQxM

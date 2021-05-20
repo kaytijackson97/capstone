@@ -16,6 +16,18 @@ Host: localhost:8080
 Origin: http://localhost:3000
 
 
+### Get all from a user
+GET /api/post/plant/1 HTTP/1.1
+Host: localhost:8080
+Origin: http://localhost:3000
+
+
+### Get all from an invalid user
+GET /api/post/plant/100 HTTP/1.1
+Host: localhost:8080
+Origin: http://localhost:3000
+
+
 ### Get post by id
 GET /api/post/1 HTTP/1.1
 Host: localhost:8080
@@ -23,13 +35,7 @@ Origin: http://localhost:3000
 
 
 ### Get post by invalid id
-GET /api/post/100 HTTP/1.1
-Host: localhost:8080
-Origin: http://localhost:3000
-
-
-### Get post by invalid id
-GET /api/post/100 HTTP/1.1
+GET /api/post/-1 HTTP/1.1
 Host: localhost:8080
 Origin: http://localhost:3000
 
@@ -58,8 +64,8 @@ Origin: http://localhost:3000
 Content-Type: application/json
 
 {
+    "userId": 1,
     "gardenId": 1,
-    "caption": " added post test",
     "photo": "test_post.png",
     "datetimePosted": "2021-05-18T06:43:18",
     "likeCount": 0,
