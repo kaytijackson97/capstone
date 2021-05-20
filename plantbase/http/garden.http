@@ -3,7 +3,12 @@
 GET /api/garden HTTP/1.1
 Host: localhost:8080
 
-### Garden GET for findById
+### Garden GET for findById *pass*
+
+GET /api/garden/1 HTTP/1.1
+Host: localhost:8080
+
+### Garden GET for findById *fail*
 
 GET /api/garden/100 HTTP/1.1
 Host: localhost:8080
