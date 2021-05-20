@@ -1,0 +1,48 @@
+### MyGarden GET for findAll *pass*
+
+GET /api/my-garden HTTP/1.1
+Host: localhost:8080
+
+### MyGarden GET for findById *pass*
+
+GET /api/my-garden/1 HTTP/1.1
+Host: localhost:8080
+
+### MyGarden GET for findById *fail* by invalid myGardenId
+
+GET /api/my-garden/100 HTTP/1.1
+Host: localhost:8080
+
+### MyGarden POST *pass*
+
+POST /api/my-garden HTTP/1.1
+Host: localhost:8080
+Content-Type: application/json
+
+{
+    "gardenName": "Rachel",
+    "userId": 3,
+    "bio": "testing testing",
+    "photo": "plant.jpeg",
+    "plants": []
+}
+
+### MyGarden PUT *pass*
+
+PUT /api/my-garden/2 HTTP/1.1
+Host: localhost:8080
+Content-Type: application/json
+
+{
+    "myGardenId": 2,
+    "gardenName": "Rachel",
+    "userId": 3,
+    "bio": "wowie wow",
+    "photo": "plant.jpeg",
+    "plants": []
+}
+
+### MyGarden DELETE *pass*
+
+DELETE /api/my-garden/2 HTTP/1.1
+Host: localhost:8080

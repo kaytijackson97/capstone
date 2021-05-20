@@ -4,9 +4,11 @@ import learn.plantbase.data.PostRepository;
 import learn.plantbase.data.ReplyRepository;
 import learn.plantbase.data.UserRepository;
 import learn.plantbase.models.*;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class ReplyService {
 
     private final ReplyRepository repository;
@@ -21,6 +23,10 @@ public class ReplyService {
 
     public Reply findById(int replyId) {
         return repository.findById(replyId);
+    }
+
+    public List<Reply> findByPostId(int postId) {
+        return repository.findByPostId(postId);
     }
 
     public Result<Reply> addReply(Reply reply) {
@@ -48,29 +54,22 @@ public class ReplyService {
         return result;
     }
 
-    public Result<Reply> editPost(Reply reply) {
+    public Result<Reply> editReply(Reply reply) {
         Result<Reply> result = validateReply(reply);
         if (result.getType() != ResultType.SUCCESS) {
             return result;
         }
         Reply originalReply = repository.findById(reply.getReplyId());
-        if (originalReply.getUserId() != reply.getUserId()) {
-            result.addMessage("Cannot change user id.", ResultType.INVALID);
-            return result;
-        }
-
-        if (originalReply.getPostId() != reply.getPostId()) {
-            result.addMessage("Cannot change post id.", ResultType.INVALID);
-            return result;
-        }
+        hasDifferentIds(result, originalReply.getUserId(), reply.getUserId(), "Cannot change user id.");
+        hasDifferentIds(result, originalReply.getPostId(), reply.getPostId(), "Cannot change post id.");
+        hasDifferentIds(result, originalReply.getLikeCount(), reply.getLikeCount(), "Cannot change like count.");
 
         if (originalReply.getDatetimePosted() != reply.getDatetimePosted()) {
             result.addMessage("Cannot change datetimePosted.", ResultType.INVALID);
             return result;
         }
 
-        if (originalReply.getLikeCount() != reply.getLikeCount()) {
-            result.addMessage("Cannot change like count.", ResultType.INVALID);
+        if (result.getType() != ResultType.SUCCESS) {
             return result;
         }
 
@@ -112,20 +111,17 @@ public class ReplyService {
             return result;
         }
 
-        if (isNullOrBlank(reply.getReply())) {
-            result.addMessage("Reply cannot be null or blank", ResultType.INVALID);
-            return result;
-        }
-
         return result;
     }
 
     private boolean hasValue(int id) {
         return id > 0;
     }
+    private Result<Reply> hasDifferentIds(Result<Reply> result, int originalId, int newId, String error) {
+        if (originalId != newId) {
+            result.addMessage(error, ResultType.INVALID);
+        }
 
-    private boolean isNullOrBlank(String value) {
-        return value == null || value.isBlank();
+        return result;
     }
-
 }

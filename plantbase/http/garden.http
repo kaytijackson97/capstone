@@ -1,0 +1,9 @@
+### Garden GET for findAll
+
+GET /api/garden HTTP/1.1
+Host: localhost:8080
+
+### Garden GET for findById
+
+GET /api/garden/100 HTTP/1.1
+Host: localhost:8080
