@@ -3,22 +3,22 @@
 GET /api/plants HTTP/1.1
 Host: localhost:8080
 
-### MyGarden GET for findById *pass*
+### Plant GET for findById *pass*
 
 GET /api/plants/1 HTTP/1.1
 Host: localhost:8080
 
-### MyGarden GET for findById *fail* by invalid myGardenId
+### Plant GET for findById *fail* by invalid myGardenId
 
 GET /api/plants/100 HTTP/1.1
 Host: localhost:8080
 
-### MyGarden GET for findById *fail* by invalid myGardenId
+### Plant GET for findById *fail* by invalid myGardenId
 
 GET /api/plants/-1 HTTP/1.1
 Host: localhost:8080
 
-### MyGarden POST *pass*
+### Plant POST *pass*
 
 POST /api/plants HTTP/1.1
 Host: localhost:8080
@@ -34,7 +34,7 @@ Content-Type: application/json
     "posts": []
 }
 
-### MyGarden POST *fail* by invalid plant
+### Plant POST *fail* by invalid plant
 
 POST /api/plants HTTP/1.1
 Host: localhost:8080
@@ -44,7 +44,119 @@ Content-Type: application/json
     
 }
 
-### MyGarden PUT *pass*
+### Plant POST *fail* by null plantName
+
+POST /api/plants HTTP/1.1
+Host: localhost:8080
+Content-Type: application/json
+
+{
+    "plantDescription": "purple",
+    "photo": "plant.png",
+    "plantName": null,
+    "plantType": "bonsai ficus",
+    "gotchaDate": "2021-02-02",
+    "myGardenId": 1,
+    "posts": []
+}
+
+### Plant POST *fail* by blank plantName
+
+POST /api/plants HTTP/1.1
+Host: localhost:8080
+Content-Type: application/json
+
+{
+    "plantDescription": "purple",
+    "photo": "plant.png",
+    "plantName": "",
+    "plantType": "bonsai ficus",
+    "gotchaDate": "2021-02-02",
+    "myGardenId": 1,
+    "posts": []
+}
+
+### Plant POST *fail* by null plant type
+
+POST /api/plants HTTP/1.1
+Host: localhost:8080
+Content-Type: application/json
+
+{
+    "plantDescription": "purple",
+    "photo": "plant.png",
+    "plantName": "bonnie",
+    "plantType": null,
+    "gotchaDate": "2021-02-02",
+    "myGardenId": 1,
+    "posts": []
+}
+
+### Plant POST *fail* by blank plant type
+
+POST /api/plants HTTP/1.1
+Host: localhost:8080
+Content-Type: application/json
+
+{
+    "plantDescription": "purple",
+    "photo": "plant.png",
+    "plantName": "bonnie",
+    "plantType": "",
+    "gotchaDate": "2021-02-02",
+    "myGardenId": 1,
+    "posts": []
+}
+
+### Plant POST *fail* by null gotcha date
+
+POST /api/plants HTTP/1.1
+Host: localhost:8080
+Content-Type: application/json
+
+{
+    "plantDescription": "purple",
+    "photo": "plant.png",
+    "plantName": "bonnie",
+    "plantType": "bonsai ficus",
+    "gotchaDate": null,
+    "myGardenId": 1,
+    "posts": []
+}
+
+### Plant POST *fail* by future gotcha date
+
+POST /api/plants HTTP/1.1
+Host: localhost:8080
+Content-Type: application/json
+
+{
+    "plantDescription": "purple",
+    "photo": "plant.png",
+    "plantName": "bonnie",
+    "plantType": "bonsai ficus",
+    "gotchaDate": "2022-05-20",
+    "myGardenId": 1,
+    "posts": []
+}
+
+### Plant POST *fail* by zero myGardenId
+
+POST /api/plants HTTP/1.1
+Host: localhost:8080
+Content-Type: application/json
+
+{
+    "plantDescription": "purple",
+    "photo": "plant.png",
+    "plantName": "bonnie",
+    "plantType": "bonsai ficus",
+    "gotchaDate": "2022-05-20",
+    "myGardenId": 0,
+    "posts": []
+}
+
+### Plant PUT *pass*
 
 PUT /api/plants/2 HTTP/1.1
 Host: localhost:8080
@@ -61,7 +173,165 @@ Content-Type: application/json
     "posts": []
 }
 
-### MyGarden DELETE *pass*
+### Plant PUT *fail* invalid plantId
+
+PUT /api/plants/-1 HTTP/1.1
+Host: localhost:8080
+Content-Type: application/json
+
+{
+    "plantId": -1,
+    "plantDescription": "green and leafy",
+    "photo": "plant.png",
+    "plantName": "bonnie",
+    "plantType": "bonsai ficus",
+    "gotchaDate": "2021-02-02",
+    "myGardenId": 1,
+    "posts": []
+}
+
+### Plant PUT *fail* null plantName
+
+PUT /api/plants/1 HTTP/1.1
+Host: localhost:8080
+Content-Type: application/json
+
+{
+    "plantId": 1,
+    "plantDescription": "green and leafy",
+    "photo": "plant.png",
+    "plantName": null,
+    "plantType": "bonsai ficus",
+    "gotchaDate": "2021-02-02",
+    "myGardenId": 1,
+    "posts": []
+}
+
+### Plant PUT *fail* blank plantName
+
+PUT /api/plants/1 HTTP/1.1
+Host: localhost:8080
+Content-Type: application/json
+
+{
+    "plantId": 1,
+    "plantDescription": "green and leafy",
+    "photo": "plant.png",
+    "plantName": "",
+    "plantType": "bonsai ficus",
+    "gotchaDate": "2021-02-02",
+    "myGardenId": 1,
+    "posts": []
+}
+
+### Plant PUT *fail* null plantType
+
+PUT /api/plants/1 HTTP/1.1
+Host: localhost:8080
+Content-Type: application/json
+
+{
+    "plantId": 1,
+    "plantDescription": "green and leafy",
+    "photo": "plant.png",
+    "plantName": "bonnie",
+    "plantType": null,
+    "gotchaDate": "2021-02-02",
+    "myGardenId": 1,
+    "posts": []
+}
+
+### Plant PUT *fail* blank plantType
+
+PUT /api/plants/1 HTTP/1.1
+Host: localhost:8080
+Content-Type: application/json
+
+{
+    "plantId": 1,
+    "plantDescription": "green and leafy",
+    "photo": "plant.png",
+    "plantName": "bonnie",
+    "plantType": "",
+    "gotchaDate": "2021-02-02",
+    "myGardenId": 1,
+    "posts": []
+}
+
+### Plant PUT *fail* null gotchaDate
+
+PUT /api/plants/1 HTTP/1.1
+Host: localhost:8080
+Content-Type: application/json
+
+{
+    "plantId": 1,
+    "plantDescription": "green and leafy",
+    "photo": "plant.png",
+    "plantName": "bonnie",
+    "plantType": "",
+    "gotchaDate": null,
+    "myGardenId": 1,
+    "posts": []
+}
+
+### Plant PUT *fail* future gotchaDate
+
+PUT /api/plants/1 HTTP/1.1
+Host: localhost:8080
+Content-Type: application/json
+
+{
+    "plantId": 1,
+    "plantDescription": "green and leafy",
+    "photo": "plant.png",
+    "plantName": "bonnie",
+    "plantType": "",
+    "gotchaDate": "2022-05-20",
+    "myGardenId": 1,
+    "posts": []
+}
+
+### Plant PUT *fail* invalid formate gotchaDate
+
+PUT /api/plants/1 HTTP/1.1
+Host: localhost:8080
+Content-Type: application/json
+
+{
+    "plantId": 1,
+    "plantDescription": "green and leafy",
+    "photo": "plant.png",
+    "plantName": "bonnie",
+    "plantType": "",
+    "gotchaDate": "2020/05/20",
+    "myGardenId": 1,
+    "posts": []
+}
+
+### Plant PUT *fail* invalid myGardenId
+
+PUT /api/plants/1 HTTP/1.1
+Host: localhost:8080
+Content-Type: application/json
+
+{
+    "plantId": 1,
+    "plantDescription": "green and leafy",
+    "photo": "plant.png",
+    "plantName": "bonnie",
+    "plantType": "",
+    "gotchaDate": "2020-05-20",
+    "myGardenId": 0,
+    "posts": []
+}
+
+### Plant DELETE *pass*
 
 DELETE /api/plants/2 HTTP/1.1
+Host: localhost:8080
+
+### Plant DELETE *fail* invalid id
+
+DELETE /api/plants/-2 HTTP/1.1
 Host: localhost:8080
