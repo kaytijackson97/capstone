@@ -1,10 +1,12 @@
 import Nav from './components/Nav';
 import Welcome from './components/Welcome';
 import Post from './components/post/Post';
+import PlantApp from './components/plants/PlantApp';
 // import Reply from './components/reply/Reply';
 import GardenApp from './components/gardens/GardenApp';
 import MyGardenApp from './components/my-gardens/MyGardenApp';
 import Register from './components/Register';
+import PlantProfile from './components/plants/PlantProfile';
 
 import {
   BrowserRouter as Router,
@@ -30,6 +32,12 @@ function App() {
         </Route>
         <Route path="/post" exact>
           <Post />
+        </Route>
+        <Route path="/plant" exact>
+          <PlantApp />
+        </Route>
+        <Route path="/plantprofile/:plantId">
+          <PlantProfile />
         </Route>
         <Route path="/register">
           <Register />
