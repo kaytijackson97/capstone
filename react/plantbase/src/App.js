@@ -1,4 +1,5 @@
 import Nav from './components/Nav';
+import Welcome from './components/Welcome';
 import {
   BrowserRouter as Router,
   Switch,
@@ -11,6 +12,11 @@ function App() {
     <div className="App">
     <Router>
       <Nav />
+      <Switch>
+        <Route path="/" exact>
+          <Welcome />
+        </Route>
+      </Switch>
     </Router>
     </div>
   );
