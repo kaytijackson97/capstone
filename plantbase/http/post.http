@@ -32,3 +32,113 @@ Origin: http://localhost:3000
 GET /api/post/100 HTTP/1.1
 Host: localhost:8080
 Origin: http://localhost:3000
+
+
+### Add post if valid
+POST /api/post HTTP/1.1
+Host: localhost:8080
+Origin: http://localhost:3000
+Content-Type: application/json
+
+{
+    "userId": 1,
+    "gardenId": 1,
+    "caption": " added post test",
+    "photo": "test_post.png",
+    "datetimePosted": "2021-05-18T06:43:18",
+    "likeCount": 0,
+    "plantId": 1
+}
+
+
+### Should Not Add Invalid post
+POST /api/post HTTP/1.1
+Host: localhost:8080
+Origin: http://localhost:3000
+Content-Type: application/json
+
+{
+    "gardenId": 1,
+    "caption": " added post test",
+    "photo": "test_post.png",
+    "datetimePosted": "2021-05-18T06:43:18",
+    "likeCount": 0,
+    "plantId": 1
+}
+
+
+### Should Not Add Invalid Post
+POST /api/post HTTP/1.1
+Host: localhost:8080
+Origin: http://localhost:3000
+Content-Type: application/json
+
+{
+}
+
+
+### Should Not Add on invalid path
+POST /api/post/1 HTTP/1.1
+Host: localhost:8080
+Origin: http://localhost:3000
+Content-Type: application/json
+
+{
+    "userId": 1,
+    "gardenId": 1,
+    "caption": " added post test",
+    "photo": "test_post.png",
+    "datetimePosted": "2021-05-18T06:43:18",
+    "likeCount": 0,
+    "plantId": 1
+}
+
+
+### Edit post
+PUT /api/post/2 HTTP/1.1
+Host: localhost:8080
+Origin: http://localhost:3000
+Content-Type: application/json
+
+{
+    "postId": 2,
+    "userId": 1,
+    "gardenId": 1,
+    "caption": " edit post test",
+    "photo": "test_post.png",
+    "datetimePosted": "2021-05-18T02:43:18",
+    "likeCount": 0,
+    "plantId": 1
+}
+
+### Edit post -- conflict
+PUT /api/post/1 HTTP/1.1
+Host: localhost:8080
+Origin: http://localhost:3000
+Content-Type: application/json
+
+{
+    "postId": 2,
+    "userId": 1,
+    "gardenId": 1,
+    "caption": " edit post test",
+    "photo": "test_post.png",
+    "datetimePosted": "2021-05-18T02:43:18",
+    "likeCount": 0,
+    "plantId": 1
+}
+
+### Edit post -- no content
+PUT /api/post/a HTTP/1.1
+Host: localhost:8080
+Origin: http://localhost:3000
+Content-Type: application/json
+
+{
+    "postId": "a"
+}
+
+### Delete post (x2 to show 404 when cannot delete invalid id)
+DELETE /api/post/1 HTTP/1.1
+Host: localhost:8080
+Origin: http://localhost:3000
