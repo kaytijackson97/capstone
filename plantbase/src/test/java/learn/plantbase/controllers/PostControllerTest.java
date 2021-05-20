@@ -36,11 +36,10 @@ class PostControllerTest {
 
     @Test
     void shouldFindAll() throws Exception {
-        List<Post> posts = List.of(
-                makeNewPost(1),
-                makeNewPost(2),
-                makeNewPost(3)
-        );
+        Post post1 = makeNewPost(1);
+        Post post2 = makeNewPost(2);
+        Post post3 = makeNewPost(3);
+        List<Post> posts = List.of(post1, post2, post3);
 
         ObjectMapper mapper = new ObjectMapper();
         String expectedJson = mapper.writeValueAsString(posts);
