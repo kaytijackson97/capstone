@@ -38,8 +38,12 @@ public class PostController {
     }
 
     @GetMapping("/plant/{plantId}")
-    public List<Post> findByPlantId(@PathVariable int plantId) {
-        return service.findByPlantId(plantId);
+    public ResponseEntity<Object> findByPlantId(@PathVariable int plantId) {
+        List<Post> posts = service.findByPlantId(plantId);
+        if (posts.size() == 0) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(posts, HttpStatus.OK);
     }
 
     @GetMapping("/{postId}")
@@ -53,10 +57,11 @@ public class PostController {
 
     @PostMapping
     public ResponseEntity<Object> addPost(@RequestBody @Valid Post post, BindingResult results) {
-        Result<Post> result = service.addPost(post);
         if (results.hasErrors()) {
             return new ResponseEntity<>(results.getAllErrors(), HttpStatus.BAD_REQUEST);
         }
+
+        Result<Post> result = service.addPost(post);
         if (result.getType() != ResultType.SUCCESS) {
             return ErrorResponse.build(result);
         }

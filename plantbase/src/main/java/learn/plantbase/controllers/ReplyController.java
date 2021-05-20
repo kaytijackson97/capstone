@@ -2,6 +2,7 @@ package learn.plantbase.controllers;
 
 import learn.plantbase.domain.ReplyService;
 import learn.plantbase.domain.Result;
+import learn.plantbase.domain.ResultType;
 import learn.plantbase.models.Post;
 import learn.plantbase.models.Reply;
 import org.springframework.http.HttpStatus;
@@ -24,21 +25,36 @@ public class ReplyController {
     }
 
     @GetMapping("/post/{postId}")
-    public List<Reply> findByPostId(@PathVariable int postId) {
-        return service.findByPostId(postId);
+    public ResponseEntity<Object> findByPostId(@PathVariable int postId) {
+        List<Reply> replies = service.findByPostId(postId);
+        if (replies.size() <= 0) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(replies, HttpStatus.OK);
     }
 
     @GetMapping("/{replyId}")
-    public Reply findById(@PathVariable int replyId) {
-        return service.findById(replyId);
+    public ResponseEntity<Object> findById(@PathVariable int replyId) {
+        Reply reply = service.findById(replyId);
+        if (reply == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
+        return new ResponseEntity<>(reply, HttpStatus.OK);
     }
 
     @PostMapping
     public ResponseEntity<Object> addReply(@RequestBody @Valid Reply reply, BindingResult results) {
-        Result<Reply> result = service.addReply(reply);
         if (results.hasErrors()) {
             return new ResponseEntity<>(results.getAllErrors(), HttpStatus.BAD_REQUEST);
         }
+
+        Result<Reply> result = service.addReply(reply);
+
+        if (result.getType() != ResultType.SUCCESS) {
+            return ErrorResponse.build(result);
+        }
+
         return new ResponseEntity<>(result.getPayload(), HttpStatus.CREATED);
     }
 
@@ -55,12 +71,16 @@ public class ReplyController {
             return new ResponseEntity<>(results.getAllErrors(), HttpStatus.BAD_REQUEST);
         }
 
-        return ErrorResponse.build(result);
+        if (result.getType() != ResultType.SUCCESS) {
+            return ErrorResponse.build(result);
+        }
+
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
     @DeleteMapping("/{replyId}")
-    public ResponseEntity<Object> deleteById(@PathVariable int postId) {
-        if (service.deleteById(postId)) {
+    public ResponseEntity<Object> deleteById(@PathVariable int replyId) {
+        if (service.deleteById(replyId)) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
