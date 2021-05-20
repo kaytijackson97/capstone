@@ -5,6 +5,7 @@ import org.springframework.jdbc.core.RowMapper;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -18,10 +19,9 @@ public class ReplyMapper implements RowMapper<Reply> {
         reply.setPostId(resultSet.getInt("post_id"));
         reply.setReply(resultSet.getString("reply"));
 
-        String datetimePosted = resultSet.getString("datetime_posted");
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-        LocalDateTime dateTime = LocalDateTime.parse(datetimePosted, formatter);
-        reply.setDatetimePosted(dateTime);
+        Timestamp datetimePosted = resultSet.getTimestamp("datetime_posted");
+        datetimePosted.toLocalDateTime();
+        reply.setDatetimePosted(datetimePosted.toLocalDateTime());
 
         reply.setLikeCount(resultSet.getInt("like_count"));
 
