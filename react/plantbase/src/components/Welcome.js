@@ -1,4 +1,4 @@
-import './redcup-plant.png';
+// import './redcup-plant.png';
 
 function Welcome() {
     return (
@@ -8,7 +8,7 @@ function Welcome() {
                     <div className="card text-white bg-success mt-3">
                         <h1 className="card-header">Welcome to Plantbase.</h1>
                         <p className="card-body">A safe space for the plant community.</p>
-                        <img src="redcup-plant.png" alt="redcup plant"></img>
+                        {/* <img src="redcup-plant.png" alt="redcup plant"></img> */}
                     </div>
                 </div>
                 <div className="col">
