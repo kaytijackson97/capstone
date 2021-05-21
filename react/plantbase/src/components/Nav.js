@@ -1,9 +1,13 @@
 import { Link } from 'react-router-dom';
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
+import Logout from './Logout';
+import AuthContext from './contexts/AuthContext';
+import CurrentUser from './contexts/CurrentUser';
+
 
 
 function Nav() {
-    // const auth = useContext(AuthContext);
+    const auth = useContext(CurrentUser);
 
     const [myGarden, setMyGarden] = useState({});
 
@@ -34,7 +38,7 @@ function Nav() {
                 <Link style={navStyle} to="/plant" className="nav-link">
                     <li style={navStyle}>Plant</li>
                 </Link>
-                {/* <Link style={navStyle} className="nav-link btn-secondary" to="/profile">
+                <Link style={navStyle} className="nav-link btn-light text-dark" to="/profile">
                     <li className="nav-item">
                         <strong>
                             user: {auth.currentUser && auth.currentUser.isValid() ? (
@@ -49,7 +53,7 @@ function Nav() {
                     <li className="nav-item">
                         <Logout />
                     </li>
-                </Link> */}
+                </Link>
             </ul>
             <form className="d-flex">
                 <input className="form-control me-sm-2" type="text" placeholder="Search"/>
