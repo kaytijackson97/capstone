@@ -27,7 +27,7 @@ public class PlanterService {
 
 
     public Planter findByPlanter(int planterId) {
-        return repository.findByPlanter(planterId);
+        return repository.findById(planterId);
     }
 
     public Result<Planter> addPlanter(Planter planter) {
@@ -71,7 +71,7 @@ public class PlanterService {
 
 
     public boolean deleteByPlanter(int planterId) {
-        return repository.deleteByPlanter(planterId);
+        return repository.deleteById(planterId);
     }
 
     private Result<Planter> validate(Planter planter) {

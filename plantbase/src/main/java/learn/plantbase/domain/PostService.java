@@ -111,7 +111,7 @@ public class PostService {
 
         List<Planter> planters = planterRepository.findAll();
         boolean planterExists = planters.stream()
-                .anyMatch(i -> i.getUserId() == post.getPlanterId());
+                .anyMatch(i -> i.getPlanterId() == post.getPlanterId());
 
         if (!planterExists) {
             result.addMessage("Invalid planter id", ResultType.INVALID);

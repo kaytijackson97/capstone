@@ -46,7 +46,7 @@ class MyGardenServiceTest {
     @Test
     void shouldNotAddZeroUserId() {
         MyGarden myGarden = makeMyGarden();
-        myGarden.setUserId(0);
+        myGarden.setPlanterId(0);
         Result<MyGarden> result = service.add(myGarden);
         assertEquals(ResultType.INVALID, result.getType());
     }
@@ -177,14 +177,14 @@ class MyGardenServiceTest {
         myGarden.setGardenName("Rachel");
         myGarden.setPhoto("image.png");
         myGarden.setBio("Welcome to my garden");
-        myGarden.setUserId(1);
+        myGarden.setPlanterId(1);
         myGarden.setPlants(new ArrayList<>());
         return myGarden;
     }
 
     private Planter makeNewUser(int userId) {
         Planter user = new Planter();
-        user.setUserId(userId);
+        user.setPlanterId(userId);
         return user;
     }
 }

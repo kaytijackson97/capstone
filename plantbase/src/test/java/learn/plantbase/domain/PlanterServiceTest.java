@@ -98,7 +98,7 @@ public class PlanterServiceTest {
         role.setRoleId(1);
         when(roleRepository.findAll()).thenReturn(List.of(role));
         when(repository.editPlanter(planter)).thenReturn(true);
-        when(repository.findByPlanter(1)).thenReturn(planter);
+        when(repository.findById(1)).thenReturn(planter);
         planter.setFirstName("Molly");
 
         Result<Planter> actual = service.editPlanter(planter);
@@ -154,13 +154,13 @@ public class PlanterServiceTest {
 
     @Test
     void shouldDeletePlanter() {
-        when(repository.deleteByPlanter(1)).thenReturn(true);
+        when(repository.deleteById(1)).thenReturn(true);
         assertTrue(service.deleteByPlanter(1));
     }
 
     @Test
     void shouldNotDeleteIfInvalidId() {
-        when(repository.deleteByPlanter(100)).thenReturn(false);
+        when(repository.deleteById(100)).thenReturn(false);
         assertFalse(service.deleteByPlanter(100));
     }
 

@@ -26,13 +26,13 @@ public class PlanterJdbcTemplateRepositoryTest {
 
     @Test
     void shouldFindValidId() {
-        Planter planter = repository.findByPlanter(1);
+        Planter planter = repository.findById(1);
         assertNotNull(planter);
     }
 
     @Test
     void shouldNotFindMissingPlanter() {
-        Planter planter = repository.findByPlanter(100);
+        Planter planter = repository.findById(100);
         assertNull(planter);
     }
 
@@ -61,7 +61,7 @@ public class PlanterJdbcTemplateRepositoryTest {
 
     @Test
     void shouldEditUserWithValidPlanter() {
-        Planter planter = repository.findByPlanter(1);
+        Planter planter = repository.findById(1);
         planter.setFirstName("Riley");
         assertTrue(repository.editPlanter(planter));
     }
@@ -85,12 +85,12 @@ public class PlanterJdbcTemplateRepositoryTest {
 
     @Test
     void shouldDeleteByValidPlanter() {
-        assertTrue(repository.deleteByPlanter(5));
+        assertTrue(repository.deleteById(5));
     }
 
     @Test
     void shouldNotDeleteWithInvalidPlanter() {
-        assertFalse(repository.deleteByPlanter(100));
+        assertFalse(repository.deleteById(100));
     }
 
     private Planter makeNewPlanter(int planterId) {

@@ -8,15 +8,14 @@ import java.sql.SQLException;
 
 public class PlanterMapper implements RowMapper<Planter> {
 
-
     @Override
     public Planter mapRow(ResultSet resultSet, int i) throws SQLException {
-        Planter user = new Planter();
-        user.setUserId(resultSet.getInt("planter_id"));
-        user.setRoleId(resultSet.getInt("role_id"));
-        user.setFirstName(resultSet.getString("first_name"));
-        user.setLastName(resultSet.getString("last_name"));
-        user.setEmail(resultSet.getString("email"));
-        return user;
+        Planter planter = new Planter();
+        planter.setPlanterId(resultSet.getInt("planter_id"));
+        planter.setRoleId(resultSet.getInt("role_id"));
+        planter.setFirstName(resultSet.getString("first_name"));
+        planter.setLastName(resultSet.getString("last_name"));
+        planter.setEmail(resultSet.getString("email"));
+        return planter;
     }
 }

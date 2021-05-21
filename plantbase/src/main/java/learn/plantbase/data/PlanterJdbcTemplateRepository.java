@@ -39,7 +39,7 @@ public class PlanterJdbcTemplateRepository implements PlanterRepository {
                 + "from user_profile "
                 + "where planter_id = ?;";
 
-        Planter user = jdbcTemplate.query(sql, new PlanterMapper(), planterId).stream()
+        Planter planter = jdbcTemplate.query(sql, new PlanterMapper(), planterId).stream()
                 .findFirst()
                 .orElse(null);
 
@@ -101,7 +101,7 @@ public class PlanterJdbcTemplateRepository implements PlanterRepository {
     }
 
     @Override
-    public boolean deleteByPlanter(int planterId) {
+    public boolean deleteById(int planterId) {
 
 
         jdbcTemplate.update("delete from reply where planter_id = ?;", planterId);
