@@ -1,6 +1,8 @@
 import Plant from './Plant';
+import { Link } from 'react-router-dom';
+import AddPlant from './AddPlant';
 
-function PlantList({plants = [], editPlant}) {
+function PlantList({plants = [], editPlant, addPlant}) {
     const navStyle = {
         color: 'green',
         'text-decoration': 'none'
@@ -16,6 +18,12 @@ function PlantList({plants = [], editPlant}) {
                     {plants.map(p => (
                         <Plant key={p.plantId} plants={plants} plant={p} editPlant={editPlant}/>
                     ))}
+                    <Link to="/plants/add">
+                        <button type="button" className="btn btn-lg btn-light mt-3 mt-3">
+                            Add Plant
+                            <AddPlant addPlant={addPlant}/>
+                        </button>
+                    </Link>
                 </div>
             </table>
             <div>
