@@ -39,8 +39,6 @@ const handleEmailChange = (event) => {
 
 
   return (
-    // html form, button to submit
-    // display information
      <div className="card border-secondary mb-3" style={{marginRight: + 20, marginTop: + 20}}>
       <div className="card-body">
         <h4 className="card-title">Create Account</h4>
@@ -54,8 +52,8 @@ const handleEmailChange = (event) => {
             <input type="text" id="lastNameTextBox" onChange={handleLastNameChange} className="form-control"/>
           </div>
           <div className="form-group">
-            <label htmlFor="dobTextBox">Email Address:</label>
-            <input type="text" id="dobTextBox" onChange={handleEmailChange} className="form-control"/>
+            <label htmlFor="emailTextBox">Email Address:</label>
+            <input type="text" id="emailTextBox" onChange={handleEmailChange} className="form-control"/>
           </div>
           <button type="submit" className="btn btn-primary mt-2">Create Account</button>
         </form>
