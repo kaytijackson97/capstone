@@ -26,13 +26,13 @@ public class PlanterJdbcTemplateRepositoryTest {
 
     @Test
     void shouldFindValidId() {
-        Planter user = repository.findByUser(1);
+        Planter user = repository.findById(1);
         assertNotNull(user);
     }
 
     @Test
     void shouldNotFindMissingUser() {
-        Planter user = repository.findByUser(100);
+        Planter user = repository.findById(100);
         assertNull(user);
     }
 
@@ -45,7 +45,7 @@ public class PlanterJdbcTemplateRepositoryTest {
     @Test
     void shouldAddUser() {
         Planter user = makeNewUser(5);
-        Planter actual = repository.addUser(user);
+        Planter actual = repository.addPlanter(user);
         assertEquals(actual, user);
 
         List<Planter> users = repository.findAll();
@@ -54,15 +54,15 @@ public class PlanterJdbcTemplateRepositoryTest {
 
     @Test
     void shouldNotAddNullUser() {
-        Planter user = repository.addUser(null);
+        Planter user = repository.addPlanter(null);
         assertNull(user);
     }
 
     @Test
     void shouldEditUserWithValidUser() {
-        Planter user = repository.findByUser(1);
+        Planter user = repository.findById(1);
         user.setFirstName("Riley");
-        assertTrue(repository.editUser(user));
+        assertTrue(repository.editPlanter(user));
     }
 
     @Test
@@ -73,23 +73,23 @@ public class PlanterJdbcTemplateRepositoryTest {
         actual.setLastName("Fall");
         actual.setEmail("robertf@aol.com");
         actual.setUserId(100);
-        boolean success = repository.editUser(actual);
+        boolean success = repository.editPlanter(actual);
         assertFalse(success);
     }
 
     @Test
     void shouldNotEditIfNull() {
-        assertFalse(repository.editUser(null));
+        assertFalse(repository.editPlanter(null));
     }
 
     @Test
     void shouldDeleteByValidUser() {
-        assertTrue(repository.deleteByUser(5));
+        assertTrue(repository.deleteById(5));
     }
 
     @Test
     void shouldNotDeleteWithInvalidUser() {
-        assertFalse(repository.deleteByUser(100));
+        assertFalse(repository.deleteById(100));
     }
 
     private Planter makeNewUser(int userId) {
