@@ -1,4 +1,3 @@
-import Plant from "./Plant";
 import Post from '../post/Post';
 import { useEffect, useState } from 'react';
 import { useHistory, useParams } from "react-router-dom";

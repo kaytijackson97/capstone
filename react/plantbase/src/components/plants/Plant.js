@@ -17,9 +17,9 @@ function Plant({plants = [], plant, editPlant}) {
     return (
     <div className="" style={plantStyle}>
         <Link to={`/plantprofile/${plant.plantId}`} style={navStyle}>
-            <div className="card text-white bg-success mt-3" key={plant.plantId} >
+            <div className="card bg-light mt-3" key={plant.plantId} >
                 <td  className="col">
-                <span className="badge bg-light">{plant.plantId}</span>
+                <span className="badge bg-success">{plant.plantId}</span>
                 </td>
                 <td className="col"><strong>{plant.plantName}</strong></td>
                 <td className="col">{plant.plantType}</td>
