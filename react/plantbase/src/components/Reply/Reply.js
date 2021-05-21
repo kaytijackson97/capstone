@@ -52,7 +52,7 @@ function Reply({replyId, userId, postId, reply, datetimePosted, likeCount}) {
                 </div>
             </div>
             <div class="card-body">
-                <h4 class="card-title">{user.firstName} {user.lastName}</h4>
+                <h6 class="card-title">{user.firstName} {user.lastName}</h6>
                 <p class="card-text">{reply}</p>
                 <button onClick={increaseLikeCount}></button>
             </div>
