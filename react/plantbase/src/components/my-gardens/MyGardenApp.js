@@ -1,7 +1,8 @@
 import ReactRoundedImage from "react-rounded-image";
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import PlantApp from "../plants/PlantApp";
+import CurrentUser from "../contexts/CurrentUser";
 
 
 
@@ -16,17 +17,18 @@ function MyGardenApp() {
     }
 
     const [myGarden, setMyGarden] = useState(defaultMyGarden);
-    const { myGardenId } = useParams();
+
+    const auth = useContext(CurrentUser);
+
+    const { userId } = useParams();
     const history = useHistory();
 
-    // <Link to={`/plantprofile/${plant.plantId}`} style={navStyle}></Link>
-
     useEffect(() => {
-        fetch(`http://localhost:8080/api/my-garden/${myGardenId}`)
+        fetch(`http://localhost:8080/api/my-garden/${auth.currentUser.id}`)
             .then(response => response.json())
             .then(data => setMyGarden(data))
             .catch(error => console.log(error));
-    }, [myGardenId])
+    }, [auth.currentUser.id])
 
     return (
         <div className="container">

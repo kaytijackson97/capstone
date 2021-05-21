@@ -1,5 +1,5 @@
 @hostname = localhost
-@port = 5000
+@port = 8080
 @host = {{hostname}}:{{port}}
 @baseurl = http://{{host}}
 
@@ -24,8 +24,8 @@ POST {{baseurl}}/authenticate HTTP/1.1
 Content-Type: application/json
 
 {
-    "username": "john@smith.com",
-    "password": "P@ssw0rd!"
+    "username": "rcuccia",
+    "password": "bulbasaur1@"
 }
 
 ### Should return a 400 status code with the validation messages in the response body
@@ -95,7 +95,7 @@ GET http://localhost:8080/api/plants HTTP/1.1
 ###
 
 POST http://localhost:8080/api/plants HTTP/1.1
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJwbGFudGJhc2UiLCJzdWIiOiJ1c2VyIiwiYXV0aG9yaXRpZXMiOiJST0xFX1VTRVIiLCJleHAiOjE2MjE1Mzc3NjF9.z58VX9VgVGjb_jy-VqRq3wEbZYqd8dlJCSZC7_hoQxM
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJjYXBzdWxlIiwic3ViIjoicmN1Y2NpYSIsImF1dGhvcml0aWVzIjoiUk9MRV9VU0VSIiwiZXhwIjoxNjIxNjI5NjY3fQ.bph7nK6l4cVNQppmjhi8D8P3C2C7svI07qf9eZuWYNw
 Content-Type: application/json
 
 {

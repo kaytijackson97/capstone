@@ -28,7 +28,7 @@ function Login() {
             setMessages("Login successful! 😊");
             history.push(from);
         } catch (err) {
-            setMessages([err.message] + "try again.");
+            setMessages([err.message] + ", try again. ");
         }
     }
 
@@ -47,11 +47,11 @@ function Login() {
                                     <label for="floatingPassword">Password</label>
                                 </div>
                                 </div>
-                                <Link to="/garden" style={{paddingLeft: 13, textDecoration: 'none'}}>
+                                {/* <Link to="/garden" style={{paddingLeft: 13, textDecoration: 'none'}}> */}
                                     <div className="d-grid gap-2">
                                         <button type="submit" className="btn btn-lg btn-success mt-3">Login</button>
                                     </div>
-                                </Link>
+                                {/* </Link> */}
                                 <Link to="/register" style={{paddingLeft: 13, textDecoration: 'none'}}>
                                     <div className="d-grid gap-2">
                                         <button type="submit" className="btn btn-lg btn-outline-success mt-3" >Register</button>

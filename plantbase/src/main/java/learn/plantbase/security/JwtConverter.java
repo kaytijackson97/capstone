@@ -23,6 +23,7 @@ public class JwtConverter {
         String authorities = user.getAuthorities().stream()
                 .map(i -> i.getAuthority())
                 .collect(Collectors.joining(","));
+
         return Jwts.builder()
                 .setIssuer(ISSUER)
                 .setSubject(user.getUsername())
@@ -36,12 +37,14 @@ public class JwtConverter {
         if (token == null || !token.startsWith("Bearer ")) {
             return null;
         }
+
         try {
             Jws<Claims> jws = Jwts.parserBuilder()
                     .requireIssuer(ISSUER)
                     .setSigningKey(key)
                     .build()
                     .parseClaimsJws(token.substring(7));
+
             String username = jws.getBody().getSubject();
             String authStr = (String) jws.getBody().get("authorities");
             List<GrantedAuthority> authorities = Arrays.stream(authStr.split(","))
@@ -52,6 +55,7 @@ public class JwtConverter {
         } catch (JwtException ex) {
             System.out.println(ex);
         }
+
         return null;
     }
 }
