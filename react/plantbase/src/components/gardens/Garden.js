@@ -1,7 +1,6 @@
 function Garden() {
     return (
         <div>
-            
         </div>
     );
 }
