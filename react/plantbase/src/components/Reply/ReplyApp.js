@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { findRepliesByPost } from "../../services/api";
-import ReplyList from '../reply/ReplyList';
+import { findRepliesByPost } from "../../services/reply-api";
+import ReplyList from './ReplyList';
 
 function ReplyApp( {postId} ) {
     const [replies, setReplies] = useState([]);
