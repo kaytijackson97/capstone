@@ -2,7 +2,7 @@ package learn.plantbase.domain;
 
 import learn.plantbase.data.PostRepository;
 import learn.plantbase.data.ReplyRepository;
-import learn.plantbase.data.UserRepository;
+import learn.plantbase.data.PlanterRepository;
 import learn.plantbase.models.*;
 import org.springframework.stereotype.Service;
 
@@ -12,10 +12,10 @@ import java.util.List;
 public class ReplyService {
 
     private final ReplyRepository repository;
-    private final UserRepository userRepository;
+    private final PlanterRepository userRepository;
     private final PostRepository postRepository;
 
-    public ReplyService(ReplyRepository repository, UserRepository userRepository, PostRepository postRepository) {
+    public ReplyService(ReplyRepository repository, PlanterRepository userRepository, PostRepository postRepository) {
         this.repository = repository;
         this.userRepository = userRepository;
         this.postRepository = postRepository;
@@ -92,7 +92,7 @@ public class ReplyService {
             return result;
         }
 
-        List<User> users = userRepository.findAll();
+        List<Planter> users = userRepository.findAll();
         boolean userExists = users.stream()
                 .anyMatch(i -> i.getUserId() == reply.getUserId());
 

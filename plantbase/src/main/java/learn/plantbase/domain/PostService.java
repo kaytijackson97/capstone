@@ -3,15 +3,14 @@ package learn.plantbase.domain;
 import learn.plantbase.data.GardenRepository;
 import learn.plantbase.data.PlantRepository;
 import learn.plantbase.data.PostRepository;
-import learn.plantbase.data.UserRepository;
+import learn.plantbase.data.PlanterRepository;
 import learn.plantbase.models.Garden;
 import learn.plantbase.models.Plant;
 import learn.plantbase.models.Post;
-import learn.plantbase.models.User;
+import learn.plantbase.models.Planter;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -19,11 +18,11 @@ import java.util.regex.Pattern;
 public class PostService {
 
     private final PostRepository repository;
-    private final UserRepository userRepository;
+    private final PlanterRepository userRepository;
     private final PlantRepository plantRepository;
     private final GardenRepository gardenRepository;
 
-    public PostService(PostRepository repository, UserRepository userRepository, PlantRepository plantRepository, GardenRepository gardenRepository) {
+    public PostService(PostRepository repository, PlanterRepository userRepository, PlantRepository plantRepository, GardenRepository gardenRepository) {
         this.repository = repository;
         this.userRepository = userRepository;
         this.plantRepository = plantRepository;
@@ -110,7 +109,7 @@ public class PostService {
             return result;
         }
 
-        List<User> users = userRepository.findAll();
+        List<Planter> users = userRepository.findAll();
         boolean userExists = users.stream()
                 .anyMatch(i -> i.getUserId() == post.getUserId());
 

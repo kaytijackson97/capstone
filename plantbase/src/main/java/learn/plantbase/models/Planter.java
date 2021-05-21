@@ -10,7 +10,7 @@ import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.List;
 
-public class User {
+public class Planter {
 
     @Getter
     @Setter

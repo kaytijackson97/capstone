@@ -2,12 +2,9 @@ package learn.plantbase.domain;
 
 import learn.plantbase.data.MyGardenRepository;
 import learn.plantbase.data.PlantRepository;
-import learn.plantbase.data.UserRepository;
 import learn.plantbase.models.MyGarden;
 import learn.plantbase.models.Plant;
-import learn.plantbase.models.User;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -21,7 +18,6 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 

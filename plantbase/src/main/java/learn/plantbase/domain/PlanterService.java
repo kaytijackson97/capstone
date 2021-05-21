@@ -1,37 +1,36 @@
 package learn.plantbase.domain;
 
 import learn.plantbase.data.RoleRepository;
-import learn.plantbase.data.UserRepository;
+import learn.plantbase.data.PlanterRepository;
 import learn.plantbase.models.Role;
-import learn.plantbase.models.User;
+import learn.plantbase.models.Planter;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 @Service
-public class UserService {
+public class PlanterService {
 
-    private final UserRepository repository;
+    private final PlanterRepository repository;
     private final RoleRepository roleRepository;
 
-    public UserService(UserRepository repository, RoleRepository roleRepository) {
+    public PlanterService(PlanterRepository repository, RoleRepository roleRepository) {
         this.repository = repository;
         this.roleRepository = roleRepository;
     }
 
-    public List<User> findAll() {
+    public List<Planter> findAll() {
         return repository.findAll();
     }
 
-    public User findByUser(int userId) {
+    public Planter findByUser(int userId) {
         return repository.findByUser(userId);
     }
 
-    public Result<User> addUser(User user) {
-        Result<User> result = validate(user);
+    public Result<Planter> addUser(Planter user) {
+        Result<Planter> result = validate(user);
 
         if (!result.isSuccess()) {
             return result;
@@ -47,8 +46,8 @@ public class UserService {
         return result;
     }
 
-    public Result<User> editUser(User user) {
-        Result<User> result = validate(user);
+    public Result<Planter> editUser(Planter user) {
+        Result<Planter> result = validate(user);
 
         if (!result.isSuccess()) {
             return result;
@@ -71,8 +70,8 @@ public class UserService {
         return repository.deleteByUser(userId);
     }
 
-    private Result<User> validate(User user) {
-        Result<User> result = new Result<>();
+    private Result<Planter> validate(Planter user) {
+        Result<Planter> result = new Result<>();
         if (user == null) {
             result.addMessage("user cannot be null", ResultType.INVALID);
             return result;

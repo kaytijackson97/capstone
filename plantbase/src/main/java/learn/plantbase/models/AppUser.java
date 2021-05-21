@@ -1,17 +1,15 @@
 package learn.plantbase.models;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Objects;
 
 public class AppUser {
     private int appUserId;
     private String username;
     private String password;
     private boolean disabled;
+    private Planter planter;
+    private MyGarden myGarden;
 
     private List<String> roles = new ArrayList<>();
 
@@ -60,5 +58,21 @@ public class AppUser {
             return false;
         }
         return roles.contains(role);
+    }
+
+    public Planter getPlanter() {
+        return planter;
+    }
+
+    public void setPlanter(Planter planter) {
+        this.planter = planter;
+    }
+
+    public MyGarden getMyGarden() {
+        return myGarden;
+    }
+
+    public void setMyGarden(MyGarden myGarden) {
+        this.myGarden = myGarden;
     }
 }
