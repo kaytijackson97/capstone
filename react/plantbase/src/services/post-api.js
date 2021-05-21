@@ -30,7 +30,7 @@ export async function findPostByPlantId(plantId) {
 
 export async function findPostById(postId) {
     const response = await fetch(`http://localhost:8080/api/post/${postId}`);
-
+    
     if (response.status !== 200) {
         return Promise.reject("response is not 200 OK");
     }
@@ -69,3 +69,4 @@ export async function updatePostById(post, postId) {
         return Promise.reject("response is not 204 NO_CONTENT");
     }
 }
+

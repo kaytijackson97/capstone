@@ -77,9 +77,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
                 //post
                 .antMatchers(HttpMethod.GET, "/api/post", /*Get by id*/ "/api/post/*", "/api/post/user/*", "/api/post/plant/*").permitAll() // anybody is able to hit this endpoint
-                .antMatchers(HttpMethod.POST, "/api/post").hasAnyRole("USER", "ADMIN")
+                .antMatchers(HttpMethod.POST, "/api/post").permitAll()
                 .antMatchers(HttpMethod.PUT, "/api/post/*").permitAll()
-                .antMatchers(HttpMethod.DELETE, "/api/post/*").hasAnyRole("USER", "ADMIN")
+                .antMatchers(HttpMethod.DELETE, "/api/post/*").permitAll()
 
                 //reply
                 .antMatchers(HttpMethod.GET, "/api/reply", /*Get by id*/ "/api/reply/*", "/api/reply/post/*").permitAll() // anybody is able to hit this endpoint
