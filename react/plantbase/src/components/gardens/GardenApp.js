@@ -1,11 +1,14 @@
 import PostList from '../post/PostList';
 import Post from '../post/Post';
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import Messages from '../Messages';
 import PostApp from '../post/PostApp';
+import CurrentUser from '../contexts/CurrentUser';
 
 function GardenApp({posts = []}) {
     const [messages, setMessages] = useState("");
+
+    const auth = useContext(CurrentUser);
 
     return (
         <div>
@@ -15,6 +18,7 @@ function GardenApp({posts = []}) {
     </div>
         <div className="row">
           <div className="col">
+          {/* <h1 className="mt-2">Agents | Welcome {auth.currentUser.username}!</h1> */}
             <Messages messages={messages} />
                 <div className="row">
                 <div className="card text-dark bg-success mt-3">
