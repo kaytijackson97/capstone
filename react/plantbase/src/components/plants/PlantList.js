@@ -21,7 +21,6 @@ function PlantList({plants = [], editPlant, addPlant}) {
                     <Link to="/plants/add">
                         <button type="button" className="btn btn-lg btn-light mt-3 mt-3">
                             Add Plant
-                            <AddPlant addPlant={addPlant}/>
                         </button>
                     </Link>
                 </div>

@@ -25,7 +25,10 @@ function App() {
   const [currentUser, setCurrentUser] = useState(null);
 
   const login = (token) => {
-    const { id, sub: username, roles: rolesString } = jwt_decode(token);
+    const { id, sub: username, authorities: rolesString } = jwt_decode(token);
+    
+    // const roles = rolesString !== undefined ?  rolesString.split(",") : [];
+
     const roles = rolesString.split(",");
 
     const currentUser = {
@@ -48,7 +51,7 @@ function App() {
     const response = await fetch("http://localhost:8080/authenticate", {
       method: "POST",
       headers: {
-        "content-type": "application/json",
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({
         username,
@@ -64,6 +67,9 @@ function App() {
     } else {
       throw new Error("There was a problem logging in...");
     }
+
+    //add fetch for our user
+
   };
 
   const logout = () => {
@@ -87,7 +93,7 @@ function App() {
         <Route path="/garden" exact>
           <GardenApp/>
         </Route>
-        <Route path="/my-garden/:myGardenId">
+        <Route path="/my-garden/:userId">
           <MyGardenApp/>
         </Route>
         <Route path="/post" exact>
