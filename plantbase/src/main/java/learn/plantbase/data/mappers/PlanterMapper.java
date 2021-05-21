@@ -1,17 +1,17 @@
 package learn.plantbase.data.mappers;
 
-import learn.plantbase.models.User;
+import learn.plantbase.models.Planter;
 import org.springframework.jdbc.core.RowMapper;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class UserMapper implements RowMapper<User> {
+public class PlanterMapper implements RowMapper<Planter> {
 
 
     @Override
-    public User mapRow(ResultSet resultSet, int i) throws SQLException {
-        User user = new User();
+    public Planter mapRow(ResultSet resultSet, int i) throws SQLException {
+        Planter user = new Planter();
         user.setUserId(resultSet.getInt("user_id"));
         user.setRoleId(resultSet.getInt("role_id"));
         user.setFirstName(resultSet.getString("first_name"));

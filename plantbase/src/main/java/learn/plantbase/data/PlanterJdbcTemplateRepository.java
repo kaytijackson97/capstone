@@ -1,11 +1,9 @@
 package learn.plantbase.data;
 
 import learn.plantbase.data.mappers.MyGardenMapper;
-import learn.plantbase.data.mappers.PostMapper;
-import learn.plantbase.data.mappers.UserMapper;
+import learn.plantbase.data.mappers.PlanterMapper;
 import learn.plantbase.models.MyGarden;
-import learn.plantbase.models.Post;
-import learn.plantbase.models.User;
+import learn.plantbase.models.Planter;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
@@ -16,41 +14,42 @@ import java.sql.Statement;
 import java.util.List;
 
 @Repository
-public class UserJdbcTemplateRepository implements UserRepository {
+public class PlanterJdbcTemplateRepository implements PlanterRepository {
 
     private final JdbcTemplate jdbcTemplate;
 
-    public UserJdbcTemplateRepository(JdbcTemplate jdbcTemplate) {
+    public PlanterJdbcTemplateRepository(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
 
     @Override
-    public List<User> findAll() {
+    public List<Planter> findAll() {
 
         final String sql = "select user_id, role_id, first_name, last_name, email "
                 + "from user_profile;";
 
-        return jdbcTemplate.query(sql, new UserMapper());
+        return jdbcTemplate.query(sql, new PlanterMapper());
     }
 
     @Override
-    public User findByUser(int userId) {
+    public Planter findByUser(int userId) {
 
         final String sql = "select user_id, role_id, first_name, last_name, email "
                 + "from user_profile "
                 + "where user_id = ?;";
 
-        User user = jdbcTemplate.query(sql, new UserMapper(), userId).stream()
+        Planter user = jdbcTemplate.query(sql, new PlanterMapper(), userId).stream()
                 .findFirst()
                 .orElse(null);
-        if (user != null) {
-            addMyGarden(user);
-        }
+
+//        if (user != null) {
+//            addMyGarden(user);
+//        }
         return user;
     }
 
     @Override
-    public User addUser(User user) {
+    public Planter addUser(Planter user) {
 
         if (user == null) {
             return null;
@@ -78,7 +77,7 @@ public class UserJdbcTemplateRepository implements UserRepository {
     }
 
     @Override
-    public boolean editUser(User user) {
+    public boolean editUser(Planter user) {
 
         if (user == null) {
             return false;
@@ -108,10 +107,10 @@ public class UserJdbcTemplateRepository implements UserRepository {
                 "delete from user_profile where user_id = ?", userId) > 0;
     }
 
-    private void addMyGarden(User user) {
-        final String sql = "select my_garden_id, user_id, garden_name, bio, photo from my_garden where user_id = ?;";
-
-        MyGarden myGarden = jdbcTemplate.query(sql, new MyGardenMapper(), user.getUserId()).stream().findFirst().orElse(null);
-        user.setMyGarden(myGarden);
-    }
+//    private void addMyGarden(Planter user) {
+//        final String sql = "select my_garden_id, user_id, garden_name, bio, photo from my_garden where user_id = ?;";
+//
+//        MyGarden myGarden = jdbcTemplate.query(sql, new MyGardenMapper(), user.getUserId()).stream().findFirst().orElse(null);
+//        user.setMyGarden(myGarden);
+//    }
 }

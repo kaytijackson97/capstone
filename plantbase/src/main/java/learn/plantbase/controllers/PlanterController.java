@@ -1,9 +1,8 @@
 package learn.plantbase.controllers;
 
 import learn.plantbase.domain.Result;
-import learn.plantbase.domain.UserService;
-import learn.plantbase.models.User;
-import org.springframework.beans.factory.annotation.Value;
+import learn.plantbase.domain.PlanterService;
+import learn.plantbase.models.Planter;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -15,30 +14,30 @@ import java.util.List;
 @RestController
 @CrossOrigin(origins = {"http://localhost:3000"})
 @RequestMapping("/api/user")
-public class UserController {
+public class PlanterController {
 
-    private final UserService service;
+    private final PlanterService service;
 
-    public UserController(UserService service) {
+    public PlanterController(PlanterService service) {
         this.service = service;
     }
 
     @GetMapping
-    public List<User> findAll() {
+    public List<Planter> findAll() {
         return service.findAll();
     }
 
     @GetMapping("/{userId}")
-    public User findByUser(@PathVariable int userId) {
+    public Planter findByUser(@PathVariable int userId) {
         return service.findByUser(userId);
     }
 
     @PostMapping
-    public ResponseEntity<Object> add(@RequestBody @Valid User user, BindingResult bindingResult) {
+    public ResponseEntity<Object> add(@RequestBody @Valid Planter user, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return new ResponseEntity<>(bindingResult.getAllErrors(), HttpStatus.BAD_REQUEST);
         }
-        Result<User> result = service.addUser(user);
+        Result<Planter> result = service.addUser(user);
         if (result.isSuccess()) {
             return new ResponseEntity<>(result.getPayload(), HttpStatus.CREATED);
         }
@@ -46,14 +45,14 @@ public class UserController {
     }
 
     @PutMapping("/{userId}")
-    public ResponseEntity<Object> edit(@PathVariable int userId, @RequestBody @Valid User user, BindingResult bindingResult) {
+    public ResponseEntity<Object> edit(@PathVariable int userId, @RequestBody @Valid Planter user, BindingResult bindingResult) {
         if (userId != user.getUserId()) {
             return new ResponseEntity<>(HttpStatus.CONFLICT);
         }
         if (bindingResult.hasErrors()) {
             return new ResponseEntity<>(bindingResult.getAllErrors(), HttpStatus.BAD_REQUEST);
         }
-        Result<User> result = service.editUser(user);
+        Result<Planter> result = service.editUser(user);
         if (result.isSuccess()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }

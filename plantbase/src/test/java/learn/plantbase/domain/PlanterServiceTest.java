@@ -1,70 +1,62 @@
 package learn.plantbase.domain;
 
 import learn.plantbase.data.RoleRepository;
-import learn.plantbase.data.UserRepository;
-import learn.plantbase.models.MyGarden;
-import learn.plantbase.models.Post;
+import learn.plantbase.data.PlanterRepository;
 import learn.plantbase.models.Role;
-import learn.plantbase.models.User;
+import learn.plantbase.models.Planter;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
-import javax.validation.ConstraintViolation;
-import javax.validation.Validation;
-import javax.validation.Validator;
-import javax.validation.ValidatorFactory;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE)
-public class UserServiceTest {
+public class PlanterServiceTest {
 
     @Autowired
-    UserService service;
+    PlanterService service;
 
     @MockBean
-    UserRepository repository;
+    PlanterRepository repository;
 
     @MockBean
     RoleRepository roleRepository;
 
     @Test
     void shouldAddValidUser() {
-        User user = makeNewUser();
-        User mockout = makeNewUser();
+        Planter user = makeNewUser();
+        Planter mockout = makeNewUser();
         mockout.setUserId(4);
         Role role = new Role();
         role.setRoleId(1);
         when(roleRepository.findAll()).thenReturn(List.of(role));
         when(repository.addUser(user)).thenReturn(mockout);
-        Result<User> actual = service.addUser(user);
+        Result<Planter> actual = service.addUser(user);
         assertEquals(0, actual.getMessages().size());
     }
 
     @Test
     void shouldNotAddNullUser() {
-        Result<User> result = service.addUser(null);
+        Result<Planter> result = service.addUser(null);
         assertEquals(ResultType.INVALID, result.getType());
     }
 
     @Test
     void shouldNotAddIfInvalidEmail() {
-        User user = makeNewUser();
+        Planter user = makeNewUser();
         user.setEmail("ashley.com");
-        Result<User> result = service.addUser(user);
+        Result<Planter> result = service.addUser(user);
         assertEquals(ResultType.INVALID, result.getType());
     }
 
     @Test
     void shouldNotAddNullOrBlankFields() {
-        User user = makeNewUser();
-        Result<User> actual = service.addUser(user);
+        Planter user = makeNewUser();
+        Result<Planter> actual = service.addUser(user);
         assertEquals(ResultType.INVALID, actual.getType());
 
         user = makeNewUser();
@@ -100,7 +92,7 @@ public class UserServiceTest {
 
     @Test
     void shouldEditValidUser() {
-        User user = makeNewUser();
+        Planter user = makeNewUser();
         user.setUserId(1);
         Role role = new Role();
         role.setRoleId(1);
@@ -109,17 +101,17 @@ public class UserServiceTest {
         when(repository.findByUser(1)).thenReturn(user);
         user.setFirstName("Molly");
 
-        Result<User> actual = service.editUser(user);
+        Result<Planter> actual = service.editUser(user);
         assertEquals(0, actual.getMessages().size());
     }
 
     // TODO shouldNotEditIfNullOrBlankFields
     @Test
     void shouldNotEditIfNullOrBlankFields() {
-        User user = makeNewUser();
+        Planter user = makeNewUser();
         user.setUserId(1);
         user.setEmail(null);
-        Result<User> actual = service.editUser(user);
+        Result<Planter> actual = service.editUser(user);
         assertEquals(ResultType.INVALID, actual.getType());
 
         user = makeNewUser();
@@ -137,16 +129,16 @@ public class UserServiceTest {
 
     @Test
     void shouldNotEditIfInvalidEmail() {
-        User user = makeNewUser();
+        Planter user = makeNewUser();
         user.setEmail("ashley.org");
-        Result<User> actual = service.editUser(user);
+        Result<Planter> actual = service.editUser(user);
         assertEquals(ResultType.INVALID, actual.getType());
     }
 
     @Test
     void shouldNotEditIfInvalidId() {
-        User user = makeNewUser();
-        Result<User> actual = service.editUser(user);
+        Planter user = makeNewUser();
+        Result<Planter> actual = service.editUser(user);
         assertEquals(ResultType.INVALID, actual.getType());
 
         user = makeNewUser();
@@ -172,8 +164,8 @@ public class UserServiceTest {
         assertFalse(service.deleteByUser(100));
     }
 
-    private User makeNewUser() {
-        User user = new User();
+    private Planter makeNewUser() {
+        Planter user = new Planter();
         user.setRoleId(1);
         user.setFirstName("Robert");
         user.setLastName("Fall");

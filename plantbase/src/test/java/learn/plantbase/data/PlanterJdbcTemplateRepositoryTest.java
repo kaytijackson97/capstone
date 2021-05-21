@@ -1,24 +1,20 @@
 package learn.plantbase.data;
 
-import learn.plantbase.models.Plant;
-import learn.plantbase.models.Post;
-import learn.plantbase.models.Role;
-import learn.plantbase.models.User;
+import learn.plantbase.models.Planter;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.time.LocalDate;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE)
-public class UserJdbcTemplateRepositoryTest {
+public class PlanterJdbcTemplateRepositoryTest {
 
     @Autowired
-    UserJdbcTemplateRepository repository;
+    PlanterJdbcTemplateRepository repository;
 
     @Autowired
     KnownGoodState knownGoodState;
@@ -30,48 +26,48 @@ public class UserJdbcTemplateRepositoryTest {
 
     @Test
     void shouldFindValidId() {
-        User user = repository.findByUser(1);
+        Planter user = repository.findByUser(1);
         assertNotNull(user);
     }
 
     @Test
     void shouldNotFindMissingUser() {
-        User user = repository.findByUser(100);
+        Planter user = repository.findByUser(100);
         assertNull(user);
     }
 
     @Test
     void shouldFindAllUsers() {
-        List<User> users = repository.findAll();
+        List<Planter> users = repository.findAll();
         assertNotNull(users);
     }
 
     @Test
     void shouldAddUser() {
-        User user = makeNewUser(5);
-        User actual = repository.addUser(user);
+        Planter user = makeNewUser(5);
+        Planter actual = repository.addUser(user);
         assertEquals(actual, user);
 
-        List<User> users = repository.findAll();
+        List<Planter> users = repository.findAll();
         assertTrue(users.size() >= 2);
     }
 
     @Test
     void shouldNotAddNullUser() {
-        User user = repository.addUser(null);
+        Planter user = repository.addUser(null);
         assertNull(user);
     }
 
     @Test
     void shouldEditUserWithValidUser() {
-        User user = repository.findByUser(1);
+        Planter user = repository.findByUser(1);
         user.setFirstName("Riley");
         assertTrue(repository.editUser(user));
     }
 
     @Test
     void shouldNotEditUserWithInvalidUser() {
-        User actual = new User();
+        Planter actual = new Planter();
         actual.setRoleId(1);
         actual.setFirstName("Robert");
         actual.setLastName("Fall");
@@ -96,8 +92,8 @@ public class UserJdbcTemplateRepositoryTest {
         assertFalse(repository.deleteByUser(100));
     }
 
-    private User makeNewUser(int userId) {
-        User user = new User();
+    private Planter makeNewUser(int userId) {
+        Planter user = new Planter();
         user.setUserId(userId);
         user.setUserId(1);
         user.setRoleId(1);

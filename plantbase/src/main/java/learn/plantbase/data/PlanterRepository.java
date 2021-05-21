@@ -1,19 +1,18 @@
 package learn.plantbase.data;
 
-import learn.plantbase.models.Post;
-import learn.plantbase.models.User;
+import learn.plantbase.models.Planter;
 
 import java.util.List;
 
-public interface UserRepository {
+public interface PlanterRepository {
 
-    List<User> findAll();
+    List<Planter> findAll();
 
-    User findByUser(int userId);
+    Planter findByUser(int userId);
 
-    User addUser(User user);
+    Planter addUser(Planter user);
 
-    boolean editUser(User user);
+    boolean editUser(Planter user);
 
     boolean deleteByUser(int userId);
 

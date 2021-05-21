@@ -31,7 +31,7 @@ class PostServiceTest {
     PostRepository repository;
 
     @MockBean
-    UserRepository userRepository;
+    PlanterRepository userRepository;
 
     @MockBean
     GardenRepository gardenRepository;
@@ -195,10 +195,10 @@ class PostServiceTest {
         updatedPost.setUserId(2);
         when(repository.editPost(post)).thenReturn(true);
 
-        User user1 = new User();
+        Planter user1 = new Planter();
         user1.setUserId(1);
 
-        User user2 = new User();
+        Planter user2 = new Planter();
         user2.setUserId(2);
         when(userRepository.findAll()).thenReturn(List.of(user1, user2));
 
@@ -288,7 +288,7 @@ class PostServiceTest {
 
         when(repository.addPost(post)).thenReturn(post);
 
-        User user = new User();
+        Planter user = new Planter();
         user.setUserId(1);
         when(userRepository.findAll()).thenReturn(List.of(user));
 

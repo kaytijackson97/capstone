@@ -1,9 +1,9 @@
 package learn.plantbase.domain;
 
 import learn.plantbase.data.MyGardenRepository;
-import learn.plantbase.data.UserRepository;
+import learn.plantbase.data.PlanterRepository;
 import learn.plantbase.models.MyGarden;
-import learn.plantbase.models.User;
+import learn.plantbase.models.Planter;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -11,9 +11,9 @@ import java.util.List;
 @Service
 public class MyGardenService {
     final MyGardenRepository repository;
-    private final UserRepository userRepository;
+    private final PlanterRepository userRepository;
 
-    public MyGardenService(MyGardenRepository repository, UserRepository userRepository) {
+    public MyGardenService(MyGardenRepository repository, PlanterRepository userRepository) {
         this.repository = repository;
         this.userRepository = userRepository;
     }
@@ -67,8 +67,8 @@ public class MyGardenService {
             result.addMessage("myGarden cannot be null.", ResultType.INVALID);
             return result;
         }
-        List<User> users = userRepository.findAll();
-        for (User user : users) {
+        List<Planter> users = userRepository.findAll();
+        for (Planter user : users) {
             if (user.getUserId() == myGarden.getUserId()) {
                 userExists = true;
             }

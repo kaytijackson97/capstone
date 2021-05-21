@@ -31,7 +31,7 @@ class ReplyServiceTest {
     ReplyRepository repository;
 
     @MockBean
-    UserRepository userRepository;
+    PlanterRepository userRepository;
 
     @MockBean
     PostRepository postRepository;
@@ -159,10 +159,10 @@ class ReplyServiceTest {
         updatedReply.setUserId(2);
         when(repository.editReply(reply)).thenReturn(true);
 
-        User user1 = new User();
+        Planter user1 = new Planter();
         user1.setUserId(1);
 
-        User user2 = new User();
+        Planter user2 = new Planter();
         user2.setUserId(2);
         when(userRepository.findAll()).thenReturn(List.of(user1, user2));
 
@@ -229,7 +229,7 @@ class ReplyServiceTest {
 
         when(repository.addReply(reply)).thenReturn(reply);
 
-        User user = new User();
+        Planter user = new Planter();
         user.setUserId(1);
         when(userRepository.findAll()).thenReturn(List.of(user));
 
