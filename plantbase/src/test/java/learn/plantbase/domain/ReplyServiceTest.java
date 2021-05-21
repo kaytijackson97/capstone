@@ -31,7 +31,7 @@ class ReplyServiceTest {
     ReplyRepository repository;
 
     @MockBean
-    PlanterRepository userRepository;
+    PlanterRepository planterRepository;
 
     @MockBean
     PostRepository postRepository;
@@ -73,7 +73,7 @@ class ReplyServiceTest {
     }
 
     @Test
-    void shouldNotAddIfInvalidUserId() {
+    void shouldNotAddIfInvalidPlanterId() {
         Reply expected = makeNewReply(0);
         expected.setPlanterId(10);
 
@@ -151,7 +151,7 @@ class ReplyServiceTest {
     }
 
     @Test
-    void shouldNotEditIfUserIdIsChanged() {
+    void shouldNotEditIfPlanterIdIsChanged() {
         Reply reply = makeNewReply(1);
         when(repository.findById(1)).thenReturn(reply);
 
@@ -159,16 +159,16 @@ class ReplyServiceTest {
         updatedReply.setPlanterId(2);
         when(repository.editReply(reply)).thenReturn(true);
 
-        Planter user1 = new Planter();
-        user1.setUserId(1);
+        Planter planter1 = new Planter();
+        planter1.setPlanterId(1);
 
-        Planter user2 = new Planter();
-        user2.setUserId(2);
-        when(userRepository.findAll()).thenReturn(List.of(user1, user2));
+        Planter planter2 = new Planter();
+        planter2.setPlanterId(2);
+        when(planterRepository.findAll()).thenReturn(List.of(planter1, planter2));
 
         Result<Reply> actual = service.editReply(updatedReply);
         assertEquals(1, actual.getMessages().size());
-        assertEquals("Cannot change user id.", actual.getMessages().get(0));
+        assertEquals("Cannot change planter id.", actual.getMessages().get(0));
     }
 
     @Test
@@ -229,9 +229,9 @@ class ReplyServiceTest {
 
         when(repository.addReply(reply)).thenReturn(reply);
 
-        Planter user = new Planter();
-        user.setUserId(1);
-        when(userRepository.findAll()).thenReturn(List.of(user));
+        Planter planter = new Planter();
+        planter.setPlanterId(1);
+        when(planterRepository.findAll()).thenReturn(List.of(planter));
 
         Post post = new Post();
         post.setPostId(1);
