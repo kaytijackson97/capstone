@@ -1,7 +1,9 @@
 package learn.plantbase.data;
 
+import learn.plantbase.data.mappers.MyGardenMapper;
 import learn.plantbase.data.mappers.PostMapper;
 import learn.plantbase.data.mappers.UserMapper;
+import learn.plantbase.models.MyGarden;
 import learn.plantbase.models.Post;
 import learn.plantbase.models.User;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -38,9 +40,13 @@ public class UserJdbcTemplateRepository implements UserRepository {
                 + "from user_profile "
                 + "where user_id = ?;";
 
-        return jdbcTemplate.query(sql, new UserMapper(), userId).stream()
+        User user = jdbcTemplate.query(sql, new UserMapper(), userId).stream()
                 .findFirst()
                 .orElse(null);
+        if (user != null) {
+            addMyGarden(user);
+        }
+        return user;
     }
 
     @Override
@@ -100,5 +106,12 @@ public class UserJdbcTemplateRepository implements UserRepository {
 
         return jdbcTemplate.update(
                 "delete from user_profile where user_id = ?", userId) > 0;
+    }
+
+    private void addMyGarden(User user) {
+        final String sql = "select my_garden_id, user_id, garden_name, bio, photo from my_garden where user_id = ?;";
+
+        MyGarden myGarden = jdbcTemplate.query(sql, new MyGardenMapper(), user.getUserId()).stream().findFirst().orElse(null);
+        user.setMyGarden(myGarden);
     }
 }
