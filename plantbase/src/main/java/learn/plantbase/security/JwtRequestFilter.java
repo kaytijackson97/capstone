@@ -13,23 +13,26 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 public class JwtRequestFilter extends BasicAuthenticationFilter {
+    private final JwtConverter converter;
 
-    private final JwtConverter jwtConverter;
-
-    public JwtRequestFilter(AuthenticationManager authenticationManager, JwtConverter jwtConverter) {
+    public JwtRequestFilter(AuthenticationManager authenticationManager, JwtConverter converter) {
         super(authenticationManager);
-        this.jwtConverter = jwtConverter;
+        this.converter = converter;
     }
 
-    protected  void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws IOException, ServletException {
+    @Override
+    protected void doFilterInternal(HttpServletRequest request,
+                                    HttpServletResponse response,
+                                    FilterChain chain) throws IOException, ServletException {
         String authorization = request.getHeader("Authorization");
         if (authorization != null && authorization.startsWith("Bearer ")) {
-            User user = jwtConverter.getUserFromToken(authorization);
+            User user = converter.getUserFromToken(authorization);
 
             if (user == null) {
                 response.setStatus(403);
             } else {
-                UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(user.getUsername(), null, user.getAuthorities());
+                UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(
+                        user.getUsername(), null, user.getAuthorities());
 
                 SecurityContextHolder.getContext().setAuthentication(token);
             }

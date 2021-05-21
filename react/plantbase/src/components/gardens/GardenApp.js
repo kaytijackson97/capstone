@@ -1,11 +1,9 @@
-import PostList from '../post/PostList';
-import Post from '../post/Post';
 import { useState, useContext } from 'react';
 import Messages from '../Messages';
 import PostApp from '../post/PostApp';
 import CurrentUser from '../contexts/CurrentUser';
 
-function GardenApp({posts = []}) {
+function GardenApp() {
     const [messages, setMessages] = useState("");
 
     const auth = useContext(CurrentUser);

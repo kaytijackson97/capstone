@@ -1,5 +1,5 @@
 @hostname = localhost
-@port = 5000
+@port = 8080
 @host = {{hostname}}:{{port}}
 @baseurl = http://{{host}}
 
@@ -24,8 +24,8 @@ POST {{baseurl}}/authenticate HTTP/1.1
 Content-Type: application/json
 
 {
-    "username": "john@smith.com",
-    "password": "P@ssw0rd!"
+    "username": "rcuccia",
+  "password": "bulbasaur1@"
 }
 
 ### Should return a 400 status code with the validation messages in the response body

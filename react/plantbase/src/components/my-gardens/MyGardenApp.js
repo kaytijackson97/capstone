@@ -19,8 +19,6 @@ function MyGardenApp() {
     const { myGardenId } = useParams();
     const history = useHistory();
 
-    // <Link to={`/plantprofile/${plant.plantId}`} style={navStyle}></Link>
-
     useEffect(() => {
         fetch(`http://localhost:8080/api/my-garden/${myGardenId}`)
             .then(response => response.json())
