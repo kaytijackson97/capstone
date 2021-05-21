@@ -53,7 +53,7 @@ function Post( {post} ) {
 
     return(
         <div className="d-flex justify-content-center">
-            <div className="card bg-light mb-3" style={postStyle}>
+            <div className="card bg-light mt-3 mb-3" style={postStyle}>
                 <div className="card-header">
                     <div className="d-flex flex-row-reverse">
                         <div>{post.datetimePosted}</div>
