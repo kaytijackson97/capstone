@@ -26,7 +26,7 @@ public class PlanterService {
     }
 
     public Planter findByUser(int userId) {
-        return repository.findByUser(userId);
+        return repository.findById(userId);
     }
 
     public Result<Planter> addUser(Planter user) {
@@ -41,7 +41,7 @@ public class PlanterService {
             return result;
         }
 
-        user = repository.addUser(user);
+        user = repository.addPlanter(user);
         result.setPayload(user);
         return result;
     }
@@ -58,7 +58,7 @@ public class PlanterService {
             return result;
         }
 
-        if (!repository.editUser(user)) {
+        if (!repository.editPlanter(user)) {
             String msg = String.format("userId: %s, not found", user.getUserId());
             result.addMessage(msg, ResultType.NOT_FOUND);
         }
@@ -67,7 +67,7 @@ public class PlanterService {
     }
 
     public boolean deleteByUser(int userId) {
-        return repository.deleteByUser(userId);
+        return repository.deleteById(userId);
     }
 
     private Result<Planter> validate(Planter user) {

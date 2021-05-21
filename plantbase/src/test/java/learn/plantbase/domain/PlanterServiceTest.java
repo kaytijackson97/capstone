@@ -34,7 +34,7 @@ public class PlanterServiceTest {
         Role role = new Role();
         role.setRoleId(1);
         when(roleRepository.findAll()).thenReturn(List.of(role));
-        when(repository.addUser(user)).thenReturn(mockout);
+        when(repository.addPlanter(user)).thenReturn(mockout);
         Result<Planter> actual = service.addUser(user);
         assertEquals(0, actual.getMessages().size());
     }
@@ -97,8 +97,8 @@ public class PlanterServiceTest {
         Role role = new Role();
         role.setRoleId(1);
         when(roleRepository.findAll()).thenReturn(List.of(role));
-        when(repository.editUser(user)).thenReturn(true);
-        when(repository.findByUser(1)).thenReturn(user);
+        when(repository.editPlanter(user)).thenReturn(true);
+        when(repository.findById(1)).thenReturn(user);
         user.setFirstName("Molly");
 
         Result<Planter> actual = service.editUser(user);
@@ -154,13 +154,13 @@ public class PlanterServiceTest {
 
     @Test
     void shouldDeleteUser() {
-        when(repository.deleteByUser(1)).thenReturn(true);
+        when(repository.deleteById(1)).thenReturn(true);
         assertTrue(service.deleteByUser(1));
     }
 
     @Test
     void shouldNotDeleteIfInvalidId() {
-        when(repository.deleteByUser(100)).thenReturn(false);
+        when(repository.deleteById(100)).thenReturn(false);
         assertFalse(service.deleteByUser(100));
     }
 
