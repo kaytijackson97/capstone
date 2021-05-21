@@ -1,6 +1,8 @@
 import Plant from "./Plant";
+import Post from '../post/Post';
 import { useEffect, useState } from 'react';
 import { useHistory, useParams } from "react-router-dom";
+import ReactRoundedImage from "react-rounded-image";
 
 function PlantProfile() {
     const defaultPlant = {
@@ -16,6 +18,8 @@ function PlantProfile() {
 
     const { plantId } = useParams();
     const [plant, setPlant] = useState(defaultPlant);
+    const [posts, setPosts] = useState([]);
+
     const history = useHistory();
 
     useEffect(() => {
@@ -25,13 +29,21 @@ function PlantProfile() {
             .catch(error => console.log(error));
     }, [plantId])
 
+    const imageStyle = {
+        alignSelf: 'center',
+        'margin-bottom': '10px',
+        'margin-left': '30px',
+        'margin-top': '10px',
+        'borderRadius': '10'
+    }
+
     return (
-        <div className="container mt-3">
+        <div className="container">
             <div className="row">
 
             </div>
             <div className="row">
-                <div className="card">
+                <div className="card text-white bg-success mt-3">
                     <div className="row">
                         <div className="col">
                             <p className="card-body">Plant Name: {plant.plantName}</p>
@@ -40,15 +52,32 @@ function PlantProfile() {
                             <p className="card-body">Plant Description: {plant.plantDescription}</p>
                         </div>
                         <div className="col">
-                            <img src="{plant.photo}" style={{ alignSelf: 'center' }} alt="plant list item" width="20px"></img>
+                        <div style={{ display: "flex" }}>
+                            <ReactRoundedImage
+                            image={plant.photo}
+                            roundedColor=""
+                            imageWidth="500"
+                            imageHeight="350"
+                            roundedSize="8"
+                            borderRadius="30"
+                            />
+                        </div>
                         </div>
                     </div>
                 </div>
             </div>
             <div className="row">
+                <div className="card text-white bg-success mt-3">
+                    <h2 className="card-header card-title">Related Posts</h2>
                 <ul>
                     {/* list of posts that maps to post */}
+                    <li>
+                    {posts.map(p => (
+                        <Post key={p.postId} posts={posts} post={p} />
+                    ))}
+                    </li>
                 </ul>
+                </div>
             </div>
         </div>
     );

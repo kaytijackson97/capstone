@@ -2,8 +2,9 @@ import Plant from './Plant';
 
 function PlantList({plants = [], editPlant}) {
     return (
-        <div className="card  text-center border-info mt-3">
-            <h2 className="card-header card-title">Plant List</h2>
+        <div className="container">
+            <div className="card text-white mt-3 text-center">
+            <h2 className="card-header bg-success card-title">Plant List</h2>
             
             <table className="table text-center"  margin="20px 0px 100px 10px">
                 <div className="row text-center" >
@@ -14,6 +15,7 @@ function PlantList({plants = [], editPlant}) {
             </table>
             <div>
             </div>
+        </div>
         </div>
     );
 }
