@@ -18,7 +18,7 @@ function Register({ parentAddUser }) {
     event.preventDefault();
 
     try {
-        const response = await fetch('http://localhost:5000/create_account', {
+        const response = await fetch('http://localhost:8080/create_account', {
           method: 'POST',
           headers: {
             "Content-Type": "application/json"
