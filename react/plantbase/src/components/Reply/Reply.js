@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { findUserById } from "../../services/user-api";
 
 function Reply({replyId, userId, postId, reply, datetimePosted, likeCount}) {
@@ -32,7 +33,9 @@ function Reply({replyId, userId, postId, reply, datetimePosted, likeCount}) {
                 </div>
             </div>
             <div class="card-body">
-                <h6 class="card-title">{user.firstName} {user.lastName}</h6>
+                <Link to={`/my-garden/${user.myGardenId}`} className="text-dark text-decoration-none">
+                    <h6 class="card-title">{user.firstName} {user.lastName}</h6>
+                </Link>
                 <p class="card-text">{reply}</p>
                 <button onClick={increaseLikeCount}></button>
             </div>

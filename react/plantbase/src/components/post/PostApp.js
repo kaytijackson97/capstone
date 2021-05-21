@@ -1,19 +1,21 @@
 import { useEffect, useState } from "react";
-import { findPostById } from "../../services/post-api";
-import Post from "./Post";
+import { findAllPosts } from "../../services/post-api";
+import PostList from "./PostList";
+import AddPost from "./AddPost";
 
 function PostApp() {
-    const [post, setPost] = useState([]);
+    const [posts, setPosts] = useState([]);
 
     useEffect(() => {
-        findPostById(1)
-            .then((data) => setPost(data))
+        findAllPosts()
+            .then((data) => setPosts(data))
             .catch(console.log)
-    }, [1])
+    }, [])
 
     return (
         <div>
-            <Post post={post}/>
+            <AddPost />
+            <PostList posts={posts}/>
         </div>
     );
 }
