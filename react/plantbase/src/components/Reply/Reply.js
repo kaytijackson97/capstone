@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { findPostById, findReplyById, findUserById } from "../../services/api";
+import { findUserById } from "../../services/user-api";
 
 function Reply({replyId, userId, postId, reply, datetimePosted, likeCount}) {
 
@@ -11,34 +11,14 @@ function Reply({replyId, userId, postId, reply, datetimePosted, likeCount}) {
         email: ""
     }
 
-    // const defaultPost = {
-    //     postId: 0,
-    //     userId: 0,
-    //     plantId: 0,
-    //     caption: "",
-    //     photo: "",
-    //     datetimePosted: "",
-    //     likeCount: 0
-    // }
-
     const [user, setUser] = useState(defaultUser);
-    // const [post, setPost] = useState(defaultPost);
     const [newLikeCount, setNewLikeCount] = useState(likeCount);
-
-    // useEffect(() => {
-    //     findReplyById(replyId)
-    //         .then((data) => setReply(data))
-    // }, [replyId]);
 
     useEffect(() => {
         findUserById(userId)
             .then((data) => setUser(data))
     }, [userId]);
 
-    // useEffect(() => {
-    //     findPostById(postId)
-    //         .then((data) => setPost(data))
-    // }, [postId]);
 
     const increaseLikeCount = () => {
         setNewLikeCount(newLikeCount + 1)

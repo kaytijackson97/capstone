@@ -1,9 +1,14 @@
 import { useEffect, useState } from "react";
 
-import { findPlantById, findUserById } from '../../services/api';
+import { findUserById } from '../../services/user-api';
+import { findPlantById } from '../../services/plant-api';
 import ReplyApp from "../reply/ReplyApp";
+import { Link } from "react-router-dom";
+import { updatePostById } from "../../services/post-api";
+import Redcup from '../redcup-plant.png';
 
 function Post( {post} ) {
+
     const defaultUser = {
         userId: 0,
         roleId: 0,
@@ -22,9 +27,21 @@ function Post( {post} ) {
         gotchaDate: ""
     }
 
+    // const defaultPost = {
+    //     postId: post.postId,
+    //     userId: post.userId,
+    //     plantId: post.plantId,
+    //     gardenId: post.gardenId,
+    //     caption: post.caption,
+    //     photo: post.photo,
+    //     datetimePosted: post.datetimePosted,
+    //     likeCount: post.likeCount
+    // }
+
     const [user, setUser] = useState(defaultUser);
     const [plant, setPlant] = useState(defaultPlant);
-    const [likeCount, setLikeCount] = useState(0);
+    const [newPost, setNewPost] = useState(post);
+    const [newCount, setNewCount] = useState(0);
 
     useEffect(() => {
         findUserById(post.userId)
@@ -37,7 +54,27 @@ function Post( {post} ) {
     }, [post.plantId]);
 
     const increaseLikeCount = () => {
-        setLikeCount(likeCount + 1)
+        setNewCount(newCount + 1);
+    }
+
+    const updatePost = () => {
+        const updatedPost = {
+            postId: post.postId,
+            userId: post.userId,
+            plantId: post.plantId,
+            gardenId: post.gardenId,
+            caption: post.caption,
+            photo: post.photo,
+            datetimePosted: post.datetimePosted,
+            likeCount: newCount
+        }
+        updatePostById(updatedPost, post.postId)
+            .then(setNewPost(updatedPost));
+    }
+
+    const handleClick = () => {
+        increaseLikeCount();
+        updatePost();
     }
 
     const postStyle = {
@@ -53,16 +90,27 @@ function Post( {post} ) {
 
     return(
         <div className="d-flex justify-content-center">
-            <div className="card bg-light mb-3" style={postStyle}>
+            <div className="card bg-light mt-3" style={postStyle}>
                 <div className="card-header">
                     <div className="d-flex flex-row-reverse">
                         <div>{post.datetimePosted}</div>
                     </div>
                 </div>
                 <div class="card-body">
-                    <h4 class="card-title">{user.firstName} {user.lastName} | {plant.plantName}</h4>
+                    <h4 class="card-title">
+                    <Link>{user.firstName} {user.lastName}</Link> 
+                    | 
+                    <Link to={`/plantprofile/${plant.plantId}`} className="text-dark text-decoration-none">{plant.plantName}</Link></h4>
                     <p class="card-text">{post.caption}</p>
-                    <button onClick={increaseLikeCount}></button>
+                    <div className="d-flex justify-content-center">
+                        <img src={Redcup} width="400px" alt="redcup plant"></img>
+                    </div>
+                    <div className="d-flex flex-row-reverse">
+                        <div className="ml-3">
+                            <p>{newPost.likeCount}</p>
+                        </div>
+                        <button onClick={handleClick}></button>
+                    </div>
                     <ReplyApp postId={post.postId}/>
                 </div>
             </div>
