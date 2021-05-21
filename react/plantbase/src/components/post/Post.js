@@ -91,11 +91,11 @@ function Post( {postId, userId, plantId, gardenId, caption, photo, datetimePoste
                         <div>{datetimePosted}</div>
                     </div>
                 </div>
-                <div class="card-body">
-                    <h4 class="card-title">
+                <div className="card-body">
+                    <h4 className="card-title">
                     <Link to={`/my-garden/${user.myGardenId}`} className="text-dark text-decoration-none">{user.firstName} {user.lastName}</Link>|
                     <Link to={`/plantprofile/${plant.plantId}`} className="text-dark text-decoration-none">{plant.plantName}</Link></h4>
-                    <p class="card-text">{caption}</p>
+                    <p className="card-text">{caption}</p>
                     <div className="d-flex justify-content-center">
                         <div style={{ display: "flex" }}>
                             <ReactRoundedImage
