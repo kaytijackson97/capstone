@@ -52,9 +52,4 @@ export async function updatePostById(post, postId) {
     if (response.status !== 204) {
         return Promise.reject("response is not 204 NO_CONTENT");
     }
-<<<<<<< HEAD
-=======
-
-    return response.json();
->>>>>>> ca4f7b403898c69b6f816017bc86753954e4a1b2
 }
