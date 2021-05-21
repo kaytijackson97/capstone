@@ -25,6 +25,7 @@ public class PlanterService {
         return repository.findAll();
     }
 
+
     public Planter findByPlanter(int planterId) {
         return repository.findByPlanter(planterId);
     }
@@ -41,8 +42,10 @@ public class PlanterService {
             return result;
         }
 
+
         planter = repository.addPlanter( planter);
         result.setPayload( planter);
+
         return result;
     }
 
@@ -65,6 +68,7 @@ public class PlanterService {
 
         return result;
     }
+
 
     public boolean deleteByPlanter(int planterId) {
         return repository.deleteByPlanter(planterId);

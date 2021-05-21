@@ -8,12 +8,12 @@ public interface PlanterRepository {
 
     List<Planter> findAll();
 
-    Planter findByPlanter(int planterId);
+    Planter findById(int planterId);
 
     Planter addPlanter(Planter planter);
 
     boolean editPlanter(Planter planter);
 
-    boolean deleteByPlanter(int planterId);
+    boolean deleteById(int planterId);
 
 }

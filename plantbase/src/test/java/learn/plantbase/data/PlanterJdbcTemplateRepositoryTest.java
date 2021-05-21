@@ -53,6 +53,7 @@ public class PlanterJdbcTemplateRepositoryTest {
     }
 
     @Test
+
     void shouldNotAddNullPlanter() {
         Planter planter = repository.addPlanter(null);
         assertNull(planter);

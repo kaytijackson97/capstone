@@ -11,26 +11,26 @@ create table garden (
 	garden_id int primary key auto_increment
 );
 
-create table user_profile (
-	user_id int primary key auto_increment,
+create table planter (
+	planter_id int primary key auto_increment,
     role_id int not null,
     first_name varchar(25) not null,
     last_name varchar(25) not null,
     email varchar(50) not null,
-	constraint fk_user_profile_role_id
+	constraint fk_planter_role_id
         foreign key (role_id)
         references plantbase_role(role_id)
 );
 
 create table my_garden (
 	my_garden_id int primary key auto_increment,
-    user_id int not null,
+    planter_id int not null,
     garden_name varchar(50),
     bio varchar(100) default "",
     photo varchar(1000) default "",
-    constraint fk_my_garden_user_id
-		foreign key (user_id)
-        references user_profile(user_id)
+    constraint fk_my_garden_planter_id
+		foreign key (planter_id)
+        references planter(planter_id)
 );
 
 create table plant (
@@ -48,16 +48,16 @@ create table plant (
 
 create table post (
 	post_id int primary key auto_increment,
-    user_id int not null,
+    planter_id int not null,
     plant_id int not null,
     garden_id int not null,
     caption varchar(250) not null,
     photo varchar(1000) default "",
     datetime_posted datetime not null,
     like_count int not null,
-    constraint fk_post_user_id
-		foreign key (user_id)
-        references user_profile(user_id),
+    constraint fk_post_planter_id
+		foreign key (planter_id)
+        references planter(planter_id),
 	constraint fk_post_plant_id
 		foreign key (plant_id)
         references plant(plant_id),
@@ -68,14 +68,14 @@ create table post (
 
 create table reply (
 	reply_id int primary key auto_increment,
-    user_id int not null,
+    planter_id int not null,
     post_id int not null,
     reply varchar(250),
     datetime_posted datetime not null,
     like_count int not null,
-    constraint fk_reply_user_id
-		foreign key (user_id)
-        references user_profile(user_id),
+    constraint fk_reply_planter_id
+		foreign key (planter_id)
+        references planter(planter_id),
 	constraint fk_reply_post_id
 		foreign key (post_id)
         references post(post_id)
@@ -95,8 +95,8 @@ begin
     alter table plant auto_increment = 1;
     delete from my_garden;
     alter table my_garden auto_increment = 1;
-    delete from user_profile;
-    alter table user_profile auto_increment = 1;
+    delete from planter;
+    alter table planter auto_increment = 1;
     delete from plantbase_role;
     alter table plantbase_role auto_increment = 1;
     delete from garden;
@@ -109,14 +109,14 @@ begin
 		('USER'),
         ('TEST');
 
-	insert into user_profile (role_id, first_name, last_name, email)
+	insert into planter (role_id, first_name, last_name, email)
 		values 
 		(1, 'John', 'Smith', 'john@smith.com'),
 		(2, 'Kayti', 'Wiita', 'asdf@asdf.com'),
 		(2, 'Rachel', 'Cuccia', '1234@asdf.com'),
 		(2, 'Ashley', 'Edmunds', 'lkjf@asdf.com');
 		
-	insert into my_garden (user_id, garden_name, bio, photo)
+	insert into my_garden (planter_id, garden_name, bio, photo)
 		values
 		(1, 'John', 'test bio', 'fkdk.jpeg'),
         (2, 'Kayti', 'test bio', 'fkdk.jpeg'),
@@ -135,13 +135,13 @@ begin
         (1, 'blue', 'second_test.png', 'second test', 'double flower flaming katy', '2021-05-13'),
         (1, 'green', 'third_test.png', 'third test', 'double flower flaming katy', '2021-05-13');
         
-	insert into post (plant_id, user_id, garden_id, caption, photo, datetime_posted, like_count)
+	insert into post (plant_id, planter_id, garden_id, caption, photo, datetime_posted, like_count)
 		values
 		(1, 1, 1, 'test post', 'test_post.png', '2021-05-18 10:43:18', 0),
         (1, 1, 1, 'second test post', 'test_post.png', '2021-05-18 10:43:18', 0),
         (1, 1, 1, 'third test post', 'test_post.png', '2021-05-18 10:43:18', 0);
 			
-	insert into reply (user_id, post_id, reply, datetime_posted, like_count)
+	insert into reply (planter_id, post_id, reply, datetime_posted, like_count)
 		values
 		(1, 1, 'test reply', '2021-05-18 10:43:18', 0),
         (1, 1, 'second test reply', '2021-05-18 10:43:18', 0),
