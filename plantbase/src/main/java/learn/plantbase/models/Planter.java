@@ -14,7 +14,7 @@ public class Planter {
 
     @Getter
     @Setter
-    private int userId;
+    private int planterId;
 
     @Getter
     @Setter

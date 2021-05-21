@@ -22,7 +22,7 @@ public class MyGarden {
     @Getter
     @Setter
     @Min(value = 1, message = "User id must be at least 1.")
-    private int userId;
+    private int planterId;
 
     @Getter
     @Setter

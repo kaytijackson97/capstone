@@ -26,53 +26,54 @@ public class PlanterJdbcTemplateRepositoryTest {
 
     @Test
     void shouldFindValidId() {
-        Planter user = repository.findById(1);
-        assertNotNull(user);
+        Planter planter = repository.findByPlanter(1);
+        assertNotNull(planter);
     }
 
     @Test
-    void shouldNotFindMissingUser() {
-        Planter user = repository.findById(100);
-        assertNull(user);
+    void shouldNotFindMissingPlanter() {
+        Planter planter = repository.findByPlanter(100);
+        assertNull(planter);
     }
 
     @Test
-    void shouldFindAllUsers() {
-        List<Planter> users = repository.findAll();
-        assertNotNull(users);
+    void shouldFindAllPlanters() {
+        List<Planter> planters = repository.findAll();
+        assertNotNull(planters);
     }
 
     @Test
-    void shouldAddUser() {
-        Planter user = makeNewUser(5);
-        Planter actual = repository.addPlanter(user);
-        assertEquals(actual, user);
+    void shouldAddPlanter() {
+        Planter planter = makeNewPlanter(5);
+        Planter actual = repository.addPlanter(planter);
+        assertEquals(actual, planter);
 
-        List<Planter> users = repository.findAll();
-        assertTrue(users.size() >= 2);
+        List<Planter> planters = repository.findAll();
+        assertTrue(planters.size() >= 2);
     }
 
     @Test
-    void shouldNotAddNullUser() {
-        Planter user = repository.addPlanter(null);
-        assertNull(user);
+
+    void shouldNotAddNullPlanter() {
+        Planter planter = repository.addPlanter(null);
+        assertNull(planter);
     }
 
     @Test
-    void shouldEditUserWithValidUser() {
-        Planter user = repository.findById(1);
-        user.setFirstName("Riley");
-        assertTrue(repository.editPlanter(user));
+    void shouldEditUserWithValidPlanter() {
+        Planter planter = repository.findByPlanter(1);
+        planter.setFirstName("Riley");
+        assertTrue(repository.editPlanter(planter));
     }
 
     @Test
-    void shouldNotEditUserWithInvalidUser() {
+    void shouldNotEditUserWithInvalidPlanter() {
         Planter actual = new Planter();
         actual.setRoleId(1);
         actual.setFirstName("Robert");
         actual.setLastName("Fall");
         actual.setEmail("robertf@aol.com");
-        actual.setUserId(100);
+        actual.setPlanterId(100);
         boolean success = repository.editPlanter(actual);
         assertFalse(success);
     }
@@ -83,23 +84,23 @@ public class PlanterJdbcTemplateRepositoryTest {
     }
 
     @Test
-    void shouldDeleteByValidUser() {
-        assertTrue(repository.deleteById(5));
+    void shouldDeleteByValidPlanter() {
+        assertTrue(repository.deleteByPlanter(5));
     }
 
     @Test
-    void shouldNotDeleteWithInvalidUser() {
-        assertFalse(repository.deleteById(100));
+    void shouldNotDeleteWithInvalidPlanter() {
+        assertFalse(repository.deleteByPlanter(100));
     }
 
-    private Planter makeNewUser(int userId) {
-        Planter user = new Planter();
-        user.setUserId(userId);
-        user.setUserId(1);
-        user.setRoleId(1);
-        user.setFirstName("Bob");
-        user.setLastName("Riley");
-        user.setEmail("bob.riley@aol.com");
-        return user;
+    private Planter makeNewPlanter(int planterId) {
+        Planter planter = new Planter();
+        planter.setPlanterId(planterId);
+        planter.setPlanterId(1);
+        planter.setRoleId(1);
+        planter.setFirstName("Bob");
+        planter.setLastName("Riley");
+        planter.setEmail("bob.riley@aol.com");
+        return planter;
     }
 }
