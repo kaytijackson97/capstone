@@ -98,16 +98,16 @@ public class AppUserRepository {
     }
 
     private void addPlanter(AppUser appUser) {
-        final String sql ="select user_id, role_id, first_name, last_name, email " +
-                "from user_profile " +
-                "where user_id = ?;";
+        final String sql ="select planter_id, role_id, first_name, last_name, email " +
+                "from planter " +
+                "where planter_id = ?;";
 
         Planter planter = jdbcTemplate.query(sql, new PlanterMapper(), appUser.getAppUserId()).stream().findFirst().orElse(null);
         appUser.setPlanter(planter);
     }
 
     private void addMyGarden(AppUser appUser) {
-        final String sql = "select my_garden_id, user_id, garden_name, bio, photo from my_garden where user_id = ?;";
+        final String sql = "select my_garden_id, planter_id, garden_name, bio, photo from my_garden where planter_id = ?;";
 
         MyGarden myGarden = jdbcTemplate.query(sql, new MyGardenMapper(), appUser.getAppUserId()).stream().findFirst().orElse(null);
         appUser.setMyGarden(myGarden);
