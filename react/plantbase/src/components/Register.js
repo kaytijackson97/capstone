@@ -2,8 +2,8 @@ import AddUser from "./user/AddUser";
 import { useContext, useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 
-import AuthContext from './AuthContext';
-import Error from './Error';
+import AuthContext from './contexts/AuthContext';
+import Errors from './Errors';
 
 function Register({ parentAddUser }) {
     const auth = useContext(AuthContext);
@@ -50,7 +50,7 @@ function Register({ parentAddUser }) {
   return (
     <div>
       <h2>Register</h2>
-      <Error error={error} />
+      <Errors errors={error} />
       <form onSubmit={handleSubmit}>
       <div>
           <label>Username:</label>
