@@ -35,9 +35,6 @@ function Nav() {
                 <Link style={navStyle} to="/post" className="nav-link">
                     <li style={navStyle}>Post</li>
                 </Link>
-                <Link style={navStyle} to="/reply" className="nav-link">
-                    <li style={navStyle}>Reply</li>
-                </Link>
                 <Link style={navStyle} to="/plant" className="nav-link">
                     <li style={navStyle}>Plant</li>
                 </Link>
