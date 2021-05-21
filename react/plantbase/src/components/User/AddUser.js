@@ -55,7 +55,6 @@ const handleEmailChange = (event) => {
             <label htmlFor="emailTextBox">Email Address:</label>
             <input type="text" id="emailTextBox" onChange={handleEmailChange} className="form-control"/>
           </div>
-          <button type="submit" className="btn btn-primary mt-2">Create Account</button>
         </form>
       </div>
     </div>
