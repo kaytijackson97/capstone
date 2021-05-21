@@ -27,3 +27,19 @@ export async function findReplyById(replyId) {
 
     return response.json();
 }
+
+export async function addReply(reply) {
+    const init = {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(reply),
+        };
+
+    const response = await fetch("http://localhost:8080/api/reply", init);
+
+    if (response.status !== 201) {
+        return Promise.reject("response is not 201 CREATED");
+    }
+}

@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { findUserById } from "../../services/user-api";
 
-function Reply({replyId, userId, postId, reply, datetimePosted, likeCount}) {
+function Reply({userId, reply, datetimePosted, likeCount}) {
 
     const defaultUser = {
         userId: 0,
@@ -32,11 +32,11 @@ function Reply({replyId, userId, postId, reply, datetimePosted, likeCount}) {
                     <div>{datetimePosted}</div>
                 </div>
             </div>
-            <div class="card-body">
+            <div className="card-body">
                 <Link to={`/my-garden/${user.myGardenId}`} className="text-dark text-decoration-none">
-                    <h6 class="card-title">{user.firstName} {user.lastName}</h6>
+                    <h6 className="card-title">{user.firstName} {user.lastName}</h6>
                 </Link>
-                <p class="card-text">{reply}</p>
+                <p className="card-text">{reply}</p>
                 <button onClick={increaseLikeCount}></button>
             </div>
         </div>
