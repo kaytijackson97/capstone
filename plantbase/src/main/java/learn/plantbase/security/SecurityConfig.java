@@ -76,14 +76,25 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.PUT, "/api/post/*").hasAnyRole("USER", "ADMIN")
                 .antMatchers(HttpMethod.DELETE, "/api/post/*").hasAnyRole("USER", "ADMIN")
                 //reply
+                .antMatchers(HttpMethod.GET, "/api/reply", /*Get by id*/ "/api/reply/*", "/api/reply/post/*").permitAll() // anybody is able to hit this endpoint
+                .antMatchers(HttpMethod.POST, "/api/reply").permitAll()
+                .antMatchers(HttpMethod.PUT, "/api/reply/*").permitAll()
+                .antMatchers(HttpMethod.DELETE, "/api/reply/*").permitAll()
 
                 //role
+                .antMatchers(HttpMethod.GET, "/api/role", /*Get by id*/ "/api/role/*").permitAll() // anybody is able to hit this endpoint
 
                 //user
+                .antMatchers(HttpMethod.GET, "/api/user", /*Get by id*/ "/api/user/*").permitAll() // anybody is able to hit this endpoint
+                .antMatchers(HttpMethod.POST, "/api/user").permitAll()
+                .antMatchers(HttpMethod.PUT, "/api/user/*").permitAll()
+                .antMatchers(HttpMethod.DELETE, "/api/user/*").permitAll()
+
                 .antMatchers("/**" /* any route in this path not explicitly defined above is denied */).denyAll()
                 .and()
                 .addFilter(new JwtRequestFilter(authenticationManager(), converter))
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+
     }
 }

@@ -81,7 +81,6 @@ public class PostService {
         hasDifferentIds(result, originalPost.getUserId(), post.getUserId(), "Cannot change user.");
         hasDifferentIds(result, originalPost.getPlantId(), post.getPlantId(), "Cannot change plant.");
         hasDifferentIds(result, originalPost.getGardenId(), post.getGardenId(), "Cannot change garden.");
-        hasDifferentIds(result, originalPost.getLikeCount(), post.getLikeCount(), "Cannot change like count.");
 
         if (!originalPost.getDatetimePosted().equals(post.getDatetimePosted())) {
             result.addMessage("Cannot change datetimePosted.", ResultType.INVALID);

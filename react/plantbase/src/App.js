@@ -1,7 +1,7 @@
 import Nav from './components/Nav';
 import Welcome from './components/Welcome';
-import Post from './components/post/Post';
-// import Reply from './components/reply/Reply';
+import PostApp from './components/post/PostApp';
+import Reply from './components/reply/Reply';
 import GardenApp from './components/gardens/Garden';
 import MyGardenApp from './components/my-gardens/MyGarden';
 
@@ -28,11 +28,11 @@ function App() {
           <MyGardenApp/>
         </Route>
         <Route path="/post" exact>
-          <Post />
+          <PostApp />
         </Route>
-        {/* <Route path="/reply" exact>
+        <Route path="/reply" exact>
           <Reply />
-        </Route> */}
+        </Route>
       </Switch>
     </Router>
     </div>

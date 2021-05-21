@@ -12,7 +12,7 @@ function Welcome() {
                     </div>
                 </div>
                 <div className="col">
-                    <div className="card border-success mb-3" style="max-width + 20;">
+                    <div className="card border-success mb-3" style={{maxwidth: + 20}}>
                         <div className="card-header">Header</div>
                         <div className="card-body">
                             <form>
