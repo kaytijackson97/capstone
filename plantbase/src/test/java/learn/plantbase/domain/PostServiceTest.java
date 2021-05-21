@@ -92,7 +92,7 @@ class PostServiceTest {
     @Test
     void shouldNotAddIfInvalidUserId() {
         Post expected = makeNewPost(0);
-        expected.setUserId(10);
+        expected.setPlanterId(10);
 
         Result<Post> actual = service.addPost(expected);
         assertEquals(1, actual.getMessages().size());
@@ -192,7 +192,7 @@ class PostServiceTest {
         when(repository.findById(1)).thenReturn(post);
 
         Post updatedPost = makeNewPost(1);
-        updatedPost.setUserId(2);
+        updatedPost.setPlanterId(2);
         when(repository.editPost(post)).thenReturn(true);
 
         Planter user1 = new Planter();
@@ -278,7 +278,7 @@ class PostServiceTest {
     private Post makeNewPost(int postId) {
         Post post = new Post();
         post.setPostId(postId);
-        post.setUserId(1);
+        post.setPlanterId(1);
         post.setGardenId(1);
         post.setPlantId(1);
         post.setCaption("test caption");

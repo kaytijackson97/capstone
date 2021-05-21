@@ -8,7 +8,7 @@ import java.util.List;
 public interface PostRepository {
     List<Post> findAll();
 
-    List<Post> findByUserId(int userId);
+    List<Post> findByPlanterId(int userId);
 
     List<Post> findByPlantId(int plantId);
 

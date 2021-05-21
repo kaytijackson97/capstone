@@ -75,7 +75,7 @@ class ReplyServiceTest {
     @Test
     void shouldNotAddIfInvalidUserId() {
         Reply expected = makeNewReply(0);
-        expected.setUserId(10);
+        expected.setPlanterId(10);
 
         Result<Reply> actual = service.addReply(expected);
         assertEquals(1, actual.getMessages().size());
@@ -156,7 +156,7 @@ class ReplyServiceTest {
         when(repository.findById(1)).thenReturn(reply);
 
         Reply updatedReply = makeNewReply(1);
-        updatedReply.setUserId(2);
+        updatedReply.setPlanterId(2);
         when(repository.editReply(reply)).thenReturn(true);
 
         Planter user1 = new Planter();
@@ -221,7 +221,7 @@ class ReplyServiceTest {
     private Reply makeNewReply(int replyId) {
         Reply reply = new Reply();
         reply.setReplyId(replyId);
-        reply.setUserId(1);
+        reply.setPlanterId(1);
         reply.setPostId(1);
         reply.setReply("test reply");
         reply.setDatetimePosted(LOCAL_DATE_TIME);

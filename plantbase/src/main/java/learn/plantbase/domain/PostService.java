@@ -18,13 +18,13 @@ import java.util.regex.Pattern;
 public class PostService {
 
     private final PostRepository repository;
-    private final PlanterRepository userRepository;
+    private final PlanterRepository planterRepository;
     private final PlantRepository plantRepository;
     private final GardenRepository gardenRepository;
 
-    public PostService(PostRepository repository, PlanterRepository userRepository, PlantRepository plantRepository, GardenRepository gardenRepository) {
+    public PostService(PostRepository repository, PlanterRepository planterRepository, PlantRepository plantRepository, GardenRepository gardenRepository) {
         this.repository = repository;
-        this.userRepository = userRepository;
+        this.planterRepository = planterRepository;
         this.plantRepository = plantRepository;
         this.gardenRepository = gardenRepository;
     }
@@ -33,8 +33,8 @@ public class PostService {
         return repository.findAll();
     }
 
-    public List<Post> findByUserId(int userId) {
-        return repository.findByUserId(userId);
+    public List<Post> findByPlanterId(int planterId) {
+        return repository.findByPlanterId(planterId);
     }
 
     public List<Post> findByPlantId(int plantId) {
@@ -77,7 +77,7 @@ public class PostService {
         }
 
         Post originalPost = repository.findById(post.getPostId());
-        hasDifferentIds(result, originalPost.getUserId(), post.getUserId(), "Cannot change user.");
+        hasDifferentIds(result, originalPost.getPlanterId(), post.getPlanterId(), "Cannot change planter.");
         hasDifferentIds(result, originalPost.getPlantId(), post.getPlantId(), "Cannot change plant.");
         hasDifferentIds(result, originalPost.getGardenId(), post.getGardenId(), "Cannot change garden.");
 
@@ -109,12 +109,12 @@ public class PostService {
             return result;
         }
 
-        List<Planter> users = userRepository.findAll();
-        boolean userExists = users.stream()
-                .anyMatch(i -> i.getUserId() == post.getUserId());
+        List<Planter> planters = planterRepository.findAll();
+        boolean planterExists = planters.stream()
+                .anyMatch(i -> i.getUserId() == post.getPlanterId());
 
-        if (!userExists) {
-            result.addMessage("Invalid user id", ResultType.INVALID);
+        if (!planterExists) {
+            result.addMessage("Invalid planter id", ResultType.INVALID);
             return result;
         }
 
@@ -166,13 +166,13 @@ public class PostService {
 //        if (o == null || getClass() != o.getClass()) return false;
 //        PostService that = (PostService) o;
 //        return Objects.equals(repository, that.repository) &&
-//                Objects.equals(userRepository, that.userRepository) &&
+//                Objects.equals(planterRepository, that.planterRepository) &&
 //                Objects.equals(plantRepository, that.plantRepository) &&
 //                Objects.equals(gardenRepository, that.gardenRepository);
 //    }
 //
 //    @Override
 //    public int hashCode() {
-//        return Objects.hash(repository, userRepository, plantRepository, gardenRepository);
+//        return Objects.hash(repository, planterRepository, plantRepository, gardenRepository);
 //    }
 }

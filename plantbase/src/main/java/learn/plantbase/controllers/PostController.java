@@ -30,7 +30,7 @@ public class PostController {
 
     @GetMapping("/user/{userId}")
     public ResponseEntity<Object> findByUserId(@PathVariable int userId) {
-        List<Post> posts = service.findByUserId(userId);
+        List<Post> posts = service.findByPlanterId(userId);
         if (posts.size() == 0) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }

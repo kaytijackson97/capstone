@@ -6,8 +6,6 @@ import org.springframework.jdbc.core.RowMapper;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
 public class ReplyMapper implements RowMapper<Reply> {
 
@@ -15,7 +13,7 @@ public class ReplyMapper implements RowMapper<Reply> {
     public Reply mapRow(ResultSet resultSet, int i) throws SQLException {
         Reply reply = new Reply();
         reply.setReplyId(resultSet.getInt("reply_id"));
-        reply.setUserId(resultSet.getInt("user_id"));
+        reply.setPlanterId(resultSet.getInt("user_id"));
         reply.setPostId(resultSet.getInt("post_id"));
         reply.setReply(resultSet.getString("reply"));
 
