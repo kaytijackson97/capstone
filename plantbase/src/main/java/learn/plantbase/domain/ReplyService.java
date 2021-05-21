@@ -12,12 +12,12 @@ import java.util.List;
 public class ReplyService {
 
     private final ReplyRepository repository;
-    private final PlanterRepository userRepository;
+    private final PlanterRepository planterRepository;
     private final PostRepository postRepository;
 
-    public ReplyService(ReplyRepository repository, PlanterRepository userRepository, PostRepository postRepository) {
+    public ReplyService(ReplyRepository repository, PlanterRepository planterRepository, PostRepository postRepository) {
         this.repository = repository;
-        this.userRepository = userRepository;
+        this.planterRepository = planterRepository;
         this.postRepository = postRepository;
     }
 
@@ -60,7 +60,7 @@ public class ReplyService {
             return result;
         }
         Reply originalReply = repository.findById(reply.getReplyId());
-        hasDifferentIds(result, originalReply.getUserId(), reply.getUserId(), "Cannot change user id.");
+        hasDifferentIds(result, originalReply.getPlanterId(), reply.getPlanterId(), "Cannot change planter id.");
         hasDifferentIds(result, originalReply.getPostId(), reply.getPostId(), "Cannot change post id.");
 
         if (!originalReply.getDatetimePosted().equals(reply.getDatetimePosted())) {
@@ -92,12 +92,12 @@ public class ReplyService {
             return result;
         }
 
-        List<Planter> users = userRepository.findAll();
-        boolean userExists = users.stream()
-                .anyMatch(i -> i.getUserId() == reply.getUserId());
+        List<Planter> planters = planterRepository.findAll();
+        boolean planterExists = planters.stream()
+                .anyMatch(i -> i.getUserId() == reply.getPlanterId());
 
-        if (!userExists) {
-            result.addMessage("Invalid user id", ResultType.INVALID);
+        if (!planterExists) {
+            result.addMessage("Invalid planter id", ResultType.INVALID);
             return result;
         }
 

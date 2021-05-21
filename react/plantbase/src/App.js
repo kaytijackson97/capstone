@@ -33,14 +33,6 @@ function App() {
 
     const roles = rolesString.split(",");
 
-    findUserById(id)
-      .then(data => setPlanter(data));
-
-    const firstName = planter.firstName;
-    const lastName = planter.lastName;
-    const email = planter.email;
-    const myGarden = planter.myGarden;
-
     const currentUser = {
       id,
       username,
@@ -52,10 +44,10 @@ function App() {
       isValid() {
         return true;
       },
-      firstName,
-      lastName,
-      email,
-      myGarden
+      // firstName,
+      // lastName,
+      // email,
+      // myGarden
     };
 
 

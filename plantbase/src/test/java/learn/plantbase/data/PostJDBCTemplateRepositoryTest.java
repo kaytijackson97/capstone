@@ -37,7 +37,7 @@ class PostJDBCTemplateRepositoryTest {
     void shouldFindByIdIfValid() {
         Post post = repository.findById(1);
         assertNotNull(post);
-        assertEquals(1, post.getUserId());
+        assertEquals(1, post.getPlanterId());
         assertNotNull(post.getReplies());
     }
 
@@ -49,14 +49,14 @@ class PostJDBCTemplateRepositoryTest {
 
     @Test
     void shouldFindAllPostsByValidUser() {
-        List<Post> posts = repository.findByUserId(1);
+        List<Post> posts = repository.findByPlanterId(1);
         assertNotNull(posts);
         assertTrue(posts.size() >= 1);
     }
 
     @Test
     void shouldNotFindAnyPostsIfInvalidUser() {
-        List<Post> posts = repository.findByUserId(5);
+        List<Post> posts = repository.findByPlanterId(5);
         assertNotNull(posts);
         assertEquals(0, posts.size());
     }
@@ -122,7 +122,7 @@ class PostJDBCTemplateRepositoryTest {
     private Post makeNewPost(int postId) {
         Post post = new Post();
         post.setPostId(postId);
-        post.setUserId(1);
+        post.setPlanterId(1);
         post.setGardenId(1);
         post.setPlantId(1);
         post.setCaption("test caption");

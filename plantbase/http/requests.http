@@ -25,7 +25,9 @@ Content-Type: application/json
 
 {
     "username": "rcuccia",
-    "password": "bulbasaur1@"
+    "password": "bulbasaur1@",
+    "planter": null,
+    "myGarden": null
 }
 
 ### Should return a 400 status code with the validation messages in the response body

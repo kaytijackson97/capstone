@@ -27,7 +27,7 @@ public class PostController {
     public List<Post> findAll(){
         return service.findAll();
     }
-
+  
     @GetMapping("/planter/{planterId}")
     public ResponseEntity<Object> findByPlanterId(@PathVariable int planterId) {
         List<Post> posts = service.findByUserId(planterId);
