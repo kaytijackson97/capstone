@@ -1,9 +1,11 @@
 import { Link } from 'react-router-dom';
-import React from 'react';
+import React, { useState } from 'react';
 
 
 function Nav() {
     // const auth = useContext(AuthContext);
+
+    const [myGarden, setMyGarden] = useState({});
 
     const navStyle = {
         color: 'white',
@@ -23,7 +25,7 @@ function Nav() {
                 <Link style={navStyle} to="/garden" className="nav-link">
                     <li style={navStyle} >Garden</li>
                 </Link>
-                <Link style={navStyle} to="/my-garden" className="nav-link">
+                <Link style={navStyle} to={`/my-garden/${myGarden.myGardenId}`} className="nav-link">
                     <li style={navStyle} >My Garden</li>
                 </Link>
                 <Link style={navStyle} to="/post" className="nav-link">
