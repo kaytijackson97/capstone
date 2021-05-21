@@ -103,7 +103,7 @@ insert into garden (garden_id)
 
 insert into plant (my_garden_id, plant_description, photo, plant_name, plant_type, gotcha_date)
 	values
-	(1, 'pink', 'test.png', 'katy', 'double flower flaming katy', '2021-05-13');
+	(1, 'pink', 'https://www.ourhouseplants.com/imgs-gallery/kalanchoe-L.jpg', 'katy', 'double flower flaming katy', '2021-05-13');
 	
 insert into post (plant_id, user_id, garden_id, caption, photo, datetime_posted, like_count)
 	values
