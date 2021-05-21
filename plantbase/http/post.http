@@ -101,18 +101,18 @@ Content-Type: application/json
 
 
 ### Edit post
-PUT /api/post/2 HTTP/1.1
+PUT /api/post/1 HTTP/1.1
 Host: localhost:8080
 Origin: http://localhost:3000
 Content-Type: application/json
 
 {
-    "postId": 2,
+    "postId": 1,
     "userId": 1,
     "gardenId": 1,
     "caption": " edit post test",
     "photo": "test_post.png",
-    "datetimePosted": "2021-05-18T02:43:18",
+    "datetimePosted": "2021-05-18T06:43:18",
     "likeCount": 0,
     "plantId": 1
 }

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { findAllPosts, findPostById } from "../../services/api";
+import { findPostById } from "../../services/post-api";
 import Post from "./Post";
 
 function PostApp() {

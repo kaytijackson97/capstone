@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { findAllPosts } from "../../services/api";
+import { findAllPosts } from "../../services/post-api";
 
 function PostList() {
 

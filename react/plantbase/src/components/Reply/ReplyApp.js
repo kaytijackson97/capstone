@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { findRepliesByPost } from "../../services/api";
+import { findRepliesByPost } from "../../services/reply-api";
 import ReplyList from '../reply/ReplyList';
 
 function ReplyApp( {postId} ) {
