@@ -96,14 +96,14 @@ insert into user_profile (role_id, first_name, last_name, email)
 	
 insert into my_garden (user_id, garden_name, bio, photo)
 	values
-	(1, 'John', 'test bio', 'fkdk.jpeg');
+	(1, 'John', 'test bio', 'https://loveincorporated.blob.core.windows.net/contentimages/gallery/a2ba32b4-f28d-4aae-a576-b6814edf2109-4bd7d670-5cff-4d3c-ba39-cd7fd3e0c0b0-Keukenhof-garden-edit.jpg');
 
 insert into garden (garden_id)
 	values (1);
 
 insert into plant (my_garden_id, plant_description, photo, plant_name, plant_type, gotcha_date)
 	values
-	(1, 'pink', 'test.png', 'katy', 'double flower flaming katy', '2021-05-13');
+	(1, 'pink', 'https://www.ourhouseplants.com/imgs-gallery/kalanchoe-L.jpg', 'katy', 'double flower flaming katy', '2021-05-13');
 	
 insert into post (plant_id, user_id, garden_id, caption, photo, datetime_posted, like_count)
 	values

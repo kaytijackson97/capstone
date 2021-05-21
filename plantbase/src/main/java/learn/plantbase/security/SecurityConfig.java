@@ -63,27 +63,42 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.POST, "/api/plants").hasAnyRole("USER", "ADMIN")
                 .antMatchers(HttpMethod.PUT, "/api/plants/*").hasAnyRole("USER", "ADMIN")
                 .antMatchers(HttpMethod.DELETE, "/api/plants/*").hasAnyRole("USER", "ADMIN")
+
                 //my garden
                 .antMatchers(HttpMethod.GET, "/api/my-garden", /*Get by id*/ "/api/my-garden/*", "/api/my-garden/from-user/*").permitAll() // anybody is able to hit this endpoint
                 .antMatchers(HttpMethod.POST, "/api/my-garden").hasAnyRole("USER", "ADMIN")
                 .antMatchers(HttpMethod.PUT, "/api/my-garden/*").hasAnyRole("USER", "ADMIN")
                 .antMatchers(HttpMethod.DELETE, "/api/my-garden/*").hasAnyRole("USER", "ADMIN")
+
                 //garden
                 .antMatchers(HttpMethod.GET, "/api/garden", /*Get by id*/ "/api/garden/*").permitAll() // anybody is able to hit this endpoint
+
                 //post
                 .antMatchers(HttpMethod.GET, "/api/post", /*Get by id*/ "/api/post/*", "/api/post/user/*", "/api/post/plant/*").permitAll() // anybody is able to hit this endpoint
                 .antMatchers(HttpMethod.POST, "/api/post").hasAnyRole("USER", "ADMIN")
-                .antMatchers(HttpMethod.PUT, "/api/post/*").hasAnyRole("USER", "ADMIN")
+                .antMatchers(HttpMethod.PUT, "/api/post/*").permitAll()
                 .antMatchers(HttpMethod.DELETE, "/api/post/*").hasAnyRole("USER", "ADMIN")
+
                 //reply
+                .antMatchers(HttpMethod.GET, "/api/reply", /*Get by id*/ "/api/reply/*", "/api/reply/post/*").permitAll() // anybody is able to hit this endpoint
+                .antMatchers(HttpMethod.POST, "/api/reply").permitAll()
+                .antMatchers(HttpMethod.PUT, "/api/reply/*").permitAll()
+                .antMatchers(HttpMethod.DELETE, "/api/reply/*").permitAll()
 
                 //role
+                .antMatchers(HttpMethod.GET, "/api/role", /*Get by id*/ "/api/role/*").permitAll() // anybody is able to hit this endpoint
 
                 //user
+                .antMatchers(HttpMethod.GET, "/api/user", /*Get by id*/ "/api/user/*").permitAll() // anybody is able to hit this endpoint
+                .antMatchers(HttpMethod.POST, "/api/user").permitAll()
+                .antMatchers(HttpMethod.PUT, "/api/user/*").permitAll()
+                .antMatchers(HttpMethod.DELETE, "/api/user/*").permitAll()
+
                 .antMatchers("/**" /* any route in this path not explicitly defined above is denied */).denyAll()
                 .and()
                 .addFilter(new JwtRequestFilter(authenticationManager(), converter))
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+
     }
 }

@@ -264,20 +264,6 @@ class PostServiceTest {
     }
 
     @Test
-    void shouldNotEditIfLikeCountIsChanged() {
-        Post post = makeNewPost(1);
-        when(repository.findById(1)).thenReturn(post);
-
-        Post updatedPost = makeNewPost(1);
-        updatedPost.setLikeCount(1000);
-        when(repository.editPost(post)).thenReturn(true);
-
-        Result<Post> actual = service.editPost(updatedPost);
-        assertEquals(1, actual.getMessages().size());
-        assertEquals("Cannot change like count.", actual.getMessages().get(0));
-    }
-
-    @Test
     void shouldDeleteIfValidId() {
         when(repository.deletePost(1)).thenReturn(true);
         assertTrue(service.deleteById(1));

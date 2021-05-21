@@ -99,9 +99,10 @@ public class PostJDBCTemplateRepository implements PostRepository {
 
         final String sql = "update post set " +
                 "caption = ?, " +
-                "photo = ? " +
+                "photo = ?," +
+                "like_count= ? " +
                 "where post_id = ?;";
-        return template.update(sql, post.getCaption(), post.getPhoto(), post.getPostId()) > 0;
+        return template.update(sql, post.getCaption(), post.getPhoto(), post.getLikeCount(), post.getPostId()) > 0;
     }
 
     @Override

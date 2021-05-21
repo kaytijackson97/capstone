@@ -207,20 +207,6 @@ class ReplyServiceTest {
     }
 
     @Test
-    void shouldNotEditIfLikeCountIsChanged() {
-        Reply reply = makeNewReply(1);
-        when(repository.findById(1)).thenReturn(reply);
-
-        Reply updatedReply = makeNewReply(1);
-        updatedReply.setLikeCount(1000);
-        when(repository.editReply(reply)).thenReturn(true);
-
-        Result<Reply> actual = service.editReply(updatedReply);
-        assertEquals(1, actual.getMessages().size());
-        assertEquals("Cannot change like count.", actual.getMessages().get(0));
-    }
-
-    @Test
     void shouldDeleteIfValidId() {
         when(repository.deleteById(1)).thenReturn(true);
         assertTrue(service.deleteById(1));

@@ -1,8 +1,11 @@
 import { Link } from 'react-router-dom';
-import React, {useContext} from 'react';
+import React, { useState } from 'react';
+
 
 function Nav() {
     // const auth = useContext(AuthContext);
+
+    const [myGarden, setMyGarden] = useState({});
 
     const navStyle = {
         color: 'white',
@@ -12,7 +15,7 @@ function Nav() {
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
         <div className="container-fluid">
-            <Link style={navStyle} to="/" ><strong>🌱</strong>
+            <Link style={navStyle} to="/" ><strong>🌱 Plantbase</strong>
             </Link>
             <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor03" aria-controls="navbarColor03" aria-expanded="false" aria-label="Toggle navigation">
                 <span className="navbar-toggler-icon"></span>
@@ -22,8 +25,17 @@ function Nav() {
                 <Link style={navStyle} to="/garden" className="nav-link">
                     <li style={navStyle} >Garden</li>
                 </Link>
-                <Link style={navStyle} to="/my-garden" className="nav-link">
+                <Link style={navStyle} to={`/my-garden/${myGarden.myGardenId}`} className="nav-link">
                     <li style={navStyle} >My Garden</li>
+                </Link>
+                <Link style={navStyle} to="/post" className="nav-link">
+                    <li style={navStyle}>Post</li>
+                </Link>
+                <Link style={navStyle} to="/reply" className="nav-link">
+                    <li style={navStyle}>Reply</li>
+                </Link>
+                <Link style={navStyle} to="/plant" className="nav-link">
+                    <li style={navStyle}>Plant</li>
                 </Link>
                 {/* <Link style={navStyle} className="nav-link btn-secondary" to="/profile">
                     <li className="nav-item">
