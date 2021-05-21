@@ -1,12 +1,13 @@
+import AddUser from "./User/AddUser";
 
-function Register() {
+function Register({ parentAddUser }) {
     
 
 
  return (
-  <div>
-      
-  </div>
+  <>
+      <AddUser addUser={parentAddUser}/>
+  </>
  );
 }
 
