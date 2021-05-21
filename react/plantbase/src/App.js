@@ -8,7 +8,7 @@ import PlantProfile from './components/plants/PlantProfile';
 import PostApp from './components/post/PostApp';
 import Reply from './components/reply/Reply';
 import CurrentUser from './components/contexts/CurrentUser';
-import {useContext, useState} from 'react';
+import {useContext, useState, useEffect} from 'react';
 import jwt_decode from "jwt-decode";
 import NotFound from './components/NotFound';
 import Confirmation from './components/Confirmation';
@@ -20,9 +20,11 @@ import {
   Redirect,
 } from "react-router-dom";
 import AddPlant from './components/plants/AddPlant';
+import { findUserById } from './services/user-api';
 
 function App() {
   const [currentUser, setCurrentUser] = useState(null);
+  const [planter, setPlanter] = useState(null);
 
   const login = (token) => {
     const { id, sub: username, authorities: rolesString } = jwt_decode(token);
@@ -30,6 +32,14 @@ function App() {
     // const roles = rolesString !== undefined ?  rolesString.split(",") : [];
 
     const roles = rolesString.split(",");
+
+    findUserById(id)
+      .then(data => setPlanter(data));
+
+    const firstName = planter.firstName;
+    const lastName = planter.lastName;
+    const email = planter.email;
+    const myGarden = planter.myGarden;
 
     const currentUser = {
       id,
@@ -42,7 +52,12 @@ function App() {
       isValid() {
         return true;
       },
+      firstName,
+      lastName,
+      email,
+      myGarden
     };
+
 
     setCurrentUser(currentUser);
   };
