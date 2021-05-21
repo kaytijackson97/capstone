@@ -25,71 +25,75 @@ public class PlanterService {
         return repository.findAll();
     }
 
-    public Planter findByUser(int userId) {
-        return repository.findById(userId);
+
+    public Planter findByPlanter(int planterId) {
+        return repository.findByPlanter(planterId);
     }
 
-    public Result<Planter> addUser(Planter user) {
-        Result<Planter> result = validate(user);
+    public Result<Planter> addPlanter(Planter planter) {
+        Result<Planter> result = validate( planter);
 
         if (!result.isSuccess()) {
             return result;
         }
 
-        if (user.getUserId() !=0) {
-            result.addMessage("userId cannot be set for 'add' operation", ResultType.INVALID);
+        if ( planter.getPlanterId() !=0) {
+            result.addMessage(" planterId cannot be set for 'add' operation", ResultType.INVALID);
             return result;
         }
 
-        user = repository.addPlanter(user);
-        result.setPayload(user);
+
+        planter = repository.addPlanter( planter);
+        result.setPayload( planter);
+
         return result;
     }
 
-    public Result<Planter> editUser(Planter user) {
-        Result<Planter> result = validate(user);
+    public Result<Planter> editPlanter(Planter planter) {
+        Result<Planter> result = validate(planter);
 
         if (!result.isSuccess()) {
             return result;
         }
 
-        if (user.getUserId() <= 0) {
+        if (planter.getPlanterId() <= 0) {
             result.addMessage("userId must be set for 'edit' operation", ResultType.INVALID);
             return result;
         }
 
-        if (!repository.editPlanter(user)) {
-            String msg = String.format("userId: %s, not found", user.getUserId());
+        if (!repository.editPlanter(planter)) {
+            String msg = String.format("userId: %s, not found", planter.getPlanterId());
             result.addMessage(msg, ResultType.NOT_FOUND);
         }
 
         return result;
     }
 
-    public boolean deleteByUser(int userId) {
-        return repository.deleteById(userId);
+
+    public boolean deleteByPlanter(int planterId) {
+        return repository.deleteByPlanter(planterId);
     }
 
-    private Result<Planter> validate(Planter user) {
+    private Result<Planter> validate(Planter planter) {
         Result<Planter> result = new Result<>();
-        if (user == null) {
+        if (planter == null) {
             result.addMessage("user cannot be null", ResultType.INVALID);
             return result;
         }
 
         List<Role> roles = roleRepository.findAll();
         boolean roleExists = roles.stream()
-                .anyMatch(i -> i.getRoleId() == user.getRoleId());
+                .anyMatch(i -> i.getRoleId() == planter.getRoleId());
 
         if (!roleExists) {
             result.addMessage("invalid role id", ResultType.INVALID);
             return result;
         }
 
-        if (user.getEmail() != null) {
+        if (planter.getEmail() != null) {
             String emailRegex = "^[\\w!#$%&'*+/=?`{|}~^-]+(?:\\.[\\w!#$%&'*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$";
             Pattern pattern = Pattern.compile(emailRegex);
-            Matcher matcher = pattern.matcher(user.getEmail());
+            Matcher matcher = pattern.matcher(planter.getEmail());
 
             if (!matcher.matches()) {
                 result.addMessage("invalid email", ResultType.INVALID);

@@ -32,6 +32,7 @@ public class PlanterJdbcTemplateRepository implements PlanterRepository {
     }
 
     @Override
+
     public Planter findById(int planterId) {
 
         final String sql = "select planter_id, role_id, first_name, last_name, email "
@@ -45,7 +46,7 @@ public class PlanterJdbcTemplateRepository implements PlanterRepository {
 //        if (user != null) {
 //            addMyGarden(user);
 //        }
-        return user;
+        return planter;
     }
 
     @Override
@@ -54,6 +55,7 @@ public class PlanterJdbcTemplateRepository implements PlanterRepository {
         if (planter == null) {
             return null;
         }
+
 
         final String sql = "insert into planter (role_id, first_name, last_name, email) "
                 + "values (?, ?, ?, ?);";
@@ -72,7 +74,9 @@ public class PlanterJdbcTemplateRepository implements PlanterRepository {
             return null;
         }
 
-        planter.setUserId(keyHolder.getKey().intValue());
+
+        planter.setPlanterId(keyHolder.getKey().intValue());
+
         return planter;
     }
 
@@ -93,11 +97,12 @@ public class PlanterJdbcTemplateRepository implements PlanterRepository {
                 planter.getFirstName(),
                 planter.getLastName(),
                 planter.getEmail(),
-                planter.getUserId()) > 0;
+                planter.getPlanterId()) > 0;
     }
 
     @Override
-    public boolean deleteById(int planterId) {
+    public boolean deleteByPlanter(int planterId) {
+
 
         jdbcTemplate.update("delete from reply where planter_id = ?;", planterId);
         jdbcTemplate.update("delete from post where planter_id = ?;", planterId);

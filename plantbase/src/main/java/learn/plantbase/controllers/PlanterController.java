@@ -27,32 +27,32 @@ public class PlanterController {
         return service.findAll();
     }
 
-    @GetMapping("/{userId}")
-    public Planter findByUser(@PathVariable int userId) {
-        return service.findByUser(userId);
+    @GetMapping("/{planterId}")
+    public Planter findByUser(@PathVariable int planterId) {
+        return service.findByPlanter(planterId);
     }
 
     @PostMapping
-    public ResponseEntity<Object> add(@RequestBody @Valid Planter user, BindingResult bindingResult) {
+    public ResponseEntity<Object> add(@RequestBody @Valid Planter planter, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return new ResponseEntity<>(bindingResult.getAllErrors(), HttpStatus.BAD_REQUEST);
         }
-        Result<Planter> result = service.addUser(user);
+        Result<Planter> result = service.addPlanter(planter);
         if (result.isSuccess()) {
             return new ResponseEntity<>(result.getPayload(), HttpStatus.CREATED);
         }
         return ErrorResponse.build(result);
     }
 
-    @PutMapping("/{userId}")
-    public ResponseEntity<Object> edit(@PathVariable int userId, @RequestBody @Valid Planter user, BindingResult bindingResult) {
-        if (userId != user.getUserId()) {
+    @PutMapping("/{planterId}")
+    public ResponseEntity<Object> edit(@PathVariable int planterId, @RequestBody @Valid Planter planter, BindingResult bindingResult) {
+        if (planterId != planter.getPlanterId()) {
             return new ResponseEntity<>(HttpStatus.CONFLICT);
         }
         if (bindingResult.hasErrors()) {
             return new ResponseEntity<>(bindingResult.getAllErrors(), HttpStatus.BAD_REQUEST);
         }
-        Result<Planter> result = service.editUser(user);
+        Result<Planter> result = service.editPlanter(planter);
         if (result.isSuccess()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
@@ -60,9 +60,9 @@ public class PlanterController {
         return ErrorResponse.build(result);
     }
 
-    @DeleteMapping("/{userId}")
-    public ResponseEntity<Void> deleteById(@PathVariable int userId) {
-        if (service.deleteByUser(userId)) {
+    @DeleteMapping("/{planterId}")
+    public ResponseEntity<Void> deleteById(@PathVariable int planterId) {
+        if (service.deleteByPlanter(planterId)) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);

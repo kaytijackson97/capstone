@@ -90,7 +90,7 @@ class PostServiceTest {
     }
 
     @Test
-    void shouldNotAddIfInvalidUserId() {
+    void shouldNotAddIfInvalidPlanterId() {
         Post expected = makeNewPost(0);
         expected.setPlanterId(10);
 
@@ -187,7 +187,7 @@ class PostServiceTest {
     }
 
     @Test
-    void shouldNotEditIfUserIdIsChanged() {
+    void shouldNotEditIfPlanterIdIsChanged() {
         Post post = makeNewPost(1);
         when(repository.findById(1)).thenReturn(post);
 
@@ -195,12 +195,12 @@ class PostServiceTest {
         updatedPost.setPlanterId(2);
         when(repository.editPost(post)).thenReturn(true);
 
-        Planter user1 = new Planter();
-        user1.setUserId(1);
+        Planter planter1 = new Planter();
+        planter1.setPlanterId(1);
 
-        Planter user2 = new Planter();
-        user2.setUserId(2);
-        when(userRepository.findAll()).thenReturn(List.of(user1, user2));
+        Planter planter2 = new Planter();
+        planter2.setPlanterId(2);
+        when(userRepository.findAll()).thenReturn(List.of(planter1, planter2));
 
         Result<Post> actual = service.editPost(updatedPost);
         assertEquals(1, actual.getMessages().size());
@@ -288,9 +288,9 @@ class PostServiceTest {
 
         when(repository.addPost(post)).thenReturn(post);
 
-        Planter user = new Planter();
-        user.setUserId(1);
-        when(userRepository.findAll()).thenReturn(List.of(user));
+        Planter planter = new Planter();
+        planter.setPlanterId(1);
+        when(userRepository.findAll()).thenReturn(List.of(planter));
 
         Plant plant = new Plant();
         plant.setPlantId(1);

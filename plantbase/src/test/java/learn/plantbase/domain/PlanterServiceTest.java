@@ -27,149 +27,149 @@ public class PlanterServiceTest {
     RoleRepository roleRepository;
 
     @Test
-    void shouldAddValidUser() {
-        Planter user = makeNewUser();
-        Planter mockout = makeNewUser();
-        mockout.setUserId(4);
+    void shouldAddValidPlanter() {
+        Planter planter = makeNewPlanter();
+        Planter mockout = makeNewPlanter();
+        mockout.setPlanterId(4);
         Role role = new Role();
         role.setRoleId(1);
         when(roleRepository.findAll()).thenReturn(List.of(role));
-        when(repository.addPlanter(user)).thenReturn(mockout);
-        Result<Planter> actual = service.addUser(user);
+        when(repository.addPlanter(planter)).thenReturn(mockout);
+        Result<Planter> actual = service.addPlanter(planter);
         assertEquals(0, actual.getMessages().size());
     }
 
     @Test
-    void shouldNotAddNullUser() {
-        Result<Planter> result = service.addUser(null);
+    void shouldNotAddNullPlanter() {
+        Result<Planter> result = service.addPlanter(null);
         assertEquals(ResultType.INVALID, result.getType());
     }
 
     @Test
     void shouldNotAddIfInvalidEmail() {
-        Planter user = makeNewUser();
-        user.setEmail("ashley.com");
-        Result<Planter> result = service.addUser(user);
+        Planter planter = makeNewPlanter();
+        planter.setEmail("ashley.com");
+        Result<Planter> result = service.addPlanter(planter);
         assertEquals(ResultType.INVALID, result.getType());
     }
 
     @Test
     void shouldNotAddNullOrBlankFields() {
-        Planter user = makeNewUser();
-        Result<Planter> actual = service.addUser(user);
+        Planter planter = makeNewPlanter();
+        Result<Planter> actual = service.addPlanter(planter);
         assertEquals(ResultType.INVALID, actual.getType());
 
-        user = makeNewUser();
-        user.setFirstName(" ");
-        actual = service.addUser(user);
+        planter = makeNewPlanter();
+        planter.setFirstName(" ");
+        actual = service.addPlanter(planter);
         assertEquals(ResultType.INVALID, actual.getType());
 
-        user = makeNewUser();
-        user.setFirstName(null);
-        actual = service.addUser(user);
+        planter = makeNewPlanter();
+        planter.setFirstName(null);
+        actual = service.addPlanter(planter);
         assertEquals(ResultType.INVALID, actual.getType());
 
-        user = makeNewUser();
-        user.setLastName(" ");
-        actual = service.addUser(user);
+        planter = makeNewPlanter();
+        planter.setLastName(" ");
+        actual = service.addPlanter(planter);
         assertEquals(ResultType.INVALID, actual.getType());
 
-        user = makeNewUser();
-        user.setFirstName(null);
-        actual = service.addUser(user);
+        planter = makeNewPlanter();
+        planter.setFirstName(null);
+        actual = service.addPlanter(planter);
         assertEquals(ResultType.INVALID, actual.getType());
 
-        user = makeNewUser();
-        user.setEmail(" ");
-        actual = service.addUser(user);
+        planter = makeNewPlanter();
+        planter.setEmail(" ");
+        actual = service.addPlanter(planter);
         assertEquals(ResultType.INVALID, actual.getType());
 
-        user = makeNewUser();
-        user.setEmail(null);
-        actual = service.editUser(user);
+        planter = makeNewPlanter();
+        planter.setEmail(null);
+        actual = service.editPlanter(planter);
         assertEquals(ResultType.INVALID, actual.getType());
     }
 
     @Test
-    void shouldEditValidUser() {
-        Planter user = makeNewUser();
-        user.setUserId(1);
+    void shouldEditValidPlanter() {
+        Planter planter = makeNewPlanter();
+        planter.setPlanterId(1);
         Role role = new Role();
         role.setRoleId(1);
         when(roleRepository.findAll()).thenReturn(List.of(role));
-        when(repository.editPlanter(user)).thenReturn(true);
-        when(repository.findById(1)).thenReturn(user);
-        user.setFirstName("Molly");
+        when(repository.editPlanter(planter)).thenReturn(true);
+        when(repository.findByPlanter(1)).thenReturn(planter);
+        planter.setFirstName("Molly");
 
-        Result<Planter> actual = service.editUser(user);
+        Result<Planter> actual = service.editPlanter(planter);
         assertEquals(0, actual.getMessages().size());
     }
 
     // TODO shouldNotEditIfNullOrBlankFields
     @Test
     void shouldNotEditIfNullOrBlankFields() {
-        Planter user = makeNewUser();
-        user.setUserId(1);
-        user.setEmail(null);
-        Result<Planter> actual = service.editUser(user);
+        Planter planter = makeNewPlanter();
+        planter.setPlanterId(1);
+        planter.setEmail(null);
+        Result<Planter> actual = service.editPlanter(planter);
         assertEquals(ResultType.INVALID, actual.getType());
 
-        user = makeNewUser();
-        user.setUserId(1);
-        user.setRoleId(0);
-        actual = service.editUser(user);
+        planter = makeNewPlanter();
+        planter.setPlanterId(1);
+        planter.setRoleId(0);
+        actual = service.editPlanter(planter);
         assertEquals(ResultType.INVALID, actual.getType());
 
-        user = makeNewUser();
-        user.setUserId(1);
-        user.setFirstName(" ");
-        actual = service.editUser(user);
+        planter = makeNewPlanter();
+        planter.setPlanterId(1);
+        planter.setFirstName(" ");
+        actual = service.editPlanter(planter);
         assertEquals(ResultType.INVALID, actual.getType());
     }
 
     @Test
     void shouldNotEditIfInvalidEmail() {
-        Planter user = makeNewUser();
-        user.setEmail("ashley.org");
-        Result<Planter> actual = service.editUser(user);
+        Planter planter = makeNewPlanter();
+        planter.setEmail("ashley.org");
+        Result<Planter> actual = service.editPlanter(planter);
         assertEquals(ResultType.INVALID, actual.getType());
     }
 
     @Test
     void shouldNotEditIfInvalidId() {
-        Planter user = makeNewUser();
-        Result<Planter> actual = service.editUser(user);
+        Planter planter = makeNewPlanter();
+        Result<Planter> actual = service.editPlanter(planter);
         assertEquals(ResultType.INVALID, actual.getType());
 
-        user = makeNewUser();
-        user.setRoleId(-1);
-        actual = service.editUser(user);
+        planter = makeNewPlanter();
+        planter.setRoleId(-1);
+        actual = service.editPlanter(planter);
         assertEquals(ResultType.INVALID, actual.getType());
 
-        user = makeNewUser();
-        user.setUserId(100);
-        actual = service.editUser(user);
+        planter = makeNewPlanter();
+        planter.setPlanterId(100);
+        actual = service.editPlanter(planter);
         assertEquals(ResultType.INVALID, actual.getType());
     }
 
     @Test
-    void shouldDeleteUser() {
-        when(repository.deleteById(1)).thenReturn(true);
-        assertTrue(service.deleteByUser(1));
+    void shouldDeletePlanter() {
+        when(repository.deleteByPlanter(1)).thenReturn(true);
+        assertTrue(service.deleteByPlanter(1));
     }
 
     @Test
     void shouldNotDeleteIfInvalidId() {
-        when(repository.deleteById(100)).thenReturn(false);
-        assertFalse(service.deleteByUser(100));
+        when(repository.deleteByPlanter(100)).thenReturn(false);
+        assertFalse(service.deleteByPlanter(100));
     }
 
-    private Planter makeNewUser() {
-        Planter user = new Planter();
-        user.setRoleId(1);
-        user.setFirstName("Robert");
-        user.setLastName("Fall");
-        user.setEmail("robertf@aol.com");
-        return user;
+    private Planter makeNewPlanter() {
+        Planter planter = new Planter();
+        planter.setRoleId(1);
+        planter.setFirstName("Robert");
+        planter.setLastName("Fall");
+        planter.setEmail("robertf@aol.com");
+        return planter;
     }
 }
