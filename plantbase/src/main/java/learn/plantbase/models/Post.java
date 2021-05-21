@@ -18,7 +18,7 @@ public class Post {
     @Getter
     @Setter
     @Min(value = 0, message = "Id must be greater than or equal to 0.")
-    private int userId;
+    private int planterId;
 
     @Getter
     @Setter

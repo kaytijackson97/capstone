@@ -22,7 +22,7 @@ public class MyGardenService {
 
     public MyGarden findById(int myGardenId) { return repository.findById(myGardenId); }
 
-    public MyGarden findByUser(int userId) { return repository.findByUser(userId); }
+    public MyGarden findByPlanter(int planterId) { return repository.findByPlanter(planterId); }
 
     public Result<MyGarden> add(MyGarden myGarden) {
         Result<MyGarden> result = validate(myGarden);
@@ -69,7 +69,7 @@ public class MyGardenService {
         }
         List<Planter> users = userRepository.findAll();
         for (Planter user : users) {
-            if (user.getUserId() == myGarden.getUserId()) {
+            if (user.getPlanterId() == myGarden.getPlanterId()) {
                 userExists = true;
             }
         }

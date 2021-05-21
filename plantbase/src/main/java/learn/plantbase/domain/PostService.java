@@ -33,8 +33,8 @@ public class PostService {
         return repository.findAll();
     }
 
-    public List<Post> findByUserId(int userId) {
-        return repository.findByUserId(userId);
+    public List<Post> findByPlanterId(int planterId) {
+        return repository.findByPlanterId(planterId);
     }
 
     public List<Post> findByPlantId(int plantId) {
@@ -77,7 +77,7 @@ public class PostService {
         }
 
         Post originalPost = repository.findById(post.getPostId());
-        hasDifferentIds(result, originalPost.getUserId(), post.getUserId(), "Cannot change user.");
+        hasDifferentIds(result, originalPost.getPlanterId(), post.getPlanterId(), "Cannot change planter.");
         hasDifferentIds(result, originalPost.getPlantId(), post.getPlantId(), "Cannot change plant.");
         hasDifferentIds(result, originalPost.getGardenId(), post.getGardenId(), "Cannot change garden.");
 
@@ -111,10 +111,10 @@ public class PostService {
 
         List<Planter> users = userRepository.findAll();
         boolean userExists = users.stream()
-                .anyMatch(i -> i.getUserId() == post.getUserId());
+                .anyMatch(i -> i.getPlanterId() == post.getPlanterId());
 
         if (!userExists) {
-            result.addMessage("Invalid user id", ResultType.INVALID);
+            result.addMessage("Invalid planter id", ResultType.INVALID);
             return result;
         }
 

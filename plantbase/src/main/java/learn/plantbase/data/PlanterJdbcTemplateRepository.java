@@ -25,46 +25,46 @@ public class PlanterJdbcTemplateRepository implements PlanterRepository {
     @Override
     public List<Planter> findAll() {
 
-        final String sql = "select user_id, role_id, first_name, last_name, email "
-                + "from user_profile;";
+        final String sql = "select planter_id, role_id, first_name, last_name, email "
+                + "from planter;";
 
         return jdbcTemplate.query(sql, new PlanterMapper());
     }
 
     @Override
-    public Planter findByUser(int userId) {
+    public Planter findByPlanter(int planterId) {
 
-        final String sql = "select user_id, role_id, first_name, last_name, email "
-                + "from user_profile "
-                + "where user_id = ?;";
+        final String sql = "select planter_id, role_id, first_name, last_name, email "
+                + "from planter "
+                + "where planter_id = ?;";
 
-        Planter user = jdbcTemplate.query(sql, new PlanterMapper(), userId).stream()
+        Planter planter = jdbcTemplate.query(sql, new PlanterMapper(), planterId).stream()
                 .findFirst()
                 .orElse(null);
 
 //        if (user != null) {
 //            addMyGarden(user);
 //        }
-        return user;
+        return planter;
     }
 
     @Override
-    public Planter addUser(Planter user) {
+    public Planter addPlanter(Planter planter) {
 
-        if (user == null) {
+        if (planter == null) {
             return null;
         }
 
-        final String sql = "insert into user_profile (role_id, first_name, last_name, email)"
+        final String sql = "insert into planter (role_id, first_name, last_name, email)"
                 + "values (?, ?, ?, ?);";
 
         KeyHolder keyHolder = new GeneratedKeyHolder();
         int rowsAffected = jdbcTemplate.update(connection -> {
             PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            ps.setInt(1, user.getRoleId());
-            ps.setString(2, user.getFirstName());
-            ps.setString(3, user.getLastName());
-            ps.setString(4, user.getEmail());
+            ps.setInt(1, planter.getRoleId());
+            ps.setString(2, planter.getFirstName());
+            ps.setString(3, planter.getLastName());
+            ps.setString(4, planter.getEmail());
             return ps;
         }, keyHolder);
 
@@ -72,39 +72,39 @@ public class PlanterJdbcTemplateRepository implements PlanterRepository {
             return null;
         }
 
-        user.setUserId(keyHolder.getKey().intValue());
-        return user;
+        planter.setPlanterId(keyHolder.getKey().intValue());
+        return planter;
     }
 
     @Override
-    public boolean editUser(Planter user) {
+    public boolean editPlanter(Planter planter) {
 
-        if (user == null) {
+        if (planter == null) {
             return false;
         }
 
-        final String sql = "update user_profile set "
+        final String sql = "update planter set "
                 + "first_name = ?, "
                 + "last_name = ?, "
                 + "email = ? "
-                + "where user_id = ?;";
+                + "where planter_id = ?;";
 
         return jdbcTemplate.update(sql,
-                user.getFirstName(),
-                user.getLastName(),
-                user.getEmail(),
-                user.getUserId()) > 0;
+                planter.getFirstName(),
+                planter.getLastName(),
+                planter.getEmail(),
+                planter.getPlanterId()) > 0;
     }
 
     @Override
-    public boolean deleteByUser(int userId) {
+    public boolean deleteByPlanter(int planterId) {
 
-        jdbcTemplate.update("delete from reply where user_id = ?;", userId);
-        jdbcTemplate.update("delete from post where user_id = ?;", userId);
-        jdbcTemplate.update("delete from my_garden where user_id = ?;", userId);
+        jdbcTemplate.update("delete from reply where planter_id = ?;", planterId);
+        jdbcTemplate.update("delete from post where planter_id = ?;", planterId);
+        jdbcTemplate.update("delete from my_garden where planter_id = ?;", planterId);
 
         return jdbcTemplate.update(
-                "delete from user_profile where user_id = ?", userId) > 0;
+                "delete from planter where planter_id = ?", planterId) > 0;
     }
 
 //    private void addMyGarden(Planter user) {
