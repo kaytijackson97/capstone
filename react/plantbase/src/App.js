@@ -92,9 +92,6 @@ function App() {
         <Route path="/post" exact>
           <PostApp />
         </Route>
-        <Route path="/reply" exact>
-          <Reply />
-        </Route>
         <Route path="/plant" exact>
           <PlantApp />
         </Route>
