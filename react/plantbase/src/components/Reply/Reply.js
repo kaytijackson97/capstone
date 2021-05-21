@@ -1,5 +1,9 @@
 import { useEffect, useState } from "react";
+<<<<<<< HEAD
 import { findPostById, findReplyById, findUserById } from "../../services/user-api";
+=======
+import { findUserById } from "../../services/user-api";
+>>>>>>> ca4f7b403898c69b6f816017bc86753954e4a1b2
 
 function Reply({replyId, userId, postId, reply, datetimePosted, likeCount}) {
 
@@ -19,6 +23,10 @@ function Reply({replyId, userId, postId, reply, datetimePosted, likeCount}) {
             .then((data) => setUser(data))
     }, [userId]);
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> ca4f7b403898c69b6f816017bc86753954e4a1b2
     const increaseLikeCount = () => {
         setNewLikeCount(newLikeCount + 1)
         console.log(newLikeCount);
@@ -32,7 +40,7 @@ function Reply({replyId, userId, postId, reply, datetimePosted, likeCount}) {
                 </div>
             </div>
             <div class="card-body">
-                <h4 class="card-title">{user.firstName} {user.lastName}</h4>
+                <h6 class="card-title">{user.firstName} {user.lastName}</h6>
                 <p class="card-text">{reply}</p>
                 <button onClick={increaseLikeCount}></button>
             </div>

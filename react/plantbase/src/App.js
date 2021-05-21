@@ -28,7 +28,7 @@ function App() {
         <Route path="/garden" exact>
           <GardenApp/>
         </Route>
-        <Route path="/my-garden" exact>
+        <Route path="/my-garden/:myGardenId">
           <MyGardenApp/>
         </Route>
         <Route path="/post" exact>

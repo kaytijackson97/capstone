@@ -96,7 +96,7 @@ insert into user_profile (role_id, first_name, last_name, email)
 	
 insert into my_garden (user_id, garden_name, bio, photo)
 	values
-	(1, 'John', 'test bio', 'fkdk.jpeg');
+	(1, 'John', 'test bio', 'https://loveincorporated.blob.core.windows.net/contentimages/gallery/a2ba32b4-f28d-4aae-a576-b6814edf2109-4bd7d670-5cff-4d3c-ba39-cd7fd3e0c0b0-Keukenhof-garden-edit.jpg');
 
 insert into garden (garden_id)
 	values (1);

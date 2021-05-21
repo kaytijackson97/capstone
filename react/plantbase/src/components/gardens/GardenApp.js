@@ -1,8 +1,9 @@
 import PostList from '../post/PostList';
+import Post from '../post/Post';
 import { useState } from 'react';
 import Messages from '../Messages';
 
-function GardenApp() {
+function GardenApp({posts = []}) {
     const [messages, setMessages] = useState("");
 
     return (
@@ -18,6 +19,19 @@ function GardenApp() {
             <div className="card text-white bg-success mt-3 text-center">
                 ~Placeholder~
                 {/* <PostList /> */}
+                <div className="row">
+                <div className="card text-white bg-success mt-3">
+                    <h2 className="card-header card-title">Related Posts</h2>
+                <ul>
+                    {/* list of posts that maps to post */}
+                    <li>
+                    {posts.map(p => (
+                        <Post key={p.postId} posts={posts} post={p} />
+                    ))}
+                    </li>
+                </ul>
+                </div>
+            </div>
             </div>
           </div>
         </div>
