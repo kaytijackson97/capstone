@@ -1,8 +1,11 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
+import { addPlant } from '../../services/plant-api';
+import CurrentUser from '../contexts/CurrentUser';
 import PlantList from './PlantList';
 
 function PlantApp() {
     const [plants, setPlants] = useState([]);
+    const auth = useContext(CurrentUser);
 
     useEffect(() => {
         fetch("http://localhost:8080/api/plants")
@@ -16,9 +19,21 @@ function PlantApp() {
             .catch(console.log);
     }, []);
 
+    //add plant fetch
+    const addPlant = (plant) => {
+        const init = {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Accept": "application/json",
+                "Authorization": `Bearer ${auth.token}`
+            },
+        } 
+    }
+
     return (
         <div>
-            <PlantList plants={plants}/>
+            <PlantList plants={plants} addPlant={addPlant}/>
         </div>
     );
 }

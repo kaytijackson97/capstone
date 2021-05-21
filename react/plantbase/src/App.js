@@ -19,6 +19,7 @@ import {
   Route,
   Redirect,
 } from "react-router-dom";
+import AddPlant from './components/plants/AddPlant';
 
 function App() {
   const [currentUser, setCurrentUser] = useState(null);
@@ -44,7 +45,7 @@ function App() {
   };
 
   const authenticate = async (username, password) => {
-    const response = await fetch("http://localhost:5000/authenticate", {
+    const response = await fetch("http://localhost:8080/authenticate", {
       method: "POST",
       headers: {
         "content-type": "application/json",
@@ -97,6 +98,9 @@ function App() {
         </Route>
         <Route path="/plant" exact>
           <PlantApp />
+        </Route>
+        <Route path="/plants/add">
+          <AddPlant/>
         </Route>
         <Route path="/plantprofile/:plantId">
           <PlantProfile />

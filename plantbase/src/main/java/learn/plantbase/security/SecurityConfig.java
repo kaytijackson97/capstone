@@ -27,24 +27,24 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected AuthenticationManager authenticationManager() throws Exception {
         return super.authenticationManager();
     }
+//
+//    @Autowired
+//    private PasswordEncoder encoder;
 
-    @Autowired
-    private PasswordEncoder encoder;
-
-    @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        User.UserBuilder userBuilder = User.withUsername("user")
-                .password("user").passwordEncoder(password -> encoder.encode(password))
-                .roles("USER");
-
-        User.UserBuilder adminBuilder = User.withUsername("admin")
-                .password("admin").passwordEncoder(password -> encoder.encode(password))
-                .roles("ADMIN");
-
-        auth.inMemoryAuthentication()
-                .withUser(userBuilder)
-                .withUser(adminBuilder);
-    }
+//    @Override
+//    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+//        User.UserBuilder userBuilder = User.withUsername("user")
+//                .password("user").passwordEncoder(password -> encoder.encode(password))
+//                .roles("USER");
+//
+//        User.UserBuilder adminBuilder = User.withUsername("admin")
+//                .password("admin").passwordEncoder(password -> encoder.encode(password))
+//                .roles("ADMIN");
+//
+//        auth.inMemoryAuthentication()
+//                .withUser(userBuilder)
+//                .withUser(adminBuilder);
+//    }
 
     @Bean
     public PasswordEncoder getEncoder() {
@@ -58,7 +58,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         // build antMatchers for each path in your controllers.
         http.authorizeRequests()
-                .antMatchers("/authenticate").permitAll()
+                .antMatchers("/authenticate", "/create_account").permitAll()
                 .antMatchers(HttpMethod.GET, "/api/plants", /*Get by id*/ "/api/plants/*", "/api/plants/byMyGarden/*").permitAll() // anybody is able to hit this endpoint
                 .antMatchers(HttpMethod.POST, "/api/plants").hasAnyRole("USER", "ADMIN")
                 .antMatchers(HttpMethod.PUT, "/api/plants/*").hasAnyRole("USER", "ADMIN")
