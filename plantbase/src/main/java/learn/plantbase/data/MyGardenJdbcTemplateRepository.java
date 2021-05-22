@@ -24,14 +24,14 @@ public class MyGardenJdbcTemplateRepository implements MyGardenRepository {
 
     @Override
     public List<MyGarden> findAll() {
-        final String sql = "select my_garden_id, planter_id, garden_name, bio, photo from my_garden;";
+        final String sql = "select my_garden_id, username, garden_name, bio, photo from my_garden;";
         return jdbcTemplate.query(sql, new MyGardenMapper());
     }
 
     @Override
     @Transactional
     public MyGarden findById(int myGardenId) {
-        final String sql = "select my_garden_id, planter_id, garden_name, bio, photo from my_garden where my_garden_id = ?;";
+        final String sql = "select my_garden_id, username, garden_name, bio, photo from my_garden where my_garden_id = ?;";
         MyGarden myGarden = jdbcTemplate.query(sql, new MyGardenMapper(), myGardenId).stream().findAny().orElse(null);
         if (myGarden != null) {
             addPlants(myGarden);
@@ -40,9 +40,9 @@ public class MyGardenJdbcTemplateRepository implements MyGardenRepository {
     }
 
     @Override
-    public MyGarden findByPlanter(int planterId) {
-        final String sql = "select my_garden_id, planter_id, garden_name, bio, photo from my_garden where planter_id = ?;";
-        MyGarden myGarden = jdbcTemplate.query(sql, new MyGardenMapper(), planterId).stream().findFirst().orElse(null);
+    public MyGarden findByPlanter(String username) {
+        final String sql = "select my_garden_id, username, garden_name, bio, photo from my_garden where planter_id = ?;";
+        MyGarden myGarden = jdbcTemplate.query(sql, new MyGardenMapper(), username).stream().findFirst().orElse(null);
         if (myGarden != null) {
             addPlants(myGarden);
         }
@@ -55,12 +55,12 @@ public class MyGardenJdbcTemplateRepository implements MyGardenRepository {
             return null;
         }
 
-        final String sql = "insert into my_garden (planter_id, garden_name, bio, photo) " +
+        final String sql = "insert into my_garden (username, garden_name, bio, photo) " +
                 "values (?,?,?,?);";
         KeyHolder keyHolder = new GeneratedKeyHolder();
         int rowsAffected = jdbcTemplate.update(connection -> {
             PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            ps.setInt(1, myGarden.getPlanterId());
+            ps.setString(1, myGarden.getUsername());
             ps.setString(2, myGarden.getGardenName());
             ps.setString(3, myGarden.getBio());
             ps.setString(4, myGarden.getPhoto());

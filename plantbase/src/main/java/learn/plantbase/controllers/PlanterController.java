@@ -27,9 +27,9 @@ public class PlanterController {
         return service.findAll();
     }
 
-    @GetMapping("/{planterId}")
-    public Planter findByPlanter(@PathVariable int planterId) {
-        return service.findByPlanter(planterId);
+    @GetMapping("/{username}")
+    public Planter findByPlanter(@PathVariable String username) {
+        return service.findByPlanter(username);
     }
 
     @PostMapping
@@ -44,9 +44,9 @@ public class PlanterController {
         return ErrorResponse.build(result);
     }
 
-    @PutMapping("/{planterId}")
-    public ResponseEntity<Object> edit(@PathVariable int planterId, @RequestBody @Valid Planter planter, BindingResult bindingResult) {
-        if (planterId != planter.getPlanterId()) {
+    @PutMapping("/{username}")
+    public ResponseEntity<Object> edit(@PathVariable String username, @RequestBody @Valid Planter planter, BindingResult bindingResult) {
+        if (username != planter.getUserName()) {
             return new ResponseEntity<>(HttpStatus.CONFLICT);
         }
         if (bindingResult.hasErrors()) {
@@ -60,9 +60,9 @@ public class PlanterController {
         return ErrorResponse.build(result);
     }
 
-    @DeleteMapping("/{planterId}")
-    public ResponseEntity<Void> deleteById(@PathVariable int planterId) {
-        if (service.deleteByPlanter(planterId)) {
+    @DeleteMapping("/{username}")
+    public ResponseEntity<Void> deleteById(@PathVariable String username) {
+        if (service.deleteByPlanter(username)) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);

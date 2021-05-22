@@ -9,7 +9,7 @@ public interface MyGardenRepository {
 
     public MyGarden findById(int myGardenId);
 
-    public MyGarden findByPlanter(int planterId);
+    public MyGarden findByPlanter(String username);
 
     public MyGarden addMyGarden(MyGarden myGarden);
 

@@ -12,6 +12,7 @@ import org.springframework.stereotype.Repository;
 import java.sql.PreparedStatement;
 import java.sql.Statement;
 import java.util.List;
+import java.util.Objects;
 
 @Repository
 public class PlanterJdbcTemplateRepository implements PlanterRepository {
@@ -33,13 +34,13 @@ public class PlanterJdbcTemplateRepository implements PlanterRepository {
 
     @Override
 
-    public Planter findById(int planterId) {
+    public Planter findByUsername(String username) {
 
-        final String sql = "select planter_id, role_id, first_name, last_name, email "
+        final String sql = "select planter_id, username, role_id, first_name, last_name, email "
                 + "from planter "
-                + "where planter_id = ?;";
+                + "where username = ?;";
 
-        Planter planter = jdbcTemplate.query(sql, new PlanterMapper(), planterId).stream()
+        Planter planter = jdbcTemplate.query(sql, new PlanterMapper(), username).stream()
                 .findFirst()
                 .orElse(null);
 
@@ -57,16 +58,17 @@ public class PlanterJdbcTemplateRepository implements PlanterRepository {
         }
 
 
-        final String sql = "insert into planter (role_id, first_name, last_name, email) "
-                + "values (?, ?, ?, ?);";
+        final String sql = "insert into planter (username, role_id, first_name, last_name, email) "
+                + "values (?, ?, ?, ?, ?);";
 
         KeyHolder keyHolder = new GeneratedKeyHolder();
         int rowsAffected = jdbcTemplate.update(connection -> {
             PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            ps.setInt(1, planter.getRoleId());
-            ps.setString(2, planter.getFirstName());
-            ps.setString(3, planter.getLastName());
-            ps.setString(4, planter.getEmail());
+            ps.setString(1, planter.getUserName());
+            ps.setInt(2, planter.getRoleId());
+            ps.setString(3, planter.getFirstName());
+            ps.setString(4, planter.getLastName());
+            ps.setString(5, planter.getEmail());
             return ps;
         }, keyHolder);
 
@@ -75,7 +77,7 @@ public class PlanterJdbcTemplateRepository implements PlanterRepository {
         }
 
 
-        planter.setPlanterId(keyHolder.getKey().intValue());
+        planter.setUserName(Objects.requireNonNull(keyHolder.getKey()).toString());
 
         return planter;
     }
@@ -91,31 +93,31 @@ public class PlanterJdbcTemplateRepository implements PlanterRepository {
                 + "first_name = ?, "
                 + "last_name = ?, "
                 + "email = ? "
-                + "where planter_id = ?;";
+                + "where username = ?;";
 
         return jdbcTemplate.update(sql,
                 planter.getFirstName(),
                 planter.getLastName(),
                 planter.getEmail(),
-                planter.getPlanterId()) > 0;
+                planter.getUserName()) > 0;
     }
 
     @Override
-    public boolean deleteById(int planterId) {
+    public boolean deleteByUsername(String username) {
 
 
-        jdbcTemplate.update("delete from reply where planter_id = ?;", planterId);
-        jdbcTemplate.update("delete from post where planter_id = ?;", planterId);
-        jdbcTemplate.update("delete from my_garden where planter_id = ?;", planterId);
+        jdbcTemplate.update("delete from reply where username = ?;", username);
+        jdbcTemplate.update("delete from post where username = ?;", username);
+        jdbcTemplate.update("delete from my_garden where username = ?;", username);
 
         return jdbcTemplate.update(
-                "delete from planter where planter_id = ?", planterId) > 0;
+                "delete from planter where username = ?", username) > 0;
     }
 
     private void addMyGarden(Planter planter) {
-        final String sql = "select my_garden_id, planter_id, garden_name, bio, photo from my_garden where planter_id = ?;";
+        final String sql = "select my_garden_id, username, garden_name, bio, photo from my_garden where username = ?;";
 
-        MyGarden myGarden = jdbcTemplate.query(sql, new MyGardenMapper(), planter.getPlanterId()).stream().findFirst().orElse(null);
+        MyGarden myGarden = jdbcTemplate.query(sql, new MyGardenMapper(), planter.getUserName()).stream().findFirst().orElse(null);
         planter.setMyGarden(myGarden);
     }
 }

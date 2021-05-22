@@ -24,22 +24,22 @@ public class PostJDBCTemplateRepository implements PostRepository {
 
     @Override
     public List<Post> findAll() {
-        final String sql = "select post_id, planter_id, plant_id, garden_id, caption, photo, datetime_posted, like_count from " +
+        final String sql = "select post_id, username, plant_id, garden_id, caption, photo, datetime_posted, like_count from " +
                 "post limit 1000;";
         return template.query(sql, new PostMapper());
     }
 
     @Override
-    public List<Post> findByPlanterId(int planterId) {
-        final String sql = "select post_id, planter_id, plant_id, garden_id, caption, photo, datetime_posted, like_count from " +
+    public List<Post> findByUsername(String username) {
+        final String sql = "select post_id, username, plant_id, garden_id, caption, photo, datetime_posted, like_count from " +
                 "post " +
-                "where planter_id = ?;";
-        return template.query(sql, new PostMapper(), planterId);
+                "where username = ?;";
+        return template.query(sql, new PostMapper(), username);
     }
 
     @Override
     public List<Post> findByPlantId(int plantId) {
-        final String sql = "select post_id, planter_id, plant_id, garden_id, caption, photo, datetime_posted, like_count from " +
+        final String sql = "select post_id, username, plant_id, garden_id, caption, photo, datetime_posted, like_count from " +
                 "post " +
                 "where plant_id = ?;";
         return template.query(sql, new PostMapper(), plantId);
@@ -47,7 +47,7 @@ public class PostJDBCTemplateRepository implements PostRepository {
 
     @Override
     public Post findById(int postId) {
-        final String sql = "select post_id, planter_id, plant_id, garden_id, caption, photo, datetime_posted, like_count from " +
+        final String sql = "select post_id, username, plant_id, garden_id, caption, photo, datetime_posted, like_count from " +
                 "post " +
                 "where post_id = ?;";
         Post post = template.query(sql, new PostMapper(), postId).stream()
@@ -66,13 +66,13 @@ public class PostJDBCTemplateRepository implements PostRepository {
             return null;
         }
 
-        final String sql = "insert into post (planter_id, plant_id, garden_id, caption, photo, datetime_posted, like_count) " +
+        final String sql = "insert into post (username, plant_id, garden_id, caption, photo, datetime_posted, like_count) " +
                 "values (?, ?, ?, ?, ?, ?, ?);";
 
         KeyHolder keyHolder = new GeneratedKeyHolder();
         int rowsAffected = template.update(connection -> {
             PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            ps.setInt(1, post.getPlanterId());
+            ps.setString(1, post.getUsername());
             ps.setInt(2, post.getPlantId());
             ps.setInt(3, post.getGardenId());
             ps.setString(4, post.getCaption());
@@ -117,7 +117,7 @@ public class PostJDBCTemplateRepository implements PostRepository {
     }
 
     private void addReplies(Post post) {
-        final String sql = "select reply_id, planter_id, post_id, reply, datetime_posted, like_count " +
+        final String sql = "select reply_id, username, post_id, reply, datetime_posted, like_count " +
                 "from reply where post_id = ?;";
         List<Reply> replies = template.query(sql, new ReplyMapper(), post.getPostId());
         post.setReplies(replies);

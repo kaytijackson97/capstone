@@ -22,7 +22,7 @@ public class MyGardenService {
 
     public MyGarden findById(int myGardenId) { return repository.findById(myGardenId); }
 
-    public MyGarden findByPlanter(int planterId) { return repository.findByPlanter(planterId); }
+    public MyGarden findByPlanter(String username) { return repository.findByPlanter(username); }
 
     public Result<MyGarden> add(MyGarden myGarden) {
         Result<MyGarden> result = validate(myGarden);

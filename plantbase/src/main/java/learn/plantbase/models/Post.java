@@ -17,8 +17,10 @@ public class Post {
 
     @Getter
     @Setter
-    @Min(value = 0, message = "Id must be greater than or equal to 0.")
-    private int planterId;
+    @NotBlank
+    @NotNull
+    @Size(max=25, message = "username must be less than 25 characters.")
+    private String username;
 
     @Getter
     @Setter
