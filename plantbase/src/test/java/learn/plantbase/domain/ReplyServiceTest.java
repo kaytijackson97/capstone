@@ -73,9 +73,9 @@ class ReplyServiceTest {
     }
 
     @Test
-    void shouldNotAddIfInvalidPlanterId() {
+    void shouldNotAddIfInvalidUsername() {
         Reply expected = makeNewReply(0);
-        expected.setPlanterId(10);
+        expected.setUsername("invalid_test_user");
 
         Result<Reply> actual = service.addReply(expected);
         assertEquals(1, actual.getMessages().size());
@@ -151,24 +151,24 @@ class ReplyServiceTest {
     }
 
     @Test
-    void shouldNotEditIfPlanterIdIsChanged() {
+    void shouldNotEditIfUsernameIsChanged() {
         Reply reply = makeNewReply(1);
         when(repository.findById(1)).thenReturn(reply);
 
         Reply updatedReply = makeNewReply(1);
-        updatedReply.setPlanterId(2);
+        updatedReply.setUsername("test1");
         when(repository.editReply(reply)).thenReturn(true);
 
         Planter planter1 = new Planter();
-        planter1.setPlanterId(1);
+        planter1.setUsername("test1");
 
         Planter planter2 = new Planter();
-        planter2.setPlanterId(2);
+        planter2.setUsername("test2");
         when(planterRepository.findAll()).thenReturn(List.of(planter1, planter2));
 
         Result<Reply> actual = service.editReply(updatedReply);
         assertEquals(1, actual.getMessages().size());
-        assertEquals("Cannot change planter id.", actual.getMessages().get(0));
+        assertEquals("Cannot change username.", actual.getMessages().get(0));
     }
 
     @Test
@@ -221,7 +221,7 @@ class ReplyServiceTest {
     private Reply makeNewReply(int replyId) {
         Reply reply = new Reply();
         reply.setReplyId(replyId);
-        reply.setPlanterId(1);
+        reply.setUsername("test");
         reply.setPostId(1);
         reply.setReply("test reply");
         reply.setDatetimePosted(LOCAL_DATE_TIME);
@@ -230,7 +230,7 @@ class ReplyServiceTest {
         when(repository.addReply(reply)).thenReturn(reply);
 
         Planter planter = new Planter();
-        planter.setPlanterId(1);
+        planter.setUsername("test");
         when(planterRepository.findAll()).thenReturn(List.of(planter));
 
         Post post = new Post();

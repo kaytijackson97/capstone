@@ -60,7 +60,7 @@ public class ReplyService {
             return result;
         }
         Reply originalReply = repository.findById(reply.getReplyId());
-        hasDifferentIds(result, originalReply.getPlanterId(), reply.getPlanterId(), "Cannot change planter id.");
+        hasDifferentIds(result, originalReply.getUsername(), reply.getUsername(), "Cannot change planter id.");
         hasDifferentIds(result, originalReply.getPostId(), reply.getPostId(), "Cannot change post id.");
 
         if (!originalReply.getDatetimePosted().equals(reply.getDatetimePosted())) {
@@ -94,7 +94,7 @@ public class ReplyService {
 
         List<Planter> planters = planterRepository.findAll();
         boolean planterExists = planters.stream()
-                .anyMatch(i -> i.getPlanterId() == reply.getPlanterId());
+                .anyMatch(i -> i.getPlanterId() == reply.getUsername());
 
         if (!planterExists) {
             result.addMessage("Invalid planter id", ResultType.INVALID);

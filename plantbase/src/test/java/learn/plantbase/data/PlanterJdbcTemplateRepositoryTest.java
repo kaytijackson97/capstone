@@ -44,7 +44,7 @@ public class PlanterJdbcTemplateRepositoryTest {
 
     @Test
     void shouldAddPlanter() {
-        Planter planter = makeNewPlanter(5);
+        Planter planter = makeNewPlanter("bob_riley");
         Planter actual = repository.addPlanter(planter);
         assertEquals(actual, planter);
 
@@ -73,7 +73,7 @@ public class PlanterJdbcTemplateRepositoryTest {
         actual.setFirstName("Robert");
         actual.setLastName("Fall");
         actual.setEmail("robertf@aol.com");
-        actual.setPlanterId(100);
+        actual.setUsername(null);
         boolean success = repository.editPlanter(actual);
         assertFalse(success);
     }
@@ -93,10 +93,9 @@ public class PlanterJdbcTemplateRepositoryTest {
         assertFalse(repository.deleteById(100));
     }
 
-    private Planter makeNewPlanter(int planterId) {
+    private Planter makeNewPlanter(String name) {
         Planter planter = new Planter();
-        planter.setPlanterId(planterId);
-        planter.setPlanterId(1);
+        planter.setUsername(name);
         planter.setRoleId(1);
         planter.setFirstName("Bob");
         planter.setLastName("Riley");
