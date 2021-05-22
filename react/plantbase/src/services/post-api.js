@@ -70,3 +70,11 @@ export async function updatePostById(post, postId) {
     }
 }
 
+export async function deletePostById(postId) {
+    const response = await fetch(`http://localhost:8080/api/post/${postId}`, {method: "DELETE"});
+
+    if (response.status !== 204) {
+        return Promise.reject("response is not 204 NO_CONTENT");
+    }
+}
+

@@ -20,7 +20,6 @@ import {
 } from "react-router-dom";
 import AddPlant from './components/plants/AddPlant';
 import { findPlanterById } from './services/planter-api';
-import DeletePost from './components/post/DeletePost';
 
 function App() {
   const [currentUser, setCurrentUser] = useState(null);
@@ -138,9 +137,6 @@ function App() {
         </Route>
         <Route path="/logout">
             <Confirmation />
-        </Route>
-        <Route path="/post/delete" exact>
-          <DeletePost />
         </Route>
         <Route path="*">
           <NotFound />
