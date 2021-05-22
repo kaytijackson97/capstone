@@ -14,10 +14,6 @@ public class Planter {
 
     @Getter
     @Setter
-    private int planterId;
-
-    @Getter
-    @Setter
     @Min(value = 1, message = "Role id must be at least 1.")
     private int roleId;
 
@@ -27,6 +23,13 @@ public class Planter {
     @NotBlank(message = "First name is required.")
     @Size(max = 25, message = "First name cannot be greater than 25 characters.")
     private String firstName;
+
+    @Getter
+    @Setter
+    @NotNull
+    @NotBlank(message = "Username is required.")
+    @Size(max = 25, message = "Username cannot be greater than 25 characters.")
+    private String userName;
 
     @Getter
     @Setter
@@ -46,6 +49,8 @@ public class Planter {
     @Getter
     @Setter
     private MyGarden myGarden;
+
+
 
     @Setter
     private List<Post> posts = new ArrayList<>();

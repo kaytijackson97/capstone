@@ -33,8 +33,8 @@ public class PostService {
         return repository.findAll();
     }
 
-    public List<Post> findByPlanterId(int planterId) {
-        return repository.findByPlanterId(planterId);
+    public List<Post> findByUsername(String username) {
+        return repository.findByUsername(username);
     }
 
     public List<Post> findByPlantId(int plantId) {
@@ -77,7 +77,7 @@ public class PostService {
         }
 
         Post originalPost = repository.findById(post.getPostId());
-        hasDifferentIds(result, originalPost.getPlanterId(), post.getPlanterId(), "Cannot change planter.");
+        hasDifferentIds(result, originalPost.getUsername(), post.getUsername(), "Cannot change planter.");
         hasDifferentIds(result, originalPost.getPlantId(), post.getPlantId(), "Cannot change plant.");
         hasDifferentIds(result, originalPost.getGardenId(), post.getGardenId(), "Cannot change garden.");
 

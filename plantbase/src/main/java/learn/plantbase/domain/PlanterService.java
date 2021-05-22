@@ -26,8 +26,8 @@ public class PlanterService {
     }
 
 
-    public Planter findByPlanter(int planterId) {
-        return repository.findById(planterId);
+    public Planter findByPlanter(String username) {
+        return repository.findByUsername(username);
     }
 
     public Result<Planter> addPlanter(Planter planter) {
@@ -37,10 +37,7 @@ public class PlanterService {
             return result;
         }
 
-        if ( planter.getPlanterId() !=0) {
-            result.addMessage(" planterId cannot be set for 'add' operation", ResultType.INVALID);
-            return result;
-        }
+        // check for username duplicates
 
 
         planter = repository.addPlanter( planter);
@@ -56,13 +53,11 @@ public class PlanterService {
             return result;
         }
 
-        if (planter.getPlanterId() <= 0) {
-            result.addMessage("planterId must be set for 'edit' operation", ResultType.INVALID);
-            return result;
-        }
+        // check for username duplicates
+
 
         if (!repository.editPlanter(planter)) {
-            String msg = String.format("planterId: %s, not found", planter.getPlanterId());
+            String msg = String.format("username: %s, not found", planter.getUserName());
             result.addMessage(msg, ResultType.NOT_FOUND);
         }
 
@@ -70,8 +65,8 @@ public class PlanterService {
     }
 
 
-    public boolean deleteByPlanter(int planterId) {
-        return repository.deleteById(planterId);
+    public boolean deleteByPlanter(String username) {
+        return repository.deleteById(username);
     }
 
     private Result<Planter> validate(Planter planter) {

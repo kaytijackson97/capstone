@@ -21,8 +21,8 @@ public class MyGarden {
 
     @Getter
     @Setter
-    @Min(value = 1, message = "planter id must be at least 1.")
-    private int planterId;
+    @Size(max = 25, message = "User name cannot be greater than 25 characters.")
+    private String username;
 
     @Getter
     @Setter
