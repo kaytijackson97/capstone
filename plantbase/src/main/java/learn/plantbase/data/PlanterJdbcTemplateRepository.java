@@ -43,9 +43,9 @@ public class PlanterJdbcTemplateRepository implements PlanterRepository {
                 .findFirst()
                 .orElse(null);
 
-//        if (user != null) {
-//            addMyGarden(user);
-//        }
+        if (planter != null) {
+            addMyGarden(planter);
+        }
         return planter;
     }
 
@@ -112,10 +112,10 @@ public class PlanterJdbcTemplateRepository implements PlanterRepository {
                 "delete from planter where planter_id = ?", planterId) > 0;
     }
 
-//    private void addMyGarden(Planter user) {
-//        final String sql = "select my_garden_id, user_id, garden_name, bio, photo from my_garden where user_id = ?;";
-//
-//        MyGarden myGarden = jdbcTemplate.query(sql, new MyGardenMapper(), user.getUserId()).stream().findFirst().orElse(null);
-//        user.setMyGarden(myGarden);
-//    }
+    private void addMyGarden(Planter planter) {
+        final String sql = "select my_garden_id, user_id, garden_name, bio, photo from my_garden where user_id = ?;";
+
+        MyGarden myGarden = jdbcTemplate.query(sql, new MyGardenMapper(), planter.getPlanterId()).stream().findFirst().orElse(null);
+        planter.setMyGarden(myGarden);
+    }
 }
