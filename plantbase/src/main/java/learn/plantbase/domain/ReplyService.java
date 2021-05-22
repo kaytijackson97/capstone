@@ -60,7 +60,7 @@ public class ReplyService {
             return result;
         }
         Reply originalReply = repository.findById(reply.getReplyId());
-        hasDifferentIds(result, originalReply.getUsername(), reply.getUsername(), "Cannot change planter id.");
+        hasDifferentIds(result, originalReply.getUsername(), reply.getUsername(), "Cannot change username.");
         hasDifferentIds(result, originalReply.getPostId(), reply.getPostId(), "Cannot change post id.");
 
         if (!originalReply.getDatetimePosted().equals(reply.getDatetimePosted())) {
