@@ -25,13 +25,30 @@ import { findUserById } from './services/user-api';
 function App() {
   const [currentUser, setCurrentUser] = useState(null);
   const [planter, setPlanter] = useState(null);
+  let firstName;
+  let lastName;
+  let email;
+  let myGarden = {};
 
-  const login = (token) => {
-    const { id, sub: username, authorities: rolesString } = jwt_decode(token);
+  const findPlanter = async (id) => {
+    await findUserById(id)
+      .then((data) => setPlanter(data));
+
+      console.log(planter);
+    // firstName = planter.firstName;
+    // lastName = planter.lastName;
+    // email = planter.email;
+    // myGarden = planter.myGarden;
+  }
+
+  const login = async (token) => {
+    debugger
+    const { id, sub: username, authorities: rolesString } = await jwt_decode(token);
     
     // const roles = rolesString !== undefined ?  rolesString.split(",") : [];
 
     const roles = rolesString.split(",");
+    // findPlanter(id);
 
     const currentUser = {
       id,
@@ -52,6 +69,7 @@ function App() {
 
 
     setCurrentUser(currentUser);
+    console.log(currentUser);
   };
 
   const authenticate = async (username, password) => {
