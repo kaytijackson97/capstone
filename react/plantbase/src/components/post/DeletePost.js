@@ -1,34 +1,37 @@
-function DeletePost( {show} ) {
+import { useState } from 'react';
+import Modal from 'react-bootstrap/Modal';
+import { deletePostById } from '../../services/post-api';
+
+function DeletePost( {postId, deletePostByPostId} ) {
+    const [show, setShow] = useState(false);
+
+    const showModal = () => {
+        setShow(true);
+    };
+    
+    const hideModal = () => {
+        setShow(false);
+    };
+
     const handleDelete = () => {
-        console.log("hello");
+        deletePostById(postId);
+        deletePostByPostId(postId);
+        hideModal();
     }
 
     return(
         <>
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-            Launch demo modal
-        </button>
-        <modal>
-            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        ...
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary">Save changes</button>
-                    </div>
-                    </div>
-                </div>
-            </div>
-        </modal>
+        <button onClick={showModal} className="btn btn-success">Delete</button>
+        <Modal show={show} onHide={hideModal}>
+            <Modal.Header>
+            <Modal.Title>Stop!</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>Are you sure you want to delete this post?</Modal.Body>
+            <Modal.Footer>
+                <button onClick={hideModal}>No</button>
+                <button onClick={handleDelete}>Yes</button>
+            </Modal.Footer>
+        </Modal>
         </>
     );
 }

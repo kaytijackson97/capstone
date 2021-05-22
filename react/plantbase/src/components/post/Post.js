@@ -7,10 +7,10 @@ import { findPlanterById } from '../../services/planter-api';
 import { findPlantById } from '../../services/plant-api';
 
 import ReplyApp from '../reply/ReplyApp';
-import DeletePost from '../post/DeletePost';
+import DeletePost from './DeletePost';
 import LikeButton from '../like-button.png';
 
-function Post( {postId, planterId, plantId, gardenId, caption, photo, datetimePosted, likeCount} ) {
+function Post( {postId, planterId, plantId, gardenId, caption, photo, datetimePosted, likeCount, deletePostByPostId} ) {
 
     const defaultPlanter = {
         planterId: 0,
@@ -45,7 +45,6 @@ function Post( {postId, planterId, plantId, gardenId, caption, photo, datetimePo
     const [plant, setPlant] = useState(defaultPlant);
     const [newPost, setNewPost] = useState(defaultPost);
     const [newCount, setNewCount] = useState(0);
-    const [deleteModal, setDeleteModal] = useState(true);
 
     useEffect(() => {
         findPlanterById(planterId)
@@ -82,12 +81,7 @@ function Post( {postId, planterId, plantId, gardenId, caption, photo, datetimePo
         updatePost();
     }
 
-    const handleDelete = () => {
-        setDeleteModal(true)
-        return (
-            <DeletePost show={deleteModal} />
-        );
-    }
+
 
     const postStyle = {
         "width": "1000px"
@@ -109,7 +103,7 @@ function Post( {postId, planterId, plantId, gardenId, caption, photo, datetimePo
                             <Link to={`/plantprofile/${plant.plantId}`} className="text-dark text-decoration-none">{plant.plantName}</Link></h4>
                         </div>
                         <div className="col d-flex flex-row-reverse">
-                            <DeletePost />
+                            <DeletePost postId={postId} deletePostByPostId={deletePostByPostId}/>
                         </div>
                     </div>
                     <p className="card-text">{caption}</p>

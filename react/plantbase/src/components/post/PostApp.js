@@ -10,12 +10,23 @@ function PostApp() {
         findAllPosts()
             .then((data) => setPosts(data))
             .catch(console.log)
-    }, [])
+    }, []);
+
+    function deletePostByPostId(postId) {
+        const newPosts = [];
+        for(const post of posts ) {
+            if (post.postId !== postId) {
+                newPosts.push(post);
+            }
+        }
+
+        setPosts(newPosts);
+    }
 
     return (
         <div>
             <AddPost />
-            <PostList posts={posts}/>
+            <PostList posts={posts} deletePostByPostId={deletePostByPostId}/>
         </div>
     );
 }

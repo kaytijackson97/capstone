@@ -43,3 +43,11 @@ export async function addReply(reply) {
         return Promise.reject("response is not 201 CREATED");
     }
 }
+
+export async function deleteReplyById(replyId) {
+    const response = await fetch(`http://localhost:8080/api/reply/${replyId}`, {method: "DELETE"});
+
+    if (response.status !== 204) {
+        return Promise.reject("response is not 204 NO_CONTENT");
+    }
+}
