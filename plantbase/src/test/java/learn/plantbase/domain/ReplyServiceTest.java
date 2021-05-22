@@ -19,7 +19,7 @@ import java.util.Set;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE)
+@SpringBootTest
 class ReplyServiceTest {
 
     private static final LocalDateTime LOCAL_DATE_TIME = LocalDateTime.of(2019, Month.MARCH, 28, 14, 33, 48);

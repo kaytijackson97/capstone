@@ -11,11 +11,11 @@ import java.util.List;
 @Service
 public class MyGardenService {
     final MyGardenRepository repository;
-    private final PlanterRepository userRepository;
+    private final PlanterRepository planterRepository;
 
-    public MyGardenService(MyGardenRepository repository, PlanterRepository userRepository) {
+    public MyGardenService(MyGardenRepository repository, PlanterRepository planterRepository) {
         this.repository = repository;
-        this.userRepository = userRepository;
+        this.planterRepository = planterRepository;
     }
 
     public List<MyGarden> findAll() { return repository.findAll(); }
@@ -62,19 +62,19 @@ public class MyGardenService {
 
     private Result<MyGarden> validate(MyGarden myGarden) {
         Result<MyGarden> result = new Result<>();
-        boolean userExists = false;
+        boolean planterExists = false;
         if (myGarden == null) {
             result.addMessage("myGarden cannot be null.", ResultType.INVALID);
             return result;
         }
-        List<Planter> users = userRepository.findAll();
-        for (Planter user : users) {
-            if (user.getPlanterId() == myGarden.getPlanterId()) {
-                userExists = true;
+        List<Planter> planters = planterRepository.findAll();
+        for (Planter planter : planters) {
+            if (planter.getPlanterId() == myGarden.getPlanterId()) {
+                planterExists = true;
             }
         }
-        if (!userExists) {
-            result.addMessage("myGarden must have an existing user attached.", ResultType.INVALID);
+        if (!planterExists) {
+            result.addMessage("myGarden must have an existing planter attached.", ResultType.INVALID);
             return result;
         }
         return result;

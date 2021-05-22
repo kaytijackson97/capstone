@@ -36,7 +36,7 @@ public class PlanterJdbcTemplateRepository implements PlanterRepository {
     public Planter findById(int planterId) {
 
         final String sql = "select planter_id, role_id, first_name, last_name, email "
-                + "from user_profile "
+                + "from planter "
                 + "where planter_id = ?;";
 
         Planter planter = jdbcTemplate.query(sql, new PlanterMapper(), planterId).stream()
@@ -113,7 +113,7 @@ public class PlanterJdbcTemplateRepository implements PlanterRepository {
     }
 
     private void addMyGarden(Planter planter) {
-        final String sql = "select my_garden_id, user_id, garden_name, bio, photo from my_garden where user_id = ?;";
+        final String sql = "select my_garden_id, planter_id, garden_name, bio, photo from my_garden where planter_id = ?;";
 
         MyGarden myGarden = jdbcTemplate.query(sql, new MyGardenMapper(), planter.getPlanterId()).stream().findFirst().orElse(null);
         planter.setMyGarden(myGarden);

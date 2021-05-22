@@ -13,7 +13,7 @@ import java.util.List;
 
 @RestController
 @CrossOrigin(origins = {"http://localhost:3000"})
-@RequestMapping("/api/user")
+@RequestMapping("/api/planter")
 public class PlanterController {
 
     private final PlanterService service;
@@ -28,7 +28,7 @@ public class PlanterController {
     }
 
     @GetMapping("/{planterId}")
-    public Planter findByUser(@PathVariable int planterId) {
+    public Planter findByPlanter(@PathVariable int planterId) {
         return service.findByPlanter(planterId);
     }
 

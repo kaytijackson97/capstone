@@ -23,7 +23,7 @@ class MyGardenServiceTest {
     MyGardenRepository repository;
 
     @MockBean
-    PlanterRepository userRepository;
+    PlanterRepository planterRepository;
 
     // finds are pass-through, don't need domain testing.
 
@@ -44,7 +44,7 @@ class MyGardenServiceTest {
     }
 
     @Test
-    void shouldNotAddZeroUserId() {
+    void shouldNotAddZeroPlanterId() {
         MyGarden myGarden = makeMyGarden();
         myGarden.setPlanterId(0);
         Result<MyGarden> result = service.add(myGarden);
@@ -77,8 +77,8 @@ class MyGardenServiceTest {
         MyGarden mockOut = makeMyGarden();
         mockOut.setMyGardenId(1);
 
-        Planter user = makeNewUser(1);
-        when(userRepository.findAll()).thenReturn(List.of(user));
+        Planter planter = makeNewPlanter(1);
+        when(planterRepository.findAll()).thenReturn(List.of(planter));
 
         when(repository.addMyGarden(myGarden)).thenReturn(mockOut);
 
@@ -92,8 +92,8 @@ class MyGardenServiceTest {
         MyGarden myGarden = makeMyGarden();
         myGarden.setMyGardenId(1);
 
-        Planter user = makeNewUser(1);
-        when(userRepository.findAll()).thenReturn(List.of(user));
+        Planter planter = makeNewPlanter(1);
+        when(planterRepository.findAll()).thenReturn(List.of(planter));
 
         when(repository.editMyGarden(myGarden)).thenReturn(true);
 
@@ -182,9 +182,9 @@ class MyGardenServiceTest {
         return myGarden;
     }
 
-    private Planter makeNewUser(int userId) {
-        Planter user = new Planter();
-        user.setPlanterId(userId);
-        return user;
+    private Planter makeNewPlanter(int planterId) {
+        Planter planter = new Planter();
+        planter.setPlanterId(planterId);
+        return planter;
     }
 }

@@ -19,7 +19,7 @@ import java.util.Set;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE)
+@SpringBootTest
 class PostServiceTest {
 
     private static final LocalDateTime DATE_TIME_POSTED = LocalDateTime.of(2019, Month.MARCH, 28, 14, 33, 48);
@@ -31,7 +31,7 @@ class PostServiceTest {
     PostRepository repository;
 
     @MockBean
-    PlanterRepository userRepository;
+    PlanterRepository planterRepository;
 
     @MockBean
     GardenRepository gardenRepository;
@@ -200,11 +200,11 @@ class PostServiceTest {
 
         Planter planter2 = new Planter();
         planter2.setPlanterId(2);
-        when(userRepository.findAll()).thenReturn(List.of(planter1, planter2));
+        when(planterRepository.findAll()).thenReturn(List.of(planter1, planter2));
 
         Result<Post> actual = service.editPost(updatedPost);
         assertEquals(1, actual.getMessages().size());
-        assertEquals("Cannot change user.", actual.getMessages().get(0));
+        assertEquals("Cannot change planter.", actual.getMessages().get(0));
     }
 
     @Test
@@ -290,7 +290,7 @@ class PostServiceTest {
 
         Planter planter = new Planter();
         planter.setPlanterId(1);
-        when(userRepository.findAll()).thenReturn(List.of(planter));
+        when(planterRepository.findAll()).thenReturn(List.of(planter));
 
         Plant plant = new Plant();
         plant.setPlantId(1);

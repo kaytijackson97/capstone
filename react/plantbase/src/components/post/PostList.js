@@ -8,9 +8,9 @@ function PostList({posts}) {
         <div>
             {posts.map(p => ( <Post key={p.postId} 
             postId={p.postId} 
-            userId={p.userId} 
+            planterId={p.planterId} 
             plantId={p.plantId}
-            myGardenId={p.myGardenId}
+            gardenId={p.gardenId}
             caption={p.caption}
             photo={p.photo}
             datetimePosted={p.datetimePosted}

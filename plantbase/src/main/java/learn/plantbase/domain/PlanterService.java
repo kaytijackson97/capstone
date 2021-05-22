@@ -57,12 +57,12 @@ public class PlanterService {
         }
 
         if (planter.getPlanterId() <= 0) {
-            result.addMessage("userId must be set for 'edit' operation", ResultType.INVALID);
+            result.addMessage("planterId must be set for 'edit' operation", ResultType.INVALID);
             return result;
         }
 
         if (!repository.editPlanter(planter)) {
-            String msg = String.format("userId: %s, not found", planter.getPlanterId());
+            String msg = String.format("planterId: %s, not found", planter.getPlanterId());
             result.addMessage(msg, ResultType.NOT_FOUND);
         }
 
@@ -77,7 +77,7 @@ public class PlanterService {
     private Result<Planter> validate(Planter planter) {
         Result<Planter> result = new Result<>();
         if (planter == null) {
-            result.addMessage("user cannot be null", ResultType.INVALID);
+            result.addMessage("planter cannot be null", ResultType.INVALID);
             return result;
         }
 
