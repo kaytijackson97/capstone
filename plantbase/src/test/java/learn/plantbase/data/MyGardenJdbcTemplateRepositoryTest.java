@@ -12,7 +12,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE)
+@SpringBootTest
 class MyGardenJdbcTemplateRepositoryTest {
     @Autowired
     MyGardenRepository repository;
@@ -54,14 +54,14 @@ class MyGardenJdbcTemplateRepositoryTest {
     }
 
     @Test
-    void shouldFindMyGardenForUserId() {
-        MyGarden myGarden = repository.findByUser(3);
+    void shouldFindMyGardenForPlanterId() {
+        MyGarden myGarden = repository.findByPlanter(3);
         assertNotNull(myGarden);
     }
 
     @Test
-    void shouldNotFindMyGardenIfInvalidUserId() {
-        MyGarden myGarden = repository.findByUser(100);
+    void shouldNotFindMyGardenIfInvalidPlanterId() {
+        MyGarden myGarden = repository.findByPlanter(100);
         assertNull(myGarden);
     }
 
@@ -94,7 +94,7 @@ class MyGardenJdbcTemplateRepositoryTest {
         myGarden.setGardenName("Rachel");
         myGarden.setPhoto("image.png");
         myGarden.setBio("Welcome to my garden");
-        myGarden.setUserId(3);
+        myGarden.setPlanterId(3);
         myGarden.setPlants(new ArrayList<>());
         return myGarden;
     }

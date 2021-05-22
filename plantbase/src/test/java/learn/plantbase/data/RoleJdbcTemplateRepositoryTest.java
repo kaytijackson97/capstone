@@ -1,8 +1,6 @@
 package learn.plantbase.data;
 
-import learn.plantbase.models.Plant;
 import learn.plantbase.models.Role;
-import learn.plantbase.models.User;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +10,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE)
+@SpringBootTest
 public class RoleJdbcTemplateRepositoryTest {
 
     @Autowired

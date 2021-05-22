@@ -1,24 +1,24 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { findUserById } from "../../services/user-api";
+import { findPlanterById } from "../../services/planter-api";
+import DeleteReply from './DeleteReply';
 
-function Reply({userId, reply, datetimePosted, likeCount}) {
-
-    const defaultUser = {
-        userId: 0,
+function Reply({replyId, planterId, reply, datetimePosted, likeCount, deleteReplyByReplyId}) {
+    const defaultPlanter = {
+        planterId: 0,
         roleId: 0,
         firstName: "",
         lastName: "",
         email: ""
     }
 
-    const [user, setUser] = useState(defaultUser);
+    const [planter, setPlanter] = useState(defaultPlanter);
     const [newLikeCount, setNewLikeCount] = useState(likeCount);
 
     useEffect(() => {
-        findUserById(userId)
-            .then((data) => setUser(data))
-    }, [userId]);
+        findPlanterById(planterId)
+            .then((data) => setPlanter(data))
+    }, [planterId]);
 
     const increaseLikeCount = () => {
         setNewLikeCount(newLikeCount + 1)
@@ -33,9 +33,16 @@ function Reply({userId, reply, datetimePosted, likeCount}) {
                 </div>
             </div>
             <div className="card-body">
-                <Link to={`/my-garden/${user.myGardenId}`} className="text-dark text-decoration-none">
-                    <h6 className="card-title">{user.firstName} {user.lastName}</h6>
-                </Link>
+                <div className="row">
+                    <div className="col">
+                        <Link to={`/my-garden/${planter.myGardenId}`} className="text-dark text-decoration-none">
+                            <h6 className="card-title">{planter.firstName} {planter.lastName}</h6>
+                        </Link>
+                    </div>
+                    <div className="col d-flex flex-row-reverse">
+                        <DeleteReply replyId={replyId} deleteReplyByReplyId={deleteReplyByReplyId}/>
+                    </div>
+                </div>
                 <p className="card-text">{reply}</p>
                 <button onClick={increaseLikeCount}></button>
             </div>

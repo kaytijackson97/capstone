@@ -1,9 +1,7 @@
 package learn.plantbase.data;
 
 import learn.plantbase.data.mappers.RoleMapper;
-import learn.plantbase.data.mappers.UserMapper;
 import learn.plantbase.models.Role;
-import learn.plantbase.models.User;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 

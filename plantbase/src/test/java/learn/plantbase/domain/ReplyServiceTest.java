@@ -19,7 +19,7 @@ import java.util.Set;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE)
+@SpringBootTest
 class ReplyServiceTest {
 
     private static final LocalDateTime LOCAL_DATE_TIME = LocalDateTime.of(2019, Month.MARCH, 28, 14, 33, 48);
@@ -31,7 +31,7 @@ class ReplyServiceTest {
     ReplyRepository repository;
 
     @MockBean
-    UserRepository userRepository;
+    PlanterRepository planterRepository;
 
     @MockBean
     PostRepository postRepository;
@@ -73,9 +73,9 @@ class ReplyServiceTest {
     }
 
     @Test
-    void shouldNotAddIfInvalidUserId() {
+    void shouldNotAddIfInvalidPlanterId() {
         Reply expected = makeNewReply(0);
-        expected.setUserId(10);
+        expected.setPlanterId(10);
 
         Result<Reply> actual = service.addReply(expected);
         assertEquals(1, actual.getMessages().size());
@@ -151,24 +151,24 @@ class ReplyServiceTest {
     }
 
     @Test
-    void shouldNotEditIfUserIdIsChanged() {
+    void shouldNotEditIfPlanterIdIsChanged() {
         Reply reply = makeNewReply(1);
         when(repository.findById(1)).thenReturn(reply);
 
         Reply updatedReply = makeNewReply(1);
-        updatedReply.setUserId(2);
+        updatedReply.setPlanterId(2);
         when(repository.editReply(reply)).thenReturn(true);
 
-        User user1 = new User();
-        user1.setUserId(1);
+        Planter planter1 = new Planter();
+        planter1.setPlanterId(1);
 
-        User user2 = new User();
-        user2.setUserId(2);
-        when(userRepository.findAll()).thenReturn(List.of(user1, user2));
+        Planter planter2 = new Planter();
+        planter2.setPlanterId(2);
+        when(planterRepository.findAll()).thenReturn(List.of(planter1, planter2));
 
         Result<Reply> actual = service.editReply(updatedReply);
         assertEquals(1, actual.getMessages().size());
-        assertEquals("Cannot change user id.", actual.getMessages().get(0));
+        assertEquals("Cannot change planter id.", actual.getMessages().get(0));
     }
 
     @Test
@@ -221,7 +221,7 @@ class ReplyServiceTest {
     private Reply makeNewReply(int replyId) {
         Reply reply = new Reply();
         reply.setReplyId(replyId);
-        reply.setUserId(1);
+        reply.setPlanterId(1);
         reply.setPostId(1);
         reply.setReply("test reply");
         reply.setDatetimePosted(LOCAL_DATE_TIME);
@@ -229,9 +229,9 @@ class ReplyServiceTest {
 
         when(repository.addReply(reply)).thenReturn(reply);
 
-        User user = new User();
-        user.setUserId(1);
-        when(userRepository.findAll()).thenReturn(List.of(user));
+        Planter planter = new Planter();
+        planter.setPlanterId(1);
+        when(planterRepository.findAll()).thenReturn(List.of(planter));
 
         Post post = new Post();
         post.setPostId(1);

@@ -1,6 +1,5 @@
 package learn.plantbase.data;
 
-import learn.plantbase.data.mappers.PostMapper;
 import learn.plantbase.data.mappers.ReplyMapper;
 import learn.plantbase.models.Reply;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -23,7 +22,7 @@ public class ReplyJDBCTemplateRepository implements ReplyRepository {
 
     @Override
     public List<Reply> findByPostId(int postId) {
-        final String sql = "select reply_id, user_id, post_id, reply, datetime_posted, like_count from " +
+        final String sql = "select reply_id, planter_id, post_id, reply, datetime_posted, like_count from " +
                 "reply " +
                 "where post_id = ?;";
         return template.query(sql, new ReplyMapper(), postId);
@@ -31,7 +30,7 @@ public class ReplyJDBCTemplateRepository implements ReplyRepository {
 
     @Override
     public Reply findById(int replyId) {
-        final String sql = "select reply_id, user_id, post_id, reply, datetime_posted, like_count from reply " +
+        final String sql = "select reply_id, planter_id, post_id, reply, datetime_posted, like_count from reply " +
                 "where reply_id = ?;";
         return template.query(sql, new ReplyMapper(), replyId).stream()
                 .findFirst().orElse(null);
@@ -43,12 +42,12 @@ public class ReplyJDBCTemplateRepository implements ReplyRepository {
             return null;
         }
 
-        final String sql = "insert into reply (user_id, post_id, reply, datetime_posted, like_count) " +
+        final String sql = "insert into reply (planter_id, post_id, reply, datetime_posted, like_count) " +
                 "values (?, ?, ?, ?, ?);";
         KeyHolder keyHolder = new GeneratedKeyHolder();
         int rowsAffected = template.update(connection -> {
             PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            ps.setInt(1, reply.getUserId());
+            ps.setInt(1, reply.getPlanterId());
             ps.setInt(2, reply.getPostId());
             ps.setString(3, reply.getReply());
             ps.setString(4, reply.getDatetimePosted().toString());

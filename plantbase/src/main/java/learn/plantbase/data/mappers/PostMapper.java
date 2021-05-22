@@ -6,15 +6,13 @@ import org.springframework.jdbc.core.RowMapper;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
 public class PostMapper implements RowMapper<Post> {
     @Override
     public Post mapRow(ResultSet resultSet, int i) throws SQLException {
         Post post = new Post();
         post.setPostId(resultSet.getInt("post_id"));
-        post.setUserId(resultSet.getInt("user_id"));
+        post.setPlanterId(resultSet.getInt("planter_id"));
         post.setPlantId(resultSet.getInt("plant_id"));
         post.setGardenId(resultSet.getInt("garden_id"));
         post.setCaption(resultSet.getString("caption"));

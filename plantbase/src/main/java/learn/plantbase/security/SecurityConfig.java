@@ -12,6 +12,8 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
@@ -65,7 +67,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.DELETE, "/api/plants/*").hasAnyRole("USER", "ADMIN")
 
                 //my garden
-                .antMatchers(HttpMethod.GET, "/api/my-garden", /*Get by id*/ "/api/my-garden/*", "/api/my-garden/from-user/*").permitAll() // anybody is able to hit this endpoint
+                .antMatchers(HttpMethod.GET, "/api/my-garden", /*Get by id*/ "/api/my-garden/*", "/api/my-garden/from-planter/*").permitAll() // anybody is able to hit this endpoint
                 .antMatchers(HttpMethod.POST, "/api/my-garden").hasAnyRole("USER", "ADMIN")
                 .antMatchers(HttpMethod.PUT, "/api/my-garden/*").hasAnyRole("USER", "ADMIN")
                 .antMatchers(HttpMethod.DELETE, "/api/my-garden/*").hasAnyRole("USER", "ADMIN")
@@ -74,10 +76,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.GET, "/api/garden", /*Get by id*/ "/api/garden/*").permitAll() // anybody is able to hit this endpoint
 
                 //post
-                .antMatchers(HttpMethod.GET, "/api/post", /*Get by id*/ "/api/post/*", "/api/post/user/*", "/api/post/plant/*").permitAll() // anybody is able to hit this endpoint
-                .antMatchers(HttpMethod.POST, "/api/post").hasAnyRole("USER", "ADMIN")
+                .antMatchers(HttpMethod.GET, "/api/post", /*Get by id*/ "/api/post/*", "/api/post/planter/*", "/api/post/plant/*").permitAll() // anybody is able to hit this endpoint
+                .antMatchers(HttpMethod.POST, "/api/post").permitAll()
                 .antMatchers(HttpMethod.PUT, "/api/post/*").permitAll()
-                .antMatchers(HttpMethod.DELETE, "/api/post/*").hasAnyRole("USER", "ADMIN")
+                .antMatchers(HttpMethod.DELETE, "/api/post/*").permitAll()
 
                 //reply
                 .antMatchers(HttpMethod.GET, "/api/reply", /*Get by id*/ "/api/reply/*", "/api/reply/post/*").permitAll() // anybody is able to hit this endpoint
@@ -88,11 +90,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 //role
                 .antMatchers(HttpMethod.GET, "/api/role", /*Get by id*/ "/api/role/*").permitAll() // anybody is able to hit this endpoint
 
-                //user
-                .antMatchers(HttpMethod.GET, "/api/user", /*Get by id*/ "/api/user/*").permitAll() // anybody is able to hit this endpoint
-                .antMatchers(HttpMethod.POST, "/api/user").permitAll()
-                .antMatchers(HttpMethod.PUT, "/api/user/*").permitAll()
-                .antMatchers(HttpMethod.DELETE, "/api/user/*").permitAll()
+                //planter
+                .antMatchers(HttpMethod.GET, "/api/planter", /*Get by id*/ "/api/planter/*").permitAll() // anybody is able to hit this endpoint
+                .antMatchers(HttpMethod.POST, "/api/planter").permitAll()
+                .antMatchers(HttpMethod.PUT, "/api/planter/*").permitAll()
+                .antMatchers(HttpMethod.DELETE, "/api/planter/*").permitAll()
 
                 .antMatchers("/**" /* any route in this path not explicitly defined above is denied */).denyAll()
                 .and()

@@ -1,6 +1,10 @@
 package learn.plantbase.data;
 
+import learn.plantbase.data.mappers.MyGardenMapper;
+import learn.plantbase.data.mappers.PlanterMapper;
 import learn.plantbase.models.AppUser;
+import learn.plantbase.models.MyGarden;
+import learn.plantbase.models.Planter;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.stereotype.Repository;
@@ -30,6 +34,8 @@ public class AppUserRepository {
 
         if (user != null) {
             user.setRoles(getRolesByUserId(user.getAppUserId()));
+//            addPlanter(user);
+//            addMyGarden(user);
         }
 
         return user;
@@ -90,4 +96,20 @@ public class AppUserRepository {
             jdbcTemplate.update(sql, user.getAppUserId(), roleName);
         }
     }
+//
+//    private void addPlanter(AppUser appUser) {
+//        final String sql ="select planter_id, role_id, first_name, last_name, email " +
+//                "from planter " +
+//                "where planter_id = ?;";
+//
+//        Planter planter = jdbcTemplate.query(sql, new PlanterMapper(), appUser.getAppUserId()).stream().findFirst().orElse(null);
+//        appUser.setPlanter(planter);
+//    }
+//
+//    private void addMyGarden(AppUser appUser) {
+//        final String sql = "select my_garden_id, planter_id, garden_name, bio, photo from my_garden where planter_id = ?;";
+//
+//        MyGarden myGarden = jdbcTemplate.query(sql, new MyGardenMapper(), appUser.getAppUserId()).stream().findFirst().orElse(null);
+//        appUser.setMyGarden(myGarden);
+//    }
 }

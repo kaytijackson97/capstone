@@ -119,7 +119,7 @@ public class PlantJdbcTemplateRepository implements PlantRepository{
 
     //commented out until PostMapper is merged
     private void addPosts(Plant plant) {
-        final String sql = "select post_id, user_id, plant_id, garden_id, caption, photo, datetime_posted, like_count " +
+        final String sql = "select post_id, planter_id, plant_id, garden_id, caption, photo, datetime_posted, like_count " +
                 "from post " +
                 "where plant_id = ?;";
         var posts = jdbcTemplate.query(sql, new PostMapper(), plant.getPlantId());

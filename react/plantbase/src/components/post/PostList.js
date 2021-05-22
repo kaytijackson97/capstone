@@ -2,19 +2,21 @@
 // import { findAllPosts } from "../../services/post-api";
 import Post from './Post';
 
-function PostList({posts}) {
+function PostList({posts, deletePostByPostId}) {
 
     return (
         <div>
             {posts.map(p => ( <Post key={p.postId} 
             postId={p.postId} 
-            userId={p.userId} 
+            planterId={p.planterId} 
             plantId={p.plantId}
-            myGardenId={p.myGardenId}
+            gardenId={p.gardenId}
             caption={p.caption}
             photo={p.photo}
             datetimePosted={p.datetimePosted}
-            likeCount={p.likeCount}/>))}
+            likeCount={p.likeCount}
+            deletePostByPostId={deletePostByPostId}
+            />))}
         </div>
     );
 }

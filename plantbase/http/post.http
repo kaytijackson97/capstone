@@ -47,7 +47,7 @@ Origin: http://localhost:3000
 Content-Type: application/json
 
 {
-    "userId": 1,
+    "planterId": 1,
     "gardenId": 1,
     "caption": " added post test",
     "photo": "test_post.png",
@@ -64,7 +64,7 @@ Origin: http://localhost:3000
 Content-Type: application/json
 
 {
-    "userId": 1,
+    "planterId": 1,
     "gardenId": 1,
     "photo": "test_post.png",
     "datetimePosted": "2021-05-18T06:43:18",
@@ -90,7 +90,7 @@ Origin: http://localhost:3000
 Content-Type: application/json
 
 {
-    "userId": 1,
+    "planterId": 1,
     "gardenId": 1,
     "caption": " added post test",
     "photo": "test_post.png",
@@ -108,7 +108,7 @@ Content-Type: application/json
 
 {
     "postId": 1,
-    "userId": 1,
+    "planterId": 1,
     "gardenId": 1,
     "caption": " edit post test",
     "photo": "test_post.png",
@@ -125,7 +125,7 @@ Content-Type: application/json
 
 {
     "postId": 2,
-    "userId": 1,
+    "planterId": 1,
     "gardenId": 1,
     "caption": " edit post test",
     "photo": "test_post.png",

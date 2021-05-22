@@ -63,29 +63,31 @@ function AddPlant({addPlant}) {
     // }
 
     return (
-        <div>
-            <div className="card  text-center border-primary mb-3">
-      <h2 className="card-header card-title">Add an Agent</h2>
+        <div className="container">
+            <div className="card  text-center border-success mb-3">
+      <h2 className="card-header card-title">Add a Plant</h2>
       <div className="card-body">
       <form onSubmit={handleAddPlant}>
         <div className="row form-group">
-          <div className="form-floating mb-3 col">
-            <input className="form-control" type="text" id="plantDescriptionTextBox" placeholder="Plant Description:" onChange={handlePlantDescriptionChange}/>
-            <label htmlFor="plantDescriptionTextBox">First Name:</label>
-          </div>
-          <div className="form-floating mb-3 col">
-            <input className="form-control" type="text" id="photoTextBox" placeholder="Photo:" onChange={handlePhotoChange}/>
-            <label htmlFor="photoTextBox">Photo:</label>
-          </div>
-          <div className="form-floating mb-3 col">
+        <div className="form-floating mb-3 col">
             <input className="form-control" type="text" id="plantNameTextBox" placeholder="Plant Name:" onChange={handlePlantNameChange}/>
             <label htmlFor="plantNameTextBox">Plant Name:</label>
-          </div>          
-        </div>
-        <div className="row">
+          </div> 
           <div className="form-floating mb-3 col">
             <input className="form-control" type="text" id="plantTypeTextBox" placeholder="Plant Type:" onChange={handlePlantTypeChange}/>
             <label htmlFor="plantTypeTextBox">Plant Type:</label>
+          </div>
+        </div>
+        <div className="row form-group">
+        <div className="form-floating mb-3 col">
+            <textarea className="form-control" type="textarea" id="plantDescriptionTextBox" placeholder="Plant Description:" onChange={handlePlantDescriptionChange}/>
+            <label htmlFor="plantDescriptionTextBox">Plant Description:</label>
+          </div>
+        </div>
+        <div className="row">
+        <div className="form-floating mb-3 col">
+            <input className="form-control" type="text" id="photoTextBox" placeholder="Photo:" onChange={handlePhotoChange}/>
+            <label htmlFor="photoTextBox">Photo:</label>
           </div>
           <div className="form-floating mb-3 col">
             <input className="form-control" type="text" id="gotchaDateTextBox" placeholder="Gotcha Date [YYYY-MM-DD]:" onChange={handleGotchaDateChange}/>

@@ -11,7 +11,7 @@ public class MyGardenMapper implements RowMapper<MyGarden> {
     public MyGarden mapRow(ResultSet resultSet, int i) throws SQLException {
         MyGarden myGarden = new MyGarden();
         myGarden.setMyGardenId(resultSet.getInt("my_garden_id"));
-        myGarden.setUserId(resultSet.getInt("user_id"));
+        myGarden.setPlanterId(resultSet.getInt("planter_id"));
         myGarden.setGardenName(resultSet.getString("garden_name"));
         myGarden.setBio(resultSet.getString("bio"));
         myGarden.setPhoto(resultSet.getString("photo"));

@@ -1,9 +1,8 @@
 package learn.plantbase.controllers;
 
 import learn.plantbase.domain.Result;
-import learn.plantbase.domain.UserService;
-import learn.plantbase.models.User;
-import org.springframework.beans.factory.annotation.Value;
+import learn.plantbase.domain.PlanterService;
+import learn.plantbase.models.Planter;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -14,46 +13,46 @@ import java.util.List;
 
 @RestController
 @CrossOrigin(origins = {"http://localhost:3000"})
-@RequestMapping("/api/user")
-public class UserController {
+@RequestMapping("/api/planter")
+public class PlanterController {
 
-    private final UserService service;
+    private final PlanterService service;
 
-    public UserController(UserService service) {
+    public PlanterController(PlanterService service) {
         this.service = service;
     }
 
     @GetMapping
-    public List<User> findAll() {
+    public List<Planter> findAll() {
         return service.findAll();
     }
 
-    @GetMapping("/{userId}")
-    public User findByUser(@PathVariable int userId) {
-        return service.findByUser(userId);
+    @GetMapping("/{planterId}")
+    public Planter findByPlanter(@PathVariable int planterId) {
+        return service.findByPlanter(planterId);
     }
 
     @PostMapping
-    public ResponseEntity<Object> add(@RequestBody @Valid User user, BindingResult bindingResult) {
+    public ResponseEntity<Object> add(@RequestBody @Valid Planter planter, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return new ResponseEntity<>(bindingResult.getAllErrors(), HttpStatus.BAD_REQUEST);
         }
-        Result<User> result = service.addUser(user);
+        Result<Planter> result = service.addPlanter(planter);
         if (result.isSuccess()) {
             return new ResponseEntity<>(result.getPayload(), HttpStatus.CREATED);
         }
         return ErrorResponse.build(result);
     }
 
-    @PutMapping("/{userId}")
-    public ResponseEntity<Object> edit(@PathVariable int userId, @RequestBody @Valid User user, BindingResult bindingResult) {
-        if (userId != user.getUserId()) {
+    @PutMapping("/{planterId}")
+    public ResponseEntity<Object> edit(@PathVariable int planterId, @RequestBody @Valid Planter planter, BindingResult bindingResult) {
+        if (planterId != planter.getPlanterId()) {
             return new ResponseEntity<>(HttpStatus.CONFLICT);
         }
         if (bindingResult.hasErrors()) {
             return new ResponseEntity<>(bindingResult.getAllErrors(), HttpStatus.BAD_REQUEST);
         }
-        Result<User> result = service.editUser(user);
+        Result<Planter> result = service.editPlanter(planter);
         if (result.isSuccess()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
@@ -61,9 +60,9 @@ public class UserController {
         return ErrorResponse.build(result);
     }
 
-    @DeleteMapping("/{userId}")
-    public ResponseEntity<Void> deleteById(@PathVariable int userId) {
-        if (service.deleteByUser(userId)) {
+    @DeleteMapping("/{planterId}")
+    public ResponseEntity<Void> deleteById(@PathVariable int planterId) {
+        if (service.deleteByPlanter(planterId)) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);

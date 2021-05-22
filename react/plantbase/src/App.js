@@ -6,9 +6,8 @@ import MyGardenApp from './components/my-gardens/MyGardenApp';
 import Register from './components/Register';
 import PlantProfile from './components/plants/PlantProfile';
 import PostApp from './components/post/PostApp';
-import Reply from './components/reply/Reply';
 import CurrentUser from './components/contexts/CurrentUser';
-import {useContext, useState} from 'react';
+import {useContext, useState, useEffect} from 'react';
 import jwt_decode from "jwt-decode";
 import NotFound from './components/NotFound';
 import Confirmation from './components/Confirmation';
@@ -20,13 +19,35 @@ import {
   Redirect,
 } from "react-router-dom";
 import AddPlant from './components/plants/AddPlant';
+import { findPlanterById } from './services/planter-api';
 
 function App() {
   const [currentUser, setCurrentUser] = useState(null);
+  // const [planter, setPlanter] = useState(null);
+  // let firstName;
+  // let lastName;
+  // let email;
+  // let myGarden = {};
 
-  const login = (token) => {
-    const { id, sub: username, roles: rolesString } = jwt_decode(token);
+  // const findPlanter = async (id) => {
+  //   await findUserById(id)
+  //     .then((data) => setPlanter(data));
+
+  //     console.log(planter);
+  //   firstName = planter.firstName;
+  //   lastName = planter.lastName;
+  //   email = planter.email;
+  //   myGarden = planter.myGarden;
+  // }
+
+  const login = async (token) => {
+    debugger
+    const { id, sub: username, authorities: rolesString } = await jwt_decode(token);
+    
+    // const roles = rolesString !== undefined ?  rolesString.split(",") : [];
+
     const roles = rolesString.split(",");
+    // findPlanter(id);
 
     const currentUser = {
       id,
@@ -39,16 +60,22 @@ function App() {
       isValid() {
         return true;
       },
+      // firstName,
+      // lastName,
+      // email,
+      // myGarden
     };
 
+
     setCurrentUser(currentUser);
+    console.log(currentUser);
   };
 
   const authenticate = async (username, password) => {
     const response = await fetch("http://localhost:8080/authenticate", {
       method: "POST",
       headers: {
-        "content-type": "application/json",
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({
         username,
@@ -64,6 +91,9 @@ function App() {
     } else {
       throw new Error("There was a problem logging in...");
     }
+
+    //add fetch for our user
+
   };
 
   const logout = () => {
@@ -87,7 +117,7 @@ function App() {
         <Route path="/garden" exact>
           <GardenApp/>
         </Route>
-        <Route path="/my-garden/:myGardenId">
+        <Route path="/my-garden/:userId">
           <MyGardenApp/>
         </Route>
         <Route path="/post" exact>
@@ -106,11 +136,11 @@ function App() {
           <Register />
         </Route>
         <Route path="/logout">
-                  <Confirmation />
-              </Route>
-              <Route path="*">
-                <NotFound />
-              </Route>
+            <Confirmation />
+        </Route>
+        <Route path="*">
+          <NotFound />
+        </Route>
       </Switch>
     </Router>
     </CurrentUser.Provider>

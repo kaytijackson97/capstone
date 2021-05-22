@@ -22,9 +22,9 @@ public class Role {
     private String roleName;
 
     @Setter
-    private List<User> users = new ArrayList<>();
+    private List<Planter> planters = new ArrayList<>();
 
-    public List<User> getUsers() {
-        return new ArrayList<>(users);
+    public List<Planter> getPlanters() {
+        return new ArrayList<>(planters);
     }
 }

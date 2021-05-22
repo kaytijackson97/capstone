@@ -1,9 +1,9 @@
 package learn.plantbase.domain;
 
 import learn.plantbase.data.MyGardenRepository;
-import learn.plantbase.data.UserRepository;
+import learn.plantbase.data.PlanterRepository;
 import learn.plantbase.models.MyGarden;
-import learn.plantbase.models.User;
+import learn.plantbase.models.Planter;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -23,7 +23,7 @@ class MyGardenServiceTest {
     MyGardenRepository repository;
 
     @MockBean
-    UserRepository userRepository;
+    PlanterRepository planterRepository;
 
     // finds are pass-through, don't need domain testing.
 
@@ -44,9 +44,9 @@ class MyGardenServiceTest {
     }
 
     @Test
-    void shouldNotAddZeroUserId() {
+    void shouldNotAddZeroPlanterId() {
         MyGarden myGarden = makeMyGarden();
-        myGarden.setUserId(0);
+        myGarden.setPlanterId(0);
         Result<MyGarden> result = service.add(myGarden);
         assertEquals(ResultType.INVALID, result.getType());
     }
@@ -77,8 +77,8 @@ class MyGardenServiceTest {
         MyGarden mockOut = makeMyGarden();
         mockOut.setMyGardenId(1);
 
-        User user = makeNewUser(1);
-        when(userRepository.findAll()).thenReturn(List.of(user));
+        Planter planter = makeNewPlanter(1);
+        when(planterRepository.findAll()).thenReturn(List.of(planter));
 
         when(repository.addMyGarden(myGarden)).thenReturn(mockOut);
 
@@ -92,8 +92,8 @@ class MyGardenServiceTest {
         MyGarden myGarden = makeMyGarden();
         myGarden.setMyGardenId(1);
 
-        User user = makeNewUser(1);
-        when(userRepository.findAll()).thenReturn(List.of(user));
+        Planter planter = makeNewPlanter(1);
+        when(planterRepository.findAll()).thenReturn(List.of(planter));
 
         when(repository.editMyGarden(myGarden)).thenReturn(true);
 
@@ -177,14 +177,14 @@ class MyGardenServiceTest {
         myGarden.setGardenName("Rachel");
         myGarden.setPhoto("image.png");
         myGarden.setBio("Welcome to my garden");
-        myGarden.setUserId(1);
+        myGarden.setPlanterId(1);
         myGarden.setPlants(new ArrayList<>());
         return myGarden;
     }
 
-    private User makeNewUser(int userId) {
-        User user = new User();
-        user.setUserId(userId);
-        return user;
+    private Planter makeNewPlanter(int planterId) {
+        Planter planter = new Planter();
+        planter.setPlanterId(planterId);
+        return planter;
     }
 }
