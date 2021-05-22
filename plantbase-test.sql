@@ -12,7 +12,7 @@ create table garden (
 );
 
 create table planter (
-	planter_id int primary key auto_increment,
+	username varchar(25) primary key not null,
     role_id int not null,
     first_name varchar(25) not null,
     last_name varchar(25) not null,
@@ -24,13 +24,13 @@ create table planter (
 
 create table my_garden (
 	my_garden_id int primary key auto_increment,
-    planter_id int not null,
+    username varchar(25) not null,
     garden_name varchar(50),
     bio varchar(100) default "",
     photo varchar(1000) default "",
-    constraint fk_my_garden_planter_id
-		foreign key (planter_id)
-        references planter(planter_id)
+    constraint fk_my_garden_username
+		foreign key (username)
+        references planter(username)
 );
 
 create table plant (
@@ -48,16 +48,16 @@ create table plant (
 
 create table post (
 	post_id int primary key auto_increment,
-    planter_id int not null,
+    username varchar(25) not null,
     plant_id int not null,
     garden_id int not null,
     caption varchar(250) not null,
     photo varchar(1000) default "",
     datetime_posted datetime not null,
     like_count int not null,
-    constraint fk_post_planter_id
-		foreign key (planter_id)
-        references planter(planter_id),
+    constraint fk_post_username
+		foreign key (username)
+        references planter(username),
 	constraint fk_post_plant_id
 		foreign key (plant_id)
         references plant(plant_id),
@@ -68,14 +68,14 @@ create table post (
 
 create table reply (
 	reply_id int primary key auto_increment,
-    planter_id int not null,
+    username varchar(25) not null,
     post_id int not null,
     reply varchar(250),
     datetime_posted datetime not null,
     like_count int not null,
-    constraint fk_reply_planter_id
-		foreign key (planter_id)
-        references planter(planter_id),
+    constraint fk_reply_username
+		foreign key (username)
+        references planter(username),
 	constraint fk_reply_post_id
 		foreign key (post_id)
         references post(post_id)
@@ -109,19 +109,19 @@ begin
 		('USER'),
         ('TEST');
 
-	insert into planter (role_id, first_name, last_name, email)
+	insert into planter (role_id, username, first_name, last_name, email)
 		values 
-		(1, 'John', 'Smith', 'john@smith.com'),
-		(2, 'Kayti', 'Wiita', 'asdf@asdf.com'),
-		(2, 'Rachel', 'Cuccia', '1234@asdf.com'),
-		(2, 'Ashley', 'Edmunds', 'lkjf@asdf.com');
+		(1, 'john_smith', 'John', 'Smith', 'john@smith.com'),
+		(2, 'kaytiwiita', 'Kayti', 'Wiita', 'asdf@asdf.com'),
+		(2, 'rcuccia', 'Rachel', 'Cuccia', '1234@asdf.com'),
+		(2, 'ane14', 'Ashley', 'Edmunds', 'lkjf@asdf.com');
 		
-	insert into my_garden (planter_id, garden_name, bio, photo)
+	insert into my_garden (username, garden_name, bio, photo)
 		values
-		(1, 'John', 'test bio', 'fkdk.jpeg'),
-        (2, 'Kayti', 'test bio', 'fkdk.jpeg'),
-        (3, 'Rachel', 'test bio', 'fkdk.jpeg'),
-        (4, 'Ashley', 'test bio', 'fkdk.jpeg');
+		('john_smith', 'John', 'test bio', 'fkdk.jpeg'),
+        ('kaytiwiita', 'Kayti', 'test bio', 'fkdk.jpeg'),
+        ('rcuccia', 'Rachel', 'test bio', 'fkdk.jpeg'),
+        ('ane14', 'Ashley', 'test bio', 'fkdk.jpeg');
 
 	insert into garden (garden_id)
 		values 
@@ -135,17 +135,17 @@ begin
         (1, 'blue', 'second_test.png', 'second test', 'double flower flaming katy', '2021-05-13'),
         (1, 'green', 'third_test.png', 'third test', 'double flower flaming katy', '2021-05-13');
         
-	insert into post (plant_id, planter_id, garden_id, caption, photo, datetime_posted, like_count)
+	insert into post (plant_id, username, garden_id, caption, photo, datetime_posted, like_count)
 		values
-		(1, 1, 1, 'test post', 'test_post.png', '2021-05-18 10:43:18', 0),
-        (1, 1, 1, 'second test post', 'test_post.png', '2021-05-18 10:43:18', 0),
-        (1, 1, 1, 'third test post', 'test_post.png', '2021-05-18 10:43:18', 0);
+		(1, 'john_smith', 1, 'test post', 'test_post.png', '2021-05-18 10:43:18', 0),
+        (1, 'john_smith', 1, 'second test post', 'test_post.png', '2021-05-18 10:43:18', 0),
+        (1, 'john_smith', 1, 'third test post', 'test_post.png', '2021-05-18 10:43:18', 0);
 			
-	insert into reply (planter_id, post_id, reply, datetime_posted, like_count)
+	insert into reply (username, post_id, reply, datetime_posted, like_count)
 		values
-		(1, 1, 'test reply', '2021-05-18 10:43:18', 0),
-        (1, 1, 'second test reply', '2021-05-18 10:43:18', 0),
-        (1, 1, 'third test reply', '2021-05-18 10:43:18', 0);
+		('john_smith', 1, 'test reply', '2021-05-18 10:43:18', 0),
+        ('john_smith', 1, 'second test reply', '2021-05-18 10:43:18', 0),
+        ('john_smith', 1, 'third test reply', '2021-05-18 10:43:18', 0);
         
 end //
 delimiter ;
