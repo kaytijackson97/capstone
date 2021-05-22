@@ -13,7 +13,7 @@ public class ReplyMapper implements RowMapper<Reply> {
     public Reply mapRow(ResultSet resultSet, int i) throws SQLException {
         Reply reply = new Reply();
         reply.setReplyId(resultSet.getInt("reply_id"));
-        reply.setPlanterId(resultSet.getInt("planter_id"));
+        reply.setUsername(resultSet.getInt("planter_id"));
         reply.setPostId(resultSet.getInt("post_id"));
         reply.setReply(resultSet.getString("reply"));
 

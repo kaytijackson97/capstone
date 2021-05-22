@@ -54,14 +54,14 @@ class MyGardenJdbcTemplateRepositoryTest {
     }
 
     @Test
-    void shouldFindMyGardenForPlanterId() {
-        MyGarden myGarden = repository.findByPlanter(3);
+    void shouldFindMyGardenForUsername() {
+        MyGarden myGarden = repository.findByPlanter("rcuccia");
         assertNotNull(myGarden);
     }
 
     @Test
-    void shouldNotFindMyGardenIfInvalidPlanterId() {
-        MyGarden myGarden = repository.findByPlanter(100);
+    void shouldNotFindMyGardenIfInvalidUsername() {
+        MyGarden myGarden = repository.findByPlanter(null);
         assertNull(myGarden);
     }
 
@@ -91,10 +91,10 @@ class MyGardenJdbcTemplateRepositoryTest {
     MyGarden makeMyGarden() {
         MyGarden myGarden = new MyGarden();
         myGarden.setMyGardenId(2);
+        myGarden.setUsername("rcuccia");
         myGarden.setGardenName("Rachel");
         myGarden.setPhoto("image.png");
         myGarden.setBio("Welcome to my garden");
-        myGarden.setPlanterId(3);
         myGarden.setPlants(new ArrayList<>());
         return myGarden;
     }
