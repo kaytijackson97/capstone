@@ -69,7 +69,7 @@ public class MyGardenService {
         }
         List<Planter> planters = planterRepository.findAll();
         for (Planter planter : planters) {
-            if (planter.getPlanterId() == myGarden.getPlanterId()) {
+            if (planter.getUserName() == myGarden.getUsername()) {
                 planterExists = true;
             }
         }
