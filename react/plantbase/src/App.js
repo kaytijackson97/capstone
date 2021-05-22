@@ -6,7 +6,6 @@ import MyGardenApp from './components/my-gardens/MyGardenApp';
 import Register from './components/Register';
 import PlantProfile from './components/plants/PlantProfile';
 import PostApp from './components/post/PostApp';
-import Reply from './components/reply/Reply';
 import CurrentUser from './components/contexts/CurrentUser';
 import {useContext, useState, useEffect} from 'react';
 import jwt_decode from "jwt-decode";
@@ -20,26 +19,27 @@ import {
   Redirect,
 } from "react-router-dom";
 import AddPlant from './components/plants/AddPlant';
-import { findUserById } from './services/user-api';
+import { findPlanterById } from './services/planter-api';
+import DeletePost from './components/post/DeletePost';
 
 function App() {
   const [currentUser, setCurrentUser] = useState(null);
-  const [planter, setPlanter] = useState(null);
-  let firstName;
-  let lastName;
-  let email;
-  let myGarden = {};
+  // const [planter, setPlanter] = useState(null);
+  // let firstName;
+  // let lastName;
+  // let email;
+  // let myGarden = {};
 
-  const findPlanter = async (id) => {
-    await findUserById(id)
-      .then((data) => setPlanter(data));
+  // const findPlanter = async (id) => {
+  //   await findUserById(id)
+  //     .then((data) => setPlanter(data));
 
-      console.log(planter);
-    // firstName = planter.firstName;
-    // lastName = planter.lastName;
-    // email = planter.email;
-    // myGarden = planter.myGarden;
-  }
+  //     console.log(planter);
+  //   firstName = planter.firstName;
+  //   lastName = planter.lastName;
+  //   email = planter.email;
+  //   myGarden = planter.myGarden;
+  // }
 
   const login = async (token) => {
     debugger
@@ -137,11 +137,14 @@ function App() {
           <Register />
         </Route>
         <Route path="/logout">
-                  <Confirmation />
-              </Route>
-              <Route path="*">
-                <NotFound />
-              </Route>
+            <Confirmation />
+        </Route>
+        <Route path="/post/delete" exact>
+          <DeletePost />
+        </Route>
+        <Route path="*">
+          <NotFound />
+        </Route>
       </Switch>
     </Router>
     </CurrentUser.Provider>

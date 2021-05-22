@@ -38,6 +38,9 @@ function Nav() {
                 <Link style={navStyle} to="/plant" className="nav-link">
                     <li style={navStyle}>Plant</li>
                 </Link>
+                <Link style={navStyle} to="/post/delete" className="nav-link">
+                    <li style={navStyle}>delete post</li>
+                </Link>
                 <Link style={navStyle} className="nav-link btn-light text-dark" to="/profile">
                     <li className="nav-item">
                         <strong>

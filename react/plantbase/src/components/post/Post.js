@@ -1,17 +1,19 @@
 import { useEffect, useState } from "react";
-
-import { findUserById } from '../../services/user-api';
-import { findPlantById } from '../../services/plant-api';
-import ReplyApp from '../reply/ReplyApp';
 import { Link } from "react-router-dom";
-import { updatePostById } from "../../services/post-api";
 import ReactRoundedImage from 'react-rounded-image';
+
+import { updatePostById } from "../../services/post-api";
+import { findPlanterById } from '../../services/planter-api';
+import { findPlantById } from '../../services/plant-api';
+
+import ReplyApp from '../reply/ReplyApp';
+import DeletePost from '../post/DeletePost';
 import LikeButton from '../like-button.png';
 
-function Post( {postId, userId, plantId, gardenId, caption, photo, datetimePosted, likeCount} ) {
+function Post( {postId, planterId, plantId, gardenId, caption, photo, datetimePosted, likeCount} ) {
 
-    const defaultUser = {
-        userId: 0,
+    const defaultPlanter = {
+        planterId: 0,
         roleId: 0,
         firstName: "",
         lastName: "",
@@ -30,7 +32,7 @@ function Post( {postId, userId, plantId, gardenId, caption, photo, datetimePoste
 
     const defaultPost = {
         postId: postId,
-        userId: userId,
+        planterId: planterId,
         plantId: plantId,
         gardenId: gardenId,
         caption: caption,
@@ -39,15 +41,16 @@ function Post( {postId, userId, plantId, gardenId, caption, photo, datetimePoste
         likeCount: likeCount
     }
 
-    const [user, setUser] = useState(defaultUser);
+    const [planter, setPlanter] = useState(defaultPlanter);
     const [plant, setPlant] = useState(defaultPlant);
     const [newPost, setNewPost] = useState(defaultPost);
     const [newCount, setNewCount] = useState(0);
+    const [deleteModal, setDeleteModal] = useState(true);
 
     useEffect(() => {
-        findUserById(userId)
-            .then((data) => setUser(data))
-    }, [userId]);
+        findPlanterById(planterId)
+            .then((data) => setPlanter(data))
+    }, [planterId]);
 
     useEffect(() => {
         findPlantById(plantId)
@@ -61,7 +64,7 @@ function Post( {postId, userId, plantId, gardenId, caption, photo, datetimePoste
     const updatePost = () => {
         const updatedPost = {
             postId: postId,
-            userId: userId,
+            planterId: planterId,
             plantId: plantId,
             gardenId: gardenId,
             caption: caption,
@@ -69,6 +72,7 @@ function Post( {postId, userId, plantId, gardenId, caption, photo, datetimePoste
             datetimePosted: datetimePosted,
             likeCount: newCount
         }
+
         updatePostById(updatedPost, postId)
             .then(setNewPost(updatedPost));
     }
@@ -78,6 +82,13 @@ function Post( {postId, userId, plantId, gardenId, caption, photo, datetimePoste
         updatePost();
     }
 
+    const handleDelete = () => {
+        setDeleteModal(true)
+        return (
+            <DeletePost show={deleteModal} />
+        );
+    }
+
     const postStyle = {
         "width": "1000px"
     }
@@ -85,16 +96,22 @@ function Post( {postId, userId, plantId, gardenId, caption, photo, datetimePoste
     return(
         <div className="d-flex justify-content-center">
             <div className="card bg-light mt-3 mb-3" style={postStyle}>
-
                 <div className="card-header">
                     <div className="d-flex flex-row-reverse">
                         <div>{datetimePosted}</div>
                     </div>
                 </div>
                 <div className="card-body">
-                    <h4 className="card-title">
-                    <Link to={`/my-garden/${user.myGardenId}`} className="text-dark text-decoration-none">{user.firstName} {user.lastName}</Link>|
-                    <Link to={`/plantprofile/${plant.plantId}`} className="text-dark text-decoration-none">{plant.plantName}</Link></h4>
+                    <div className="row">
+                        <div className="col">
+                            <h4 className="card-title">
+                            <Link to={`/my-garden/${planter.myGardenId}`} className="text-dark text-decoration-none">{planter.firstName} {planter.lastName}</Link>|
+                            <Link to={`/plantprofile/${plant.plantId}`} className="text-dark text-decoration-none">{plant.plantName}</Link></h4>
+                        </div>
+                        <div className="col d-flex flex-row-reverse">
+                            <DeletePost />
+                        </div>
+                    </div>
                     <p className="card-text">{caption}</p>
                     <div className="d-flex justify-content-center">
                         <div style={{ display: "flex" }}>

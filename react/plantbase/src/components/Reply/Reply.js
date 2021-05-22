@@ -1,24 +1,24 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { findUserById } from "../../services/user-api";
+import { findPlanterById } from "../../services/planter-api";
 
-function Reply({userId, reply, datetimePosted, likeCount}) {
+function Reply({planterId, reply, datetimePosted, likeCount}) {
 
-    const defaultUser = {
-        userId: 0,
+    const defaultPlanter = {
+        planterId: 0,
         roleId: 0,
         firstName: "",
         lastName: "",
         email: ""
     }
 
-    const [user, setUser] = useState(defaultUser);
+    const [planter, setPlanter] = useState(defaultPlanter);
     const [newLikeCount, setNewLikeCount] = useState(likeCount);
 
     useEffect(() => {
-        findUserById(userId)
-            .then((data) => setUser(data))
-    }, [userId]);
+        findPlanterById(planterId)
+            .then((data) => setPlanter(data))
+    }, [planterId]);
 
     const increaseLikeCount = () => {
         setNewLikeCount(newLikeCount + 1)
@@ -33,8 +33,8 @@ function Reply({userId, reply, datetimePosted, likeCount}) {
                 </div>
             </div>
             <div className="card-body">
-                <Link to={`/my-garden/${user.myGardenId}`} className="text-dark text-decoration-none">
-                    <h6 className="card-title">{user.firstName} {user.lastName}</h6>
+                <Link to={`/my-garden/${planter.myGardenId}`} className="text-dark text-decoration-none">
+                    <h6 className="card-title">{planter.firstName} {planter.lastName}</h6>
                 </Link>
                 <p className="card-text">{reply}</p>
                 <button onClick={increaseLikeCount}></button>

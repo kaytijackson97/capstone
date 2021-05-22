@@ -34,7 +34,7 @@ public class MyGardenController {
         return ResponseEntity.ok(myGarden);
     }
 
-    @GetMapping("/from-user/{planterId}")
+    @GetMapping("/from-planter/{planterId}")
     public ResponseEntity<MyGarden> findByPlanter(@PathVariable int planterId) {
         MyGarden myGarden = service.findByPlanter(planterId);
         if (myGarden == null) {

@@ -10,7 +10,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE)
+@SpringBootTest
 public class PlanterJdbcTemplateRepositoryTest {
 
     @Autowired
@@ -60,14 +60,14 @@ public class PlanterJdbcTemplateRepositoryTest {
     }
 
     @Test
-    void shouldEditUserWithValidPlanter() {
+    void shouldEditPlanterWithValidPlanter() {
         Planter planter = repository.findById(1);
         planter.setFirstName("Riley");
         assertTrue(repository.editPlanter(planter));
     }
 
     @Test
-    void shouldNotEditUserWithInvalidPlanter() {
+    void shouldNotEditPlanterWithInvalidPlanter() {
         Planter actual = new Planter();
         actual.setRoleId(1);
         actual.setFirstName("Robert");

@@ -11,7 +11,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE)
+@SpringBootTest
 class PostJDBCTemplateRepositoryTest {
 
     final static LocalDateTime DATE_TIME_POSTED = LocalDateTime.now();
@@ -48,14 +48,14 @@ class PostJDBCTemplateRepositoryTest {
     }
 
     @Test
-    void shouldFindAllPostsByValidUser() {
+    void shouldFindAllPostsByValidPlanter() {
         List<Post> posts = repository.findByPlanterId(1);
         assertNotNull(posts);
         assertTrue(posts.size() >= 1);
     }
 
     @Test
-    void shouldNotFindAnyPostsIfInvalidUser() {
+    void shouldNotFindAnyPostsIfInvalidPlanter() {
         List<Post> posts = repository.findByPlanterId(5);
         assertNotNull(posts);
         assertEquals(0, posts.size());

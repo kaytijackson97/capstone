@@ -6,11 +6,8 @@ function AddPost() {
     const [photo, setPhoto] = useState("");
 
     const handleSubmit = (event) => {
-        event.preventDefault();
-        event.stopPropagation();
-        
         const newPost = {
-            userId: 1,
+            planterId: 1,
             plantId: 1,
             gardenId: 1,
             caption: caption,
