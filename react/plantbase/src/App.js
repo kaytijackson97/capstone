@@ -105,7 +105,7 @@ function App() {
         <Route path="/garden" exact>
           <GardenApp/>
         </Route>
-        <Route path="/my-garden/:userId">
+        <Route path="/my-garden/:username">
           <MyGardenApp/>
         </Route>
         <Route path="/post" exact>
