@@ -2,7 +2,6 @@ import { useState, useContext, useEffect } from 'react';
 import { useHistory, useParams, useLocation } from 'react-router-dom';
 import CurrentUser from '../contexts/CurrentUser';
 import Messages from '../Messages';
-import Plant from './Plant';
 
 function EditPlant({plant, setShowEditForm}) {
     const defaultPlant = {
@@ -21,6 +20,7 @@ function EditPlant({plant, setShowEditForm}) {
 
     const auth = useContext(CurrentUser);
     const [messages, setMessages] = useState("");
+    
     const [plantDescription, setPlantDescription] = useState(oldPlant.plantDescription);
     const [photo, setPhoto] = useState(oldPlant.photo);
     const [plantName, setPlantName] = useState(oldPlant.plantName);
