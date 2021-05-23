@@ -3,6 +3,7 @@ import React, { useState, useContext } from 'react';
 import Logout from './Logout';
 import AuthContext from './contexts/AuthContext';
 import CurrentUser from './contexts/CurrentUser';
+import AmongUsAlex from './among-us-green.png';
 
 
 
@@ -38,8 +39,8 @@ function Nav() {
                 <Link style={navStyle} to="/plant" className="nav-link">
                     <li style={navStyle}>Plant</li>
                 </Link>
-                <Link style={navStyle} className="nav-link btn-light text-dark" to="/profile">
-                    <li className="nav-item">
+                <Link style={navStyle} className="nav-link btn btn-light text-dark" to="/profile">
+                    <li className="nav-item"> 
                         <strong>
                             user: {auth.currentUser && auth.currentUser.isValid() ? (
                                         auth.currentUser.username

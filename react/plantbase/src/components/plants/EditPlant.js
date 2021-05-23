@@ -54,7 +54,7 @@ function EditPlant() {
         plant["myGardenId"] = oldPlant.myGardenId;
         plant["posts"] = oldPlant.posts;
         // auth.currentUser && auth.currentUser.hasRole("ADMIN") ? (
-            console.log(plant);
+        console.log(plant);
         editPlant(plant)
 
         // ) : (console.log("denied"))
@@ -132,23 +132,23 @@ function EditPlant() {
             <label htmlFor="plantNameTextBox">Plant Name:</label>
           </div> 
           <div className="form-floating mb-3 col">
-            <input className="form-control" type="text" id="plantTypeTextBox" defaultValue={oldPlant.plantType} onChange={handlePlantTypeChange}/>
+            <input className="form-control" type="text" id="plantTypeTextBox" placeholder={oldPlant.plantType} onChange={handlePlantTypeChange}/>
             <label htmlFor="plantTypeTextBox">Plant Type:</label>
           </div>
         </div>
         <div className="row form-group">
         <div className="form-floating mb-3 col">
-            <textarea className="form-control" type="textarea" id="plantDescriptionTextBox" defaultValue={oldPlant.plantDescription} onChange={handlePlantDescriptionChange}/>
+            <textarea className="form-control" type="textarea" id="plantDescriptionTextBox" placeholder={oldPlant.plantDescription} onChange={handlePlantDescriptionChange}/>
             <label htmlFor="plantDescriptionTextBox">Plant Description:</label>
           </div>
         </div>
         <div className="row">
         <div className="form-floating mb-3 col">
-            <input className="form-control" type="text" id="photoTextBox" defaultValue={oldPlant.photo} onChange={handlePhotoChange}/>
+            <input className="form-control" type="text" id="photoTextBox" placeholder={oldPlant.photo} onChange={handlePhotoChange}/>
             <label htmlFor="photoTextBox">Photo:</label>
           </div>
           <div className="form-floating mb-3 col">
-            <input className="form-control" type="text" id="gotchaDateTextBox" defaultValue={oldPlant.gotchaDate} onChange={handleGotchaDateChange}/>
+            <input className="form-control" type="text" id="gotchaDateTextBox" placeholder={oldPlant.gotchaDate} onChange={handleGotchaDateChange}/>
             <label htmlFor="gotchaDateTextBox">Gotcha Date:</label>
           </div>
           <div className="form-floating mb-3 col">

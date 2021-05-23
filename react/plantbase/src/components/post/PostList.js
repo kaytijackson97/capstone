@@ -5,6 +5,7 @@ import Post from './Post';
 function PostList({posts, deletePostByPostId}) {
 
     return (
+        
         <div>
             {posts.map(p => ( <Post key={p.postId} 
             postId={p.postId} 

@@ -14,7 +14,6 @@ function DeletePlant( {plantId, deletePlant} ) {
 
     const handleDelete = () => {
         deletePlant(plantId);
-        deletePlant(plantId);
         hideModal();
     }
 
