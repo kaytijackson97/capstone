@@ -136,7 +136,7 @@ public class PostService {
             return result;
         }
 
-        if (post.getPhoto() != null) {
+        if (post.getPhoto() != null && !post.getPhoto().isBlank()) {
             String regex = "([^\\s]+(\\.(?i)(jpe?g|png|img))$)";
             Pattern pattern = Pattern.compile(regex);
             Matcher matcher = pattern.matcher(post.getPhoto());
@@ -161,7 +161,7 @@ public class PostService {
     }
 
     private Result<Post> hasDifferentStrings(Result<Post> result, String originalString, String newString, String error) {
-        if (originalString != newString) {
+        if (!originalString.equals(newString)) {
             result.addMessage(error, ResultType.INVALID);
         }
         return result;

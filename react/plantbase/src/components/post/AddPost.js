@@ -1,13 +1,14 @@
-import { useState } from "react";
-import { addPost } from "../../services/post-api";
+import { useContext, useState } from "react";
+import CurrentUser from "../contexts/CurrentUser";
 
-function AddPost() {
+function AddPost({addPostToArray}) {
     const [caption, setCaption] = useState("");
     const [photo, setPhoto] = useState("");
+    const auth = useContext(CurrentUser);
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         const newPost = {
-            username: "john_smith",
+            username: auth.currentUser.username,
             plantId: 1,
             gardenId: 1,
             caption: caption,
@@ -16,7 +17,20 @@ function AddPost() {
             likeCount: 0
         }
 
-        addPost(newPost);
+        const init = {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${auth.token}`
+            },
+            body: JSON.stringify(newPost),
+            };
+
+        const post = await fetch("http://localhost:8080/api/post", init)
+        if (post.status !== 201) {
+            return Promise.reject("response is not 201 CREATED");
+        }
+        addPostToArray(post);
     }
 
     const postStyle = {
