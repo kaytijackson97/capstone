@@ -64,10 +64,10 @@ function PlantProfile() {
         history.push('/plant');
     }
 
-    const editForm = () => {
+    const editForm = (plant) => {
         if (showEditForm === true) {
             return (
-                <EditPlant/>
+                <EditPlant plant={plant} setShowEditForm={setShowEditForm}/>
                 // <div className="row">
                 //         <div className="card text-white bg-success mt-3">
                 //         <div className="card-header"><Link to={`/plant/edit/${plant.plantId}`} title="Edit an Agent">
@@ -109,9 +109,9 @@ function PlantProfile() {
                     <div className="card-header">
                     <button onClick={() => backButton()} className="btn btn-success"><img src={BackArrow} alt="back-arrow" width="10px"></img></button>
                     |<DeletePlant plantId={plant.plantId} deletePlant={deletePlant}/>
-                    |<Link className="btn btn-success" to={`/plant/edit/${plant.plantId}`} title="Edit an Agent">
+                    |<button className="btn btn-success" onClick={() => setShowEditForm(true)} title="Edit an Agent">
                         <img  src={EditIcon} alt="edit" width="20px"></img>
-                    </Link>- {plant.plantName} 🌿
+                    </button>- {plant.plantName} 🌿
                     </div>
                         <div className="row">
                             <div className="col">

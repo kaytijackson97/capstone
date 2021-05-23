@@ -2,17 +2,18 @@ import { useState, useContext, useEffect } from 'react';
 import { useHistory, useParams, useLocation } from 'react-router-dom';
 import CurrentUser from '../contexts/CurrentUser';
 import Messages from '../Messages';
+import Plant from './Plant';
 
-function EditPlant() {
+function EditPlant({plant, setShowEditForm}) {
     const defaultPlant = {
-        plantId: 0,
-        plantDescription: "default",
-        photo: "plant.png",
-        plantName: "default",
-        plantType: "default",
-        gotchaDate: "2021-02-02",
-        myGardenId: 1,
-        posts: []
+        plantId: plant.plantId,
+        plantDescription: plant.plantDescription,
+        photo: plant.photo,
+        plantName: plant.plantName,
+        plantType: plant.plantType,
+        gotchaDate: plant.gotchaDate,
+        myGardenId: plant.myGardenId,
+        posts: plant.posts
         }
     
     const { plantId } = useParams();
@@ -20,13 +21,13 @@ function EditPlant() {
 
     const auth = useContext(CurrentUser);
     const [messages, setMessages] = useState("");
-    const [plantDescription, setPlantDescription] = useState("");
-    const [photo, setPhoto] = useState("");
-    const [plantName, setPlantName] = useState("");
-    const [plantType, setPlantType] = useState("");
-    const [gotchaDate, setGotchaDate] = useState();
-    const [myGardenId, setMyGardenId] = useState(0);
-    const [posts, setPosts] = useState([]);
+    const [plantDescription, setPlantDescription] = useState(oldPlant.plantDescription);
+    const [photo, setPhoto] = useState(oldPlant.photo);
+    const [plantName, setPlantName] = useState(oldPlant.plantName);
+    const [plantType, setPlantType] = useState(oldPlant.plantType);
+    const [gotchaDate, setGotchaDate] = useState(oldPlant.gotchaDate);
+    const [myGardenId, setMyGardenId] = useState(oldPlant.myGardenId);
+    const [posts, setPosts] = useState(oldPlant.posts);
     const history = useHistory();
     const location = useLocation();
 
@@ -46,22 +47,24 @@ function EditPlant() {
 
         let plant = {};
         plant["plantId"] = plantId;
-        plant["plantDescription"] = oldPlant.plantDescription;
-        plant["photo"] = oldPlant.photo;
-        plant["plantName"] = oldPlant.plantName;
-        plant["plantType"] = oldPlant.plantType;
-        plant["gotchaDate"] = oldPlant.gotchaDate;
-        plant["myGardenId"] = oldPlant.myGardenId;
+        plant["plantDescription"] = plantDescription;
+        plant["photo"] = photo;
+        plant["plantName"] = plantName;
+        plant["plantType"] = plantType;
+        plant["gotchaDate"] = gotchaDate;
+        plant["myGardenId"] = myGardenId;
         plant["posts"] = oldPlant.posts;
         // auth.currentUser && auth.currentUser.hasRole("ADMIN") ? (
         console.log(plant);
         editPlant(plant)
+        history.push(from);
+        setShowEditForm(false);
 
         // ) : (console.log("denied"))
     }
 
     //update fetch
-    const editPlant = (plant) => {
+    const editPlant = async (plant) => {
         const init = {
             method: "PUT",
             headers: {
@@ -71,7 +74,7 @@ function EditPlant() {
             },
             body: JSON.stringify(plant)
         };
-        fetch(`http://localhost:8080/api/plants/${plant.plantId}`, init)
+        await fetch(`http://localhost:8080/api/plants/${plantId}`, init)
             .then(response => {
                 if (response.status === 204) {
                   console.log("success.")
@@ -82,15 +85,16 @@ function EditPlant() {
                 }
             })
             .then(() => { 
-              history.push(from, setMessages("Confirmation ✅ - Agent edited successfully 👍🏻"));
+              history.push(from, setMessages("Confirmation ✅ - Plant edited successfully 👍🏻"));
             })
               .catch((err) => {
-                history.push(setMessages("Error - Agent was not edited 👎🏻 " + err));
+                history.push(setMessages("Error - Plant was not edited 👎🏻 " + err));
               })
     }
 
     const returnToList = () => {
-        history.push(from);
+      setShowEditForm(false);
+        // history.push(from);
     }
 
     const handlePlantDescriptionChange = (event) => {
@@ -132,23 +136,23 @@ function EditPlant() {
             <label htmlFor="plantNameTextBox">Plant Name:</label>
           </div> 
           <div className="form-floating mb-3 col">
-            <input className="form-control" type="text" id="plantTypeTextBox" placeholder={oldPlant.plantType} onChange={handlePlantTypeChange}/>
+            <input className="form-control" type="text" id="plantTypeTextBox" defaultValue={oldPlant.plantType} onChange={handlePlantTypeChange}/>
             <label htmlFor="plantTypeTextBox">Plant Type:</label>
           </div>
         </div>
         <div className="row form-group">
         <div className="form-floating mb-3 col">
-            <textarea className="form-control" type="textarea" id="plantDescriptionTextBox" placeholder={oldPlant.plantDescription} onChange={handlePlantDescriptionChange}/>
+            <textarea className="form-control" type="textarea" id="plantDescriptionTextBox" defaultValue={oldPlant.plantDescription} onChange={handlePlantDescriptionChange}/>
             <label htmlFor="plantDescriptionTextBox">Plant Description:</label>
           </div>
         </div>
         <div className="row">
         <div className="form-floating mb-3 col">
-            <input className="form-control" type="text" id="photoTextBox" placeholder={oldPlant.photo} onChange={handlePhotoChange}/>
+            <input className="form-control" type="text" id="photoTextBox" defaultValue={oldPlant.photo} onChange={handlePhotoChange}/>
             <label htmlFor="photoTextBox">Photo:</label>
           </div>
           <div className="form-floating mb-3 col">
-            <input className="form-control" type="text" id="gotchaDateTextBox" placeholder={oldPlant.gotchaDate} onChange={handleGotchaDateChange}/>
+            <input className="form-control" type="text" id="gotchaDateTextBox" defaultValue={oldPlant.gotchaDate} onChange={handleGotchaDateChange}/>
             <label htmlFor="gotchaDateTextBox">Gotcha Date:</label>
           </div>
           <div className="form-floating mb-3 col">
