@@ -1,3 +1,9 @@
+// import { useContext } from 'react';
+// import CurrentUser from '../components/contexts/CurrentUser';
+
+
+// const auth = useContext(CurrentUser);
+
 export async function findAllPlants() {
     const response = await fetch("http://localhost:8080/api/plants");
 
@@ -28,28 +34,27 @@ export async function findPlantsByMyGardenId(myGardenId) {
     return response.json();
 }
 
-export async function addPlant(plant) {
-    const init = {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-            "Accept": "application/json"
-        },
-        body: JSON.stringify(plant)
-    };
-    await fetch("http://localhost:8080/api/plants", init)
-    .then(response => {
-        if (response !== 201) {
-            return Promise.reject("response is not 201 CREATED");
-        } else {
-            return response.json();
-        }
-    });
-    // .then(() => { 
-    //     history.push(setMessages("Confirmation ✅ - Agent edited successfully 👍🏻"));
-    //   })
-    //     .catch(() => {
-    //       history.push(setMessages("Error - Agent was not edited 👎🏻"));
-    //     })
-    //   .catch(console.log);
-}
+// //add plant fetch
+// const addPlant = (plant) => {
+//     const init = {
+//         method: "POST",
+//         headers: {
+//             "Content-Type": "application/json",
+//             "Accept": "application/json",
+//             "Authorization": `Bearer ${auth.token}`
+//         },
+//         body: JSON.stringify(plant)
+//     };
+//     fetch("http://localhost:8080/api/plants", init)
+//     .then(response => {
+//         if (response.status !== 201) {
+//             return Promise.reject("response is not 201 CREATED.");
+//         }
+//         return response.json();
+//         })
+//         .then(json => setPlants([...plants, json]))
+//         .then(() => {
+//             history.push(`/my-garden/${auth.currentUser.userId}`);
+//         })
+//         .catch(console.log);
+// }

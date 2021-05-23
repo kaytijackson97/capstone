@@ -95,7 +95,7 @@ GET http://localhost:8080/api/plants HTTP/1.1
 ###
 
 POST http://localhost:8080/api/plants HTTP/1.1
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJjYXBzdWxlIiwic3ViIjoicmN1Y2NpYSIsImF1dGhvcml0aWVzIjoiUk9MRV9VU0VSIiwiZXhwIjoxNjIxNjI5NjY3fQ.bph7nK6l4cVNQppmjhi8D8P3C2C7svI07qf9eZuWYNw
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJwbGFudGJhc2UiLCJzdWIiOiJyY3VjY2lhIiwiYXV0aG9yaXRpZXMiOiJST0xFX1VTRVIiLCJleHAiOjE2MjE3MTc4NzN9.1WCOmdkdPHNifn3JDiHvfIhzNQblkCqMbuV7szb_ZgE
 Content-Type: application/json
 
 {

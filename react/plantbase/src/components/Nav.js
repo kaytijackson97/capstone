@@ -13,7 +13,7 @@ function Nav() {
 
     const navStyle = {
         color: 'white',
-        'text-decoration': 'none'
+        'textDecoration': 'none'
     };
 
   return (
