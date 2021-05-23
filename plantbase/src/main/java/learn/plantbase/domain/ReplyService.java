@@ -60,7 +60,7 @@ public class ReplyService {
             return result;
         }
         Reply originalReply = repository.findById(reply.getReplyId());
-        hasDifferentIds(result, originalReply.getUsername(), reply.getUsername(), "Cannot change username.");
+        hasDifferentStrings(result, originalReply.getUsername(), reply.getUsername(), "Cannot change username.");
         hasDifferentIds(result, originalReply.getPostId(), reply.getPostId(), "Cannot change post id.");
 
         if (!originalReply.getDatetimePosted().equals(reply.getDatetimePosted())) {
@@ -94,7 +94,7 @@ public class ReplyService {
 
         List<Planter> planters = planterRepository.findAll();
         boolean planterExists = planters.stream()
-                .anyMatch(i -> i.getPlanterId() == reply.getUsername());
+                .anyMatch(i -> i.getUsername() == reply.getUsername());
 
         if (!planterExists) {
             result.addMessage("Invalid planter id", ResultType.INVALID);
@@ -121,6 +121,13 @@ public class ReplyService {
             result.addMessage(error, ResultType.INVALID);
         }
 
+        return result;
+    }
+
+    private Result<Reply> hasDifferentStrings(Result<Reply> result, String originalString, String newString, String error) {
+        if (originalString != newString) {
+            result.addMessage(error, ResultType.INVALID);
+        }
         return result;
     }
 }

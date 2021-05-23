@@ -46,7 +46,7 @@ public class PlanterController {
 
     @PutMapping("/{username}")
     public ResponseEntity<Object> edit(@PathVariable String username, @RequestBody @Valid Planter planter, BindingResult bindingResult) {
-        if (username != planter.getUserName()) {
+        if (username != planter.getUsername()) {
             return new ResponseEntity<>(HttpStatus.CONFLICT);
         }
         if (bindingResult.hasErrors()) {

@@ -37,7 +37,7 @@ class PostJDBCTemplateRepositoryTest {
     void shouldFindByIdIfValid() {
         Post post = repository.findById(1);
         assertNotNull(post);
-        assertEquals(1, post.getUsername());
+        assertEquals("john_smith", post.getUsername());
         assertNotNull(post.getReplies());
     }
 
@@ -122,7 +122,7 @@ class PostJDBCTemplateRepositoryTest {
     private Post makeNewPost(int postId) {
         Post post = new Post();
         post.setPostId(postId);
-        post.setUsername("test");
+        post.setUsername("kaytiwiita");
         post.setGardenId(1);
         post.setPlantId(1);
         post.setCaption("test caption");

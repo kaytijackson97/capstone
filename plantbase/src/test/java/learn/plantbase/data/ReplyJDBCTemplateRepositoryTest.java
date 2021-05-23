@@ -102,7 +102,7 @@ class ReplyJDBCTemplateRepositoryTest {
     private Reply makeReply(int replyId){
         Reply reply = new Reply();
         reply.setReplyId(replyId);
-        reply.setUsername("test_username");
+        reply.setUsername("kaytiwiita");
         reply.setPostId(1);
         reply.setReply("test reply");
         reply.setDatetimePosted(LocalDateTime.now());
