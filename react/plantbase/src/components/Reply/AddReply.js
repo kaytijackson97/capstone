@@ -3,13 +3,13 @@ import { addReply } from "../../services/reply-api";
 
 function AddReply( {postId} ) {
     //change datetime from hard coded
-    //change planterId from hard coded
+    //change username from hard coded
     const [reply, setReply] = useState("");
     // const [dateTime, setDateTime] = useState("");
     
     const handleSubmit = async (event) => {
         const newReply = {
-            planterId: 1,
+            username: "john_smith",
             postId: postId,
             reply: reply,
             datetimePosted: "2021-05-18T06:43:18",

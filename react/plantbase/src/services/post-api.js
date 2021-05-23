@@ -8,8 +8,8 @@ export async function findAllPosts() {
     return response.json();
 }
 
-export async function findPostByUserId(planterId) {
-    const response = await fetch(`http://localhost:8080/api/post/planter/${planterId}`);
+export async function findPostByUsername(username) {
+    const response = await fetch(`http://localhost:8080/api/post/planter/${username}`);
 
     if (response.status !== 200) {
         return Promise.reject("response is not 200 OK");

@@ -3,17 +3,17 @@ import { Link } from "react-router-dom";
 import ReactRoundedImage from 'react-rounded-image';
 
 import { updatePostById } from "../../services/post-api";
-import { findPlanterById } from '../../services/planter-api';
+import { findPlanterByUsername } from '../../services/planter-api';
 import { findPlantById } from '../../services/plant-api';
 
 import ReplyApp from '../reply/ReplyApp';
 import DeletePost from './DeletePost';
 import LikeButton from '../like-button.png';
 
-function Post( {postId, planterId, plantId, gardenId, caption, photo, datetimePosted, likeCount, deletePostByPostId} ) {
+function Post( {postId, username, plantId, gardenId, caption, photo, datetimePosted, likeCount, deletePostByPostId} ) {
 
     const defaultPlanter = {
-        planterId: 0,
+        username: "",
         roleId: 0,
         firstName: "",
         lastName: "",
@@ -32,7 +32,7 @@ function Post( {postId, planterId, plantId, gardenId, caption, photo, datetimePo
 
     const defaultPost = {
         postId: postId,
-        planterId: planterId,
+        username: username,
         plantId: plantId,
         gardenId: gardenId,
         caption: caption,
@@ -47,9 +47,9 @@ function Post( {postId, planterId, plantId, gardenId, caption, photo, datetimePo
     const [newCount, setNewCount] = useState(0);
 
     useEffect(() => {
-        findPlanterById(planterId)
+        findPlanterByUsername(username)
             .then((data) => setPlanter(data))
-    }, [planterId]);
+    }, [username]);
 
     useEffect(() => {
         findPlantById(plantId)
@@ -63,7 +63,7 @@ function Post( {postId, planterId, plantId, gardenId, caption, photo, datetimePo
     const updatePost = () => {
         const updatedPost = {
             postId: postId,
-            planterId: planterId,
+            username: username,
             plantId: plantId,
             gardenId: gardenId,
             caption: caption,

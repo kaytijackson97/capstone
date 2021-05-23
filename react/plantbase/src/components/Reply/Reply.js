@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { findPlanterById } from "../../services/planter-api";
+import { findPlanterByUsername } from "../../services/planter-api";
 import DeleteReply from './DeleteReply';
 
-function Reply({replyId, planterId, reply, datetimePosted, likeCount, deleteReplyByReplyId}) {
+function Reply({replyId, username, reply, datetimePosted, likeCount, deleteReplyByReplyId}) {
     const defaultPlanter = {
-        planterId: 0,
+        username: "",
         roleId: 0,
         firstName: "",
         lastName: "",
@@ -16,9 +16,9 @@ function Reply({replyId, planterId, reply, datetimePosted, likeCount, deleteRepl
     const [newLikeCount, setNewLikeCount] = useState(likeCount);
 
     useEffect(() => {
-        findPlanterById(planterId)
+        findPlanterByUsername(username)
             .then((data) => setPlanter(data))
-    }, [planterId]);
+    }, [username]);
 
     const increaseLikeCount = () => {
         setNewLikeCount(newLikeCount + 1)

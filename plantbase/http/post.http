@@ -47,7 +47,7 @@ Origin: http://localhost:3000
 Content-Type: application/json
 
 {
-    "planterId": 1,
+    "username": "kaytiwiita",
     "gardenId": 1,
     "caption": " added post test",
     "photo": "test_post.png",
@@ -64,7 +64,7 @@ Origin: http://localhost:3000
 Content-Type: application/json
 
 {
-    "planterId": 1,
+    "username": "kaytiwiita",
     "gardenId": 1,
     "photo": "test_post.png",
     "datetimePosted": "2021-05-18T06:43:18",
