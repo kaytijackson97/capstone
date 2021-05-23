@@ -60,9 +60,16 @@ function PlantList({plants = [], setPlants }) {
     }
 
     return (
+        <div
+            className="bg-image"
+            style={{
+                'backgroundImage': 'url(https://static.vecteezy.com/system/resources/previews/000/142/515/non_2x/leafy-background-daun-vector.jpg)',
+                'height': ' 110vh auto',
+                'background-attachment': 'fixed'
+            }}>
         <div className="container">
-            <div className="card bg-success mt-3">
-                <h2 className="card-header bg-light card-title" style={navStyle}>Plant List</h2>
+            <div className="card bg-success">
+                <h2 className="card-header text-white bg-success card-title text-center" style={navStyle}>Plant List</h2>
                 <div className="row card-body text-center">
                     {plants.map(p => (<Plant key={p.plantId} plants={plants} plant={p}/> ))}
                     <button onClick={() => setShowAddForm(true)} className="btn btn-lg btn-light mt-3">Add a Plant</button>
@@ -71,6 +78,7 @@ function PlantList({plants = [], setPlants }) {
                 <div className="row">
                 </div>
             </div>
+        </div>
         </div>
     );
 }

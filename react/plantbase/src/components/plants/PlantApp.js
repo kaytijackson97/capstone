@@ -49,8 +49,15 @@ function PlantApp() {
     //edit plant fetch
 
     return (
+        <div
+            className="bg-image"
+            style={{
+                'backgroundImage': 'url(https://static.vecteezy.com/system/resources/previews/000/142/515/non_2x/leafy-background-daun-vector.jpg)',
+                'height': 'auto'
+            }}>
         <div>
             <PlantList plants={plants} setPlants={setPlants}/>
+        </div>
         </div>
     );
 }

@@ -53,15 +53,18 @@ function PlantProfile() {
     }
 
     const deletePlant = async () => {
-        await fetch(`http://localhost:8080/api/plants/${plant.plantId}`, {method: "DELETE"})
-            .then(response => {
-                if (response.status !== 204) {
-                    return Promise.reject(`delete found with status ${response.status}`);
-                }
-            });
+        await fetch(`http://localhost:8080/api/plants/${plantId}`, { method: "DELETE" })
+        .then(response => {
+          if (response.status === 204 || response.status === 404) {
+            
+          } else {
+            return Promise.reject(`delete found with status ${response.status}`);
+          }
+        });
+        history.push('/plant');
     }
 
-    const editForm = (plant) => {
+    const editForm = () => {
         if (showEditForm === true) {
             return (
                 <EditPlant/>

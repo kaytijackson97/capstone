@@ -8,7 +8,9 @@ function Messages({messages}) {
               {/* {auth.currentUser && auth.currentUser.hasRole("ADMIN") ? (
                 ""
               ) : ( */}
-                Howdy
+                What did the boy plant say to his girlfriend? 
+
+                “I’ll never leaf you.”
                {/* )} */}
           </div>
         </div>
