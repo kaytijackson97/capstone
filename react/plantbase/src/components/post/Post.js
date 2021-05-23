@@ -1,29 +1,30 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import ReactRoundedImage from 'react-rounded-image';
 
-import { updatePostById } from "../../services/post-api";
 import { findPlanterByUsername } from '../../services/planter-api';
 import { findPlantById } from '../../services/plant-api';
 
 import ReplyApp from '../reply/ReplyApp';
 import DeletePost from './DeletePost';
 import LikeButton from '../like-button.png';
+import CurrentUser from "../contexts/CurrentUser";
+import EditPost from "./EditPost";
 
-function Post( {postId, username, plantId, gardenId, caption, photo, datetimePosted, likeCount, deletePostByPostId} ) {
+function Post( {postId, username, plantId, gardenId, caption, photo, datetimePosted, likeCount, deletePostByPostId, editPostByPostId} ) {
 
     const defaultPlanter = {
         username: "",
-        roleId: 0,
+        roleId: 2,
         firstName: "",
         lastName: "",
         email: ""
     }
 
     const defaultPlant = {
-        plantId: 0,
-        myGardenId: 0,
-        plantDescription: 0,
+        plantId: 1,
+        myGardenId: 1,
+        plantDescription: "",
         photo: "",
         plantName: "",
         plantType: "",
@@ -45,6 +46,7 @@ function Post( {postId, username, plantId, gardenId, caption, photo, datetimePos
     const [plant, setPlant] = useState(defaultPlant);
     const [newPost, setNewPost] = useState(defaultPost);
     const [newCount, setNewCount] = useState(0);
+    const auth = useContext(CurrentUser);
 
     useEffect(() => {
         findPlanterByUsername(username)
@@ -72,16 +74,32 @@ function Post( {postId, username, plantId, gardenId, caption, photo, datetimePos
             likeCount: newCount
         }
 
-        updatePostById(updatedPost, postId)
-            .then(setNewPost(updatedPost));
+        const init = {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${auth.token}`
+            },
+            body: JSON.stringify(updatedPost),
+        };
+
+        fetch(`http://localhost:8080/api/post/${postId}`, init)
+            .then((response) => {
+                if (response.status === 404) {
+                    return Promise.reject("Post id not found");
+                } else if (response.status !== 204) {
+                    return Promise.reject("response is not 204 NO_CONTENT");
+                }
+            })
+            .then(() => {
+                editPostByPostId(newPost);
+            }).then(setNewPost(updatedPost))
     }
 
     const handleClick = () => {
         increaseLikeCount();
         updatePost();
     }
-
-
 
     const postStyle = {
         "width": "1000px"
@@ -103,6 +121,7 @@ function Post( {postId, username, plantId, gardenId, caption, photo, datetimePos
                             <Link to={`/plantprofile/${plant.plantId}`} className="text-dark text-decoration-none">{plant.plantName}</Link></h4>
                         </div>
                         <div className="col d-flex flex-row-reverse">
+                            <EditPost postId={postId} editPostByPostId={editPostByPostId}/>
                             <DeletePost postId={postId} deletePostByPostId={deletePostByPostId}/>
                         </div>
                     </div>

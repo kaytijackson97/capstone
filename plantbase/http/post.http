@@ -108,9 +108,9 @@ Content-Type: application/json
 
 {
     "postId": 1,
-    "planterId": 1,
+    "username": "john_smith",
     "gardenId": 1,
-    "caption": " edit post test",
+    "caption": "test post",
     "photo": "test_post.png",
     "datetimePosted": "2021-05-18T06:43:18",
     "likeCount": 0,
