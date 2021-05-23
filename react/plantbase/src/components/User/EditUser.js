@@ -7,11 +7,11 @@ function EditUser() {
   const [lastName, setLastName] = useState(user.lastName);
   const [email, setEmail] = useState(user.email);
 
-  const { userId } = useParams();
+  const { username } = useParams();
   const history = useHistory();
 
   useEffect(() => {
-      fetch(`http://localhost:8080/api/${userId}`) 
+      fetch(`http://localhost:8080/api/${username}`) 
         .then(response => response.json())
         .then(data => setUser(data))
         .catch(error => console.log(error));
@@ -23,7 +23,7 @@ function EditUser() {
   const handleEdit = (evt) => {
 
      const newUser = {
-          userId: user.userId,
+          username: user.username,
           firstName: firstName,
           lastName: lastName,
           email: email
@@ -40,7 +40,7 @@ function EditUser() {
     
     console.log(init);
     // 3. create fetch
-    fetch(`http://localhost:8080/api/agent/${user.userId}`, init)
+    fetch(`http://localhost:8080/api/agent/${user.username}`, init)
       .then(response => {
         if (response.status !== 204) {
           return Promise.reject("couldn't update user");
@@ -68,7 +68,7 @@ function EditUser() {
         <form onSubmit={handleEdit}>
           <div className="form-group">
             <label htmlFor="userIdTextBox">User ID:</label>
-            <input type="text" id="userIdTextBox" className="form-control" readOnly="readOnly" value={user.userId}/>
+            <input type="text" id="userIdTextBox" className="form-control" readOnly="readOnly" value={user.username}/>
           </div>
           <div className="form-group">
             <label htmlFor="firstNameTextBox">First Name:</label>
