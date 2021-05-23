@@ -14,14 +14,16 @@ public class Reply {
 
     @Getter
     @Setter
-    @NotNull
-    @NotBlank
+    @NotNull(message = "Username is required.")
+    @NotBlank(message = "Username is required.")
     @Size(max = 250, message = "Reply cannot be greater than 250 characters.")
     private String reply;
 
     @Getter
     @Setter
-    @Min(value = 1, message = "Planter id must be at least 1.")
+    @NotBlank
+    @NotNull
+    @Size(max = 25, message = "Username cannot be greater than 25 characters.")
     private String username;
 
     @Getter

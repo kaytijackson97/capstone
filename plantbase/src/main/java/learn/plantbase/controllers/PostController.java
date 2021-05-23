@@ -28,9 +28,9 @@ public class PostController {
         return service.findAll();
     }
   
-    @GetMapping("/planter/{planterId}")
-    public ResponseEntity<Object> findByPlanterId(@PathVariable int planterId) {
-        List<Post> posts = service.findByPlanterId(planterId);
+    @GetMapping("/planter/{username}")
+    public ResponseEntity<Object> findByPlanterId(@PathVariable String username) {
+        List<Post> posts = service.findByUsername(username);
         if (posts.size() == 0) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }

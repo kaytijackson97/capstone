@@ -17,9 +17,9 @@ public class Post {
 
     @Getter
     @Setter
-    @NotBlank
-    @NotNull
-    @Size(max=25, message = "username must be less than 25 characters.")
+    @NotNull(message = "Username is required.")
+    @NotBlank(message = "Username is required.")
+    @Size(max = 25, message = "Username cannot be greater than 25 characters.")
     private String username;
 
     @Getter

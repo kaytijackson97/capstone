@@ -5,7 +5,7 @@ function ReplyList( {replies, deleteReplyByReplyId} ) {
         <div>
             {replies.map(r => ( <Reply key={r.replyId} 
             replyId={r.replyId}
-            planterId={r.planterId} 
+            username={r.username} 
             reply={r.reply}
             datetimePosted={r.datetimePosted}
             deleteReplyByReplyId={deleteReplyByReplyId}

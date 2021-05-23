@@ -5,10 +5,11 @@ import Post from './Post';
 function PostList({posts, deletePostByPostId}) {
 
     return (
+        
         <div>
             {posts.map(p => ( <Post key={p.postId} 
             postId={p.postId} 
-            planterId={p.planterId} 
+            username={p.username} 
             plantId={p.plantId}
             gardenId={p.gardenId}
             caption={p.caption}

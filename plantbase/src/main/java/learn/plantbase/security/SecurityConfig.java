@@ -62,15 +62,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
                 .antMatchers("/authenticate", "/create_account").permitAll()
                 .antMatchers(HttpMethod.GET, "/api/plants", /*Get by id*/ "/api/plants/*", "/api/plants/byMyGarden/*").permitAll() // anybody is able to hit this endpoint
-                .antMatchers(HttpMethod.POST, "/api/plants").hasAnyRole("USER", "ADMIN")
-                .antMatchers(HttpMethod.PUT, "/api/plants/*").hasAnyRole("USER", "ADMIN")
-                .antMatchers(HttpMethod.DELETE, "/api/plants/*").hasAnyRole("USER", "ADMIN")
+                .antMatchers(HttpMethod.POST, "/api/plants").permitAll()
+                .antMatchers(HttpMethod.PUT, "/api/plants/*").permitAll()
+                .antMatchers(HttpMethod.DELETE, "/api/plants/*").permitAll()
 
                 //my garden
                 .antMatchers(HttpMethod.GET, "/api/my-garden", /*Get by id*/ "/api/my-garden/*", "/api/my-garden/from-planter/*").permitAll() // anybody is able to hit this endpoint
-                .antMatchers(HttpMethod.POST, "/api/my-garden").hasAnyRole("USER", "ADMIN")
-                .antMatchers(HttpMethod.PUT, "/api/my-garden/*").hasAnyRole("USER", "ADMIN")
-                .antMatchers(HttpMethod.DELETE, "/api/my-garden/*").hasAnyRole("USER", "ADMIN")
+                .antMatchers(HttpMethod.POST, "/api/my-garden").permitAll()
+                .antMatchers(HttpMethod.PUT, "/api/my-garden/*").permitAll()
+                .antMatchers(HttpMethod.DELETE, "/api/my-garden/*").permitAll()
 
                 //garden
                 .antMatchers(HttpMethod.GET, "/api/garden", /*Get by id*/ "/api/garden/*").permitAll() // anybody is able to hit this endpoint

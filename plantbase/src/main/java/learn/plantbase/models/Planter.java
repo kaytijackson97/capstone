@@ -19,17 +19,17 @@ public class Planter {
 
     @Getter
     @Setter
-    @NotNull
-    @NotBlank(message = "First name is required.")
-    @Size(max = 25, message = "First name cannot be greater than 25 characters.")
-    private String firstName;
+    @NotNull(message = "Username is required.")
+    @NotBlank(message = "Username is required.")
+    @Size(max = 25, message = "Username cannot be greater than 25 characters.")
+    private String username;
 
     @Getter
     @Setter
-    @NotNull
-    @NotBlank(message = "Username is required.")
-    @Size(max = 25, message = "Username cannot be greater than 25 characters.")
-    private String userName;
+    @NotNull(message = "First name is required.")
+    @NotBlank(message = "First name is required.")
+    @Size(max = 25, message = "First name cannot be greater than 25 characters.")
+    private String firstName;
 
     @Getter
     @Setter

@@ -19,35 +19,23 @@ import {
   Redirect,
 } from "react-router-dom";
 import AddPlant from './components/plants/AddPlant';
-import { findPlanterById } from './services/planter-api';
+import { findPlanterByUsername } from './services/planter-api';
+import EditPlant from './components/plants/EditPlant';
 
 function App() {
   const [currentUser, setCurrentUser] = useState(null);
-  // const [planter, setPlanter] = useState(null);
-  // let firstName;
-  // let lastName;
-  // let email;
-  // let myGarden = {};
-
-  // const findPlanter = async (id) => {
-  //   await findUserById(id)
-  //     .then((data) => setPlanter(data));
-
-  //     console.log(planter);
-  //   firstName = planter.firstName;
-  //   lastName = planter.lastName;
-  //   email = planter.email;
-  //   myGarden = planter.myGarden;
-  // }
 
   const login = async (token) => {
-    debugger
     const { id, sub: username, authorities: rolesString } = await jwt_decode(token);
     
     // const roles = rolesString !== undefined ?  rolesString.split(",") : [];
 
     const roles = rolesString.split(",");
-    // findPlanter(id);
+    const planter = await findPlanterByUsername(username);
+    const firstName = planter.firstName;
+    const lastName = planter.lastName;
+    const email = planter.email;
+    const myGarden = planter.myGarden;
 
     const currentUser = {
       id,
@@ -60,10 +48,10 @@ function App() {
       isValid() {
         return true;
       },
-      // firstName,
-      // lastName,
-      // email,
-      // myGarden
+      firstName,
+      lastName,
+      email,
+      myGarden
     };
 
 
@@ -131,6 +119,9 @@ function App() {
         </Route>
         <Route path="/plantprofile/:plantId">
           <PlantProfile />
+        </Route>
+        <Route path="/plant/edit/:plantId">
+          <EditPlant />
         </Route>
         <Route path="/register">
           <Register />

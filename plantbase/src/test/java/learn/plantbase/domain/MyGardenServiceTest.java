@@ -46,7 +46,7 @@ class MyGardenServiceTest {
     @Test
     void shouldNotAddZeroPlanterId() {
         MyGarden myGarden = makeMyGarden();
-        myGarden.setPlanterId(0);
+        myGarden.setUsername(null);
         Result<MyGarden> result = service.add(myGarden);
         assertEquals(ResultType.INVALID, result.getType());
     }
@@ -77,7 +77,7 @@ class MyGardenServiceTest {
         MyGarden mockOut = makeMyGarden();
         mockOut.setMyGardenId(1);
 
-        Planter planter = makeNewPlanter(1);
+        Planter planter = makeNewPlanter();
         when(planterRepository.findAll()).thenReturn(List.of(planter));
 
         when(repository.addMyGarden(myGarden)).thenReturn(mockOut);
@@ -92,7 +92,7 @@ class MyGardenServiceTest {
         MyGarden myGarden = makeMyGarden();
         myGarden.setMyGardenId(1);
 
-        Planter planter = makeNewPlanter(1);
+        Planter planter = makeNewPlanter();
         when(planterRepository.findAll()).thenReturn(List.of(planter));
 
         when(repository.editMyGarden(myGarden)).thenReturn(true);
@@ -177,14 +177,14 @@ class MyGardenServiceTest {
         myGarden.setGardenName("Rachel");
         myGarden.setPhoto("image.png");
         myGarden.setBio("Welcome to my garden");
-        myGarden.setPlanterId(1);
+        myGarden.setUsername("rcuccia");
         myGarden.setPlants(new ArrayList<>());
         return myGarden;
     }
 
-    private Planter makeNewPlanter(int planterId) {
+    private Planter makeNewPlanter() {
         Planter planter = new Planter();
-        planter.setPlanterId(planterId);
+        planter.setUsername("rcuccia");
         return planter;
     }
 }

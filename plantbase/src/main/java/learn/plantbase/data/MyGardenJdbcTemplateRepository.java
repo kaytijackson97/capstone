@@ -41,7 +41,7 @@ public class MyGardenJdbcTemplateRepository implements MyGardenRepository {
 
     @Override
     public MyGarden findByPlanter(String username) {
-        final String sql = "select my_garden_id, username, garden_name, bio, photo from my_garden where planter_id = ?;";
+        final String sql = "select my_garden_id, username, garden_name, bio, photo from my_garden where username = ?;";
         MyGarden myGarden = jdbcTemplate.query(sql, new MyGardenMapper(), username).stream().findFirst().orElse(null);
         if (myGarden != null) {
             addPlants(myGarden);

@@ -1,33 +1,40 @@
 import { Link } from 'react-router-dom';
+import EditPlant from './EditPlant';
 
 function Plant({plants = [], plant, editPlant}) {
     const plantStyle = {
         'width': '18rem',
-        'margin-bottom': '10px',
-        'margin-left': '30px',
-        'margin-top': '30px',
-        'text-decoration': 'none'
+        'marginBottom': '10px',
+        'marginLeft': '30px',
+        'marginTop': '30px',
+        'textDecoration': 'none'
     };
 
     const navStyle = {
         color: 'green',
-        'text-decoration': 'none'
+        'textDecoration': 'none'
     };
+
+    // const editForm = (plant) => {
+    //     return (
+    //         <EditPlant editPlant={editPlant}/>
+    //     );
+    // }
 
     return (
     <div className="" style={plantStyle}>
         <Link to={`/plantprofile/${plant.plantId}`} style={navStyle}>
-            <div className="card bg-light mt-3" key={plant.plantId} >
-                <td  className="col">
+            <div className="card bg-light mt-3" style={{'height': '20rem'}} key={plant.plantId} >
+                <div  className="col">
                 <span className="badge bg-success">{plant.plantId}</span>
-                </td>
-                <td className="col"><strong>{plant.plantName}</strong></td>
-                <td className="col">{plant.plantType}</td>
+                </div>
+                <div className="col"><strong>{plant.plantName}</strong></div>
+                <div className="col">{plant.plantType}</div>
                 {/* <td className="col">{plant.gotchaDate}</td> */}
-                <td className="col"><img src="{plant.photo}" style={{ alignSelf: 'center' }} alt="plant list item" width="100px"></img></td>
+                <div className="col"><img src={plant.photo} style={{ alignSelf: 'center', marginBottom: '10px', marginTop: '10px', maxHeight: '200px', maxWidth: '200px' }} alt="plant list item"></img></div>
                 {/* <td className="col">{plant.plantDescription}</td> */}
-                {/* <td className="col"><button type="button" className="btn btn-success" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Edit an Agent" onClick={() => approvedEditForm()}>Edit</button></td> */}
-                <td className="col"></td>
+                {/* <td className="col"><button type="button" className="btn btn-success" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Edit an Agent" onClick={editForm(plant)}>Edit</button></td> */}
+                <div className="col"></div>
             </div>
         </Link>
     </div>

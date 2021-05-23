@@ -24,10 +24,10 @@ function AddPlant({addPlant}) {
         plant["gotchaDate"] = gotchaDate;
         plant["myGardenId"] = myGardenId;
         plant["posts"] = posts;
-        auth.currentUser && auth.currentUser.hasRole("ADMIN") ? (
-          addPlant(plant)
+        // auth.currentUser && auth.currentUser.hasRole("ADMIN") ? (
+        addPlant(plant)
 
-        ) : (console.log("denied"))
+        // ) : (console.log("denied"))
     }
 
     const handlePlantDescriptionChange = (event) => {
@@ -63,7 +63,7 @@ function AddPlant({addPlant}) {
     // }
 
     return (
-        <div className="container">
+        <div className="container" style={{maxwidth: + 20}}>
             <div className="card  text-center border-success mb-3">
       <h2 className="card-header card-title">Add a Plant</h2>
       <div className="card-body">
@@ -90,16 +90,12 @@ function AddPlant({addPlant}) {
             <label htmlFor="photoTextBox">Photo:</label>
           </div>
           <div className="form-floating mb-3 col">
-            <input className="form-control" type="text" id="gotchaDateTextBox" placeholder="Gotcha Date [YYYY-MM-DD]:" onChange={handleGotchaDateChange}/>
-            <label htmlFor="gotchaDateTextBox">Gotcha Date [YYYY-MM-DD]:</label>
+            <input className="form-control" type="text" id="gotchaDateTextBox" placeholder="Gotcha Date:" onChange={handleGotchaDateChange}/>
+            <label htmlFor="gotchaDateTextBox">Gotcha Date:</label>
           </div>
           <div className="form-floating mb-3 col">
             <input className="form-control" type="text" id="myGardenIdTextBox" placeholder="My Garden Id:" onChange={handleMyGardenIdChange}/>
             <label htmlFor="myGardenIdTextBox">My Garden Id:</label>
-          </div>
-          <div className="form-floating mb-3 col">
-            <input className="form-control" type="text" id="postsTextBox" placeholder="Posts:" onChange={handlePostsChange}/>
-            <label htmlFor="postsTextBox">Posts:</label>
           </div>
         </div>
         <div className="text-center d-grid gap-2">

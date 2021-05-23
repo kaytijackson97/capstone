@@ -57,7 +57,7 @@ public class PlanterService {
 
 
         if (!repository.editPlanter(planter)) {
-            String msg = String.format("username: %s, not found", planter.getUserName());
+            String msg = String.format("username: %s, not found", planter.getUsername());
             result.addMessage(msg, ResultType.NOT_FOUND);
         }
 
@@ -66,7 +66,7 @@ public class PlanterService {
 
 
     public boolean deleteByPlanter(String username) {
-        return repository.deleteById(username);
+        return repository.deleteByUsername(username);
     }
 
     private Result<Planter> validate(Planter planter) {

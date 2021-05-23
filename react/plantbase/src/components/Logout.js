@@ -21,7 +21,7 @@ function Logout () {
 
     return (
         <div>
-            <Link onClick={handleLogout} style={navStyle}>Logout 🥺</Link>
+            <Link onClick={handleLogout} style={navStyle}>Logout 🍂</Link>
         </div>
     );
 }

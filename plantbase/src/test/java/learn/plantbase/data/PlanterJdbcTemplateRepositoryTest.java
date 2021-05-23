@@ -1,5 +1,6 @@
 package learn.plantbase.data;
 
+import learn.plantbase.models.MyGarden;
 import learn.plantbase.models.Planter;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -26,13 +27,13 @@ public class PlanterJdbcTemplateRepositoryTest {
 
     @Test
     void shouldFindValidId() {
-        Planter planter = repository.findById(1);
+        Planter planter = repository.findByUsername("john_smith");
         assertNotNull(planter);
     }
 
     @Test
     void shouldNotFindMissingPlanter() {
-        Planter planter = repository.findById(100);
+        Planter planter = repository.findByUsername("invalid_username");
         assertNull(planter);
     }
 
@@ -46,6 +47,8 @@ public class PlanterJdbcTemplateRepositoryTest {
     void shouldAddPlanter() {
         Planter planter = makeNewPlanter("bob_riley");
         Planter actual = repository.addPlanter(planter);
+        System.out.println(planter);
+        System.out.println(actual);
         assertEquals(actual, planter);
 
         List<Planter> planters = repository.findAll();
@@ -61,7 +64,7 @@ public class PlanterJdbcTemplateRepositoryTest {
 
     @Test
     void shouldEditPlanterWithValidPlanter() {
-        Planter planter = repository.findById(1);
+        Planter planter = repository.findByUsername("john_smith");
         planter.setFirstName("Riley");
         assertTrue(repository.editPlanter(planter));
     }
@@ -85,17 +88,18 @@ public class PlanterJdbcTemplateRepositoryTest {
 
     @Test
     void shouldDeleteByValidPlanter() {
-        assertTrue(repository.deleteById(5));
+        assertTrue(repository.deleteByUsername("bob_riley"));
     }
 
     @Test
     void shouldNotDeleteWithInvalidPlanter() {
-        assertFalse(repository.deleteById(100));
+        assertFalse(repository.deleteByUsername("invalid_username"));
     }
 
     private Planter makeNewPlanter(String name) {
         Planter planter = new Planter();
         planter.setUsername(name);
+
         planter.setRoleId(1);
         planter.setFirstName("Bob");
         planter.setLastName("Riley");

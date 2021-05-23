@@ -26,7 +26,7 @@ public class PlanterJdbcTemplateRepository implements PlanterRepository {
     @Override
     public List<Planter> findAll() {
 
-        final String sql = "select planter_id, role_id, first_name, last_name, email "
+        final String sql = "select username, role_id, first_name, last_name, email "
                 + "from planter;";
 
         return jdbcTemplate.query(sql, new PlanterMapper());
@@ -36,7 +36,7 @@ public class PlanterJdbcTemplateRepository implements PlanterRepository {
 
     public Planter findByUsername(String username) {
 
-        final String sql = "select planter_id, username, role_id, first_name, last_name, email "
+        final String sql = "select username, role_id, first_name, last_name, email "
                 + "from planter "
                 + "where username = ?;";
 
@@ -58,14 +58,14 @@ public class PlanterJdbcTemplateRepository implements PlanterRepository {
         }
 
 
-        final String sql = "insert into planter (username, role_id, first_name, last_name, email) "
+        final String sql = "insert into planter (role_id, username, first_name, last_name, email) "
                 + "values (?, ?, ?, ?, ?);";
 
         KeyHolder keyHolder = new GeneratedKeyHolder();
         int rowsAffected = jdbcTemplate.update(connection -> {
             PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            ps.setString(1, planter.getUserName());
-            ps.setInt(2, planter.getRoleId());
+            ps.setInt(1, planter.getRoleId());
+            ps.setString(2, planter.getUsername());
             ps.setString(3, planter.getFirstName());
             ps.setString(4, planter.getLastName());
             ps.setString(5, planter.getEmail());
@@ -75,9 +75,6 @@ public class PlanterJdbcTemplateRepository implements PlanterRepository {
         if (rowsAffected <= 0) {
             return null;
         }
-
-
-        planter.setUserName(Objects.requireNonNull(keyHolder.getKey()).toString());
 
         return planter;
     }
@@ -99,7 +96,7 @@ public class PlanterJdbcTemplateRepository implements PlanterRepository {
                 planter.getFirstName(),
                 planter.getLastName(),
                 planter.getEmail(),
-                planter.getUserName()) > 0;
+                planter.getUsername()) > 0;
     }
 
     @Override
@@ -117,7 +114,7 @@ public class PlanterJdbcTemplateRepository implements PlanterRepository {
     private void addMyGarden(Planter planter) {
         final String sql = "select my_garden_id, username, garden_name, bio, photo from my_garden where username = ?;";
 
-        MyGarden myGarden = jdbcTemplate.query(sql, new MyGardenMapper(), planter.getUserName()).stream().findFirst().orElse(null);
+        MyGarden myGarden = jdbcTemplate.query(sql, new MyGardenMapper(), planter.getUsername()).stream().findFirst().orElse(null);
         planter.setMyGarden(myGarden);
     }
 }
