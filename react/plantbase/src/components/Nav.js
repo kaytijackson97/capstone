@@ -48,10 +48,26 @@ function Nav() {
                 ) : (
                     ""
                 )}
-                <Link style={navStyle} className="nav-link" to="/logout">
-                    <li className="nav-item">
-                        <Logout />
-                    </li>
+                <Link style={navStyle} className="nav-link nav-item dropdown" to="/my-garden">
+                        <strong>
+                            @{auth.currentUser && auth.currentUser.isValid() ? (
+                                        auth.currentUser.username
+                                    ) : (
+                                        ""
+                                    )}
+                        </strong>
+                    <div className="dropdown-menu show" data-bs-popper="none">
+                    <Link style={navStyle} to="/post" className="nav-link">
+                            <li style={navStyle}>Post</li>
+                        </Link>
+                        <a className="dropdown-item" href="#">Edit Account</a>
+                        <Link className="dropdown-item" to="/logout">
+                            <li className="dropdown-item">
+                                <Logout />
+                            </li>
+                        </Link>
+                        <a className="dropdown-item" href="#">Delete Account</a>
+                    </div>
                 </Link>
         
             </ul>
@@ -59,31 +75,7 @@ function Nav() {
                 <input className="form-control me-sm-2" type="text" placeholder="Search"/>
                 <button className="btn btn-light my-2 my-sm-0" type="submit"><strong>Search</strong></button>
             </form>
-            <Link style={navStyle} className="nav-link btn btn-light text-dark" to="/profile">
-                    <li className="nav-item"> 
-                        <strong>
-                            user: {auth.currentUser && auth.currentUser.isValid() ? (
-                                        auth.currentUser.username
-                                    ) : (
-                                        ""
-                                    )}
-                        </strong>
-                    </li>
-                <li className="nav-item dropdown">
-                    <a className="nav-link dropdown-toggle show" data-bs-toggle="dropdown" href="http://localhost:3000/garden" role="button" aria-haspopup="true" aria-expanded="true">Dropdown</a>
-                    <div className="dropdown-menu show" data-bs-popper="none">
-                        <a className="dropdown-item" href="#">Add a Post</a>
-                        <a className="dropdown-item" href="#">Edit Account</a>
-                        <Link style={navStyle} className="dropdown-item" to="/logout">
-                            <li className="dropdown-item">
-                                <Logout />
-                            </li>
-                        </Link>
-                        <a className="dropdown-item" href="#">Delete Account</a>
-                    </div>
-                </li>
-                </Link>
-        </div>
+            </div>
         </div>
     </nav>
   );
