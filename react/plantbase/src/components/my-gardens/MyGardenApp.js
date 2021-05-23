@@ -91,6 +91,7 @@ function MyGardenApp() {
                 'background-attachment': 'fixed'
             }}>
         <div className="container">
+        {console.log(myGarden.myGardenId)}
             <div className="row">
             </div>
             <div className="row">
