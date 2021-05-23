@@ -21,7 +21,9 @@ public class MyGarden {
 
     @Getter
     @Setter
-    @Size(max = 25, message = "User name cannot be greater than 25 characters.")
+    @NotNull(message = "Username is required.")
+    @NotBlank(message = "Username is required.")
+    @Size(max = 25, message = "Username cannot be greater than 25 characters.")
     private String username;
 
     @Getter

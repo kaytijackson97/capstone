@@ -77,7 +77,7 @@ public class PostService {
         }
 
         Post originalPost = repository.findById(post.getPostId());
-        hasDifferentIds(result, originalPost.getUsername(), post.getUsername(), "Cannot change planter.");
+        hasDifferentStrings(result, originalPost.getUsername(), post.getUsername(), "Cannot change planter.");
         hasDifferentIds(result, originalPost.getPlantId(), post.getPlantId(), "Cannot change plant.");
         hasDifferentIds(result, originalPost.getGardenId(), post.getGardenId(), "Cannot change garden.");
 
@@ -111,7 +111,7 @@ public class PostService {
 
         List<Planter> planters = planterRepository.findAll();
         boolean planterExists = planters.stream()
-                .anyMatch(i -> i.getPlanterId() == post.getPlanterId());
+                .anyMatch(i -> i.getUsername() == post.getUsername());
 
         if (!planterExists) {
             result.addMessage("Invalid planter id", ResultType.INVALID);
@@ -159,20 +159,11 @@ public class PostService {
         }
         return result;
     }
-//
-//    @Override
-//    public boolean equals(Object o) {
-//        if (this == o) return true;
-//        if (o == null || getClass() != o.getClass()) return false;
-//        PostService that = (PostService) o;
-//        return Objects.equals(repository, that.repository) &&
-//                Objects.equals(planterRepository, that.planterRepository) &&
-//                Objects.equals(plantRepository, that.plantRepository) &&
-//                Objects.equals(gardenRepository, that.gardenRepository);
-//    }
-//
-//    @Override
-//    public int hashCode() {
-//        return Objects.hash(repository, planterRepository, plantRepository, gardenRepository);
-//    }
+
+    private Result<Post> hasDifferentStrings(Result<Post> result, String originalString, String newString, String error) {
+        if (originalString != newString) {
+            result.addMessage(error, ResultType.INVALID);
+        }
+        return result;
+    }
 }
