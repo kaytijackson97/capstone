@@ -30,19 +30,16 @@ function Nav() {
                 <Link style={navStyle} to="/garden" className="nav-link">
                     <li style={navStyle} >Garden</li>
                 </Link>
-                <Link style={navStyle} to={`/my-garden/`} className="nav-link">
-                    <li style={navStyle} >My Garden</li>
-                </Link>
                 <Link style={navStyle} to="/post" className="nav-link">
                     <li style={navStyle}>Post</li>
                 </Link>
                 <Link style={navStyle} to="/plant" className="nav-link">
                     <li style={navStyle}>Plant</li>
                 </Link>
-                <Link style={navStyle} className="nav-link btn btn-light text-dark" to="/profile">
+                <Link style={navStyle} className="nav-link btn btn-light text-dark" to={`/my-garden/${auth.currentUser.username}`}>
                     <li className="nav-item"> 
                         <strong>
-                            user: {auth.currentUser && auth.currentUser.isValid() ? (
+                            My Garden: {auth.currentUser && auth.currentUser.isValid() ? (
                                         auth.currentUser.username
                                     ) : (
                                         ""

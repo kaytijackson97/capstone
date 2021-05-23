@@ -31,6 +31,13 @@ function MyGardenApp() {
     }, [auth.currentUser.id])
 
     return (
+        <div
+            className="bg-image"
+            style={{
+                'backgroundImage': 'url(https://static.vecteezy.com/system/resources/previews/000/142/515/non_2x/leafy-background-daun-vector.jpg)',
+                'height': ' 110vh auto',
+                'background-attachment': 'fixed'
+            }}>
         <div className="container">
             <div className="row">
             </div>
@@ -58,6 +65,7 @@ function MyGardenApp() {
                         <PlantApp/>
                     </div>
                 </div>
+        </div>
         </div>
         </div>
     );
