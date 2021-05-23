@@ -35,9 +35,7 @@ function EditMyGarden({myGarden, setShowEditForm}) {
             .catch(error => console.log(error));
     }, [username])
 
-    const handleEditMyGarden = (event) => {
-        event.preventDefault();
-        event.stopPropagation();
+    const handleEditMyGarden = async (event) => {
 
         let myGarden = {};
         myGarden["myGardenId"] = oldMyGarden.myGardenId;
@@ -48,7 +46,7 @@ function EditMyGarden({myGarden, setShowEditForm}) {
         myGarden["plants"] = oldMyGarden.plants;
         // auth.currentUser && auth.currentUser.hasRole("ADMIN") ? (
         console.log(myGarden);
-        editMyGarden(myGarden)
+        await editMyGarden(myGarden)
         history.push(from);
         setShowEditForm(false);
 
