@@ -7,7 +7,7 @@ function AddPost() {
 
     const handleSubmit = (event) => {
         const newPost = {
-            planterId: 1,
+            username: "john_smith",
             plantId: 1,
             gardenId: 1,
             caption: caption,

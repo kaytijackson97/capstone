@@ -94,7 +94,7 @@ public class ReplyService {
 
         List<Planter> planters = planterRepository.findAll();
         boolean planterExists = planters.stream()
-                .anyMatch(i -> i.getUsername() == reply.getUsername());
+                .anyMatch(i -> i.getUsername().equals(reply.getUsername()));
 
         if (!planterExists) {
             result.addMessage("Invalid planter id", ResultType.INVALID);
