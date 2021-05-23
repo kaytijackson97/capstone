@@ -40,6 +40,13 @@ function PlantProfile() {
             .catch(error => console.log(error));
     }, [plantId])
 
+    useEffect(() => {
+        fetch(`http://localhost:8080/api/post/plant/${plantId}`)
+            .then(response => response.json())
+            .then(data => setPosts(data))
+            .catch(error => console.log(error));
+    })
+
     const imageStyle = {
         alignSelf: 'center',
         'margin-bottom': '10px',
@@ -64,10 +71,10 @@ function PlantProfile() {
         history.push('/plant');
     }
 
-    const editForm = () => {
+    const editForm = (plant) => {
         if (showEditForm === true) {
             return (
-                <EditPlant/>
+                <EditPlant plant={plant} setShowEditForm={setShowEditForm}/>
                 // <div className="row">
                 //         <div className="card text-white bg-success mt-3">
                 //         <div className="card-header"><Link to={`/plant/edit/${plant.plantId}`} title="Edit an Agent">
@@ -109,9 +116,9 @@ function PlantProfile() {
                     <div className="card-header">
                     <button onClick={() => backButton()} className="btn btn-success"><img src={BackArrow} alt="back-arrow" width="10px"></img></button>
                     |<DeletePlant plantId={plant.plantId} deletePlant={deletePlant}/>
-                    |<Link className="btn btn-success" to={`/plant/edit/${plant.plantId}`} title="Edit an Agent">
+                    |<button className="btn btn-success" onClick={() => setShowEditForm(true)} title="Edit an Agent">
                         <img  src={EditIcon} alt="edit" width="20px"></img>
-                    </Link>- {plant.plantName} 🌿
+                    </button>- {plant.plantName} 🌿
                     </div>
                         <div className="row">
                             <div className="col">
@@ -148,13 +155,13 @@ function PlantProfile() {
             {defaultPlantProfile(plant)}
             {editForm(plant)}
             <div className="row">
-                <div className="card text-white bg-success mt-3 mb-3">
-                    <h2 className="card-header card-title">Related Posts</h2>
+                <div className="card bg-success mt-3 mb-3">
+                    <h2 className="card-header text-white card-title">Related Posts</h2>
                 <ul>
                     {/* list of posts that maps to post */}
                     <li>
                     {posts.map(p => (
-                        <Post key={p.postId} posts={posts} post={p} />
+                        <Post key={p.postId} postId={p.postId} username={p.username} gardenId={p.gardenId} caption={p.caption} photo={p.photo} datetimePosted={p.datetimePosted} likeCount={p.likeCount} deletePostByPostId={p.deletePostByPostId} posts={posts} post={p} />
                     ))}
                     </li>
                 </ul>

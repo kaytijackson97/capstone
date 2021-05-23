@@ -9,7 +9,7 @@ function Welcome() {
             style={{
                 'backgroundImage': 'url(https://static.vecteezy.com/system/resources/previews/000/142/515/non_2x/leafy-background-daun-vector.jpg)',
                 'height': '110vh',
-                'background-attachment': 'fixed'
+                'backgroundAttachment': 'fixed'
             }}>
         <div className="container">
             <div className="row">
