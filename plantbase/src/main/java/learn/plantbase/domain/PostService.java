@@ -78,13 +78,8 @@ public class PostService {
 
         Post originalPost = repository.findById(post.getPostId());
         hasDifferentStrings(result, originalPost.getUsername(), post.getUsername(), "Cannot change planter.");
-        hasDifferentIds(result, originalPost.getPlantId(), post.getPlantId(), "Cannot change plant.");
         hasDifferentIds(result, originalPost.getGardenId(), post.getGardenId(), "Cannot change garden.");
-
-        if (!originalPost.getDatetimePosted().equals(post.getDatetimePosted())) {
-            result.addMessage("Cannot change datetimePosted.", ResultType.INVALID);
-            return result;
-        }
+        hasDifferentStrings(result, originalPost.getDatetimePosted().toString(), post.getDatetimePosted().toString(), "Cannot change datetimePosted.");
 
         if (result.getType() != ResultType.SUCCESS) {
             return result;

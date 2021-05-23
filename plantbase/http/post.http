@@ -64,7 +64,7 @@ Origin: http://localhost:3000
 Content-Type: application/json
 
 {
-    "username": "kaytiwiita",
+    "username": "john_smith"
     "gardenId": 1,
     "photo": "test_post.png",
     "datetimePosted": "2021-05-18T06:43:18",
@@ -90,7 +90,7 @@ Origin: http://localhost:3000
 Content-Type: application/json
 
 {
-    "planterId": 1,
+    "username": "john_smith",
     "gardenId": 1,
     "caption": " added post test",
     "photo": "test_post.png",
@@ -148,3 +148,21 @@ Content-Type: application/json
 DELETE /api/post/1 HTTP/1.1
 Host: localhost:8080
 Origin: http://localhost:3000
+
+
+### Edit post
+PUT /api/post/2 HTTP/1.1
+Host: localhost:8080
+Origin: http://localhost:3000
+Content-Type: application/json
+
+{
+    "postId": 2,
+    "username": "rcuccia",
+    "gardenId": 1,
+    "caption": "Bonnie",
+    "photo": "",
+    "datetimePosted": "2021-05-18T02:43:18",
+    "likeCount": 5,
+    "plantId": 2
+}

@@ -206,27 +206,27 @@ class PostServiceTest {
         assertEquals(1, actual.getMessages().size());
         assertEquals("Cannot change planter.", actual.getMessages().get(0));
     }
-
-    @Test
-    void shouldNotEditIfPlantIdIsChanged() {
-        Post post = makeNewPost(1);
-        when(repository.findById(1)).thenReturn(post);
-
-        Post updatedPost = makeNewPost(1);
-        updatedPost.setPlantId(2);
-        when(repository.editPost(post)).thenReturn(true);
-
-        Plant plant1 = new Plant();
-        plant1.setPlantId(1);
-
-        Plant plant2 = new Plant();
-        plant2.setPlantId(2);
-        when(plantRepository.findAll()).thenReturn(List.of(plant1, plant2));
-
-        Result<Post> actual = service.editPost(updatedPost);
-        assertEquals(1, actual.getMessages().size());
-        assertEquals("Cannot change plant.", actual.getMessages().get(0));
-    }
+//
+//    @Test
+//    void shouldNotEditIfPlantIdIsChanged() {
+//        Post post = makeNewPost(1);
+//        when(repository.findById(1)).thenReturn(post);
+//
+//        Post updatedPost = makeNewPost(1);
+//        updatedPost.setPlantId(2);
+//        when(repository.editPost(post)).thenReturn(true);
+//
+//        Plant plant1 = new Plant();
+//        plant1.setPlantId(1);
+//
+//        Plant plant2 = new Plant();
+//        plant2.setPlantId(2);
+//        when(plantRepository.findAll()).thenReturn(List.of(plant1, plant2));
+//
+//        Result<Post> actual = service.editPost(updatedPost);
+//        assertEquals(1, actual.getMessages().size());
+//        assertEquals("Cannot change plant.", actual.getMessages().get(0));
+//    }
 
     @Test
     void shouldNotEditIfGardenIdIsChanged() {
