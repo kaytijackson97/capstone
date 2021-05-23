@@ -2,7 +2,7 @@
 // import { findAllPosts } from "../../services/post-api";
 import Post from './Post';
 
-function PostList({posts, deletePostByPostId}) {
+function PostList({posts, deletePostByPostId, editPostByPostId}) {
 
     return (
         
@@ -17,6 +17,7 @@ function PostList({posts, deletePostByPostId}) {
             datetimePosted={p.datetimePosted}
             likeCount={p.likeCount}
             deletePostByPostId={deletePostByPostId}
+            editPostByPostId={editPostByPostId}
             />))}
         </div>
     );

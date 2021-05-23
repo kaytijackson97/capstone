@@ -125,7 +125,7 @@ public class ReplyService {
     }
 
     private Result<Reply> hasDifferentStrings(Result<Reply> result, String originalString, String newString, String error) {
-        if (originalString != newString) {
+        if (!originalString.equals(newString)) {
             result.addMessage(error, ResultType.INVALID);
         }
         return result;

@@ -23,10 +23,28 @@ function PostApp() {
         setPosts(newPosts);
     }
 
+    function editPostByPostId(post) {
+        const newPosts = [];
+        for(const p of posts ) {
+            if (p.postId !== post.postId) {
+                newPosts.push(p);
+            } else {
+                newPosts.push(post)
+            }
+        }
+
+        setPosts(newPosts);
+    }
+
+    function addPostToArray(post) {
+        const newPosts = [...posts, post];
+        setPosts(newPosts);
+    }
+
     return (
         <div>
-            <AddPost />
-            <PostList posts={posts} deletePostByPostId={deletePostByPostId}/>
+            <AddPost addPostToArray={addPostToArray}/>
+            <PostList posts={posts} deletePostByPostId={deletePostByPostId} editPostByPostId={editPostByPostId} addPostToArray={addPostToArray}/>
         </div>
     );
 }
