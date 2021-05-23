@@ -5,15 +5,24 @@ function AddPost({addPostToArray}) {
     const [caption, setCaption] = useState("");
     const [photo, setPhoto] = useState("");
     const auth = useContext(CurrentUser);
+    const now = new Date();
 
-    const handleSubmit = async (event) => {
+    const handleSubmit = async () => {
+        const nowAsLocalDateTime = 
+                now.getFullYear() + "-" + 
+                ("0" + (now.getMonth() + 1)).slice(-2) + "-" + 
+                ("0" + now.getDate()).slice(-2) + "T" + 
+                now.getHours() + ":" + 
+                now.getMinutes() + ":" + 
+                now.getSeconds();
+
         const newPost = {
             username: auth.currentUser.username,
             plantId: 1,
             gardenId: 1,
             caption: caption,
             photo: photo,
-            datetimePosted: "2021-05-18T06:43:18",
+            datetimePosted: nowAsLocalDateTime,
             likeCount: 0
         }
 
@@ -21,16 +30,20 @@ function AddPost({addPostToArray}) {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
+                "Accept": "application/json",
                 "Authorization": `Bearer ${auth.token}`
             },
-            body: JSON.stringify(newPost),
-            };
+            body: JSON.stringify(newPost)
+        };
 
-        const post = await fetch("http://localhost:8080/api/post", init)
-        if (post.status !== 201) {
-            return Promise.reject("response is not 201 CREATED");
-        }
-        addPostToArray(post);
+        fetch("http://localhost:8080/api/post", init)
+        .then((response) => {
+            if (response.status !== 201) {
+                return Promise.reject("response is not 201 CREATED");
+            }
+            return response.json;
+        })
+        .then(() => addPostToArray(newPost));
     }
 
     const postStyle = {

@@ -1,14 +1,16 @@
 import { useContext, useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
 import Modal from 'react-bootstrap/Modal';
 
 import CurrentUser from "../contexts/CurrentUser";
 
 import {findPostById} from '../../services/post-api';
 import {findPlantById, findPlantsByMyGardenId} from '../../services/plant-api';
+import { findPlanterByUsername } from '../../services/planter-api';
 
 
 function EditPost({postId, editPostByPostId}) {
+    const auth = useContext(CurrentUser);
+
     const defaultPlant = {
         plantId: 1,
         myGardenId: 1,
@@ -30,13 +32,21 @@ function EditPost({postId, editPostByPostId}) {
         likeCount: 0
     }
 
+    const defaultPlanter = {
+        username: "",
+        roleId: 2,
+        firstName: "",
+        lastName: "",
+        email: ""
+    }
+
     const [show, setShow] = useState(false);
     const [post, setPost] = useState(defaultPost);
-    const [plant, setPlant] = useState(defaultPlant);
     const [plants, setPlants] = useState([]);
+    const [plantId, setPlantId] = useState(0);
+    const [planter, setPlanter] = useState(defaultPlanter);
     const [caption, setCaption] = useState("");
     const [photo, setPhoto] = useState("");
-    const auth = useContext(CurrentUser);
 
     useEffect(() => {
         findPostById(postId)
@@ -44,9 +54,9 @@ function EditPost({postId, editPostByPostId}) {
     }, [postId]);
 
     useEffect(() => {
-        findPlantById(post.plantId)
-            .then((data) => setPlant(data))
-    }, [post.plantId]);
+        findPlanterByUsername(post.username)
+            .then((data) => setPlanter(data))
+    }, [post.username])
 
     useEffect(() => {
         findPlantsByMyGardenId(1)
@@ -54,13 +64,10 @@ function EditPost({postId, editPostByPostId}) {
     }, [1]);
 
     const handleSubmit = (event) => {
-        event.preventDefault();
-        event.stopPropagation();
-        
         const newPost = {
             postId: post.postId,
             username: post.username,
-            plantId: post.plantId,
+            plantId: parseInt(plantId),
             gardenId: post.gardenId,
             caption: caption,
             photo: photo,
@@ -68,15 +75,14 @@ function EditPost({postId, editPostByPostId}) {
             likeCount: post.likeCount
         }
 
-        console.log(newPost);
-
         const init = {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",
+                "Accept": "application/json",
                 "Authorization": `Bearer ${auth.token}`
             },
-            body: JSON.stringify(newPost),
+            body: JSON.stringify(newPost)
         };
     
         fetch(`http://localhost:8080/api/post/${postId}`, init)
@@ -113,7 +119,7 @@ function EditPost({postId, editPostByPostId}) {
             <Modal.Header>
                 <Modal.Title>
                     <h4 className="card-title">
-                        <Link to={`/my-garden/${auth.currentUser.username}`} className="text-dark text-decoration-none">{auth.currentUser.firstName} {auth.currentUser.lastName}</Link>
+                        {planter.firstName} {planter.lastName}
                     </h4>
                 </Modal.Title>
             </Modal.Header>
@@ -125,8 +131,8 @@ function EditPost({postId, editPostByPostId}) {
                     </div>
                     <div className="form-group">
                         <label htmlFor="plants" className="form-label mt-3">Plants</label>
-                        <select className="form-select" id="plants">
-                            {plants.map(p => <option>{p.plantName}</option>)}
+                        <select className="form-select" id="plants" onChange={(event) => (setPlantId(event.target.value))}>
+                            {plants.map(p => <option value={p.plantId}>{p.plantName}</option>)}
                         </select>
                     </div>
                     <div className="form-group">
