@@ -20,12 +20,12 @@ import {
 } from "react-router-dom";
 import AddPlant from './components/plants/AddPlant';
 import { findPlanterByUsername } from './services/planter-api';
+import EditPlant from './components/plants/EditPlant';
 
 function App() {
   const [currentUser, setCurrentUser] = useState(null);
 
   const login = async (token) => {
-    debugger
     const { id, sub: username, authorities: rolesString } = await jwt_decode(token);
     
     // const roles = rolesString !== undefined ?  rolesString.split(",") : [];
@@ -119,6 +119,9 @@ function App() {
         </Route>
         <Route path="/plantprofile/:plantId">
           <PlantProfile />
+        </Route>
+        <Route path="/plant/edit/:plantId">
+          <EditPlant />
         </Route>
         <Route path="/register">
           <Register />

@@ -41,7 +41,6 @@ public class Plant {
 
     @Getter
     @Setter
-    @NotNull
     @DateTimeFormat(pattern="yyyy-MM-dd")
     @PastOrPresent(message = "gotcha date cannot be in the future.")
     private LocalDate gotchaDate;
