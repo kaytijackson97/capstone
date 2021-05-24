@@ -19,7 +19,7 @@ function PlantApp({myGarden}) {
             })
             .then(json => setPlants(json))
             .catch(console.log);
-    }, []);
+    }, [myGarden.myGardenId]);
 
     return (
         <div
