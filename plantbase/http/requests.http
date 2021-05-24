@@ -28,6 +28,16 @@ Content-Type: application/json
     "password": "bulbasaur1@"
 }
 
+### Should return a 200 status code with a JWT in the response body
+
+POST {{baseurl}}/authenticate HTTP/1.1
+Content-Type: application/json
+
+{
+    "username": "john_smith",
+    "password": "Password!1"
+}
+
 ### Should return a 400 status code with the validation messages in the response body
 
 POST {{baseurl}}/create_account HTTP/1.1
@@ -46,6 +56,16 @@ Content-Type: application/json
 {
   "username": "rcuccia",
   "password": "bulbasaur1@"
+}
+
+### Should return a 201 status code with the new user's ID in the response body
+
+POST {{baseurl}}/create_account HTTP/1.1
+Content-Type: application/json
+
+{
+    "username": "john_smith",
+    "password": "Password!1"
 }
 
 ### Should return a 200 status code with a JWT in the response body

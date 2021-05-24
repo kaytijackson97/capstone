@@ -38,10 +38,10 @@ function PlantList({plants = [], setPlants }) {
             })
             .then(json => setPlants([...plants, json]))
             .then(() => {
-                history.push( setMessages("Confirmation ✅ - Agent added successfully 👍🏻"));
+                history.push( setMessages("Confirmation ✅ - Plant added successfully 👍🏻"));
               })
               .catch(() => {
-                history.push( setMessages("Error - Agent was not added 👎🏻" ));
+                history.push( setMessages("Error - Plant was not added 👎🏻" ));
               })
             // .then(() => {
             //     history.push(`/my-garden/${auth.currentUser.userId}`);

@@ -55,6 +55,7 @@ function App() {
       myGarden
     };
 
+    
 
     setCurrentUser(currentUser);
     console.log(currentUser);
@@ -94,6 +95,7 @@ function App() {
     authenticate,
     logout
   };
+
   return (
     <div className="App">
     <CurrentUser.Provider value={auth}>

@@ -16,7 +16,7 @@ function Logout () {
 
         
         auth.logout();
-        history.push('/logout', {msg: 'Logout successful.'});
+        history.push('/logout');
     }
 
     return (
