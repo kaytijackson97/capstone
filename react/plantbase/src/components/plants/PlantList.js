@@ -6,7 +6,7 @@ import { useHistory } from 'react-router-dom';
 import CurrentUser from '../contexts/CurrentUser';
 import Messages from '../Messages';
 
-function PlantList({plants = [], setPlants }) {
+function PlantList({plants = [], setPlants, myGardenId }) {
     const auth = useContext(CurrentUser);
     const [messages, setMessages] = useState("");
     const [showAddForm, setShowAddForm] = useState(false);
@@ -52,7 +52,7 @@ function PlantList({plants = [], setPlants }) {
         if (showAddForm === true) {
             return (
                 <div>
-                    <AddPlant addPlant={addPlant} setShowAddForm={setShowAddForm}/>
+                    <AddPlant addPlant={addPlant} setShowAddForm={setShowAddForm} myGardenId={myGardenId}/>
                 </div>
             );
         }

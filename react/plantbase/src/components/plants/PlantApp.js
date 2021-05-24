@@ -23,7 +23,7 @@ function PlantApp({myGarden}) {
 
     return (
         <div className="mt-3 mb-3">
-            <PlantList plants={plants} setPlants={setPlants}/>
+            <PlantList plants={plants} setPlants={setPlants} myGardenId={myGarden.myGardenId}/>
         </div>
     );
 }

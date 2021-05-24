@@ -89,9 +89,9 @@ function MyGardenApp() {
         <div
             className="bg-image"
             style={{
-                'backgroundImage': 'url(https://static.vecteezy.com/system/resources/previews/000/142/515/non_2x/leafy-background-daun-vector.jpg)',
-                'height': ' 110vh auto',
-                'background-attachment': 'fixed'
+                backgroundImage: 'url(https://static.vecteezy.com/system/resources/previews/000/142/515/non_2x/leafy-background-daun-vector.jpg)',
+                height: ' 110vh auto',
+                backgroundAttachment: 'fixed'
             }}>
         <div className="container">
         {console.log(myGarden.myGardenId)}
