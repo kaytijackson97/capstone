@@ -2,8 +2,9 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { findPlanterByUsername } from "../../services/planter-api";
 import DeleteReply from './DeleteReply';
+import EditReply from './EditReply';
 
-function Reply({replyId, username, reply, datetimePosted, likeCount, deleteReplyByReplyId}) {
+function Reply({replyId, username, postId, reply, datetimePosted, likeCount, deleteReplyByReplyId, editReplyByReplyId}) {
     const defaultPlanter = {
         username: "",
         roleId: 0,
@@ -40,6 +41,7 @@ function Reply({replyId, username, reply, datetimePosted, likeCount, deleteReply
                         </Link>
                     </div>
                     <div className="col d-flex flex-row-reverse">
+                        <EditReply replyId={replyId} username={username} postId={postId} reply={reply} datetimePosted={datetimePosted} likeCount={likeCount}  editReplyByReplyId={editReplyByReplyId} />
                         <DeleteReply replyId={replyId} deleteReplyByReplyId={deleteReplyByReplyId}/>
                     </div>
                 </div>
