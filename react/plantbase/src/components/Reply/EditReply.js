@@ -93,7 +93,7 @@ function EditReply({replyId, username, postId, reply, datetimePosted, likeCount,
                 </Modal.Body>
                 <Modal.Footer>
                     <button onClick={hideModal}>Cancel</button>
-                    <button type="submit">Save</button>
+                    <button type="submit" onClick={handleSubmit}>Save</button>
                 </Modal.Footer>
             </Modal>
         </form>

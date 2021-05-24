@@ -111,7 +111,7 @@ function EditPost({postId, username, plantId, gardenId, caption, photo, datetime
             </Modal.Body>
             <Modal.Footer>
                 <button onClick={hideModal}>Cancel</button>
-                <button onClick={handleSubmit}>Save</button>
+                <button type="submit" onClick={handleSubmit}>Save</button>
             </Modal.Footer>
         </Modal>
         </>

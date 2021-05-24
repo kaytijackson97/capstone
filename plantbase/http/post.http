@@ -56,6 +56,22 @@ Content-Type: application/json
     "plantId": 1
 }
 
+### Add post if valid
+POST /api/post HTTP/1.1
+Host: localhost:8080
+Origin: http://localhost:3000
+Content-Type: application/json
+
+{
+    "username": "john_smith",
+    "gardenId": 1,
+    "caption": "Added no plant post",
+    "photo": "",
+    "datetimePosted": "2021-05-18T06:43:18",
+    "likeCount": 0,
+    "plantId": 0
+}
+
 
 ### Should Not Add Invalid post
 POST /api/post HTTP/1.1

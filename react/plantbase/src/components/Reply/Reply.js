@@ -17,7 +17,7 @@ function Reply({replyId, username, postId, reply, datetimePosted, likeCount, del
     }
 
     const [planter, setPlanter] = useState(defaultPlanter);
-    const [newLikeCount, setNewLikeCount] = useState(likeCount);
+    let newCount = likeCount;
     const auth = useContext(CurrentUser);
 
     useEffect(() => {
@@ -26,7 +26,7 @@ function Reply({replyId, username, postId, reply, datetimePosted, likeCount, del
     }, [username]);
 
     const increaseLikeCount = () => {
-        setNewLikeCount(newLikeCount + 1)
+        newCount = newCount + 1;
     }
 
     const updateReply = () => {
@@ -36,7 +36,7 @@ function Reply({replyId, username, postId, reply, datetimePosted, likeCount, del
             postId: postId,
             reply: reply,
             datetimePosted: datetimePosted,
-            likeCount: newLikeCount
+            likeCount: newCount
         }
     
         const init = {
@@ -93,7 +93,7 @@ function Reply({replyId, username, postId, reply, datetimePosted, likeCount, del
                                 <img src={LikeButton} width="30px" alt="like"></img>
                             </button>
                         <div className="ml-3">
-                            <p>{newLikeCount}</p>
+                            <p>{newCount}</p>
                         </div>
                     </div>
                 </div>

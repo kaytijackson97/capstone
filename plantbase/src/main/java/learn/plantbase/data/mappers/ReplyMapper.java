@@ -3,9 +3,12 @@ package learn.plantbase.data.mappers;
 import learn.plantbase.models.Reply;
 import org.springframework.jdbc.core.RowMapper;
 
+import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
+import java.time.ZoneOffset;
 
 public class ReplyMapper implements RowMapper<Reply> {
 
@@ -18,8 +21,13 @@ public class ReplyMapper implements RowMapper<Reply> {
         reply.setReply(resultSet.getString("reply"));
 
         Timestamp datetimePosted = resultSet.getTimestamp("datetime_posted");
-        datetimePosted.toLocalDateTime();
-        reply.setDatetimePosted(datetimePosted.toLocalDateTime());
+        LocalDateTime timePosted = datetimePosted.toLocalDateTime();
+
+        int hours = LocalDateTime.now().getHour();
+        int hoursUTC = LocalDateTime.now(ZoneOffset.UTC).getHour();
+        int difference = hoursUTC - hours;
+
+        reply.setDatetimePosted(timePosted.plusHours(difference));
 
         reply.setLikeCount(resultSet.getInt("like_count"));
 

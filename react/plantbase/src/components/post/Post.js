@@ -31,21 +31,9 @@ function Post( {postId, username, plantId, gardenId, caption, photo, datetimePos
         gotchaDate: ""
     }
 
-    // const defaultPost = {
-    //     postId: postId,
-    //     username: username,
-    //     plantId: plantId,
-    //     gardenId: gardenId,
-    //     caption: caption,
-    //     photo: photo,
-    //     datetimePosted: datetimePosted,
-    //     likeCount: likeCount
-    // }
-
     const [planter, setPlanter] = useState(defaultPlanter);
     const [plant, setPlant] = useState(defaultPlant);
-    // const [newPost, setNewPost] = useState(defaultPost);
-    const [newCount, setNewCount] = useState(likeCount);
+    let newCount = likeCount;
     const auth = useContext(CurrentUser);
 
     useEffect(() => {
@@ -59,7 +47,7 @@ function Post( {postId, username, plantId, gardenId, caption, photo, datetimePos
     }, [plantId]);
 
     const increaseLikeCount = () => {
-        setNewCount(newCount + 1);
+        newCount = newCount + 1;
     }
 
     const updatePost = () => {
@@ -78,10 +66,12 @@ function Post( {postId, username, plantId, gardenId, caption, photo, datetimePos
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",
+                "Accept": "application/json",
                 "Authorization": `Bearer ${auth.currentUser.token}`
             },
             body: JSON.stringify(updatedPost),
         };
+        console.log(updatedPost);
         
         fetch(`http://localhost:8080/api/post/${postId}`, init)
             .then((response) => {
@@ -128,6 +118,10 @@ function Post( {postId, username, plantId, gardenId, caption, photo, datetimePos
                     <p className="card-text">{caption}</p>
                     <div className="d-flex justify-content-center">
                         <div style={{ display: "flex" }}>
+                        {photo == null || photo.trim().length === 0 ? (
+                            <>
+                            </>
+                        ) : (
                             <ReactRoundedImage
                                 image={photo}
                                 roundedColor=""
@@ -136,6 +130,7 @@ function Post( {postId, username, plantId, gardenId, caption, photo, datetimePos
                                 roundedSize="8"
                                 borderRadius="30"
                             />
+                        )}
                         </div>
                     </div>
                     <div className="d-flex flex-row-reverse">
@@ -143,7 +138,7 @@ function Post( {postId, username, plantId, gardenId, caption, photo, datetimePos
                             <img src={LikeButton} width="30px" alt="like"></img>
                         </button>
                     <div className="ml-3">
-                        <p>{newCount - 1}</p>
+                        <p>{newCount}</p>
                     </div>
                     </div>
                     <ReplyApp postId={postId}/>

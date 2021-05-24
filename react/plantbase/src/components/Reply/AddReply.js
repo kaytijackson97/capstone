@@ -10,7 +10,7 @@ function AddReply( {postId, addReplyToArray} ) {
                 now.getFullYear() + "-" + 
                 ("0" + (now.getMonth() + 1)).slice(-2) + "-" + 
                 ("0" + now.getDate()).slice(-2) + "T" + 
-                ("0" + now.getHours()).slice(-2)  + ":" + 
+                ("0" + (now.getHours())).slice(-2)  + ":" + 
                 ("0" + now.getMinutes()).slice(-2)  + ":" + 
                 ("0" + now.getSeconds()).slice(-2) ;
     
@@ -36,17 +36,15 @@ function AddReply( {postId, addReplyToArray} ) {
             body: JSON.stringify(newReply)
         };
 
-        console.log(newReply);
-
         fetch("http://localhost:8080/api/reply", init)
         .then((response) => {
             if (response.status !== 201) {
                 return Promise.reject("response is not 201 CREATED");
             }
-            return response.json;
+            return response.json();
         })
-        .then(() => addReplyToArray(newReply));
-        
+        .then((json) => addReplyToArray(json));
+        setReply('');
     }
 
     const postStyle = {
