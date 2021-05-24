@@ -16,7 +16,7 @@ function GardenApp() {
     </div>
         <div className="row">
           <div className="col">
-          {/* <h1 className="mt-2">Agents | Welcome {auth.currentUser.username}!</h1> */}
+          <h1 className="mt-2">Welcome {auth.currentUser.username}!</h1>
             <Messages messages={messages} />
                 <div className="row">
                 <div className="card text-dark bg-success mt-3">

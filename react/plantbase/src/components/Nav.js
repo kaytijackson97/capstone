@@ -30,9 +30,6 @@ function Nav() {
                 <Link style={navStyle} to="/post" className="nav-link">
                     <li style={navStyle}>Post</li>
                 </Link>
-                <Link style={navStyle} to="/plant" className="nav-link">
-                    <li style={navStyle}>Plant</li>
-                </Link>
                 {auth.currentUser && auth.currentUser.isValid() ? (
                     <Link style={navStyle} className="nav-link btn btn-light text-dark" to={`/my-garden/${auth.currentUser.username}`}>
                         <li className="nav-item"> 

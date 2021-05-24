@@ -104,34 +104,55 @@ function App() {
           <Welcome />
         </Route>
         <Route path="/garden" exact>
+        {currentUser && currentUser.isValid() ? (
           <GardenApp/>
+        ) : (
+          <Redirect to="/" />
+        )}
         </Route>
         <Route path="/my-garden/:username">
+        {currentUser && currentUser.isValid() ? (
           <MyGardenApp/>
+        ) : (
+          <Redirect to="/" />
+        )}
         </Route>
         <Route path="/post" exact>
           <PostApp />
-        </Route>
-        <Route path="/plant" exact>
-          <PlantApp />
         </Route>
         <Route path="/plants/add">
           <AddPlant/>
         </Route>
         <Route path="/plantprofile/:plantId">
+        {currentUser && currentUser.isValid() ? (
           <PlantProfile />
+        ) : (
+          <Redirect to="/" />
+        )}
         </Route>
         <Route path="/plant/edit/:plantId">
+        {currentUser && currentUser.isValid() ? (
           <EditPlant />
+        ) : (
+          <Redirect to="/" />
+        )}
         </Route>
         <Route path="/register">
           <Register />
         </Route>
         <Route path="/logout">
-            <Confirmation />
+        {currentUser && currentUser.isValid() ? (
+          <Confirmation />
+        ) : (
+          <Redirect to="/" />
+        )}
         </Route>
         <Route path='/edit-confirmation'>
+        {currentUser && currentUser.isValid() ? (
           <EditConfirmation/>
+        ) : (
+          <Redirect to="/" />
+        )}
         </Route>
         <Route path="*">
           <NotFound />
