@@ -6,7 +6,6 @@ function Confirmation() {
 <div className="card text-center text-white bg-success mt-3">
   <h1 className="card-header">Logout Status:</h1>
   <div className="card-body">
-    <h2 className="card-text">Confirmation ✅ Logout Successful</h2>
   </div>
 </div>
 </div>

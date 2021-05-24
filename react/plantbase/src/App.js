@@ -23,6 +23,7 @@ import { findPlanterByUsername } from './services/planter-api';
 import EditPlant from './components/plants/EditPlant';
 import EditConfirmation from './components/EditConfirmation';
 
+
 function App() {
   const [currentUser, setCurrentUser] = useState(null);
 
@@ -141,6 +142,9 @@ function App() {
         </Route>
         <Route path="/register">
           <Register />
+        </Route>
+        <Route path="/editUser">
+          <EditUser />
         </Route>
         <Route path="/logout">
         {currentUser && currentUser.isValid() ? (
