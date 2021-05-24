@@ -3,6 +3,7 @@ import React, { useState, useContext } from 'react';
 import Logout from './Logout';
 import CurrentUser from './contexts/CurrentUser';
 import AmongUsAlex from './among-us-green.png';
+import EditUser from './user/EditUser';
 
 
 
@@ -45,7 +46,9 @@ function Nav() {
                 ) : (
                     ""
                 )}
-                <Link style={navStyle} className="nav-link nav-item dropdown" to="/my-garden">
+                {auth.currentUser && auth.currentUser.isValid() ? (
+
+                <Link style={navStyle} className="nav-link nav-item dropdown" to={`/my-garden/${auth.currentUser.username}`}>
                         <strong>
                             @{auth.currentUser && auth.currentUser.isValid() ? (
                                         auth.currentUser.username
@@ -57,7 +60,11 @@ function Nav() {
                     <Link style={navStyle} to="/post" className="nav-link">
                             <li style={navStyle}>Post</li>
                         </Link>
-                        <a className="dropdown-item" href="#">Edit Account</a>
+                        <Link className="dropdown-item" to="/editUser">
+                            <li className="dropdown-item">
+                                <EditUser />
+                            </li>
+                        </Link>
                         <Link className="dropdown-item" to="/logout">
                             <li className="dropdown-item">
                                 <Logout />
@@ -66,6 +73,9 @@ function Nav() {
                         <a className="dropdown-item" href="#">Delete Account</a>
                     </div>
                 </Link>
+                ) : (
+                    ""
+                )}
         
             </ul>
             <form className="d-flex">

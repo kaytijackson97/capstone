@@ -29,13 +29,13 @@ function AddUser({ addUser }) {
     setFirstName(event.target.value);
   }
 
- const handleLastNameChange = (event) => {
-  setLastName(event.target.value);
-}
+  const handleLastNameChange = (event) => {
+    setLastName(event.target.value);
+  }
 
-const handleEmailChange = (event) => {
- setEmail(event.target.value);
-}
+  const handleEmailChange = (event) => {
+  setEmail(event.target.value);
+  }
 
 
   return (
