@@ -22,34 +22,34 @@ function Register( ) {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
+    addAppUser();
+  }
+
+  const addAppUser = async () => {
     try {
-        const response = await fetch('http://localhost:8080/create_account', {
-          method: 'POST',
-          headers: {
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify({
-            username,
-            password
-          })
-        });
+      const response = await fetch('http://localhost:8080/create_account', {
+        method: 'POST',
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          username,
+          password
+        })
+      });
 
-      if (response.status === 201) {
-        try {
-          await auth.authenticate(username, password);
-        history.push('/');
-        } catch (err) {
-          throw new Error('Unknown Error');
-        }     
-      } else if (response.status === 400) {
-        throw new Error('The account is already in use');
-      } else {
+    if (response.status === 201) {
+      try {
+        await auth.authenticate(username, password);
+      history.push('/');
+      } catch (err) {
         throw new Error('Unknown Error');
-      }
-    } catch (err) {
-      setError([err.message]);
+      }     
+    } else if (response.status === 400) {
+      throw new Error('The account is already in use');
+    } else {
+      throw new Error('Unknown Error');
     }
-
   
      const init = {
         method: "POST",
@@ -76,9 +76,6 @@ function Register( ) {
           setMessages("");
         })
         .catch(console.log);
-
-
-
   }
   
 
