@@ -117,7 +117,7 @@ public class PostService {
         boolean plantExists = plants.stream()
                 .anyMatch(i -> i.getPlantId() == post.getPlantId());
 
-        if (!plantExists) {
+        if (!plantExists && post.getPlantId() > 0) {
             result.addMessage("Invalid plant id", ResultType.INVALID);
             return result;
         }

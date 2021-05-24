@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useState } from 'react';
 import Modal from 'react-bootstrap/Modal';
 
 import { findPlantsByMyGardenId } from "../../services/plant-api";
@@ -37,7 +37,7 @@ function AddPost({addPostToArray}) {
             headers: {
                 "Content-Type": "application/json",
                 "Accept": "application/json",
-                "Authorization": `Bearer ${auth.token}`
+                "Authorization": `Bearer ${auth.currentUser.token}`
             },
             body: JSON.stringify(newPost)
         };
@@ -47,9 +47,9 @@ function AddPost({addPostToArray}) {
             if (response.status !== 201) {
                 return Promise.reject("response is not 201 CREATED");
             }
-            return response.json;
+            return response.json();
         })
-        .then(() => addPostToArray(newPost));
+        .then((data) => addPostToArray(data));
 
         hideModal();
     }
@@ -84,7 +84,8 @@ function AddPost({addPostToArray}) {
                     <div className="form-group">
                         <label htmlFor="plants" className="form-label mt-3">Plants</label>
                         <select className="form-select" id="plants" onChange={(event) => (setPlantId(event.target.value))}>
-                            {plants.map(p => <option value={p.plantId}>{p.plantName}</option>)}
+                            <option value={0}>None</option>
+                            {plants.map(p => <option key={p.plantId} value={p.plantId}>{p.plantName}</option>)}
                         </select>
                     </div>
                     <div className="form-group">

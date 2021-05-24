@@ -66,6 +66,31 @@ public class PostJDBCTemplateRepository implements PostRepository {
             return null;
         }
 
+        if (post.getPlantId() == 0) {
+            final String nullSql = "insert into post (username, plant_id, garden_id, caption, photo, datetime_posted, like_count) " +
+                    "values (?, null, ?, ?, ?, ?, ?);";
+
+            KeyHolder keyHolder = new GeneratedKeyHolder();
+            int rowsAffected = template.update(connection -> {
+                PreparedStatement ps = connection.prepareStatement(nullSql, Statement.RETURN_GENERATED_KEYS);
+                ps.setString(1, post.getUsername());
+                ps.setInt(2, post.getGardenId());
+                ps.setString(3, post.getCaption());
+                ps.setString(4, post.getPhoto());
+                ps.setString(5, post.getDatetimePosted().toString());
+                ps.setInt(6, post.getLikeCount());
+
+                return ps;
+            }, keyHolder);
+
+            if (rowsAffected <= 0) {
+                return null;
+            }
+
+            post.setPostId(keyHolder.getKey().intValue());
+            return post;
+        }
+
         final String sql = "insert into post (username, plant_id, garden_id, caption, photo, datetime_posted, like_count) " +
                 "values (?, ?, ?, ?, ?, ?, ?);";
 

@@ -25,12 +25,8 @@ public class ReplyController {
     }
 
     @GetMapping("/post/{postId}")
-    public ResponseEntity<Object> findByPostId(@PathVariable int postId) {
-        List<Reply> replies = service.findByPostId(postId);
-        if (replies.size() <= 0) {
-            return new ResponseEntity<>(replies, HttpStatus.NOT_FOUND);
-        }
-        return new ResponseEntity<>(replies, HttpStatus.OK);
+    public List<Reply> findByPostId(@PathVariable int postId) {
+        return service.findByPostId(postId);
     }
 
     @GetMapping("/{replyId}")

@@ -31,21 +31,9 @@ function Post( {postId, username, plantId, gardenId, caption, photo, datetimePos
         gotchaDate: ""
     }
 
-    const defaultPost = {
-        postId: postId,
-        username: username,
-        plantId: plantId,
-        gardenId: gardenId,
-        caption: caption,
-        photo: photo,
-        datetimePosted: datetimePosted,
-        likeCount: likeCount
-    }
-
     const [planter, setPlanter] = useState(defaultPlanter);
     const [plant, setPlant] = useState(defaultPlant);
-    const [newPost, setNewPost] = useState(defaultPost);
-    const [newCount, setNewCount] = useState(0);
+    let newCount = likeCount;
     const auth = useContext(CurrentUser);
 
     useEffect(() => {
@@ -59,7 +47,7 @@ function Post( {postId, username, plantId, gardenId, caption, photo, datetimePos
     }, [plantId]);
 
     const increaseLikeCount = () => {
-        setNewCount(newCount + 1);
+        newCount = newCount + 1;
     }
 
     const updatePost = () => {
@@ -78,11 +66,13 @@ function Post( {postId, username, plantId, gardenId, caption, photo, datetimePos
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",
-                "Authorization": `Bearer ${auth.token}`
+                "Accept": "application/json",
+                "Authorization": `Bearer ${auth.currentUser.token}`
             },
             body: JSON.stringify(updatedPost),
         };
-
+        console.log(updatedPost);
+        
         fetch(`http://localhost:8080/api/post/${postId}`, init)
             .then((response) => {
                 if (response.status === 404) {
@@ -90,10 +80,9 @@ function Post( {postId, username, plantId, gardenId, caption, photo, datetimePos
                 } else if (response.status !== 204) {
                     return Promise.reject("response is not 204 NO_CONTENT");
                 }
-            })
-            .then(() => {
-                editPostByPostId(newPost);
-            }).then(setNewPost(updatedPost))
+            });
+
+        editPostByPostId(updatedPost);
     }
 
     const handleClick = () => {
@@ -117,6 +106,7 @@ function Post( {postId, username, plantId, gardenId, caption, photo, datetimePos
                     <div className="row">
                         <div className="col">
                             <h4 className="card-title">
+                            {/* change to planter.myGarden.myGardenId */}
                             <Link to={`/my-garden/${planter.myGardenId}`} className="text-dark text-decoration-none">{planter.firstName} {planter.lastName}</Link>|
                             <Link to={`/plantprofile/${plant.plantId}`} className="text-dark text-decoration-none">{plant.plantName}</Link></h4>
                         </div>
@@ -128,6 +118,10 @@ function Post( {postId, username, plantId, gardenId, caption, photo, datetimePos
                     <p className="card-text">{caption}</p>
                     <div className="d-flex justify-content-center">
                         <div style={{ display: "flex" }}>
+                        {photo == null || photo.trim().length === 0 ? (
+                            <>
+                            </>
+                        ) : (
                             <ReactRoundedImage
                                 image={photo}
                                 roundedColor=""
@@ -136,15 +130,16 @@ function Post( {postId, username, plantId, gardenId, caption, photo, datetimePos
                                 roundedSize="8"
                                 borderRadius="30"
                             />
+                        )}
                         </div>
                     </div>
                     <div className="d-flex flex-row-reverse">
                         <button onClick={handleClick} className="btn btn-outline-light">
                             <img src={LikeButton} width="30px" alt="like"></img>
-                            </button>
-                        <div className="ml-3">
-                            <p>{newPost.likeCount}</p>
-                        </div>
+                        </button>
+                    <div className="ml-3">
+                        <p>{newCount}</p>
+                    </div>
                     </div>
                     <ReplyApp postId={postId}/>
                 </div>

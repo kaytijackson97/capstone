@@ -27,6 +27,9 @@ export async function findPlantById(plantId) {
 export async function findPlantsByMyGardenId(myGardenId) {
     const response = await fetch(`http://localhost:8080/api/plants/byMyGarden/${myGardenId}`);
 
+    if (response.status === 404) {
+        return [];
+    }
     if (response.status !== 200) {
         return Promise.reject("response is not 200 OK");
     }

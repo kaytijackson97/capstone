@@ -1,5 +1,3 @@
-// import { useState } from "react";
-// import { findAllPosts } from "../../services/post-api";
 import Post from './Post';
 
 function PostList({posts, deletePostByPostId, editPostByPostId}) {
