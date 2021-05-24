@@ -23,10 +23,28 @@ function ReplyApp( {postId} ) {
         setReplies(newReplies);
     }
 
+    function editReplyByReplyId(reply) {
+        const newReplies = [];
+        for(const r of replies ) {
+            if (r.replyId !== reply.replyId) {
+                newReplies.push(r);
+            } else {
+                newReplies.push(reply)
+            }
+        }
+
+        setReplies(newReplies);
+    }
+
+    function addReplyToArray(reply) {
+        const newReplies = [...replies, reply];
+        setReplies(newReplies);
+    }
+
     return(
     <div className="card bg-light mb-3">
-        <ReplyList replies={replies} deleteReplyByReplyId={deleteReplyByReplyId}/>
-        <AddReply postId={postId}/>
+        <ReplyList replies={replies} deleteReplyByReplyId={deleteReplyByReplyId} editReplyByReplyId={editReplyByReplyId}/>
+        <AddReply postId={postId} addReplyToArray={addReplyToArray}/>
     </div>
     );
 }
