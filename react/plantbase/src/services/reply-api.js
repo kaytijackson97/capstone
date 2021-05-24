@@ -11,11 +11,11 @@ export async function findAllReplies() {
 export async function findRepliesByPost(postId) {
     const response = await fetch(`http://localhost:8080/api/reply/post/${postId}`);
 
-    if (response.status !== 200 || response.status !== 404) {
+    if (response.status !== 200) {
         return Promise.reject("response is not 200 OK");
     }
-    
-    return response.json()
+
+    return response.json();
 }
 
 export async function findReplyById(replyId) {

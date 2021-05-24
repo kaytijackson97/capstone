@@ -31,21 +31,21 @@ function Post( {postId, username, plantId, gardenId, caption, photo, datetimePos
         gotchaDate: ""
     }
 
-    const defaultPost = {
-        postId: postId,
-        username: username,
-        plantId: plantId,
-        gardenId: gardenId,
-        caption: caption,
-        photo: photo,
-        datetimePosted: datetimePosted,
-        likeCount: likeCount
-    }
+    // const defaultPost = {
+    //     postId: postId,
+    //     username: username,
+    //     plantId: plantId,
+    //     gardenId: gardenId,
+    //     caption: caption,
+    //     photo: photo,
+    //     datetimePosted: datetimePosted,
+    //     likeCount: likeCount
+    // }
 
     const [planter, setPlanter] = useState(defaultPlanter);
     const [plant, setPlant] = useState(defaultPlant);
-    const [newPost, setNewPost] = useState(defaultPost);
-    const [newCount, setNewCount] = useState(0);
+    // const [newPost, setNewPost] = useState(defaultPost);
+    const [newCount, setNewCount] = useState(likeCount);
     const auth = useContext(CurrentUser);
 
     useEffect(() => {
@@ -78,11 +78,11 @@ function Post( {postId, username, plantId, gardenId, caption, photo, datetimePos
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",
-                "Authorization": `Bearer ${auth.token}`
+                "Authorization": `Bearer ${auth.currentUser.token}`
             },
             body: JSON.stringify(updatedPost),
         };
-
+        
         fetch(`http://localhost:8080/api/post/${postId}`, init)
             .then((response) => {
                 if (response.status === 404) {
@@ -90,10 +90,9 @@ function Post( {postId, username, plantId, gardenId, caption, photo, datetimePos
                 } else if (response.status !== 204) {
                     return Promise.reject("response is not 204 NO_CONTENT");
                 }
-            })
-            .then(() => {
-                editPostByPostId(newPost);
-            }).then(setNewPost(updatedPost))
+            });
+
+        editPostByPostId(updatedPost);
     }
 
     const handleClick = () => {
@@ -117,6 +116,7 @@ function Post( {postId, username, plantId, gardenId, caption, photo, datetimePos
                     <div className="row">
                         <div className="col">
                             <h4 className="card-title">
+                            {/* change to planter.myGarden.myGardenId */}
                             <Link to={`/my-garden/${planter.myGardenId}`} className="text-dark text-decoration-none">{planter.firstName} {planter.lastName}</Link>|
                             <Link to={`/plantprofile/${plant.plantId}`} className="text-dark text-decoration-none">{plant.plantName}</Link></h4>
                         </div>
@@ -141,10 +141,10 @@ function Post( {postId, username, plantId, gardenId, caption, photo, datetimePos
                     <div className="d-flex flex-row-reverse">
                         <button onClick={handleClick} className="btn btn-outline-light">
                             <img src={LikeButton} width="30px" alt="like"></img>
-                            </button>
-                        <div className="ml-3">
-                            <p>{newPost.likeCount}</p>
-                        </div>
+                        </button>
+                    <div className="ml-3">
+                        <p>{newCount - 1}</p>
+                    </div>
                     </div>
                     <ReplyApp postId={postId}/>
                 </div>

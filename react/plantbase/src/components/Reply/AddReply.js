@@ -10,9 +10,9 @@ function AddReply( {postId, addReplyToArray} ) {
                 now.getFullYear() + "-" + 
                 ("0" + (now.getMonth() + 1)).slice(-2) + "-" + 
                 ("0" + now.getDate()).slice(-2) + "T" + 
-                now.getHours() + ":" + 
-                now.getMinutes() + ":" + 
-                now.getSeconds();
+                ("0" + now.getHours()).slice(-2)  + ":" + 
+                ("0" + now.getMinutes()).slice(-2)  + ":" + 
+                ("0" + now.getSeconds()).slice(-2) ;
     
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -31,18 +31,21 @@ function AddReply( {postId, addReplyToArray} ) {
             headers: {
                 "Content-Type": "application/json",
                 "Accept": "application/json",
-                "Authorization": `Bearer ${auth.token}`
+                "Authorization": `Bearer ${auth.currentUser.token}`
             },
-            body: JSON.stringify(newReply),
-            };
-    
+            body: JSON.stringify(newReply)
+        };
+
+        console.log(newReply);
+
         fetch("http://localhost:8080/api/reply", init)
-            .then((response) => {
-                if (response.status !== 201) {
-                    return Promise.reject("response is not 201 CREATED");
-                }
-            })
-            .then(() => addReplyToArray(newReply));
+        .then((response) => {
+            if (response.status !== 201) {
+                return Promise.reject("response is not 201 CREATED");
+            }
+            return response.json;
+        })
+        .then(() => addReplyToArray(newReply));
         
     }
 

@@ -37,7 +37,7 @@ function AddPost({addPostToArray}) {
             headers: {
                 "Content-Type": "application/json",
                 "Accept": "application/json",
-                "Authorization": `Bearer ${auth.token}`
+                "Authorization": `Bearer ${auth.currentUser.token}`
             },
             body: JSON.stringify(newPost)
         };
@@ -84,6 +84,7 @@ function AddPost({addPostToArray}) {
                     <div className="form-group">
                         <label htmlFor="plants" className="form-label mt-3">Plants</label>
                         <select className="form-select" id="plants" onChange={(event) => (setPlantId(event.target.value))}>
+                            <option value={0}>None</option>
                             {plants.map(p => <option value={p.plantId}>{p.plantName}</option>)}
                         </select>
                     </div>
