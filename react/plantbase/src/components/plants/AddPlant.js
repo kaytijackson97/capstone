@@ -1,7 +1,7 @@
 import { useState, useContext } from 'react';
 import CurrentUser from '../contexts/CurrentUser';
 
-function AddPlant({addPlant}) {
+function AddPlant({addPlant, setShowAddForm}) {
     const auth = useContext(CurrentUser);
     const [plantDescription, setPlantDescription] = useState("");
     const [photo, setPhoto] = useState("");
@@ -64,8 +64,12 @@ function AddPlant({addPlant}) {
 
     return (
         <div className="container" style={{maxwidth: + 20}}>
-            <div className="card  text-center border-success mb-3">
-      <h2 className="card-header card-title">Add a Plant</h2>
+            <div className="card text-center border-success mb-3" style={{color: 'green'}}>
+      <h2 className="card-header card-title">
+      <div className="col d-flex flex-row-reverse"><button onClick={() => setShowAddForm(false)} className="btn btn-lg btn-light mt-3 mb-3" style={{backgroundColor: 'green'}}>
+      <img src="https://gis.littleelm.org/gismaps/images/close-icon.png" width="20px" alt='cancel'></img>
+      </button></div>
+      Add a Plant</h2>
       <div className="card-body">
       <form onSubmit={handleAddPlant}>
         <div className="row form-group">
@@ -98,8 +102,13 @@ function AddPlant({addPlant}) {
             <label htmlFor="myGardenIdTextBox">My Garden Id:</label>
           </div>
         </div>
-        <div className="text-center d-grid gap-2">
-          <button type="submit" className="btn btn-lg btn-success">Add Plant</button>
+        <div className="text-center row">
+        <div className="col">
+        <button type="submit" className="btn btn-lg btn-success">Add Plant</button>
+        </div>
+        {/* <div className="col">
+        <button onClick={() => setShowAddForm(false)} className="btn btn-lg btn-warning mt-3 mb-3">Cancel</button>
+        </div> */}
         </div>
       </form>
       </div>

@@ -52,8 +52,7 @@ function PlantList({plants = [], setPlants }) {
         if (showAddForm === true) {
             return (
                 <div>
-                    <button onClick={() => setShowAddForm(false)} className="btn btn-lg btn-warning mt-3 mb-3">Cancel</button>
-                    <AddPlant addPlant={addPlant}/>
+                    <AddPlant addPlant={addPlant} setShowAddForm={setShowAddForm}/>
                 </div>
             );
         }
@@ -72,7 +71,7 @@ function PlantList({plants = [], setPlants }) {
                 <h2 className="card-header text-white bg-success card-title text-center" style={navStyle}>Plant List</h2>
                 <div className="row card-body text-center">
                     {plants.map(p => (<Plant key={p.plantId} plants={plants} plant={p}/> ))}
-                    <button onClick={() => setShowAddForm(true)} className="btn btn-lg btn-light mt-3">Add a Plant</button>
+                    <button onClick={() => setShowAddForm(true)} className="btn btn-lg btn-light mt-3 text-center" style={{ color: 'green', alignSelf: 'center', marginBottom: '10px', marginTop: '10px', marginLeft: '40px', textAlign: 'center', maxHeight: '200px', maxWidth: '60px' }}><strong>+</strong></button>
                     {addForm()}
                 </div>
                 <div className="row">
