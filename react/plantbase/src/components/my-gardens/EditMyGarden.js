@@ -36,6 +36,7 @@ function EditMyGarden({myGarden, setShowEditForm}) {
     }, [username])
 
     const handleEditMyGarden = async (event) => {
+        event.preventDefault();
 
         let myGarden = {};
         myGarden["myGardenId"] = oldMyGarden.myGardenId;
@@ -47,8 +48,8 @@ function EditMyGarden({myGarden, setShowEditForm}) {
         // auth.currentUser && auth.currentUser.hasRole("ADMIN") ? (
         console.log(myGarden);
         await editMyGarden(myGarden)
-        history.push(from);
-        setShowEditForm(false);
+    
+        // setShowEditForm(false);
 
         // ) : (console.log("denied"))
     }
@@ -75,10 +76,10 @@ function EditMyGarden({myGarden, setShowEditForm}) {
                 }
             })
             .then(() => { 
-              history.push(from, setMessages("Confirmation ✅ - My Garden edited successfully 👍🏻"));
+              history.push('/edit-confirmation')
             })
               .catch((err) => {
-                history.push(setMessages("Error - My Garden was not edited 👎🏻 " + err));
+                history.push(setShowEditForm(false));
               })
     }
 

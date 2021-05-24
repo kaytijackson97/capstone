@@ -21,6 +21,7 @@ import {
 import AddPlant from './components/plants/AddPlant';
 import { findPlanterByUsername } from './services/planter-api';
 import EditPlant from './components/plants/EditPlant';
+import EditConfirmation from './components/EditConfirmation';
 
 function App() {
   const [currentUser, setCurrentUser] = useState(null);
@@ -128,6 +129,9 @@ function App() {
         </Route>
         <Route path="/logout">
             <Confirmation />
+        </Route>
+        <Route path='/edit-confirmation'>
+          <EditConfirmation/>
         </Route>
         <Route path="*">
           <NotFound />

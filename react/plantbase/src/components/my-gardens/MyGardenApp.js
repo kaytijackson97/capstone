@@ -99,7 +99,7 @@ function MyGardenApp() {
                     {defaultMyGardenForm(myGarden)}
                     {editForm(myGarden)}
                     <div className="row">
-                        <PlantApp/>
+                        <PlantApp myGarden={myGarden}/>
                     </div>
                 </div>
         </div>
