@@ -8,9 +8,11 @@ import PlantProfile from './components/plants/PlantProfile';
 import PostApp from './components/post/PostApp';
 import CurrentUser from './components/contexts/CurrentUser';
 import {useContext, useState, useEffect} from 'react';
+import { useHistory } from 'react-router-dom';
 import jwt_decode from "jwt-decode";
 import NotFound from './components/NotFound';
 import Confirmation from './components/Confirmation';
+import EditUser from './components/user/EditUser';
 
 import {
   BrowserRouter as Router,
@@ -25,6 +27,7 @@ import EditConfirmation from './components/EditConfirmation';
 
 
 function App() {
+  const history = useHistory();
   const [currentUser, setCurrentUser] = useState(null);
 
   const login = async (token) => {
@@ -87,6 +90,28 @@ function App() {
 
   };
 
+  const authenticateRegistration = async (username, password) => {
+    const response = await fetch("http://localhost:8080/authenticate", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        username,
+        password,
+      }),
+    });
+
+    if (response.status === 200) {
+      const { jwt_token } = await response.json();
+      return jwt_token
+    } else if (response.status === 403) {
+      throw new Error("Bad username or password");
+    } else {
+      throw new Error("There was a problem logging in...");
+    }
+  }
+
   const logout = () => {
     setCurrentUser(null);
   };
@@ -94,6 +119,7 @@ function App() {
   const auth = {
     currentUser,
     authenticate,
+    authenticateRegistration,
     logout
   };
 

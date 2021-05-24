@@ -32,21 +32,6 @@ function Nav() {
                     <li style={navStyle}>Post</li>
                 </Link>
                 {auth.currentUser && auth.currentUser.isValid() ? (
-                    <Link style={navStyle} className="nav-link btn btn-light text-dark" to={`/my-garden/${auth.currentUser.username}`}>
-                        <li className="nav-item"> 
-                            <strong>
-                                My Garden: {auth.currentUser && auth.currentUser.isValid() ? (
-                                        auth.currentUser.username
-                                    ) : (
-                                        ""
-                                    )}
-                            </strong>
-                        </li>
-                    </Link>
-                ) : (
-                    ""
-                )}
-                {auth.currentUser && auth.currentUser.isValid() ? (
 
                 <Link style={navStyle} className="nav-link nav-item dropdown" to={`/my-garden/${auth.currentUser.username}`}>
                         <strong>
