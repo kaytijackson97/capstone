@@ -1,11 +1,21 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { findPlantsByMyGardenId } from "../../services/plant-api";
 import CurrentUser from "../contexts/CurrentUser";
 
 function AddPost({addPostToArray}) {
     const [caption, setCaption] = useState("");
     const [photo, setPhoto] = useState("");
+    const [plants, setPlants] = useState([]);
+    const [plantId, setPlantId] = useState(0);
+    const [gardenId, setGardenId] = useState(0);
     const auth = useContext(CurrentUser);
     const now = new Date();
+
+    useEffect(() => {
+        setGardenId(auth.currentUser.myGarden.myGardenId);
+        findPlantsByMyGardenId(gardenId)
+            .then((data) => setPlants(data));
+    }, [])
 
     const handleSubmit = async () => {
         const nowAsLocalDateTime = 
@@ -18,8 +28,8 @@ function AddPost({addPostToArray}) {
 
         const newPost = {
             username: auth.currentUser.username,
-            plantId: 1,
-            gardenId: 1,
+            plantId: plantId,
+            gardenId: auth.currentUser.myGarden.gardenId,
             caption: caption,
             photo: photo,
             datetimePosted: nowAsLocalDateTime,
@@ -58,11 +68,14 @@ function AddPost({addPostToArray}) {
                         <div className="row mt-3">
                             <input type="text" size="850px" placeholder="Show off your plant!" onChange={(event) => setCaption(event.target.value)}></input>
                         </div>
-                        {/* <div>
-                            <button type="button">Add Plant</button>
-                        </div> */}
                         <div className="row mt-3">
                             <input type="text" placeholder="Add photo url" onChange={(event) => setPhoto(event.target.value)}></input>
+                        </div>
+                        <div className="form-group">
+                            <label htmlFor="plants" className="form-label mt-3">Plants</label>
+                            <select className="form-select" id="plants" onChange={(event) => (setPlantId(event.target.value))}>
+                                {plants.map(p => <option value={p.plantId}>{p.plantName}</option>)}
+                            </select>
                         </div>
                         <div className="d-flex flex-row-reverse">
                             <button type="submit" className="btn btn-success mt-3">Add Post</button>
