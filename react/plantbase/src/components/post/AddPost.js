@@ -1,21 +1,17 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState } from 'react';
+import Modal from 'react-bootstrap/Modal';
+
 import { findPlantsByMyGardenId } from "../../services/plant-api";
 import CurrentUser from "../contexts/CurrentUser";
 
 function AddPost({addPostToArray}) {
+    const [show, setShow] = useState(false);
     const [caption, setCaption] = useState("");
     const [photo, setPhoto] = useState("");
     const [plants, setPlants] = useState([]);
     const [plantId, setPlantId] = useState(0);
-    const [gardenId, setGardenId] = useState(0);
     const auth = useContext(CurrentUser);
     const now = new Date();
-
-    useEffect(() => {
-        setGardenId(auth.currentUser.myGarden.myGardenId);
-        findPlantsByMyGardenId(gardenId)
-            .then((data) => setPlants(data));
-    }, [])
 
     const handleSubmit = async () => {
         const nowAsLocalDateTime = 
@@ -28,8 +24,8 @@ function AddPost({addPostToArray}) {
 
         const newPost = {
             username: auth.currentUser.username,
-            plantId: plantId,
-            gardenId: auth.currentUser.myGarden.gardenId,
+            plantId: parseInt(plantId),
+            gardenId: 1,
             caption: caption,
             photo: photo,
             datetimePosted: nowAsLocalDateTime,
@@ -54,36 +50,55 @@ function AddPost({addPostToArray}) {
             return response.json;
         })
         .then(() => addPostToArray(newPost));
+
+        hideModal();
     }
 
-    const postStyle = {
-        "width": "1000px"
-    }
+    const showModal = async () => {
+        await findPlantsByMyGardenId(auth.currentUser.myGarden.myGardenId)
+            .then((data) => setPlants(data));
+        setShow(true);
+    };
+    
+    const hideModal = () => {
+        setShow(false);
+    };
 
     return (
-        <div className="d-flex justify-content-center">
-            <div className="card bg-light mt-3" style={postStyle}>
-                <div className="card-body">
-                    <form onSubmit={handleSubmit}>
-                        <div className="row mt-3">
-                            <input type="text" size="850px" placeholder="Show off your plant!" onChange={(event) => setCaption(event.target.value)}></input>
-                        </div>
-                        <div className="row mt-3">
-                            <input type="text" placeholder="Add photo url" onChange={(event) => setPhoto(event.target.value)}></input>
-                        </div>
-                        <div className="form-group">
-                            <label htmlFor="plants" className="form-label mt-3">Plants</label>
-                            <select className="form-select" id="plants" onChange={(event) => (setPlantId(event.target.value))}>
-                                {plants.map(p => <option value={p.plantId}>{p.plantName}</option>)}
-                            </select>
-                        </div>
-                        <div className="d-flex flex-row-reverse">
-                            <button type="submit" className="btn btn-success mt-3">Add Post</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
+        <>
+        <button onClick={showModal} className="btn btn-success btn-xl">Add</button>
+        <Modal show={show} onHide={hideModal}>
+            <Modal.Header>
+                <Modal.Title>
+                    <h4 className="card-title">
+                        Add a new Post!
+                    </h4>
+                </Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+                <form>
+                    <div className="form-group">
+                        <label htmlFor="caption" className="form-label mt-3">Caption:</label>
+                        <input type="text" placeholder="Show off your plant!" onChange={(event) => setCaption(event.target.value)}></input>
+                    </div>
+                    <div className="form-group">
+                        <label htmlFor="plants" className="form-label mt-3">Plants</label>
+                        <select className="form-select" id="plants" onChange={(event) => (setPlantId(event.target.value))}>
+                            {plants.map(p => <option value={p.plantId}>{p.plantName}</option>)}
+                        </select>
+                    </div>
+                    <div className="form-group">
+                        <label htmlFor="photo" className="form-label mt-3">Photo:</label>
+                        <input type="text" placeholder="Add photo url" onChange={(event) => setPhoto(event.target.value)}></input>
+                    </div>
+                </form>
+            </Modal.Body>
+            <Modal.Footer>
+                <button onClick={hideModal}>Cancel</button>
+                <button onClick={handleSubmit}>Save</button>
+            </Modal.Footer>
+        </Modal>
+        </>
     );
 }
 

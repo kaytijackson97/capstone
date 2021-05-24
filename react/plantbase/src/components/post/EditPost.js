@@ -72,10 +72,6 @@ function EditPost({postId, username, plantId, gardenId, caption, photo, datetime
         hideModal();
     }
 
-    const postStyle = {
-        "width": "1000px"
-    }
-
     const showModal = () => {
         setShow(true);
     };
