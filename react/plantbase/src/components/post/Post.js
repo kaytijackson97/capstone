@@ -121,7 +121,7 @@ function Post( {postId, username, plantId, gardenId, caption, photo, datetimePos
                             <Link to={`/plantprofile/${plant.plantId}`} className="text-dark text-decoration-none">{plant.plantName}</Link></h4>
                         </div>
                         <div className="col d-flex flex-row-reverse">
-                            <EditPost postId={postId} editPostByPostId={editPostByPostId}/>
+                            <EditPost postId={postId} username={username} plantId={plantId} gardenId={gardenId} caption={caption} photo={photo} datetimePosted={datetimePosted} likeCount={likeCount} editPostByPostId={editPostByPostId}/>
                             <DeletePost postId={postId} deletePostByPostId={deletePostByPostId}/>
                         </div>
                     </div>
