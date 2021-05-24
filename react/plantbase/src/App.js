@@ -21,7 +21,8 @@ import {
 import AddPlant from './components/plants/AddPlant';
 import { findPlanterByUsername } from './services/planter-api';
 import EditPlant from './components/plants/EditPlant';
-import EditUser from './components/user/EditUser';
+import EditConfirmation from './components/EditConfirmation';
+
 
 function App() {
   const [currentUser, setCurrentUser] = useState(null);
@@ -55,6 +56,7 @@ function App() {
       myGarden
     };
 
+    
 
     setCurrentUser(currentUser);
     console.log(currentUser);
@@ -94,6 +96,7 @@ function App() {
     authenticate,
     logout
   };
+
   return (
     <div className="App">
     <CurrentUser.Provider value={auth}>
@@ -104,25 +107,38 @@ function App() {
           <Welcome />
         </Route>
         <Route path="/garden" exact>
+        {currentUser && currentUser.isValid() ? (
           <GardenApp/>
+        ) : (
+          <Redirect to="/" />
+        )}
         </Route>
         <Route path="/my-garden/:username">
+        {currentUser && currentUser.isValid() ? (
           <MyGardenApp/>
+        ) : (
+          <Redirect to="/" />
+        )}
         </Route>
         <Route path="/post" exact>
           <PostApp />
-        </Route>
-        <Route path="/plant" exact>
-          <PlantApp />
         </Route>
         <Route path="/plants/add">
           <AddPlant/>
         </Route>
         <Route path="/plantprofile/:plantId">
+        {currentUser && currentUser.isValid() ? (
           <PlantProfile />
+        ) : (
+          <Redirect to="/" />
+        )}
         </Route>
         <Route path="/plant/edit/:plantId">
+        {currentUser && currentUser.isValid() ? (
           <EditPlant />
+        ) : (
+          <Redirect to="/" />
+        )}
         </Route>
         <Route path="/register">
           <Register />
@@ -131,7 +147,18 @@ function App() {
           <EditUser />
         </Route>
         <Route path="/logout">
-            <Confirmation />
+        {currentUser && currentUser.isValid() ? (
+          <Confirmation />
+        ) : (
+          <Redirect to="/" />
+        )}
+        </Route>
+        <Route path='/edit-confirmation'>
+        {currentUser && currentUser.isValid() ? (
+          <EditConfirmation/>
+        ) : (
+          <Redirect to="/" />
+        )}
         </Route>
         <Route path="*">
           <NotFound />

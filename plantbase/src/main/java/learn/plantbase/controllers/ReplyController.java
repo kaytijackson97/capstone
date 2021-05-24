@@ -28,7 +28,7 @@ public class ReplyController {
     public ResponseEntity<Object> findByPostId(@PathVariable int postId) {
         List<Reply> replies = service.findByPostId(postId);
         if (replies.size() <= 0) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(replies, HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<>(replies, HttpStatus.OK);
     }

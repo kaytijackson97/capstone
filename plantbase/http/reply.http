@@ -30,10 +30,10 @@ Content-Type: application/json
 
 {
     "reply": "added test reply",
-    "userId": 1,
+    "username": "rcuccia",
     "datetimePosted": "2021-05-18T06:43:18",
     "likeCount": 0,
-    "postId": 1
+    "postId": 6
 }
 
 

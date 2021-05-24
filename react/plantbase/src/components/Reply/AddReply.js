@@ -1,33 +1,50 @@
-import { useState } from "react";
-import { addReply } from "../../services/reply-api";
+import { useContext, useState } from "react";
+import CurrentUser from "../contexts/CurrentUser";
 
-function AddReply( {postId} ) {
-    //change datetime from hard coded
-    //change username from hard coded
+function AddReply( {postId, addReplyToArray} ) {
     const [reply, setReply] = useState("");
-    // const [dateTime, setDateTime] = useState("");
+    const auth = useContext(CurrentUser);
+    const now = new Date();
+
+    const nowAsLocalDateTime = 
+                now.getFullYear() + "-" + 
+                ("0" + (now.getMonth() + 1)).slice(-2) + "-" + 
+                ("0" + now.getDate()).slice(-2) + "T" + 
+                now.getHours() + ":" + 
+                now.getMinutes() + ":" + 
+                now.getSeconds();
     
-    const handleSubmit = async (event) => {
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        event.stopPropagation();
+
         const newReply = {
-            username: "john_smith",
+            username: auth.currentUser.username,
             postId: postId,
             reply: reply,
-            datetimePosted: "2021-05-18T06:43:18",
+            datetimePosted: nowAsLocalDateTime,
             likeCount: 0
         }
 
-        addReply(newReply);
+        const init = {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Accept": "application/json",
+                "Authorization": `Bearer ${auth.token}`
+            },
+            body: JSON.stringify(newReply),
+            };
+    
+        fetch("http://localhost:8080/api/reply", init)
+            .then((response) => {
+                if (response.status !== 201) {
+                    return Promise.reject("response is not 201 CREATED");
+                }
+            })
+            .then(() => addReplyToArray(newReply));
         
     }
-
-    // const makeDate = () => {
-    //     let now = new Date(); 
-    //     let datetime = now.getFullYear() + "/"
-    //                     + now.getMonth() + "/"
-    //                     + (now.getDate()+1)  + "T" 
-    //                     + now.getHours() + ":"  
-    //                     + now.getMinutes() + ":" 
-    // } 
 
     const postStyle = {
         "width": "1000px"

@@ -18,7 +18,7 @@ function MyGardenApp() {
         photo: "https://hgtvhome.sndimg.com/content/dam/images/grdn/fullset/2013/1/20/0/CI_intensive-gardening-allows-a-lot-of-produce-to-grow-in-a-small-space.jpg.rend.hgtvcom.616.493.suffix/1452644679836.jpeg",
         plants: []
     }
-
+    // const [plants, setPlants] = useState([]);
     const [myGarden, setMyGarden] = useState(defaultMyGarden);
     const [showEditForm, setShowEditForm] = useState(false);
     const location = useLocation();
@@ -44,6 +44,18 @@ function MyGardenApp() {
             );
         }
     }
+
+    // useEffect(() => {
+    //     fetch(`http://localhost:8080/api/plants/byMyGarden/${myGarden.myGardenId}`)
+    //         .then(response => {
+    //             if (response.status !== 200) {
+    //                 return Promise.reject("Plants fetch failed.")
+    //             }
+    //             return response.json();
+    //         })
+    //         .then(json => setPlants(json))
+    //         .catch(console.log);
+    // }, []);
 
     const backButton = () => {
         history.push(from);
@@ -91,6 +103,7 @@ function MyGardenApp() {
                 'background-attachment': 'fixed'
             }}>
         <div className="container">
+        {console.log(myGarden.myGardenId)}
             <div className="row">
             </div>
             <div className="row">
@@ -98,7 +111,7 @@ function MyGardenApp() {
                     {defaultMyGardenForm(myGarden)}
                     {editForm(myGarden)}
                     <div className="row">
-                        <PlantApp/>
+                        <PlantApp myGarden={myGarden}/>
                     </div>
                 </div>
         </div>
