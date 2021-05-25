@@ -11,6 +11,8 @@ import {useContext, useState, useEffect} from 'react';
 import jwt_decode from "jwt-decode";
 import NotFound from './components/NotFound';
 import Confirmation from './components/Confirmation';
+import UserApp from './components/user/UserApp';
+import DeleteUser from './components/user/DeleteUser'
 
 import {
   BrowserRouter as Router,
@@ -22,6 +24,7 @@ import AddPlant from './components/plants/AddPlant';
 import { findPlanterByUsername } from './services/planter-api';
 import EditPlant from './components/plants/EditPlant';
 import EditConfirmation from './components/EditConfirmation';
+import EditUser from './components/user/EditUser';
 
 
 function App() {
@@ -143,8 +146,11 @@ function App() {
         <Route path="/register">
           <Register />
         </Route>
-        <Route path="/editUser">
-          <EditUser />
+        <Route path="/editUser/:username">
+          <UserApp />
+        </Route>
+        <Route path="/deleteUser/:username">
+          <DeleteUser />
         </Route>
         <Route path="/logout">
         {currentUser && currentUser.isValid() ? (

@@ -60,17 +60,17 @@ function Nav() {
                     <Link style={navStyle} to="/post" className="nav-link">
                             <li style={navStyle}>Post</li>
                         </Link>
-                        <Link className="dropdown-item" to="/editUser">
-                            <li className="dropdown-item">
-                                <EditUser />
-                            </li>
+                        <Link className="dropdown-item" to={`/editUser/${auth.currentUser.username}`}>
+                            <li style={navStyle}>Edit user</li>
                         </Link>
                         <Link className="dropdown-item" to="/logout">
                             <li className="dropdown-item">
                                 <Logout />
                             </li>
                         </Link>
-                        <a className="dropdown-item" href="#">Delete Account</a>
+                        <Link className="dropdown-item" to={`/deleteUser/${auth.currentUser.username}`}>
+                            <li style={navStyle}>Delete user</li>
+                        </Link>
                     </div>
                 </Link>
                 ) : (
