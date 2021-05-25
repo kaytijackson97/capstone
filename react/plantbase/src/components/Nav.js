@@ -71,10 +71,17 @@ function Nav() {
                             <li style={navStyle}>Delete user</li>
                         </Link>
                     </div>
+<<<<<<< HEAD
                 </Link> */}
                 {/* ) : (
                     ""
                 )} */}
+=======
+                </Link>
+                ) : (
+                    ""
+                )}
+>>>>>>> main
 
         
             </ul>

@@ -5,23 +5,18 @@ import CurrentUser from './contexts/CurrentUser';
 function Logout () {
     const auth = useContext(CurrentUser);
     const history = useHistory();
-
-    const navStyle = {
-        color: 'white',
-        'text-decoration': 'none'
-    };
     
     const handleLogout = (event) => {
         event.preventDefault();
 
         
         auth.logout();
-        history.push('/logout');
+        history.push('/');
     }
 
     return (
         <div>
-            <Link onClick={handleLogout} style={navStyle}>Logout 🍂</Link>
+            <Link onClick={handleLogout}className="nav-link nav-item dropdown" style={{color: 'green', textDecoration: 'none'}}>Logout 🍂</Link>
         </div>
     );
 }
