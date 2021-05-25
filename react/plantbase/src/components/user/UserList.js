@@ -1,34 +1,19 @@
-import User from './User';
-import EditUser from './EditUser';
-
-import { useState } from 'react';
-
-function UserList({users = [], deleteUser, editUser}) {
-  let newUser = {
-    username: '',
-    firstName: '',
-    lastName: '',
-    email: ''
-
-  };
-
-  const [user, setUser] = useState(null);
-
-  const update = (user) => {
-      console.log(user);
-      setUser(user);
-    };
+// import User from './User';
 
 
-  return (
-   <div className="card">
-  {user &&  <EditUser user={user} updateView={editUser}/>}
-      <h2 className="card-title ml-3">User List</h2>
-      <ul className="list-group list-group-flush">
-        {users.map(u => <User key={u.username} user={u} deleteUser={deleteUser} editUser={update} />)}
-      </ul>
-    </div>   
-  );
-}
+// import { useState, useContext } from 'react';
 
-export default UserList;
+// function UserList({users = [], setUsers, editUser}) {
+
+
+
+//   return (
+//    <>
+//    {/* <div className="card">
+//   {users.map(u => (<User key={u.username} users={users} user={u} editUser={editUser}/> ))}
+//     </div>    */}
+//        </>
+//   );
+// }
+
+// export default UserList;

@@ -92,8 +92,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
                 //planter
                 .antMatchers(HttpMethod.GET, "/api/planter", /*Get by id*/ "/api/planter/*").permitAll() // anybody is able to hit this endpoint
-                .antMatchers(HttpMethod.POST, "/api/planter").hasAnyRole("USER")
+                .antMatchers(HttpMethod.PUT, "/api/planter/*").hasAnyRole("USER")
                 .antMatchers(HttpMethod.PUT, "/api/planter/*").permitAll()
+
                 .antMatchers(HttpMethod.DELETE, "/api/planter/*").permitAll()
 
                 .antMatchers("/**" /* any route in this path not explicitly defined above is denied */).denyAll()

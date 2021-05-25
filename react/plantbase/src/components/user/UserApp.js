@@ -1,37 +1,37 @@
-import { useEffect, useState } from "react";
-import UserList from "./UserList";
-import AddUser from "./AddUser";
-
+import { useEffect, useState, useContext } from "react";
+import CurrentUser from "../contexts/CurrentUser";
+import User from "./User";
 
 function UserApp() {
-    const [users, setUsers] = useState([]);
-    const [messages, setMessages] = useState(" ");
+    const auth = useContext(CurrentUser);
+    const [user, setUser] = useState({});
 
-    function deleteUserByUsername(username) {
-        const newUsers = [];
-        for(const user of users ) {
-            if (user.username !== username) {
-                newUsers.push(user);
-            }
-        }
+    useEffect(() => {
+      fetch(`http://localhost:8080/api/planter/${auth.currentUser.username}`)
+          .then(response => response.json())
+          .then(data => setUser(data))
+          .catch(error => console.log(error));
+  }, [auth.currentUser.username])
 
-        setUsers(newUsers);
-    }
 
-    function editUserByUsername(user) {
-        const newUsers = [];
-        for(const u of users ) {
-            if (u.username !== user.username) {
-                newUsers.push(u);
-            } else {
-                newUsers.push(user)
-            }
-        }
-       }
+
+    // const editUser = (user) => {
+    //   console.log("hello");
+    //   const newUsers = [];
+    //   for (const u of user) {
+    //     if (u.username !== user.username) {
+    //       newUsers.push(u);
+    //     }
+    //     else {
+    //       newUsers.push(user);
+    //     }
+    //   }
+    //   setUsers(newUsers);
+    // }
+
     return (
         <div>
-            <AddUser />
-            <UserList users={users} deleteUserByUsername={deleteUserByUsername} editUserByUsername={editUserByUsername}/>
+            <User user={user} setUser={setUser}/>
         </div>
     );
 }
