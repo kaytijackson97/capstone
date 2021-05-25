@@ -9,29 +9,22 @@ function UserApp() {
     useEffect(() => {
       fetch(`http://localhost:8080/api/planter/${auth.currentUser.username}`)
           .then(response => response.json())
-          .then(data => setUser(data))
+          .then(data => 
+            {if (user.username === auth.currentUser.username) {
+                return setUser(user);
+              }
+              else {
+                setUser(data);
+              }
+            })
           .catch(error => console.log(error));
   }, [auth.currentUser.username])
 
-
-
-    // const editUser = (user) => {
-    //   console.log("hello");
-    //   const newUsers = [];
-    //   for (const u of user) {
-    //     if (u.username !== user.username) {
-    //       newUsers.push(u);
-    //     }
-    //     else {
-    //       newUsers.push(user);
-    //     }
-    //   }
-    //   setUsers(newUsers);
-    // }
-
     return (
         <div>
-            <User user={user} setUser={setUser}/>
+        <div>
+            <User user={user}/>
+        </div>
         </div>
     );
 }

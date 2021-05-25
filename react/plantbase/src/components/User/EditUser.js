@@ -2,9 +2,14 @@ import { useEffect, useContext, useState } from 'react';
 import CurrentUser from '../contexts/CurrentUser';
 import { Link, useHistory, useParams } from 'react-router-dom';
 import User from './User';
+import Modal from 'react-bootstrap/Modal';
+import UserApp from './UserApp';
+
 
 function EditUser( { user }  ) {
   const auth = useContext(CurrentUser);
+  const [show, setShow] = useState(false);
+
   const defaultUser = {
     username: user.username,
     roleId: user.roleId,
@@ -15,9 +20,10 @@ function EditUser( { user }  ) {
 
   const [oldUser, setOldUser] = useState(defaultUser);
 
-  const [firstName, setFirstName] = useState(oldUser.firstName);
-  const [lastName, setLastName] = useState(oldUser.lastName);
-  const [email, setEmail] = useState(oldUser.email);
+  const [firstName, setFirstName] = useState(auth.currentUser.firstName);
+  const [lastName, setLastName] = useState(auth.currentUser.lastName);
+  const [email, setEmail] = useState(auth.currentUser.email);
+  const [password, setPassword] = useState('');
 
   // const { username } = useParams();
   const history = useHistory();
@@ -29,8 +35,7 @@ function EditUser( { user }  ) {
         .catch(error => console.log(error))
     }, [user.username]);
 
-  const handleEdit = (evt) => {
-    evt.preventDefault();
+  const handleEdit = async (evt) => { 
 
     const newUser = {
       roleId: 2,
@@ -51,16 +56,29 @@ function EditUser( { user }  ) {
     };
   
     // 3. create fetch
-    fetch(`http://localhost:8080/api/planter/${auth.currentUser.username}`, init)
+     await fetch(`http://localhost:8080/api/planter/${auth.currentUser.username}`, init)
       .then(response => {
         if (response.status !== 204) {
           return Promise.reject("couldn't update user");
         }
       })
-      // .then(() => ) 
+      .then(() => auth.authenticate(auth.currentUser.username, password)
+      ) 
       .catch(console.log);
 
+      hideModal();
+      // login again?
+      console.log(auth.currentUser.firstName);
+
   }
+
+  const showModal = () => {
+    setShow(true);
+    };
+
+const hideModal = () => {
+    setShow(false);
+    };
 
   const handleFirstNameChange = (event) => {
       setFirstName(event.target.value);
@@ -74,39 +92,48 @@ function EditUser( { user }  ) {
       setEmail(event.target.value);
   }
 
-  const handleCancel = (event) => {
-  }
- 
-  const navStyle = {
-    color: 'white',
-    'textDecoration': 'none'
-  };
+  const handlePasswordChange = (event) => {
+    setPassword(event.target.value);
+}
+
+
 
   return (
-    <div className = "container mt-3" style={{maxwidth: 20}}>
-    <div class="card text-white bg-success mb-3" style={{maxwidth: 20}}>
-      <div class="card-header">Edit Account: @{auth.currentUser.username}</div>
-      <div class="card-body">
-        <form onSubmit={handleEdit}>
+    <>
+      <button onClick={showModal} className="btn btn-light" style={{color: 'green'}}>Edit Account</button>
+        <Modal show={show} onHide={hideModal}>
+            <Modal.Header>
+                <Modal.Title>
+                    <h4 className="card-title">
+                    Edit Account Information: @{auth.currentUser.username}</h4>
+                </Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+        <form>
           <div className="form-group">
             <label htmlFor="firstNameTextBox">First Name:</label>
-            <input type="text" id="firstNameTextBox" className="form-control" onChange={handleFirstNameChange} defaultValue={auth.currentUser.firstName}/>
+            <input type="text" id="firstNameTextBox" className="form-control" onChange={handleFirstNameChange} defaultValue={firstName}/>
           </div>
           <div className="form-group">
             <label htmlFor="lastNameTextBox">Last Name:</label>
-            <input type="text" id="lastNameTextBox" className="form-control" onChange={handleLastNameChange} defaultValue={auth.currentUser.lastName}/>
+            <input type="text" id="lastNameTextBox" className="form-control" onChange={handleLastNameChange} defaultValue={lastName}/>
           </div>
           <div className="form-group">
             <label htmlFor="emailTextBox">Email:</label>
-            <input type="text" id="emailTextBox" className="form-control" onChange={handleEmailChange} defaultValue={auth.currentUser.email}/>
+            <input type="text" id="emailTextBox" className="form-control" onChange={handleEmailChange} defaultValue={email}/>
           </div>
-          <Link onSubmit={handleCancel}> <button type="submit" className="btn btn-warning mt-2 mr-3" style={navStyle}>Cancel</button>
-          </Link>
-          <button type="submit" className="btn btn-outline-light mt-2" style={navStyle}>Edit User</button>
+          <div className="form-group">
+            <label htmlFor="PasswordTextBox">Please re-enter your password:</label>
+            <input type="password" id="PasswordTextBox" className="form-control" onChange={handlePasswordChange}/>
+          </div>
         </form>
-        </div>
-      </div>
-  </div>
+        </Modal.Body>
+            <Modal.Footer>
+                <button onClick={hideModal} className="btn btn-outline-success">Cancel</button>
+                <button onClick={handleEdit} className="btn btn-success">Save</button>
+            </Modal.Footer>
+        </Modal>
+  </>
   );
 }
 
