@@ -100,6 +100,7 @@ function EditPost({postId, username, plantId, gardenId, caption, photo, datetime
                     <div className="form-group">
                         <label htmlFor="plants" className="form-label mt-3">Plants</label>
                         <select className="form-select" id="plants" onChange={(event) => (setNewPlantId(event.target.value))}>
+                            <option value={0}>None</option>
                             {plants.map(p => <option key={p.plantId} value={p.plantId}>{p.plantName}</option>)}
                         </select>
                     </div>
@@ -110,8 +111,8 @@ function EditPost({postId, username, plantId, gardenId, caption, photo, datetime
                 </form>
             </Modal.Body>
             <Modal.Footer>
-                <button onClick={hideModal}>Cancel</button>
-                <button type="submit" onClick={handleSubmit}>Save</button>
+                <button onClick={hideModal} className="btn btn-outline-success">Cancel</button>
+                <button onClick={handleSubmit} className="btn btn-success">Save</button>
             </Modal.Footer>
         </Modal>
         </>

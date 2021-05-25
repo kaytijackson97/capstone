@@ -28,8 +28,8 @@ function DeletePost( {postId, deletePostByPostId} ) {
             </Modal.Header>
             <Modal.Body>Are you sure you want to delete this post?</Modal.Body>
             <Modal.Footer>
-                <button onClick={hideModal}>No</button>
-                <button onClick={handleDelete}>Yes</button>
+                <button onClick={hideModal} className="btn btn-outline-success">Cancel</button>
+                <button onClick={handleDelete} className="btn btn-success">Delete</button>
             </Modal.Footer>
         </Modal>
         </>

@@ -71,7 +71,7 @@ function Post( {postId, username, plantId, gardenId, caption, photo, datetimePos
             },
             body: JSON.stringify(updatedPost),
         };
-        console.log(updatedPost);
+        // console.log(updatedPost);
         
         fetch(`http://localhost:8080/api/post/${postId}`, init)
             .then((response) => {
@@ -106,8 +106,7 @@ function Post( {postId, username, plantId, gardenId, caption, photo, datetimePos
                     <div className="row">
                         <div className="col">
                             <h4 className="card-title">
-                            {/* change to planter.myGarden.myGardenId */}
-                            <Link to={`/my-garden/${planter.myGardenId}`} className="text-dark text-decoration-none">{planter.firstName} {planter.lastName}</Link>|
+                            <Link to={`/my-garden/${planter.username}`} className="text-dark text-decoration-none">{planter.firstName} {planter.lastName}</Link>|
                             <Link to={`/plantprofile/${plant.plantId}`} className="text-dark text-decoration-none">{plant.plantName}</Link></h4>
                         </div>
                         <div className="col d-flex flex-row-reverse">

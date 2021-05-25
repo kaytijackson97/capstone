@@ -14,7 +14,7 @@ function Nav() {
         'textDecoration': 'none'
     };
 
-  return (
+    return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
         <div className="container-fluid">
             <Link style={navStyle} to="/" ><strong>🌱 Plantbase</strong>
@@ -26,9 +26,6 @@ function Nav() {
             <ul  className=" navbar-nav me-auto nav-links">
                 <Link style={navStyle} to="/garden" className="nav-link">
                     <li style={navStyle} >Garden</li>
-                </Link>
-                <Link style={navStyle} to="/post" className="nav-link">
-                    <li style={navStyle}>Post</li>
                 </Link>
                 {auth.currentUser && auth.currentUser.isValid() ? (
                     <Link style={navStyle} className="nav-link btn btn-light text-dark" to={`/my-garden/${auth.currentUser.username}`}>
