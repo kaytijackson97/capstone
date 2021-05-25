@@ -46,7 +46,7 @@ function EditReply({reply, editReplyByReplyId}) {
             body: JSON.stringify(updatedReply)
         };
     
-        fetch(`http://localhost:8080/api/reply/${reply.replyId}`, init)
+        fetch(`${process.env.REACT_APP_API_URL}/api/reply/${reply.replyId}`, init)
             .then((response) => {
                 if (response.status === 404) {
                     return Promise.reject("Post id not found");
