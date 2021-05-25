@@ -58,35 +58,6 @@ function Register() {
   }
   }
 
-//   const addAppUser = async () => {
-//     try {
-//       const response = await fetch('http://localhost:8080/create_account', {
-//         method: 'POST',
-//         headers: {
-//           "Content-Type": "application/json"
-//         },
-//         body: JSON.stringify({
-//           username,
-//           password
-//         })
-//       });
-
-//     if (response.status === 201) {
-//       try {
-//         auth.authenticateRegistration(username, password);
-//       } catch (err) {
-//         throw new Error('Unknown Error');
-//       }     
-//     } else if (response.status === 400) {
-//       throw new Error('The account is already in use');
-//     } else {
-//       throw new Error('Unknown Error');
-//     }
-//   } catch (err) {
-//     setError([err.message]);
-//   }
-// }
-
 const addPlanter = async (token) => {
   debugger
   console.log(username);
