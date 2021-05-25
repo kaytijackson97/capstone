@@ -103,6 +103,7 @@ function EditMyGarden({myGarden, setShowEditForm}) {
     return (
     <div className="row">
       <form onSubmit={handleEditMyGarden}>
+      <h2 className="card-header">Edit My Garden</h2>
         <div className="row form-group">
         <div className="form-floating mb-3 col">
             <input className="form-control" type="text" id="plantNameTextBox" defaultValue={oldMyGarden.gardenName} onChange={handleGardenNameChange}/>
