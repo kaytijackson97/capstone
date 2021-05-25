@@ -14,9 +14,12 @@ GET {{url}}/100 HTTP/1.1
 
 POST http://localhost:8080/api/planter HTTP/1.1
 Content-Type: application/json
+Accept: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJwbGFudGJhc2UiLCJzdWIiOiJyY3VjY2lhIiwiYXV0aG9yaXRpZXMiOiJST0xFX1VTRVIiLCJleHAiOjE2MjE4NzQ1OTd9.bHaknm-yAxu-7e2vP0njejRFBCGpbSPHT16CsSSbrSY
 
 {
     "roleId": 2,
+    "username": "geadams",
     "firstName": "George",
     "lastName": "Adams",
     "email": "gadams12@gmail.com"
@@ -60,12 +63,13 @@ Content-Type: application/json
 
 ###
 
-PUT {{url}}/2 HTTP/1.1
+PUT {{url}}/rcuccia HTTP/1.1
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJwbGFudGJhc2UiLCJzdWIiOiJyY3VjY2lhIiwiYXV0aG9yaXRpZXMiOiJST0xFX1VTRVIiLCJleHAiOjE2MjE4ODgxMjl9.EHiJFV_HHNAn042msfXXeayyZh3zIYXE05wTPeq1Yxg
 
 {
-    "userId": 2,
-    "roleId": 1,
+    "username": "rcuccia",
+    "roleId": 2,
     "firstName": "Claire",
     "lastName": "O'Lynn",
     "email": "c.olynn@aol.com"
@@ -126,7 +130,7 @@ Content-Type: application/json
 
 ###
 
-DELETE {{url}}/5 HTTP/1.1
+DELETE {{url}}/ane14 HTTP/1.1
 
 ### 
 DELETE {{url}}/100 HTTP/1.1

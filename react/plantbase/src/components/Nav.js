@@ -3,7 +3,8 @@ import React, { useState, useContext } from 'react';
 import Logout from './Logout';
 import CurrentUser from './contexts/CurrentUser';
 import AmongUsAlex from './among-us-green.png';
-
+import EditUser from './user/EditUser';
+import Dropdown from 'react-bootstrap/Dropdown';
 
 
 function Nav() {
@@ -28,41 +29,53 @@ function Nav() {
                     <li style={navStyle} >Garden</li>
                 </Link>
                 {auth.currentUser && auth.currentUser.isValid() ? (
-                    <Link style={navStyle} className="nav-link btn btn-light text-dark" to={`/my-garden/${auth.currentUser.username}`}>
-                        <li className="nav-item"> 
-                            <strong>
-                                My Garden: {auth.currentUser && auth.currentUser.isValid() ? (
-                                        auth.currentUser.username
-                                    ) : (
-                                        ""
-                                    )}
-                            </strong>
-                        </li>
-                    </Link>
-                ) : (
-                    ""
-                )}
-                <Link style={navStyle} className="nav-link nav-item dropdown" to="/my-garden">
-                        <strong>
+                <Dropdown>
+                    <strong style={{color: 'white'}}>
                             @{auth.currentUser && auth.currentUser.isValid() ? (
                                         auth.currentUser.username
                                     ) : (
                                         ""
                                     )}
                         </strong>
-                    <div className="dropdown-menu show" data-bs-popper="none">
+                        <Dropdown.Toggle split variant="success" id="dropdown-split-basic" />
+                        
+
+                    <Dropdown.Menu>
+
+
+                    <Dropdown.Item><Link style={{color: 'green', textDecoration: 'none'}} className="nav-link nav-item dropdown" to={`/my-garden/${auth.currentUser.username}`}>My Garden</Link></Dropdown.Item>
+                    <Dropdown.Item><Link style={{color: 'green', textDecoration: 'none'}} to="/post" className="nav-link nav-item dropdown"><li>Post</li></Link></Dropdown.Item>
+                    <Dropdown.Item><li><Logout /></li></Dropdown.Item>
+                    <Dropdown.Item><Link className="nav-link nav-item dropdown" style={{color: 'green', textDecoration: 'none'}}><li>Delete Account</li></Link></Dropdown.Item>
+                    </Dropdown.Menu>
+                </Dropdown>
+                ) : (
+                    ""
+                )}
+
+
+                        
+                    {/* <div className="dropdown-menu show" data-bs-popper="none">
                     <Link style={navStyle} to="/post" className="nav-link">
                             <li style={navStyle}>Post</li>
                         </Link>
-                        <a className="dropdown-item" href="#">Edit Account</a>
+                        <Link className="dropdown-item" to={`/editUser/${auth.currentUser.username}`}>
+                            <li style={navStyle}>Edit user</li>
+                        </Link>
                         <Link className="dropdown-item" to="/logout">
                             <li className="dropdown-item">
                                 <Logout />
                             </li>
                         </Link>
-                        <a className="dropdown-item" href="#">Delete Account</a>
+                        <Link className="dropdown-item" to={`/deleteUser/${auth.currentUser.username}`}>
+                            <li style={navStyle}>Delete user</li>
+                        </Link>
                     </div>
                 </Link>
+                ) : (
+                    ""
+                )}
+
         
             </ul>
             <form className="d-flex">

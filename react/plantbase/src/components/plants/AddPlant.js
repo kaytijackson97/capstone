@@ -1,14 +1,13 @@
 import { useState, useContext } from 'react';
 import CurrentUser from '../contexts/CurrentUser';
 
-function AddPlant({addPlant, setShowAddForm}) {
+function AddPlant({addPlant, setShowAddForm, myGardenId}) {
     const auth = useContext(CurrentUser);
     const [plantDescription, setPlantDescription] = useState("");
     const [photo, setPhoto] = useState("");
     const [plantName, setPlantName] = useState("");
     const [plantType, setPlantType] = useState("");
     const [gotchaDate, setGotchaDate] = useState();
-    const [myGardenId, setMyGardenId] = useState(0);
     const [posts, setPosts] = useState([]);
 
     const handleAddPlant = (event) => {
@@ -48,10 +47,6 @@ function AddPlant({addPlant, setShowAddForm}) {
 
     const handleGotchaDateChange = (event) => {
         setGotchaDate(event.target.value);
-    }
-
-    const handleMyGardenIdChange = (event) => {
-        setMyGardenId(event.target.value);
     }
 
     const handlePostsChange = (event) => {
@@ -98,7 +93,7 @@ function AddPlant({addPlant, setShowAddForm}) {
             <label htmlFor="gotchaDateTextBox">Gotcha Date:</label>
           </div>
           <div className="form-floating mb-3 col">
-            <input className="form-control" type="text" id="myGardenIdTextBox" placeholder="My Garden Id:" onChange={handleMyGardenIdChange}/>
+            <input className="form-control" type="text" id="myGardenIdTextBox" value={myGardenId} disabled={true}/>
             <label htmlFor="myGardenIdTextBox">My Garden Id:</label>
           </div>
         </div>
