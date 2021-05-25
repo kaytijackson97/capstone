@@ -25,7 +25,7 @@ function Register() {
     event.preventDefault(); 
 
     try {
-      const response = await fetch(`${process.env.REACT_APP_API_URL}/create_account`, {
+      const response = await fetch(`http://localhost:8080/create_account`, {
         method: 'POST',
         headers: {
           "Content-Type": "application/json"
@@ -85,7 +85,7 @@ const addPlanter = async (token) => {
   };
   console.log(init);
 
-  await fetch(`${process.env.REACT_APP_API_URL}/api/planter`, init)
+  await fetch(`http://localhost:8080/api/planter`, init)
     .then(response => {
       if (response.status !== 201) {
         return Promise.reject("ERROR");
@@ -115,7 +115,7 @@ const addMyGarden = async (token) => {
       myGarden
     )
   };
-  await fetch(`${process.env.REACT_APP_API_URL}/api/my-garden`, init)
+  await fetch(`http://localhost:8080/api/my-garden`, init)
     .then(response => {
       if (response.status !== 201) {
         return Promise.reject("ERROR");
