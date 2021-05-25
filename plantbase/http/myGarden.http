@@ -78,10 +78,10 @@ Host: localhost:8080
 Content-Type: application/json
 
 {
-    "gardenName": "Rachel",
-    "userId": 0,
-    "bio": "testing testing",
-    "photo": "plant.jpeg",
+    "gardenName": "charmanders",
+    "username": "charmander",
+    "bio": "emberrr",
+    "photo": "https://i.ebayimg.com/images/g/EsUAAOSwv3hgEbOo/s-l400.jpg",
     "plants": []
 }
 

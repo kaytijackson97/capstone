@@ -41,7 +41,7 @@ public class PostController {
     public ResponseEntity<Object> findByPlantId(@PathVariable int plantId) {
         List<Post> posts = service.findByPlantId(plantId);
         if (posts.size() == 0) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
         return new ResponseEntity<>(posts, HttpStatus.OK);
     }

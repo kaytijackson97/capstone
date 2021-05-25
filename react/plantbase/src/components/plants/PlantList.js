@@ -63,7 +63,7 @@ function PlantList({plants = [], setPlants, myGardenId }) {
             <div className="card bg-success">
                 <h2 className="card-header bg-light card-title text-center" style={navStyle}>Plant List</h2>
                 <div className="row card-body text-center">
-                    {plants.map(p => (<Plant key={p.plantId} plants={plants} plant={p}/> ))}
+                    {plants.map(p => (<Plant key={p.plantId} plants={plants} plant={p} myGardenId={myGardenId}/> ))}
                     <button onClick={() => setShowAddForm(true)} className="btn btn-lg btn-light mt-3 text-center" style={{ color: 'green', alignSelf: 'center', marginBottom: '10px', marginTop: '10px', marginLeft: '40px', textAlign: 'center', maxHeight: '200px', maxWidth: '60px' }}><strong>+</strong></button>
                     {addForm()}
                 </div>

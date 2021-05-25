@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import EditPlant from './EditPlant';
 
-function Plant({plants = [], plant, editPlant}) {
+function Plant({plants = [], plant, editPlant, myGardenId}) {
     const plantStyle = {
         'width': '18rem',
         'marginBottom': '10px',
@@ -14,12 +14,6 @@ function Plant({plants = [], plant, editPlant}) {
         color: 'green',
         'textDecoration': 'none'
     };
-
-    // const editForm = (plant) => {
-    //     return (
-    //         <EditPlant editPlant={editPlant}/>
-    //     );
-    // }
 
     return (
     <div className="" style={plantStyle}>
