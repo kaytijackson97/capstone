@@ -115,7 +115,7 @@ const addMyGarden = async (token) => {
       myGarden
     )
   };
-  await fetch(`http://localhost:8080/api/my-garden`, init)
+  await fetch(`${process.env.REACT_APP_API_URL}/api/my-garden`, init)
     .then(response => {
       if (response.status !== 201) {
         return Promise.reject("ERROR");

@@ -43,7 +43,7 @@ function AddPost({addPostToArray}) {
             body: JSON.stringify(newPost)
         };
 
-        fetch(`http://localhost:8080/api/post`, init)
+        fetch(`${process.env.REACT_APP_API_URL}/api/post`, init)
         .then((response) => {
             if (response.status !== 201) {
                 return Promise.reject("response is not 201 CREATED");

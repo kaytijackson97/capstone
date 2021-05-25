@@ -5,7 +5,7 @@ import AddPost from "./AddPost";
 import CurrentUser from "../contexts/CurrentUser";
 import { findPlantsByMyGardenId } from "../../services/plant-api";
 
-function PostApp() {
+function PostApp({}) {
     const [posts, setPosts] = useState([]);
     const [plants, setPlants] = useState([]);
     const auth = useContext(CurrentUser);
@@ -55,7 +55,6 @@ function PostApp() {
         <div>
             <AddPost addPostToArray={addPostToArray} plants={plants}/>
             <PostList posts={posts} plants={plants} deletePostByPostId={deletePostByPostId} editPostByPostId={editPostByPostId} addPostToArray={addPostToArray}/>
-            {/* {console.log(plants)} */}
         </div>
     );
 }

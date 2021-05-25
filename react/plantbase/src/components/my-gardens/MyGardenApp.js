@@ -32,7 +32,7 @@ function MyGardenApp() {
     const history = useHistory();
 
     useEffect(() => {
-        fetch(`http://localhost:8080/api/my-garden/from-planter/${username}`)
+        fetch(`${process.env.REACT_APP_API_URL}/api/my-garden/from-planter/${username}`)
             .then(response => response.json())
             .then(data => setMyGarden(data))
             .catch(error => console.log(error));
