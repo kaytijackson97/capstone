@@ -62,7 +62,6 @@ function App() {
       email,
       myGarden
     };
-    
     setCurrentUser(currentUser);
     console.log(currentUser);
   };
