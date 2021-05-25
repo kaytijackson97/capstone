@@ -34,7 +34,7 @@ function EditPlant({plant, setShowEditForm}) {
     const { state: { from } = { from : `/plantprofile/${plantId}` } } = location;
 
     useEffect(() => {
-        fetch(`http://localhost:8080/api/plants/${plantId}`)
+        fetch(`${process.env.REACT_APP_API_URL}/api/plants/${plantId}`)
             .then(response => response.json())
             .then(data => setOldPlant(data))
             .catch(error => console.log(error));
@@ -74,7 +74,7 @@ function EditPlant({plant, setShowEditForm}) {
             },
             body: JSON.stringify(plant)
         };
-        await fetch(`http://localhost:8080/api/plants/${plantId}`, init)
+        await fetch(`${process.env.REACT_APP_API_URL}/api/plants/${plantId}`, init)
             .then(response => {
                 if (response.status === 204) {
                   console.log("success.")

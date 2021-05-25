@@ -34,14 +34,14 @@ function PlantProfile() {
     const { state: { from } = { from : `/plant` } } = location;
 
     useEffect(() => {
-        fetch(`http://localhost:8080/api/plants/${plantId}`)
+        fetch(`${process.env.REACT_APP_API_URL}/api/plants/${plantId}`)
             .then(response => response.json())
             .then(data => setPlant(data))
             .catch(error => console.log(error));
     }, [plantId])
 
     useEffect(() => {
-        fetch(`http://localhost:8080/api/post/plant/${plantId}`)
+        fetch(`${process.env.REACT_APP_API_URL}/api/post/plant/${plantId}`)
             .then(response => response.json())
             .then(data => setPosts(data))
             .catch(error => console.log(error));
@@ -60,7 +60,7 @@ function PlantProfile() {
     }
 
     const deletePlant = async () => {
-        await fetch(`http://localhost:8080/api/plants/${plantId}`, { method: "DELETE" })
+        await fetch(`${process.env.REACT_APP_API_URL}/api/plants/${plantId}`, { method: "DELETE" })
         .then(response => {
           if (response.status === 204 || response.status === 404) {
             

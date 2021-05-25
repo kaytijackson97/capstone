@@ -29,7 +29,7 @@ function PlantList({plants = [], setPlants, myGardenId }) {
             },
             body: JSON.stringify(plant)
         };
-        await fetch("http://localhost:8080/api/plants", init)
+        await fetch(`${process.env.REACT_APP_API_URL}/api/plants`, init)
         .then(response => {
             if (response.status !== 201) {
                 return Promise.reject("response is not 201 CREATED.");

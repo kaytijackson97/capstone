@@ -23,7 +23,7 @@ function EditUser( { user }  ) {
   const history = useHistory();
 
     useEffect(() => {
-      fetch(`http://localhost:8080/api/planter/${user.username}`)
+      fetch(`${process.env.REACT_APP_API_URL}/api/planter/${user.username}`)
         .then(response => response.json())
         .then(data => setOldUser(data))
         .catch(error => console.log(error))
@@ -51,7 +51,7 @@ function EditUser( { user }  ) {
     };
   
     // 3. create fetch
-    fetch(`http://localhost:8080/api/planter/${auth.currentUser.username}`, init)
+    fetch(`${process.env.REACT_APP_API_URL}/api/planter/${auth.currentUser.username}`, init)
       .then(response => {
         if (response.status !== 204) {
           return Promise.reject("couldn't update user");
