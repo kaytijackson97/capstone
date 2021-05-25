@@ -133,42 +133,46 @@ const handleUsernameChange = (event) => {
   setUsername(event.target.value);
   
 }
+
+
   
 
   return (
-    <div>
-      <h2>Register</h2>
+    <div className="container">
+    <div className="card bg-success" style={{padding: '30px'}}>
+      <h2 className="text-white text-center">Register New Account</h2>
       <Errors errors={error} />
       <form onSubmit={handleSubmit}>
-          <div>
+          <div className="form-floating mb-3">
+            <input className="form-control" type="text" placeholder="Username:" onChange={handleUsernameChange} />
             <label>Username:</label>
-            <input type="text" onChange={handleUsernameChange} />
           </div>
-          <div>
+          <div className="form-floating mb-3">
+            <input className="form-control" type="password" placeholder="Password:" onChange={(event) => setPassword(event.target.value)} />
             <label>Password:</label>
-            <input type="password" onChange={(event) => setPassword(event.target.value)} />
           </div>
-          <div>
+          <div className="form-floating mb-3">
+            <input className="form-control" type="text" placeholder="First Name:" onChange={(event) => setFirstName(event.target.value)} />
             <label>First Name:</label>
-            <input type="text" onChange={(event) => setFirstName(event.target.value)} />
           </div>
-          <div>
+          <div className="form-floating mb-3">
+            <input className="form-control" type="text" placeholder="Last Name:" onChange={(event) => setLastName(event.target.value)} />
             <label>Last Name:</label>
-            <input type="text" onChange={(event) => setLastName(event.target.value)} />
           </div>
-          <div>
+          <div className="form-floating mb-3">
+            <input className="form-control" type="text" placeholder="Email:" onChange={(event) => setEmail(event.target.value)} />
             <label>Email:</label>
-            <input type="text" onChange={(event) => setEmail(event.target.value)} />
           </div>
-          <div>
+          <div className="form-floating mb-3">
+            <input className="form-control" type="text" placeholder="Garden Name:" onChange={(event) => setGardenName(event.target.value)} />
             <label>Garden Name:</label>
-            <input type="text" onChange={(event) => setGardenName(event.target.value)} />
           </div>
-          <div>
-            <button type="submit">Register</button>
-            <Link to={'/'}>I already have an account</Link>
+          <div className="text-center">
+            <button className="btn btn-lg btn-light text-center" type="submit">Register</button>
+            <Link to={'/'} className="btn btn-lg btn-warning text-center">I already have an account</Link>
           </div>
       </form>
+      </div>
     </div>
   );
 

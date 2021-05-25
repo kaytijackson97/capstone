@@ -15,7 +15,7 @@ function PlantList({plants = [], setPlants, myGardenId }) {
 
     const navStyle = {
         color: 'green',
-        'text-decoration': 'none'
+        'textDecoration': 'none'
     };
 
     //add plant fetch
