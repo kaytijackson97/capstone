@@ -59,7 +59,7 @@ function Post( {post, plants, deletePostByPostId, editPostByPostId} ) {
             caption: post.caption,
             photo: post.photo,
             datetimePosted: post.datetimePosted,
-            likeCount: post.newCount
+            likeCount: newCount
         }
 
         const init = {
