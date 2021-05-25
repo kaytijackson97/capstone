@@ -49,7 +49,7 @@ create table plant (
 create table post (
 	post_id int primary key auto_increment,
     username varchar(25) not null,
-    plant_id int not null,
+    plant_id int null,
     garden_id int not null,
     caption varchar(250) not null,
     photo varchar(1000) default "",

@@ -62,7 +62,7 @@ function App() {
       myGarden
     };
 
-    
+    history.push("/garden");
 
     setCurrentUser(currentUser);
     console.log(currentUser);
