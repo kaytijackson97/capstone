@@ -72,7 +72,7 @@ function Post( {post, plants, deletePostByPostId, editPostByPostId} ) {
             body: JSON.stringify(updatedPost),
         };
         
-        fetch(`http://localhost:8080/api/post/${post.postId}`, init)
+        fetch(`${process.env.REACT_APP_API_URL}/api/post/${post.postId}`, init)
             .then((response) => {
                 if (response.status === 404) {
                     return Promise.reject("Post id not found");
