@@ -2,6 +2,7 @@ package learn.plantbase.controllers;
 
 import learn.plantbase.domain.Result;
 import learn.plantbase.domain.PlanterService;
+import learn.plantbase.models.Plant;
 import learn.plantbase.models.Planter;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -28,8 +29,12 @@ public class PlanterController {
     }
 
     @GetMapping("/{username}")
-    public Planter findByPlanter(@PathVariable String username) {
-        return service.findByPlanter(username);
+    public ResponseEntity<Planter> findByPlanter(@PathVariable String username) {
+        Planter planter = service.findByPlanter(username);
+        if (planter == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return ResponseEntity.ok(planter);
     }
 
     @PostMapping

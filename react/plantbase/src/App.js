@@ -8,7 +8,7 @@ import PlantProfile from './components/plants/PlantProfile';
 import PostApp from './components/post/PostApp';
 import CurrentUser from './components/contexts/CurrentUser';
 import {useContext, useState, useEffect} from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 import jwt_decode from "jwt-decode";
 import NotFound from './components/NotFound';
 import Confirmation from './components/Confirmation';
@@ -31,21 +31,26 @@ import EditUser from './components/user/EditUser';
 
 function App() {
   const history = useHistory();
+  // const location = useLocation();
   const [currentUser, setCurrentUser] = useState(null);
+  // const {state: {from}={from:"/garden"}} = location;
+
 
   const login = async (token) => {
     const { id, sub: username, authorities: rolesString } = await jwt_decode(token);
-    
     // const roles = rolesString !== undefined ?  rolesString.split(",") : [];
 
     const roles = rolesString.split(",");
     const planter = await findPlanterByUsername(username);
+    if (planter === null) {
+      // console.log(planter);
+      return null;
+    };
     const firstName = planter.firstName;
     const lastName = planter.lastName;
     const email = planter.email;
     const myGarden = planter.myGarden;
 
-    
     const currentUser = {
       id,
       username,
@@ -62,9 +67,10 @@ function App() {
       email,
       myGarden
     };
+
     setCurrentUser(currentUser);
-    console.log(currentUser);
-  };
+    return currentUser;
+    };
 
   const authenticate = async (username, password) => {
     const response = await fetch(`${process.env.REACT_APP_API_URL}/authenticate`, {
@@ -80,7 +86,10 @@ function App() {
 
     if (response.status === 200) {
       const { jwt_token } = await response.json();
-      login(jwt_token);
+      const validUser = await login(jwt_token);
+      if (validUser === null) {
+        return null;
+      }
     } else if (response.status === 403) {
       throw new Error("Bad username or password");
     } else {
@@ -174,20 +183,20 @@ function App() {
         <Route path="/register">
           <Register />
         </Route>
-        <Route path="/editUser/:username">
+        {/* <Route path="/editUser/:username">
         {currentUser && currentUser.isValid() ? (
           <UserApp />
         ) : (
           <Redirect to="/" />
         )}
-        </Route>
-        <Route path="/deleteUser/:username">
+        </Route> */}
+        {/* <Route path="/deleteUser/:username">
         {currentUser && currentUser.isValid() ? (
           <DeleteUser />
         ) : (
           <Redirect to="/" />
         )}
-        </Route>
+        </Route> */}
         <Route path="/logout">
         {currentUser && currentUser.isValid() ? (
           <Confirmation />

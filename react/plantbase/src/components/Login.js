@@ -8,10 +8,10 @@ function Login() {
     const [password, setPassword] = useState('');
     const auth = useContext(CurrentUser);
     const [messages, setMessages] = useState("");
-    const history = useHistory();
-    const location = useLocation();
+    let history = useHistory();
+    let location = useLocation();
 
-    const { state: { from } = { from : '/' } } = location;
+    const { state: { from } = { from : '/garden' } } = location;
 
     const updatePassword = (event) => {
         setPassword(event.target.value);
@@ -24,8 +24,22 @@ function Login() {
         event.preventDefault();
 
         try {
-            await auth.authenticate(username, password);
-            setMessages("Login successful! 😊");
+
+            const validUser = await auth.authenticate(username, password);
+             console.log(validUser);
+            if (validUser === null) {
+                setMessages("Login failed! ")
+                return;
+            };
+            //// history.push("/garden");
+
+            setMessages("Login successful! 😊")
+
+            // (auth.currentUser && auth.currentUser.isValid() ? (
+            //     setMessages("Login successful! 😊")
+            //   ) : (
+            //     setMessages("Login failed! ")
+            //     ))
             history.push(from);
         } catch (err) {
             setMessages([err.message] + ", try again. ");
@@ -47,7 +61,7 @@ function Login() {
                                     <label htmlFor="floatingPassword">Password</label>
                                 </div>
                                 </div>
-                                {/* <Link to="/garden" style={{paddingLeft: 13, textDecoration: 'none'}}> */}
+                                {/* <Link to="/garden" > */}
                                     <div className="d-grid gap-2">
                                         <button type="submit" className="btn btn-lg btn-success mt-3">Login</button>
                                     </div>

@@ -1,13 +1,20 @@
-import { useState } from 'react';
+import { useState, useContext, useHistory } from 'react';
+import CurrentUser from '../contexts/CurrentUser';
+import Modal from 'react-bootstrap/Modal';
 
-function DeleteUser( {user, deleteUser} ) {
 
- const [ username, setUsername ] = useState('');
+function DeleteUser( ) {
 
-  const handleUsernameChange = (event) => {
-    setUsername(event.target.value);
-  }
+  const auth = useContext(CurrentUser);
+  const [show, setShow] = useState(false);
 
+    const showModal = () => {
+        setShow(true);
+    };
+    
+    const hideModal = () => {
+        setShow(false);
+    };
   const handleDeleteUser = (event) => {
     event.preventDefault();
     deleteUser(username);
@@ -21,22 +28,45 @@ function DeleteUser( {user, deleteUser} ) {
        }
      });
 
- return (
-    <div className="card border-secondary mb-3" style={{marginRight: + 20, marginTop: + 15}}>
-   <div className="card-body">
-   <h4 className="card-title">Delete User</h4>
-      <div className="card-body">
-        <form onSubmit={handleDeleteUser}>
-          <div className="form-group">
-            <label htmlFor="UsernameTextBox">Username:</label>
-            <input type="text" id="UsernameTextBox" onChange={handleUsernameChange} className="form-control"/>
-          </div>
+
+    const deleteByUsername = async (evt) => {
+        await fetch(`http://localhost:8080/api/planter/${auth.currentUser.username}`, 
+        { method: "DELETE",  headers: {"Authorization": `Bearer ${auth.currentUser.token}`}}
+        )
+          .then(response => {
+            if (response.status === 204 || response.status === 404) {
           
-          <button type="submit" className="btn btn-primary mt-2">Delete User</button>
-        </form>
-      </div>
-    </div>
-    </div> 
+            } else {
+              return Promise.reject(`delete found with status ${response.status}`);
+            }
+          });
+        
+        auth.logout();
+
+        hideModal();
+
+        console.log(auth.currentUser.firstName);
+
+  
+    }
+
+ return (
+  <>
+  <button onClick={showModal} className="dropdown-item flex-row" style={{color: 'green', textDecoration: 'none'}}>Delete</button>
+  <Modal show={show} onHide={hideModal}>
+      <Modal.Header>
+      <Modal.Title>
+        <h4 className="card-title">
+        Delete Account: @{auth.currentUser.username}</h4>
+      </Modal.Title>
+      </Modal.Header>
+      <Modal.Body>Are you sure you want to delete your account {auth.currentUser.firstName}?</Modal.Body>
+      <Modal.Footer>
+          <button onClick={hideModal} className="btn btn-outline-warning">No</button>
+          <button onClick={deleteByUsername} className="btn btn-warning">Yes</button>
+      </Modal.Footer>
+  </Modal>
+  </>
     );
 }
 
