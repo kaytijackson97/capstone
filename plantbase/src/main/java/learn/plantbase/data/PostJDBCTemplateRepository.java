@@ -25,7 +25,9 @@ public class PostJDBCTemplateRepository implements PostRepository {
     @Override
     public List<Post> findAll() {
         final String sql = "select post_id, username, plant_id, garden_id, caption, photo, datetime_posted, like_count from " +
-                "post limit 1000;";
+                "post " +
+                "order by datetime_posted desc " +
+                "limit 1000;";
         return template.query(sql, new PostMapper());
     }
 
@@ -33,7 +35,8 @@ public class PostJDBCTemplateRepository implements PostRepository {
     public List<Post> findByUsername(String username) {
         final String sql = "select post_id, username, plant_id, garden_id, caption, photo, datetime_posted, like_count from " +
                 "post " +
-                "where username = ?;";
+                "where username = ? " +
+                "order by datetime_posted desc;";
         return template.query(sql, new PostMapper(), username);
     }
 
@@ -41,7 +44,8 @@ public class PostJDBCTemplateRepository implements PostRepository {
     public List<Post> findByPlantId(int plantId) {
         final String sql = "select post_id, username, plant_id, garden_id, caption, photo, datetime_posted, like_count from " +
                 "post " +
-                "where plant_id = ?;";
+                "where plant_id = ? " +
+                "order by datetime_posted desc;";
         return template.query(sql, new PostMapper(), plantId);
     }
 
@@ -120,6 +124,16 @@ public class PostJDBCTemplateRepository implements PostRepository {
     public boolean editPost(Post post) {
         if (post == null) {
             return false;
+        }
+
+        if (post.getPlantId() == 0) {
+            final String sql = "update post set " +
+                    "plant_id = null, " +
+                    "caption = ?, " +
+                    "photo = ?, " +
+                    "like_count = ? " +
+                    "where post_id = ?;";
+            return template.update(sql, post.getCaption(), post.getPhoto(), post.getLikeCount(), post.getPostId()) > 0;
         }
 
         final String sql = "update post set " +

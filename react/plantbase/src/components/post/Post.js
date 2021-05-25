@@ -11,7 +11,7 @@ import LikeButton from '../like-button.png';
 import CurrentUser from "../contexts/CurrentUser";
 import EditPost from "./EditPost";
 
-function Post( {postId, username, plantId, gardenId, caption, photo, datetimePosted, likeCount, deletePostByPostId, editPostByPostId} ) {
+function Post( {post, plants, deletePostByPostId, editPostByPostId} ) {
 
     const defaultPlanter = {
         username: "",
@@ -33,18 +33,18 @@ function Post( {postId, username, plantId, gardenId, caption, photo, datetimePos
 
     const [planter, setPlanter] = useState(defaultPlanter);
     const [plant, setPlant] = useState(defaultPlant);
-    let newCount = likeCount;
+    let newCount = post.likeCount;
     const auth = useContext(CurrentUser);
 
     useEffect(() => {
-        findPlanterByUsername(username)
+        findPlanterByUsername(post.username)
             .then((data) => setPlanter(data))
-    }, [username]);
+    }, [post.username]);
 
     useEffect(() => {
-        findPlantById(plantId)
+        findPlantById(post.plantId)
             .then((data) => setPlant(data))
-    }, [plantId]);
+    }, [post.plantId]);
 
     const increaseLikeCount = () => {
         newCount = newCount + 1;
@@ -52,14 +52,14 @@ function Post( {postId, username, plantId, gardenId, caption, photo, datetimePos
 
     const updatePost = () => {
         const updatedPost = {
-            postId: postId,
-            username: username,
-            plantId: plantId,
-            gardenId: gardenId,
-            caption: caption,
-            photo: photo,
-            datetimePosted: datetimePosted,
-            likeCount: newCount
+            postId: post.postId,
+            username: post.username,
+            plantId: post.plantId,
+            gardenId: post.gardenId,
+            caption: post.caption,
+            photo: post.photo,
+            datetimePosted: post.datetimePosted,
+            likeCount: post.newCount
         }
 
         const init = {
@@ -71,9 +71,8 @@ function Post( {postId, username, plantId, gardenId, caption, photo, datetimePos
             },
             body: JSON.stringify(updatedPost),
         };
-        console.log(updatedPost);
         
-        fetch(`http://localhost:8080/api/post/${postId}`, init)
+        fetch(`http://localhost:8080/api/post/${post.postId}`, init)
             .then((response) => {
                 if (response.status === 404) {
                     return Promise.reject("Post id not found");
@@ -99,31 +98,35 @@ function Post( {postId, username, plantId, gardenId, caption, photo, datetimePos
             <div className="card bg-light mt-3 mb-3" style={postStyle}>
                 <div className="card-header">
                     <div className="d-flex flex-row-reverse">
-                        <div>{datetimePosted}</div>
+                        <div>{post.datetimePosted}</div>
                     </div>
                 </div>
                 <div className="card-body">
                     <div className="row">
                         <div className="col">
                             <h4 className="card-title">
-                            {/* change to planter.myGarden.myGardenId */}
-                            <Link to={`/my-garden/${planter.myGardenId}`} className="text-dark text-decoration-none">{planter.firstName} {planter.lastName}</Link>|
+                            <Link to={`/my-garden/${planter.username}`} className="text-dark text-decoration-none">{planter.firstName} {planter.lastName}</Link>|
                             <Link to={`/plantprofile/${plant.plantId}`} className="text-dark text-decoration-none">{plant.plantName}</Link></h4>
                         </div>
-                        <div className="col d-flex flex-row-reverse">
-                            <EditPost postId={postId} username={username} plantId={plantId} gardenId={gardenId} caption={caption} photo={photo} datetimePosted={datetimePosted} likeCount={likeCount} editPostByPostId={editPostByPostId}/>
-                            <DeletePost postId={postId} deletePostByPostId={deletePostByPostId}/>
-                        </div>
+                        {planter.username === auth.currentUser.username ? (
+                            <div className="col d-flex flex-row-reverse">
+                                <EditPost post={post} plants={plants} editPostByPostId={editPostByPostId}/>
+                                <DeletePost postId={post.postId} deletePostByPostId={deletePostByPostId}/>
+                            </div>                                
+                        ) : (
+                            <>
+                            </>
+                        )}
                     </div>
-                    <p className="card-text">{caption}</p>
+                    <p className="card-text">{post.caption}</p>
                     <div className="d-flex justify-content-center">
                         <div style={{ display: "flex" }}>
-                        {photo == null || photo.trim().length === 0 ? (
+                        {post.photo == null || post.photo.trim().length === 0 ? (
                             <>
                             </>
                         ) : (
                             <ReactRoundedImage
-                                image={photo}
+                                image={post.photo}
                                 roundedColor=""
                                 imageWidth="500"
                                 imageHeight="350"
@@ -141,7 +144,7 @@ function Post( {postId, username, plantId, gardenId, caption, photo, datetimePos
                         <p>{newCount}</p>
                     </div>
                     </div>
-                    <ReplyApp postId={postId}/>
+                    <ReplyApp postId={post.postId}/>
                 </div>
             </div>
         </div>

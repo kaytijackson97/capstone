@@ -3,11 +3,10 @@ import Modal from 'react-bootstrap/Modal';
 
 import CurrentUser from "../contexts/CurrentUser";
 
-import { findPlantsByMyGardenId } from '../../services/plant-api';
 import { findPlanterByUsername } from '../../services/planter-api';
 
 
-function EditPost({postId, username, plantId, gardenId, caption, photo, datetimePosted, likeCount,  editPostByPostId}) {
+function EditPost({post, plants, editPostByPostId}) {
     const auth = useContext(CurrentUser);
 
     const defaultPlanter = {
@@ -19,32 +18,26 @@ function EditPost({postId, username, plantId, gardenId, caption, photo, datetime
     }
 
     const [show, setShow] = useState(false);
-    const [plants, setPlants] = useState([]);
-    const [newPlantId, setNewPlantId] = useState(plantId);
+    const [newPlantId, setNewPlantId] = useState(post.plantId);
     const [planter, setPlanter] = useState(defaultPlanter);
-    const [newCaption, setNewCaption] = useState(caption);
-    const [newPhoto, setNewPhoto] = useState(photo);
+    const [newCaption, setNewCaption] = useState(post.caption);
+    const [newPhoto, setNewPhoto] = useState(post.photo);
 
     useEffect(() => {
-        findPlanterByUsername(username)
+        findPlanterByUsername(post.username)
             .then((data) => setPlanter(data))
-    }, [username])
-
-    useEffect(() => {
-        findPlantsByMyGardenId(gardenId)
-            .then((data) => setPlants(data));
-    }, [gardenId]);
+    }, [post.username])
 
     const handleSubmit = (event) => {
         const newPost = {
-            postId: postId,
-            username: username,
+            postId: post.postId,
+            username: post.username,
             plantId: parseInt(newPlantId),
-            gardenId: gardenId,
+            gardenId: post.gardenId,
             caption: newCaption,
             photo: newPhoto,
-            datetimePosted: datetimePosted,
-            likeCount: likeCount
+            datetimePosted: post.datetimePosted,
+            likeCount: post.likeCount
         }
 
         const init = {
@@ -57,7 +50,7 @@ function EditPost({postId, username, plantId, gardenId, caption, photo, datetime
             body: JSON.stringify(newPost)
         };
     
-        fetch(`http://localhost:8080/api/post/${postId}`, init)
+        fetch(`http://localhost:8080/api/post/${post.postId}`, init)
             .then((response) => {
                 if (response.status === 404) {
                     return Promise.reject("Post id not found");
@@ -95,23 +88,24 @@ function EditPost({postId, username, plantId, gardenId, caption, photo, datetime
                 <form>
                     <div className="form-group">
                         <label htmlFor="caption" className="form-label mt-3">Caption:</label>
-                        <input type="text" placeholder="Show off your plant!" defaultValue={caption} onChange={(event) => setNewCaption(event.target.value)}></input>
+                        <input type="text" placeholder="Show off your plant!" defaultValue={post.caption} onChange={(event) => setNewCaption(event.target.value)}></input>
                     </div>
                     <div className="form-group">
                         <label htmlFor="plants" className="form-label mt-3">Plants</label>
-                        <select className="form-select" id="plants" onChange={(event) => (setNewPlantId(event.target.value))}>
+                        {/* <select className="form-select" id="plants" onChange={(event) => (setNewPlantId(event.target.value))}>
+                            <option value={0}>None</option>
                             {plants.map(p => <option key={p.plantId} value={p.plantId}>{p.plantName}</option>)}
-                        </select>
+                        </select> */}
                     </div>
                     <div className="form-group">
                         <label htmlFor="photo" className="form-label mt-3">Photo:</label>
-                        <input type="text" placeholder="Add photo url" defaultValue={photo} onChange={(event) => setNewPhoto(event.target.value)}></input>
+                        <input type="text" placeholder="Add photo url" defaultValue={post.photo} onChange={(event) => setNewPhoto(event.target.value)}></input>
                     </div>
                 </form>
             </Modal.Body>
             <Modal.Footer>
-                <button onClick={hideModal}>Cancel</button>
-                <button type="submit" onClick={handleSubmit}>Save</button>
+                <button onClick={hideModal} className="btn btn-outline-success">Cancel</button>
+                <button onClick={handleSubmit} className="btn btn-success">Save</button>
             </Modal.Footer>
         </Modal>
         </>

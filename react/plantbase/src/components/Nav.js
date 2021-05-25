@@ -15,7 +15,7 @@ function Nav() {
         'textDecoration': 'none'
     };
 
-  return (
+    return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
         <div className="container-fluid">
             <Link style={navStyle} to="/" ><strong>🌱 Plantbase</strong>
@@ -28,11 +28,6 @@ function Nav() {
                 <Link style={navStyle} to="/garden" className="nav-link">
                     <li style={navStyle} >Garden</li>
                 </Link>
-                <Link style={navStyle} to="/post" className="nav-link">
-                    <li style={navStyle}>Post</li>
-                </Link>
-                
-
                 {auth.currentUser && auth.currentUser.isValid() ? (
                 <Dropdown>
                     <strong style={{color: 'white'}}>
@@ -79,8 +74,7 @@ function Nav() {
                 </Link>
                 ) : (
                     ""
-                )}
-
+                )} */}
         
             </ul>
             <form className="d-flex">

@@ -5,12 +5,7 @@ function ReplyList( {replies, deleteReplyByReplyId, editReplyByReplyId} ) {
         return(
             <div>
             {replies.map(r => ( <Reply key={r.replyId} 
-                replyId={r.replyId}
-                username={r.username} 
-                postId={r.postId}
-                reply={r.reply}
-                datetimePosted={r.datetimePosted}
-                likeCount={r.likeCount}
+                reply={r}
                 deleteReplyByReplyId={deleteReplyByReplyId}
                 editReplyByReplyId={editReplyByReplyId}/>))}
             </div>
