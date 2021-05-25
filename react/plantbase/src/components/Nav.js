@@ -72,17 +72,24 @@ function Nav() {
                         </Link>
                     </div>
 <<<<<<< HEAD
+<<<<<<< HEAD
                 </Link> */}
                 {/* ) : (
                     ""
                 )} */}
 =======
+=======
+>>>>>>> main
                 </Link>
                 ) : (
                     ""
                 )}
+<<<<<<< HEAD
 >>>>>>> main
 
+=======
+                
+>>>>>>> main
         
             </ul>
             <form className="d-flex">
