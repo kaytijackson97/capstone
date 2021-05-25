@@ -47,7 +47,7 @@ function PostApp({}) {
     }
 
     function addPostToArray(post) {
-        const newPosts = [...posts, post];
+        const newPosts = [post, ...posts];
         setPosts(newPosts);
     }
 
