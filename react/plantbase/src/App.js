@@ -150,11 +150,15 @@ function App() {
         )}
         </Route>
         <Route path="/post" exact>
+        {currentUser && currentUser.isValid() ? (
           <PostApp />
+        ) : (
+          <Redirect to="/" />
+        )}
         </Route>
-        <Route path="/plants/add">
+        {/* <Route path="/plants/add">
           <AddPlant/>
-        </Route>
+        </Route> */}
         <Route path="/plantprofile/:plantId">
         {currentUser && currentUser.isValid() ? (
           <PlantProfile />
@@ -173,10 +177,18 @@ function App() {
           <Register />
         </Route>
         <Route path="/editUser/:username">
+        {currentUser && currentUser.isValid() ? (
           <UserApp />
+        ) : (
+          <Redirect to="/" />
+        )}
         </Route>
         <Route path="/deleteUser/:username">
+        {currentUser && currentUser.isValid() ? (
           <DeleteUser />
+        ) : (
+          <Redirect to="/" />
+        )}
         </Route>
         <Route path="/logout">
         {currentUser && currentUser.isValid() ? (
