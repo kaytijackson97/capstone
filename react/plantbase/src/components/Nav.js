@@ -74,8 +74,7 @@ function Nav() {
                 </Link>
                 ) : (
                     ""
-                )}
-                
+                )} */}
         
             </ul>
             <form className="d-flex">
