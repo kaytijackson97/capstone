@@ -9,6 +9,7 @@ import EditIcon from './edit-icon.png';
 import BackArrow from './back-arrow-icon.png';
 import DeletePlant from './DeletePlant';
 import PostApp from '../post/PostApp';
+import MyGardenApp from '../my-gardens/MyGardenApp';
 
 function PlantProfile() {
     const defaultPlant = {
@@ -28,11 +29,19 @@ function PlantProfile() {
     const auth = useContext(CurrentUser);
     const [messages, setMessages] = useState("");
     const [showEditForm, setShowEditForm] = useState(false);
+    const [myGarden, setMyGarden] = useState({});
 
     const history = useHistory();
     const location = useLocation();
 
-    const { state: { from } = { from : `/my-garden/${plant.myGardenId}` } } = location;
+    useEffect(() => {
+        fetch(`${process.env.REACT_APP_API_URL}/api/my-garden/${plant.myGardenId}`)
+        .then(response => response.json())
+        .then(data => setMyGarden(data))
+        .catch(error => console.log(error));
+    }, [plant.myGardenId])
+
+    const { state: { from } = { from : `/my-garden/${myGarden.username}` } } = location;
 
     useEffect(() => {
         fetch(`${process.env.REACT_APP_API_URL}/api/plants/${plantId}`)

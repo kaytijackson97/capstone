@@ -9,10 +9,10 @@ import BackArrow from '../plants/back-arrow-icon.png';
 import Messages from '../Messages';
 
 
-function MyGardenApp() {
+function MyGardenApp({previousMyGarden}) {
     const defaultMyGarden = {
         myGardenId: 0,
-        gardenName: "Rachel",
+        gardenName: "Example",
         userId: 3,
         bio: "wowie wow",
         photo: "https://hgtvhome.sndimg.com/content/dam/images/grdn/fullset/2013/1/20/0/CI_intensive-gardening-allows-a-lot-of-produce-to-grow-in-a-small-space.jpg.rend.hgtvcom.616.493.suffix/1452644679836.jpeg",
