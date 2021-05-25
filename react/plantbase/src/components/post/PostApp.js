@@ -54,7 +54,8 @@ function PostApp() {
     return (
         <div>
             <AddPost addPostToArray={addPostToArray} plants={plants}/>
-            <PostList posts={posts} deletePostByPostId={deletePostByPostId} editPostByPostId={editPostByPostId} addPostToArray={addPostToArray}/>
+            <PostList posts={posts} plants={plants} deletePostByPostId={deletePostByPostId} editPostByPostId={editPostByPostId} addPostToArray={addPostToArray}/>
+            {/* {console.log(plants)} */}
         </div>
     );
 }
