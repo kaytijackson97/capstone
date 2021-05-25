@@ -8,6 +8,7 @@ import Messages from '../Messages';
 import EditIcon from './edit-icon.png';
 import BackArrow from './back-arrow-icon.png';
 import DeletePlant from './DeletePlant';
+import PostApp from '../post/PostApp';
 
 function PlantProfile() {
     const defaultPlant = {
@@ -31,7 +32,7 @@ function PlantProfile() {
     const history = useHistory();
     const location = useLocation();
 
-    const { state: { from } = { from : `/plant` } } = location;
+    const { state: { from } = { from : `/my-garden/${plant.myGardenId}` } } = location;
 
     useEffect(() => {
         fetch(`http://localhost:8080/api/plants/${plantId}`)
@@ -68,42 +69,13 @@ function PlantProfile() {
             return Promise.reject(`delete found with status ${response.status}`);
           }
         });
-        history.push('/plant');
+        history.push(from);
     }
 
     const editForm = (plant) => {
         if (showEditForm === true) {
             return (
                 <EditPlant plant={plant} setShowEditForm={setShowEditForm}/>
-                // <div className="row">
-                //         <div className="card text-white bg-success mt-3">
-                //         <div className="card-header"><Link to={`/plant/edit/${plant.plantId}`} title="Edit an Agent">
-                //             <img src={EditIcon} alt="edit" width="20px"></img>
-                //         </Link> | {plant.plantName} 🌿
-                //         </div>
-                //             <div className="row">
-                //                 <div className="col">
-                //                     <p className="card text-dark bg-light mt-3">Plant Name: <strong>{plant.plantName}</strong></p>
-                //                     <p className="card text-dark bg-light mt-3">Plant Type: <strong>{plant.plantType}</strong></p>
-                //                     <p className="card text-dark bg-light mt-3">Gotcha Date: <strong>{plant.gotchaDate}</strong></p>
-                //                     <p className="card text-dark bg-light mt-3">Plant Description: <strong>{plant.plantDescription}</strong></p>
-                //                     <Messages messages={messages}/>
-                //                 </div>
-                //                 <div className="col">
-                //                 <div style={{ display: "flex" }}>
-                //                     <ReactRoundedImage
-                //                     image={plant.photo}
-                //                     roundedColor=""
-                //                     imageWidth="500"
-                //                     imageHeight="350"
-                //                     roundedSize="8"
-                //                     borderRadius="30"
-                //                     />
-                //                 </div>
-                //                 </div>
-                //             </div>
-                //         </div>
-                //     </div>
             );
         }
     }
@@ -157,14 +129,7 @@ function PlantProfile() {
             <div className="row">
                 <div className="card bg-success mt-3 mb-3">
                     <h2 className="card-header text-white card-title">Related Posts</h2>
-                <ul>
-                    {/* list of posts that maps to post */}
-                    <li>
-                    {posts.map(p => (
-                        <Post key={p.postId} postId={p.postId} username={p.username} gardenId={p.gardenId} caption={p.caption} photo={p.photo} datetimePosted={p.datetimePosted} likeCount={p.likeCount} deletePostByPostId={p.deletePostByPostId} posts={posts} post={p} />
-                    ))}
-                    </li>
-                </ul>
+                    <PostApp/>
                 </div>
             </div>
         </div>
