@@ -6,7 +6,7 @@ import CurrentUser from "../contexts/CurrentUser";
 import EditMyGarden from './EditMyGarden';
 import EditIcon from '../plants/edit-icon.png';
 import BackArrow from '../plants/back-arrow-icon.png';
-
+import Messages from '../Messages';
 
 
 function MyGardenApp() {
@@ -18,7 +18,8 @@ function MyGardenApp() {
         photo: "https://hgtvhome.sndimg.com/content/dam/images/grdn/fullset/2013/1/20/0/CI_intensive-gardening-allows-a-lot-of-produce-to-grow-in-a-small-space.jpg.rend.hgtvcom.616.493.suffix/1452644679836.jpeg",
         plants: []
     }
-    // const [plants, setPlants] = useState([]);
+    
+    const [messages, setMessages] = useState("");
     const [myGarden, setMyGarden] = useState(defaultMyGarden);
     const [showEditForm, setShowEditForm] = useState(false);
     const location = useLocation();
@@ -45,18 +46,6 @@ function MyGardenApp() {
         }
     }
 
-    // useEffect(() => {
-    //     fetch(`http://localhost:8080/api/plants/byMyGarden/${myGarden.myGardenId}`)
-    //         .then(response => {
-    //             if (response.status !== 200) {
-    //                 return Promise.reject("Plants fetch failed.")
-    //             }
-    //             return response.json();
-    //         })
-    //         .then(json => setPlants(json))
-    //         .catch(console.log);
-    // }, []);
-
     const backButton = () => {
         history.push(from);
     }
@@ -67,14 +56,16 @@ function MyGardenApp() {
                 <div>
                     <div className="row">
                     <div className="card-header">
-                    <button onClick={() => backButton()} className="btn btn-success"><img src={BackArrow} alt="back-arrow" width="10px"></img></button>
+                    <button onClick={() => backButton()} className="btn btn-success"><img src={BackArrow} alt="back-arrow" width="10px"></img></button>|
                     <button className="btn btn-success" onClick={() => setShowEditForm(true)} title="Edit MyGarden">
                         <img  src={EditIcon} alt="edit" width="20px"></img>
                     </button>- {myGarden.gardenName} 🌿
                     </div>
                         <div className="col">
-                            <p className="card-body">My Garden Name: {myGarden.gardenName}</p>
-                            <p className="card-body">Bio: {myGarden.bio}</p>
+                            <p className="card-body">My Garden Name: 
+                            <div className="card bg-light" style={{color: 'green'}}><strong>{myGarden.gardenName}</strong></div></p>
+                            <p className="card-body">Bio: <div className="card bg-light" style={{color: 'green'}}><strong>{myGarden.bio}</strong></div></p>
+                            <Messages messages={messages}/>
                         </div>
                         <div className="col">
                         <div style={{ display: "flex" }}>
@@ -98,9 +89,9 @@ function MyGardenApp() {
         <div
             className="bg-image"
             style={{
-                'backgroundImage': 'url(https://static.vecteezy.com/system/resources/previews/000/142/515/non_2x/leafy-background-daun-vector.jpg)',
-                'height': ' 110vh auto',
-                'background-attachment': 'fixed'
+                backgroundImage: 'url(https://static.vecteezy.com/system/resources/previews/000/142/515/non_2x/leafy-background-daun-vector.jpg)',
+                height: ' 110vh auto',
+                backgroundAttachment: 'fixed'
             }}>
         <div className="container">
         {console.log(myGarden.myGardenId)}

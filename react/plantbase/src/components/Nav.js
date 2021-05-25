@@ -71,11 +71,11 @@ function Nav() {
                             <li style={navStyle}>Delete user</li>
                         </Link>
                     </div>
-                </Link> */}
-                {/* ) : (
+                </Link>
+                ) : (
                     ""
-                )} */}
-
+                )}
+                
         
             </ul>
             <form className="d-flex">

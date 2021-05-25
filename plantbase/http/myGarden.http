@@ -23,11 +23,11 @@ Host: localhost:8080
 POST /api/my-garden HTTP/1.1
 Host: localhost:8080
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJwbGFudGJhc2UiLCJzdWIiOiJyY3VjY2lhIiwiYXV0aG9yaXRpZXMiOiJST0xFX1VTRVIiLCJleHAiOjE2MjE4MTQwNjF9.5P1S_vjkI-_q6Goj9G-7-xktzZuIpfNLKq9R_aVDwW0
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJwbGFudGJhc2UiLCJzdWIiOiJyY3VjY2lhIiwiYXV0aG9yaXRpZXMiOiJST0xFX1VTRVIiLCJleHAiOjE2MjE4ODAyNjN9.ybFLZzDVEC8l1ZrgHyTFNvQDmDLpn2Z821Bh_fjwPqs
 
 {
-    "gardenName": "Rachel",
-    "username": "rcuccia",
+    "gardenName": "planterson",
+    "username": "plant",
     "bio": "testing testing",
     "photo": "plant.jpeg",
     "plants": []
