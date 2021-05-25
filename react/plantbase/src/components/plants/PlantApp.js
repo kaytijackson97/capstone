@@ -22,15 +22,8 @@ function PlantApp({myGarden}) {
     }, [myGarden.myGardenId]);
 
     return (
-        <div
-            className="bg-image"
-            style={{
-                'backgroundImage': 'url(https://static.vecteezy.com/system/resources/previews/000/142/515/non_2x/leafy-background-daun-vector.jpg)',
-                'height': 'auto'
-            }}>
-        <div>
-            <PlantList plants={plants} setPlants={setPlants}/>
-        </div>
+        <div className="mt-3 mb-3">
+            <PlantList plants={plants} setPlants={setPlants} myGardenId={myGarden.myGardenId}/>
         </div>
     );
 }

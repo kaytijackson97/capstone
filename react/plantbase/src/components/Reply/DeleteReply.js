@@ -1,11 +1,9 @@
 import { useState } from 'react';
 import Modal from 'react-bootstrap/Modal';
-import { useHistory } from 'react-router-dom';
 import { deleteReplyById } from '../../services/reply-api';
 
 function DeleteReply( {replyId, deleteReplyByReplyId} ) {
     const [show, setShow] = useState(false);
-    const history = useHistory();
 
     const showModal = () => {
         setShow(true);

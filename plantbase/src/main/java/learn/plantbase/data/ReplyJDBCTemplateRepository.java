@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import java.sql.PreparedStatement;
 import java.sql.Statement;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Repository
@@ -70,8 +71,11 @@ public class ReplyJDBCTemplateRepository implements ReplyRepository {
             return false;
         }
 
-        final String sql = "update reply set reply = ? where reply_id = ?;";
-        return template.update(sql, reply.getReply(), reply.getReplyId()) > 0;
+        final String sql = "update reply set " +
+                "reply = ?, " +
+                "like_count = ? " +
+                "where reply_id = ?;";
+        return template.update(sql, reply.getReply(), reply.getLikeCount(), reply.getReplyId()) > 0;
     }
 
     @Override

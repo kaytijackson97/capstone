@@ -52,7 +52,7 @@ function EditPost({postId, username, plantId, gardenId, caption, photo, datetime
             headers: {
                 "Content-Type": "application/json",
                 "Accept": "application/json",
-                "Authorization": `Bearer ${auth.token}`
+                "Authorization": `Bearer ${auth.currentUser.token}`
             },
             body: JSON.stringify(newPost)
         };
@@ -100,7 +100,7 @@ function EditPost({postId, username, plantId, gardenId, caption, photo, datetime
                     <div className="form-group">
                         <label htmlFor="plants" className="form-label mt-3">Plants</label>
                         <select className="form-select" id="plants" onChange={(event) => (setNewPlantId(event.target.value))}>
-                            {plants.map(p => <option value={p.plantId}>{p.plantName}</option>)}
+                            {plants.map(p => <option key={p.plantId} value={p.plantId}>{p.plantName}</option>)}
                         </select>
                     </div>
                     <div className="form-group">
@@ -111,7 +111,7 @@ function EditPost({postId, username, plantId, gardenId, caption, photo, datetime
             </Modal.Body>
             <Modal.Footer>
                 <button onClick={hideModal}>Cancel</button>
-                <button onClick={handleSubmit}>Save</button>
+                <button type="submit" onClick={handleSubmit}>Save</button>
             </Modal.Footer>
         </Modal>
         </>
