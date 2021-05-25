@@ -46,8 +46,8 @@ function Nav() {
                     <Dropdown.Toggle split variant="success" id="dropdown-split-basic" />
                     <Dropdown.Menu>
                     <Dropdown.Item><Link style={{color: 'green', textDecoration: 'none'}} className="btn btn-light nav-link nav-item dropdown" to={`/my-garden/${auth.currentUser.username}`}>My Garden</Link></Dropdown.Item>
-                    <Dropdown.Item><Link style={{color: 'green', textDecoration: 'none'}} className="btn btn-light nav-link nav-item dropdown" to={`/editUser/${auth.currentUser.username}`}><li>Edit Account</li></Link></Dropdown.Item>
-                    <Dropdown.Item><button style={{color: 'green', textDecoration: 'none'}} className="dropdown-item flex-row"><li><DeleteUser /></li></button></Dropdown.Item>
+                    <Dropdown.Item><button style={{color: 'green', textDecoration: 'none'}} className="btn btn-light nav-link nav-item dropdown"><li><UserApp/></li></button></Dropdown.Item>
+                    <Dropdown.Item><button style={{color: 'green', textDecoration: 'none'}} className="btn btn-light nav-link nav-item dropdown"><li><DeleteUser /></li></button></Dropdown.Item>
                     <Dropdown.Item><li><Logout /></li></Dropdown.Item>
                     </Dropdown.Menu>
                 </Dropdown>
