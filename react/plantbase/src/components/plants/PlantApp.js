@@ -10,7 +10,7 @@ function PlantApp({myGarden}) {
     const history = useHistory();
 
     useEffect(() => {
-        fetch(`${process.env.REACT_APP_API_URL}/api/plants/byMyGarden/${myGarden.myGardenId}`)
+        fetch(`http://localhost:8080/api/plants/byMyGarden/${myGarden.myGardenId}`)
             .then(response => {
                 if (response.status !== 200) {
                     return Promise.reject("Plants fetch failed.")

@@ -29,7 +29,7 @@ function EditMyGarden({myGarden, setShowEditForm}) {
     const { state: { from } = { from : `/my-garden/${username}` } } = location;
 
     useEffect(() => {
-        fetch(`${process.env.REACT_APP_API_URL}/api/my-garden/from-planter/${username}`)
+        fetch(`http://localhost:8080/api/my-garden/from-planter/${username}`)
             .then(response => response.json())
             .then(data => setOldMyGarden(data))
             .catch(error => console.log(error));
@@ -65,7 +65,7 @@ function EditMyGarden({myGarden, setShowEditForm}) {
             },
             body: JSON.stringify(myGarden)
         };
-        await fetch(`${process.env.REACT_APP_API_URL}/api/my-garden/${oldMyGarden.myGardenId}`, init)
+        await fetch(`http://localhost:8080/api/my-garden/${oldMyGarden.myGardenId}`, init)
             .then(response => {
                 if (response.status === 204) {
                   console.log("success.")

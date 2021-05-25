@@ -12,7 +12,7 @@ function DeleteUser( {user, deleteUser} ) {
     event.preventDefault();
     deleteUser(username);
   }
- fetch(`${process.env.REACT_APP_API_URL}/api/agent/${user.username}`, { method: "DELETE" })
+ fetch(`http://localhost:8080/api/agent/${user.username}`, { method: "DELETE" })
      .then(response => {
        if (response.status === 204 || response.status === 404) {
          deleteUser(user.username);

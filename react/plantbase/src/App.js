@@ -69,7 +69,7 @@ function App() {
   };
 
   const authenticate = async (username, password) => {
-    const response = await fetch(`${process.env.REACT_APP_API_URL}/authenticate`, {
+    const response = await fetch(`http://localhost:8080/authenticate`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -94,7 +94,7 @@ function App() {
   };
 
   const authenticateRegistration = async (username, password) => {
-    const response = await fetch(`${process.env.REACT_APP_API_URL}/authenticate`, {
+    const response = await fetch(`http://localhost:8080/authenticate`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
