@@ -1,15 +1,12 @@
 import { useContext, useState } from 'react';
 import Modal from 'react-bootstrap/Modal';
 
-import { findPlantsByMyGardenId } from "../../services/plant-api";
 import CurrentUser from "../contexts/CurrentUser";
 
 function AddPost({addPostToArray, plants}) {
     const [show, setShow] = useState(false);
     const [caption, setCaption] = useState("");
     const [photo, setPhoto] = useState("");
-    // const [plants, setPlants] = useState([]);
-    // let plants;
     const [plantId, setPlantId] = useState(0);
     const auth = useContext(CurrentUser);
     const now = new Date();
@@ -94,7 +91,7 @@ function AddPost({addPostToArray, plants}) {
                         <select className="form-select" id="plants" onChange={(event) => (setPlantId(event.target.value))}>
                             <option value={0}>None</option>
                             {plants !== undefined ? (
-                                plants.map(p => <option value={p.plantId}>{p.plantName}</option>)
+                                plants.map(p => <option key={p.plantId} value={p.plantId}>{p.plantName}</option>)
                             ) : (
                                 <>
                                 </>
