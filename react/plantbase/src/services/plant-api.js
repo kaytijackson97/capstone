@@ -5,7 +5,7 @@
 // const auth = useContext(CurrentUser);
 
 export async function findAllPlants() {
-    const response = await fetch("http://localhost:8080/api/plants");
+    const response = await fetch(`${process.env.REACT_APP_API_URL}/api/plants`);
 
     if (response.status !== 200) {
         return Promise.reject("response is not 200 OK");
@@ -15,7 +15,7 @@ export async function findAllPlants() {
 }
 
 export async function findPlantById(plantId) {
-    const response = await fetch(`http://localhost:8080/api/plants/${plantId}`);
+    const response = await fetch(`${process.env.REACT_APP_API_URL}/api/plants/${plantId}`);
 
     if (response.status !== 200) {
         return Promise.reject("response is not 200 OK");
@@ -25,7 +25,7 @@ export async function findPlantById(plantId) {
 }
 
 export async function findPlantsByMyGardenId(myGardenId) {
-    const response = await fetch(`http://localhost:8080/api/plants/byMyGarden/${myGardenId}`);
+    const response = await fetch(`${process.env.REACT_APP_API_URL}/api/plants/byMyGarden/${myGardenId}`);
 
     if (response.status === 404) {
         return [];
@@ -48,7 +48,7 @@ export async function findPlantsByMyGardenId(myGardenId) {
 //         },
 //         body: JSON.stringify(plant)
 //     };
-//     fetch("http://localhost:8080/api/plants", init)
+//     fetch(`${process.env.REACT_APP_API_URL}/api/plants`, init)
 //     .then(response => {
 //         if (response.status !== 201) {
 //             return Promise.reject("response is not 201 CREATED.");

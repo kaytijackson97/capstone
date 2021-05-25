@@ -4,11 +4,12 @@ import Modal from 'react-bootstrap/Modal';
 import { findPlantsByMyGardenId } from "../../services/plant-api";
 import CurrentUser from "../contexts/CurrentUser";
 
-function AddPost({addPostToArray}) {
+function AddPost({addPostToArray, plants}) {
     const [show, setShow] = useState(false);
     const [caption, setCaption] = useState("");
     const [photo, setPhoto] = useState("");
-    const [plants, setPlants] = useState([]);
+    // const [plants, setPlants] = useState([]);
+    // let plants;
     const [plantId, setPlantId] = useState(0);
     const auth = useContext(CurrentUser);
     const now = new Date();
@@ -32,17 +33,18 @@ function AddPost({addPostToArray}) {
             likeCount: 0
         }
 
+        console.log(newPost);
         const init = {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
                 "Accept": "application/json",
-                "Authorization": `Bearer ${auth.token}`
+                "Authorization": `Bearer ${auth.currentUser.token}`
             },
             body: JSON.stringify(newPost)
         };
 
-        fetch("http://localhost:8080/api/post", init)
+        fetch(`${process.env.REACT_APP_API_URL}/api/post`, init)
         .then((response) => {
             if (response.status !== 201) {
                 return Promise.reject("response is not 201 CREATED");
@@ -55,8 +57,6 @@ function AddPost({addPostToArray}) {
     }
 
     const showModal = async () => {
-        await findPlantsByMyGardenId(auth.currentUser.myGarden.myGardenId)
-            .then((data) => setPlants(data));
         setShow(true);
     };
     
@@ -90,10 +90,15 @@ function AddPost({addPostToArray}) {
                         <input type="text" placeholder="Show off your plant!" onChange={(event) => setCaption(event.target.value)}></input>
                     </div>
                     <div className="form-group">
-                        <label htmlFor="plants" className="form-label mt-3">Plants</label>
+                        <label htmlFor="plants" className="form-label mt-3">Plants:</label>
                         <select className="form-select" id="plants" onChange={(event) => (setPlantId(event.target.value))}>
                             <option value={0}>None</option>
-                            {plants.map(p => <option value={p.plantId}>{p.plantName}</option>)}
+                            {plants !== undefined ? (
+                                plants.map(p => <option value={p.plantId}>{p.plantName}</option>)
+                            ) : (
+                                <>
+                                </>
+                            )};
                         </select>
                     </div>
                     <div className="form-group">

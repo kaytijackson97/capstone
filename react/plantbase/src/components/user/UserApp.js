@@ -7,7 +7,7 @@ function UserApp() {
     const [user, setUser] = useState({});
 
     useEffect(() => {
-      fetch(`http://localhost:8080/api/planter/${auth.currentUser.username}`)
+      fetch(`${process.env.REACT_APP_API_URL}/api/planter/${auth.currentUser.username}`)
           .then(response => response.json())
           .then(data => 
             {if (user.username === auth.currentUser.username) {

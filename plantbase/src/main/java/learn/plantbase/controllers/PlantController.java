@@ -29,17 +29,21 @@ public class PlantController {
     @GetMapping("/{plantId}")
     public ResponseEntity<Plant> findById(@PathVariable int plantId) {
         Plant plant = service.findById(plantId);
-        if (plant == null) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        if (plantId == 0) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } else  if (plant == null) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
         return ResponseEntity.ok(plant);
     }
 
     @GetMapping("/byMyGarden/{myGardenId}")
-    public ResponseEntity<List<Plant>> findByMyGardenId(@PathVariable int myGardenId) {
+    public ResponseEntity<Object> findByMyGardenId(@PathVariable int myGardenId) {
         List<Plant> plants = service.findByMyGardenId(myGardenId);
-        if (plants.size() == 0) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        if (myGardenId == 0) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } else if (plants.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
         return ResponseEntity.ok(plants);
     }

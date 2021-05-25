@@ -15,6 +15,18 @@ function DeleteUser( ) {
     const hideModal = () => {
         setShow(false);
     };
+  const handleDeleteUser = (event) => {
+    event.preventDefault();
+    deleteUser(username);
+  }
+ fetch(`${process.env.REACT_APP_API_URL}/api/agent/${user.username}`, { method: "DELETE" })
+     .then(response => {
+       if (response.status === 204 || response.status === 404) {
+         deleteUser(user.username);
+       } else {
+         return Promise.reject(`delete found with status ${response.status}`);
+       }
+     });
 
 
     const deleteByUsername = async (evt) => {

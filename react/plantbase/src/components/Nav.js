@@ -27,9 +27,13 @@ function Nav() {
             </button>
             <div className="collapse navbar-collapse" id="navbarColor03">
             <ul  className=" navbar-nav me-auto nav-links">
+                {auth.currentUser && auth.currentUser.isValid() ? (
                 <Link style={navStyle} to="/garden" className="nav-link">
                     <li style={navStyle} >Garden</li>
                 </Link>
+                ) : (
+                    ""
+                )}
                 {auth.currentUser && auth.currentUser.isValid() ? (
                 <Dropdown>
                     <strong style={{color: 'white'}}>
@@ -41,9 +45,8 @@ function Nav() {
                     </strong>
                     <Dropdown.Toggle split variant="success" id="dropdown-split-basic" />
                     <Dropdown.Menu>
-                    <Dropdown.Item><Link style={{color: 'green', textDecoration: 'none'}} className="nav-link nav-item dropdown" to={`/my-garden/${auth.currentUser.username}`}>My Garden</Link></Dropdown.Item>
-                    <Dropdown.Item><Link style={{color: 'green', textDecoration: 'none'}} to="/post" className="nav-link nav-item dropdown"><li>Post</li></Link></Dropdown.Item>
-                    <Dropdown.Item><button style={{color: 'green', textDecoration: 'none'}} className="dropdown-item flex-row"><li><UserApp /></li></button></Dropdown.Item>
+                    <Dropdown.Item><Link style={{color: 'green', textDecoration: 'none'}} className="btn btn-light nav-link nav-item dropdown" to={`/my-garden/${auth.currentUser.username}`}>My Garden</Link></Dropdown.Item>
+                    <Dropdown.Item><Link style={{color: 'green', textDecoration: 'none'}} className="btn btn-light nav-link nav-item dropdown" to={`/editUser/${auth.currentUser.username}`}><li>Edit Account</li></Link></Dropdown.Item>
                     <Dropdown.Item><button style={{color: 'green', textDecoration: 'none'}} className="dropdown-item flex-row"><li><DeleteUser /></li></button></Dropdown.Item>
                     <Dropdown.Item><li><Logout /></li></Dropdown.Item>
                     </Dropdown.Menu>

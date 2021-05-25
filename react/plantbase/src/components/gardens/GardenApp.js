@@ -20,7 +20,7 @@ function GardenApp() {
             <Messages messages={messages} />
                 <div className="row">
                 <div className="card text-dark bg-success mt-3">
-                    <h2 className="card-header card-title">Related Posts</h2>
+                    <h2 className="card-header text-white card-title">Related Posts</h2>
                 <PostApp/>
                 </div>
             </div>

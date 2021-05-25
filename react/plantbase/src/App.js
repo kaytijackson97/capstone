@@ -51,9 +51,6 @@ function App() {
     const email = planter.email;
     const myGarden = planter.myGarden;
 
-    console.log(planter);
-    
-
     const currentUser = {
       id,
       username,
@@ -76,7 +73,7 @@ function App() {
     };
 
   const authenticate = async (username, password) => {
-    const response = await fetch("http://localhost:8080/authenticate", {
+    const response = await fetch(`${process.env.REACT_APP_API_URL}/authenticate`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -104,7 +101,7 @@ function App() {
   };
 
   const authenticateRegistration = async (username, password) => {
-    const response = await fetch("http://localhost:8080/authenticate", {
+    const response = await fetch(`http://localhost:8080/authenticate`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

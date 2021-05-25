@@ -78,10 +78,10 @@ Host: localhost:8080
 Content-Type: application/json
 
 {
-    "gardenName": "Rachel",
-    "userId": 0,
-    "bio": "testing testing",
-    "photo": "plant.jpeg",
+    "gardenName": "charmanders",
+    "username": "charmander",
+    "bio": "emberrr",
+    "photo": "https://i.ebayimg.com/images/g/EsUAAOSwv3hgEbOo/s-l400.jpg",
     "plants": []
 }
 
@@ -179,3 +179,18 @@ Host: localhost:8080
 
 DELETE /api/my-garden/0 HTTP/1.1
 Host: localhost:8080
+
+###
+
+POST /api/my-garden HTTP/1.1
+Host: localhost:8080
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJwbGFudGJhc2UiLCJzdWIiOiJyY3VjY2lhIiwiYXV0aG9yaXRpZXMiOiJST0xFX1VTRVIiLCJleHAiOjE2MjE4ODAyNjN9.ybFLZzDVEC8l1ZrgHyTFNvQDmDLpn2Z821Bh_fjwPqs
+
+{
+    "gardenName": "rachel",
+    "username": "rcuccia",
+    "bio": "testing testing",
+    "photo": "plant.jpeg",
+    "plants": []
+}

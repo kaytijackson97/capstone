@@ -45,6 +45,7 @@ POST /api/post HTTP/1.1
 Host: localhost:8080
 Origin: http://localhost:3000
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJwbGFudGJhc2UiLCJzdWIiOiJzcXVpcnRsZSIsImF1dGhvcml0aWVzIjoiUk9MRV9VU0VSIiwiZXhwIjoxNjIxOTU2MjEwfQ.d8gPHVmWAsH5DPKOc7jXWA8dj5aR_SSJD5CupWdLr3Y
 
 {
     "username": "kaytiwiita",
