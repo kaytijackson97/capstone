@@ -32,12 +32,13 @@ function AddPost({addPostToArray}) {
             likeCount: 0
         }
 
+        console.log(newPost);
         const init = {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
                 "Accept": "application/json",
-                "Authorization": `Bearer ${auth.token}`
+                "Authorization": `Bearer ${auth.currentUser.token}`
             },
             body: JSON.stringify(newPost)
         };

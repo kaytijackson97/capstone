@@ -25,9 +25,13 @@ function Nav() {
             </button>
             <div className="collapse navbar-collapse" id="navbarColor03">
             <ul  className=" navbar-nav me-auto nav-links">
+                {auth.currentUser && auth.currentUser.isValid() ? (
                 <Link style={navStyle} to="/garden" className="nav-link">
                     <li style={navStyle} >Garden</li>
                 </Link>
+                ) : (
+                    ""
+                )}
                 {auth.currentUser && auth.currentUser.isValid() ? (
                 <Dropdown>
                     <strong style={{color: 'white'}}>
@@ -36,46 +40,19 @@ function Nav() {
                                     ) : (
                                         ""
                                     )}
-                        </strong>
-                        <Dropdown.Toggle split variant="success" id="dropdown-split-basic" />
-                        
-
+                    </strong>
+                    <Dropdown.Toggle split variant="success" id="dropdown-split-basic" />
                     <Dropdown.Menu>
-
-
                     <Dropdown.Item><Link style={{color: 'green', textDecoration: 'none'}} className="nav-link nav-item dropdown" to={`/my-garden/${auth.currentUser.username}`}>My Garden</Link></Dropdown.Item>
                     <Dropdown.Item><Link style={{color: 'green', textDecoration: 'none'}} to="/post" className="nav-link nav-item dropdown"><li>Post</li></Link></Dropdown.Item>
+                    <Dropdown.Item><Link style={{color: 'green', textDecoration: 'none'}} className="dropdown-item text-left" to={`/editUser/${auth.currentUser.username}`}><li>Edit Account</li></Link></Dropdown.Item>
+                    <Dropdown.Item><Link to={`/deleteUser/${auth.currentUser.username}`} className="nav-link nav-item dropdown" style={{color: 'green', textDecoration: 'none'}}><li>Delete Account</li></Link></Dropdown.Item>
                     <Dropdown.Item><li><Logout /></li></Dropdown.Item>
-                    <Dropdown.Item><Link className="nav-link nav-item dropdown" style={{color: 'green', textDecoration: 'none'}}><li>Delete Account</li></Link></Dropdown.Item>
                     </Dropdown.Menu>
                 </Dropdown>
                 ) : (
                     ""
                 )}
-
-
-                        
-                    {/* <div className="dropdown-menu show" data-bs-popper="none">
-                    <Link style={navStyle} to="/post" className="nav-link">
-                            <li style={navStyle}>Post</li>
-                        </Link>
-                        <Link className="dropdown-item" to={`/editUser/${auth.currentUser.username}`}>
-                            <li style={navStyle}>Edit user</li>
-                        </Link>
-                        <Link className="dropdown-item" to="/logout">
-                            <li className="dropdown-item">
-                                <Logout />
-                            </li>
-                        </Link>
-                        <Link className="dropdown-item" to={`/deleteUser/${auth.currentUser.username}`}>
-                            <li style={navStyle}>Delete user</li>
-                        </Link>
-                    </div>
-                </Link>
-                ) : (
-                    ""
-                )} */}
-        
             </ul>
             <form className="d-flex">
                 <input className="form-control me-sm-2" type="text" placeholder="Search"/>
