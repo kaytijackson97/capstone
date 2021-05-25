@@ -1,19 +1,14 @@
 import Post from './Post';
 
-function PostList({posts, deletePostByPostId, editPostByPostId}) {
+function PostList({posts, plants, deletePostByPostId, editPostByPostId}) {
 
     return (
         
         <div>
             {posts.map(p => ( <Post key={p.postId} 
-            postId={p.postId} 
+            post={p}
+            plants={plants} 
             username={p.username} 
-            plantId={p.plantId}
-            gardenId={p.gardenId}
-            caption={p.caption}
-            photo={p.photo}
-            datetimePosted={p.datetimePosted}
-            likeCount={p.likeCount}
             deletePostByPostId={deletePostByPostId}
             editPostByPostId={editPostByPostId}
             />))}

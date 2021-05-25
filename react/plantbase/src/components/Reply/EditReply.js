@@ -4,7 +4,7 @@ import { findPlanterByUsername } from '../../services/planter-api';
 
 import CurrentUser from "../contexts/CurrentUser";
 
-function EditReply({replyId, username, postId, reply, datetimePosted, likeCount,  editReplyByReplyId}) {
+function EditReply({reply, editReplyByReplyId}) {
     const defaultPlanter = {
         username: "",
         roleId: 2,
@@ -19,24 +19,22 @@ function EditReply({replyId, username, postId, reply, datetimePosted, likeCount,
     const [newReply, setNewReply] = useState(reply);
 
     useEffect(() => {
-        findPlanterByUsername(username)
+        findPlanterByUsername(reply.username)
             .then((data) => setPlanter(data))
-    }, [username])
+    }, [reply.username])
 
     const handleSubmit = (event) => {
         event.preventDefault();
         event.stopPropagation();
         
         const updatedReply = {
-            replyId: replyId,
-            username: username,
-            postId: postId,
+            replyId: reply.replyId,
+            username: reply.username,
+            postId: reply.postId,
             reply: newReply,
-            datetimePosted: datetimePosted,
-            likeCount: likeCount
+            datetimePosted: reply.datetimePosted,
+            likeCount: reply.likeCount
         }
-
-        console.log(updatedReply);
 
         const init = {
             method: "PUT",
@@ -48,7 +46,7 @@ function EditReply({replyId, username, postId, reply, datetimePosted, likeCount,
             body: JSON.stringify(updatedReply)
         };
     
-        fetch(`http://localhost:8080/api/reply/${replyId}`, init)
+        fetch(`http://localhost:8080/api/reply/${reply.replyId}`, init)
             .then((response) => {
                 if (response.status === 404) {
                     return Promise.reject("Post id not found");
@@ -87,7 +85,7 @@ function EditReply({replyId, username, postId, reply, datetimePosted, likeCount,
                     <form>
                         <div className="form-group">
                             <label htmlFor="caption" className="form-label mt-3">Reply:</label>
-                            <input type="text" placeholder="Show off your plant!" defaultValue={reply} onChange={(event) => setNewReply(event.target.value)}></input>
+                            <input type="text" placeholder="Show off your plant!" defaultValue={reply.reply} onChange={(event) => setNewReply(event.target.value)}></input>
                         </div>
                     </form>
                 </Modal.Body>
