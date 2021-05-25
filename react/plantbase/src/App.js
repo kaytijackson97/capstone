@@ -45,6 +45,7 @@ function App() {
     const email = planter.email;
     const myGarden = planter.myGarden;
 
+    
     const currentUser = {
       id,
       username,
@@ -61,9 +62,7 @@ function App() {
       email,
       myGarden
     };
-
     
-
     setCurrentUser(currentUser);
     console.log(currentUser);
   };
