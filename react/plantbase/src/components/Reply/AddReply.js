@@ -7,12 +7,12 @@ function AddReply( {postId, addReplyToArray} ) {
     const now = new Date();
 
     const nowAsLocalDateTime = 
-                now.getFullYear() + "-" + 
-                ("0" + (now.getMonth() + 1)).slice(-2) + "-" + 
-                ("0" + now.getDate()).slice(-2) + "T" + 
-                ("0" + (now.getHours())).slice(-2)  + ":" + 
-                ("0" + now.getMinutes()).slice(-2)  + ":" + 
-                ("0" + now.getSeconds()).slice(-2) ;
+        now.getFullYear() + "-" + 
+        ("0" + (now.getMonth() + 1)).slice(-2) + "-" + 
+        ("0" + now.getDate()).slice(-2) + "T" + 
+        ("0" + (now.getHours())).slice(-2)  + ":" + 
+        ("0" + now.getMinutes()).slice(-2)  + ":" + 
+        ("0" + now.getSeconds()).slice(-2) ;
     
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -56,9 +56,11 @@ function AddReply( {postId, addReplyToArray} ) {
             <div className="card bg-light mt-3" style={postStyle}>
                 <div className="card-body">
                     <form onSubmit={handleSubmit}>
-                        <div>
-                            <input type="text" size="850px" placeholder="Water the garden with words of love! <3" onChange={(event) => setReply(event.target.value)}></input>
-                            <button type="submit" className="btn btn-success">Add Reply</button>
+                        <div className="input-group mb-3">
+                            <input type="text" className="form-control" onChange={(event) => setReply(event.target.value)} placeholder="Water the garden with words of love! <3" aria-label="comment" aria-describedby="basic-addon2"/>
+                            <div className="input-group-append">
+                                <button type="submit" className="btn btn-success">Add Reply</button>
+                            </div>
                         </div>
                     </form>
                 </div>

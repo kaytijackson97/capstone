@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import Modal from 'react-bootstrap/Modal';
 
 import { findPlantsByMyGardenId } from "../../services/plant-api";
@@ -15,12 +15,12 @@ function AddPost({addPostToArray}) {
 
     const handleSubmit = async () => {
         const nowAsLocalDateTime = 
-                now.getFullYear() + "-" + 
-                ("0" + (now.getMonth() + 1)).slice(-2) + "-" + 
-                ("0" + now.getDate()).slice(-2) + "T" + 
-                now.getHours() + ":" + 
-                now.getMinutes() + ":" + 
-                now.getSeconds();
+            now.getFullYear() + "-" + 
+            ("0" + (now.getMonth() + 1)).slice(-2) + "-" + 
+            ("0" + now.getDate()).slice(-2) + "T" + 
+            now.getHours() + ":" + 
+            now.getMinutes() + ":" + 
+            now.getSeconds();
 
         const newPost = {
             username: auth.currentUser.username,
@@ -37,7 +37,7 @@ function AddPost({addPostToArray}) {
             headers: {
                 "Content-Type": "application/json",
                 "Accept": "application/json",
-                "Authorization": `Bearer ${auth.currentUser.token}`
+                "Authorization": `Bearer ${auth.token}`
             },
             body: JSON.stringify(newPost)
         };
@@ -49,7 +49,7 @@ function AddPost({addPostToArray}) {
             }
             return response.json();
         })
-        .then((data) => addPostToArray(data));
+        .then((json) => addPostToArray(json));
 
         hideModal();
     }
@@ -64,9 +64,17 @@ function AddPost({addPostToArray}) {
         setShow(false);
     };
 
+    const postStyle = {
+        "width": "1000px"
+    }
+
     return (
         <>
-        <button onClick={showModal} className="btn btn-success btn-xl">Add</button>
+        <div className="d-flex justify-content-center">
+            <div className="d-grid gap-2" style={postStyle}>
+                <button onClick={showModal} className="btn btn-light btn-lg mt-3">Add New Post</button>
+            </div>
+        </div>
         <Modal show={show} onHide={hideModal}>
             <Modal.Header>
                 <Modal.Title>
@@ -85,7 +93,7 @@ function AddPost({addPostToArray}) {
                         <label htmlFor="plants" className="form-label mt-3">Plants</label>
                         <select className="form-select" id="plants" onChange={(event) => (setPlantId(event.target.value))}>
                             <option value={0}>None</option>
-                            {plants.map(p => <option key={p.plantId} value={p.plantId}>{p.plantName}</option>)}
+                            {plants.map(p => <option value={p.plantId}>{p.plantName}</option>)}
                         </select>
                     </div>
                     <div className="form-group">
@@ -95,8 +103,8 @@ function AddPost({addPostToArray}) {
                 </form>
             </Modal.Body>
             <Modal.Footer>
-                <button onClick={hideModal}>Cancel</button>
-                <button onClick={handleSubmit}>Save</button>
+                <button onClick={hideModal} className="btn btn-outline-success">Cancel</button>
+                <button onClick={handleSubmit} className="btn btn-success">Save</button>
             </Modal.Footer>
         </Modal>
         </>

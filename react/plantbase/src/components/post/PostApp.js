@@ -1,16 +1,26 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { findAllPosts } from "../../services/post-api";
 import PostList from "./PostList";
 import AddPost from "./AddPost";
+import CurrentUser from "../contexts/CurrentUser";
+import { findPlantsByMyGardenId } from "../../services/plant-api";
 
 function PostApp() {
     const [posts, setPosts] = useState([]);
+    const [plants, setPlants] = useState([]);
+    const auth = useContext(CurrentUser);
 
     useEffect(() => {
         findAllPosts()
             .then((data) => setPosts(data))
             .catch(console.log)
     }, []);
+
+    useEffect(() => {
+        findPlantsByMyGardenId(auth.currentUser.myGarden.myGardenId)
+            .then((data) => setPlants(data))
+            .catch(console.log)
+    }, [auth.currentUser.myGarden.myGardenId]);
 
     function deletePostByPostId(postId) {
         const newPosts = [];
@@ -43,7 +53,7 @@ function PostApp() {
 
     return (
         <div>
-            <AddPost addPostToArray={addPostToArray}/>
+            <AddPost addPostToArray={addPostToArray} plants={plants}/>
             <PostList posts={posts} deletePostByPostId={deletePostByPostId} editPostByPostId={editPostByPostId} addPostToArray={addPostToArray}/>
         </div>
     );
