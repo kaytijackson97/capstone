@@ -92,6 +92,30 @@ function PlantProfile() {
         }
     }
 
+    function editPostByPostId(post) {
+        const newPosts = [];
+        for(const p of posts ) {
+            if (p.postId !== post.postId) {
+                newPosts.push(p);
+            } else {
+                newPosts.push(post)
+            }
+        }
+
+        setPosts(newPosts);
+    }
+
+    function deletePostByPostId(postId) {
+        const newPosts = [];
+        for(const post of posts ) {
+            if (post.postId !== postId) {
+                newPosts.push(post);
+            }
+        }
+
+        setPosts(newPosts);
+    }
+
     const defaultPlantProfile = (plant) => {
         if (showEditForm === false) {
             return (
@@ -99,10 +123,17 @@ function PlantProfile() {
                     <div className="card mt-3" style={{backgroundColor: 'rgba(255, 255, 255, 0.5)', backdropFilter: 'blur(3px)', color: 'white', fontFamily: 'Century Gothic'}}>
                     <div className="">
                     <button onClick={() => backButton()} className="btn" style={{backgroundColor: 'rgba(133, 166, 141, 1)'}}><img src={BackArrow} alt="back-arrow" width="10px"></img></button>
+                    {((auth.currentUser.username === myGarden.username) || (auth.currentUser && auth.currentUser.hasRole("ROLE_ADMIN"))) ? (
+                    <>
                     <DeletePlant plantId={plant.plantId} deletePlant={deletePlant}/>
                     <button className="btn" style={{backgroundColor: 'rgba(133, 166, 141, 1)', marginLeft: '0.5%'}} onClick={() => setShowEditForm(true)} title="Edit an Agent">
                         <img  src={EditIcon} alt="edit" width="20px"></img>
-                    </button><strong style={{color: 'rgba(89, 107, 93, 1)', fontFamily: 'Century Gothic', fontSize: '30px', marginLeft: '2%'}}>{plant.plantName} 🌿</strong>
+                    </button>
+                    </>
+                    ):("")}
+                    
+                    <strong style={{color: 'rgba(89, 107, 93, 1)', fontFamily: 'Century Gothic', fontSize: '30px', marginLeft: '2%'}}>{plant.plantName} 🌿</strong>
+                    
                     </div>
                         <div className="row">
                             <div className="col">
@@ -141,7 +172,7 @@ function PlantProfile() {
             <div className="row">
                 <div className="card mt-3 mb-3" style={{backgroundColor: 'rgba(255, 255, 255, 0.5)', backdropFilter: 'blur(3px)', color: 'rgba(89, 107, 93, 1)'}}>
                     <h2 className="text-center card-title">Related Posts</h2>
-                    <PostList posts={posts} />
+                    <PostList posts={posts} editPostByPostId={editPostByPostId} deletePostByPostId={deletePostByPostId}/>
                 </div>
             </div>
         </div>
