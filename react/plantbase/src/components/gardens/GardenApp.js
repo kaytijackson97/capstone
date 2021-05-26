@@ -17,17 +17,21 @@ function GardenApp() {
                 'backgroundAttachment': 'fixed'
             }}>
         <div>
-            <div className="App container">
+            <div className="App container-fluid">
         <div className="row">
           <div className="col">
-          <div className="card card-title text-center" style={{backgroundColor: 'rgba(255, 255, 255, 0.5)', backdropFilter: 'blur(3px)'}}>
-          <h1 className="mt-2" style={{color: 'rgba(89, 107, 93, 1)', fontFamily: 'Century Gothic'}}>Welcome {auth.currentUser.username}! 🌿</h1>
+          <div className="text-center" >
+          <h1 className="mt-2" style={{color: 'rgba(89, 107, 93, 1)', fontFamily: 'Century Gothic', position: 'relative', bottom: '4rem'}}>Welcome {auth.currentUser.username}! 🌿</h1>
           </div>
-            <Messages messages={messages} />
                 <div className="row">
+                <div className="col" style={{maxWidth: '15%'}}>
+                <Messages messages={messages} />
+                </div>
+                <div className="col">
                 <div className="card text-dark mt-3" style={{backgroundColor: 'rgba(255, 255, 255, 0.5)', backdropFilter: 'blur(3px)'}}>
                     <h2 className="card-header card-title" style={{color: 'rgba(89, 107, 93, 1)'}}>Feed</h2>
                 <PostApp/>
+                </div>
                 </div>
             </div>
           </div>
