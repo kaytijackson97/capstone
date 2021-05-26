@@ -5,8 +5,6 @@ function AddUser({ addUser }) {
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
 
-
-
   const handleAddUser = (event) => {
     event.stopPropagation();
 
@@ -39,7 +37,7 @@ function AddUser({ addUser }) {
 
 
   return (
-     <div className="card border-secondary mb-3" style={{marginRight: + 20, marginTop: + 20}}>
+    <div className="card border-secondary mb-3" style={{marginRight: + 20, marginTop: + 20}}>
       <div className="card-body">
         <h4 className="card-title">Create Account</h4>
         <form onSubmit={handleAddUser}>

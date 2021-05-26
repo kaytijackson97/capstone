@@ -36,28 +36,3 @@ export async function findPlantsByMyGardenId(myGardenId) {
 
     return response.json();
 }
-
-// //add plant fetch
-// const addPlant = (plant) => {
-//     const init = {
-//         method: "POST",
-//         headers: {
-//             "Content-Type": "application/json",
-//             "Accept": "application/json",
-//             "Authorization": `Bearer ${auth.token}`
-//         },
-//         body: JSON.stringify(plant)
-//     };
-//     fetch(`${process.env.REACT_APP_API_URL}/api/plants`, init)
-//     .then(response => {
-//         if (response.status !== 201) {
-//             return Promise.reject("response is not 201 CREATED.");
-//         }
-//         return response.json();
-//         })
-//         .then(json => setPlants([...plants, json]))
-//         .then(() => {
-//             history.push(`/my-garden/${auth.currentUser.userId}`);
-//         })
-//         .catch(console.log);
-// }
