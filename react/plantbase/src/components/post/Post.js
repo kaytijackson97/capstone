@@ -108,7 +108,7 @@ function Post( {post, plants, deletePostByPostId, editPostByPostId} ) {
                             <Link to={`/my-garden/${planter.username}`} className="text-dark text-decoration-none">{planter.firstName} {planter.lastName}</Link>
                             <Link to={`/plantprofile/${plant.plantId}`} className="text-dark text-decoration-none"> | {plant.plantName}</Link></h4>
                         </div>
-                        {planter.username === auth.currentUser.username ? (
+                        {((auth.currentUser.username === planter.username) || (auth.currentUser && auth.currentUser.hasRole("ROLE_ADMIN")))? (
                             <div className="col d-flex flex-row-reverse">
                                 <EditPost post={post} plants={plants} editPostByPostId={editPostByPostId}/>
                                 <DeletePost postId={post.postId} deletePostByPostId={deletePostByPostId}/>

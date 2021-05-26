@@ -119,7 +119,7 @@ insert into app_role (`name`) values
     
 insert into app_user_role
     values
-    (1, 1);
+    (1, 2);
 
 insert into plantbase_role (role_name)
 	values

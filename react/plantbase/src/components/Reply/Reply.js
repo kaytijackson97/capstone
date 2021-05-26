@@ -71,7 +71,7 @@ function Reply({reply, deleteReplyByReplyId, editReplyByReplyId,}) {
             <div className="card-header">
                 <div className="row">
                     <div className="col">{reply.datetimePosted}</div>
-                    {planter.username === auth.currentUser.username ? (
+                    {((auth.currentUser.username === planter.username) || (auth.currentUser && auth.currentUser.hasRole("ROLE_ADMIN"))) ? (
                         <div className="col d-flex flex-row-reverse">
                         <EditReply
                             reply={reply}
