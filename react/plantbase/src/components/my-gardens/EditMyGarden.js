@@ -106,17 +106,17 @@ function EditMyGarden({myGarden, setShowEditForm}) {
       <h2 className="card-header" style={{color: 'rgba(89, 107, 93, 1)'}}>Edit My Garden</h2>
         <div className="row form-group">
         <div className="form-floating mb-3 col">
-            <input style={{color: 'rgba(133, 166, 141, 1)'}} className="form-control" type="text" id="plantNameTextBox" defaultValue={oldMyGarden.gardenName} onChange={handleGardenNameChange}/>
+            <input style={{color: 'rgba(89, 107, 93, 1)'}} className="form-control" type="text" id="plantNameTextBox" defaultValue={oldMyGarden.gardenName} onChange={handleGardenNameChange}/>
             <label style={{color: 'rgba(133, 166, 141, 1)'}} htmlFor="plantNameTextBox">My Garden Name:</label>
           </div>
         </div>
         <div className="row form-group">
         <div className="form-floating mb-3">
-            <textarea style={{color: 'rgba(133, 166, 141, 1)'}} className="form-control" type="textarea" id="plantDescriptionTextBox" defaultValue={oldMyGarden.bio} onChange={handleBioChange}/>
+            <textarea style={{color: 'rgba(89, 107, 93, 1)'}} className="form-control" type="textarea" id="plantDescriptionTextBox" defaultValue={oldMyGarden.bio} onChange={handleBioChange}/>
             <label style={{color: 'rgba(133, 166, 141, 1)'}} htmlFor="plantDescriptionTextBox">Bio:</label>
           </div>
           <div className="form-floating mb-3 col">
-            <input style={{color: 'rgba(133, 166, 141, 1)'}} className="form-control" type="text" id="plantTypeTextBox" defaultValue={oldMyGarden.photo} onChange={handlePhotoChange}/>
+            <input style={{color: 'rgba(89, 107, 93, 1)'}} className="form-control" type="text" id="plantTypeTextBox" defaultValue={oldMyGarden.photo} onChange={handlePhotoChange}/>
             <label style={{color: 'rgba(133, 166, 141, 1)'}} htmlFor="plantTypeTextBox">Photo:</label>
           </div>
         </div>

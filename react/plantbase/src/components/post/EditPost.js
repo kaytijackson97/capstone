@@ -75,7 +75,7 @@ function EditPost({post, plants, editPostByPostId}) {
 
     return (
         <>
-        <button onClick={showModal} className="btn btn-success">Edit</button>
+        <button onClick={showModal} className="btn text-white" style={{backgroundColor: 'rgba(133, 166, 141, 1)', marginLeft: '2%'}}>Edit</button>
         <Modal show={show} onHide={hideModal}>
             <Modal.Header>
                 <Modal.Title>

@@ -129,8 +129,8 @@ const hideModal = () => {
         </form>
         </Modal.Body>
             <Modal.Footer>
-                <button onClick={hideModal} className="btn btn-outline-success">Cancel</button>
-                <button onClick={handleEdit} className="btn btn-success">Save</button>
+                <button onClick={hideModal} className="btn" style={{color: 'rgba(133, 166, 141, 1)', borderColor: 'rgba(133, 166, 141, 1)'}}>Cancel</button>
+                <button onClick={handleEdit} className="btn text-white" style={{backgroundColor: 'rgba(133, 166, 141, 1)'}}>Save</button>
             </Modal.Footer>
         </Modal>
   </>

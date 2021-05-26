@@ -35,7 +35,7 @@ function DeletePost( {postId, deletePostByPostId} ) {
 
     return(
         <>
-        <button onClick={showModal} className="btn btn-success">Delete</button>
+        <button onClick={showModal} className="btn text-white" style={{backgroundColor: 'rgba(133, 166, 141, 1)', marginLeft: '2%'}}>Delete</button>
         <Modal show={show} onHide={hideModal}>
             <Modal.Header>
             <Modal.Title><div className="text-center">⚠️ Caution! ⚠️</div></Modal.Title>
