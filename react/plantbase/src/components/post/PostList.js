@@ -1,8 +1,6 @@
 import Post from './Post';
 
 function PostList({posts, plants, deletePostByPostId, editPostByPostId}) {
-    console.log(posts);
-
     return (
         
         <div>

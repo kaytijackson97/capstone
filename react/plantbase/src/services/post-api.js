@@ -37,12 +37,3 @@ export async function findPostById(postId) {
 
     return response.json();
 }
-
-export async function deletePostById(postId) {
-    const response = await fetch(`${process.env.REACT_APP_API_URL}/api/post/${postId}`, {method: "DELETE"});
-
-    if (response.status !== 204) {
-        return Promise.reject("response is not 204 NO_CONTENT");
-    }
-}
-

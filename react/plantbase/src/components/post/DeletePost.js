@@ -1,9 +1,10 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import Modal from 'react-bootstrap/Modal';
-import { deletePostById } from '../../services/post-api';
+import CurrentUser from '../contexts/CurrentUser';
 
 function DeletePost( {postId, deletePostByPostId} ) {
     const [show, setShow] = useState(false);
+    const auth = useContext(CurrentUser);
 
     const showModal = () => {
         setShow(true);
@@ -14,7 +15,20 @@ function DeletePost( {postId, deletePostByPostId} ) {
     };
 
     const handleDelete = () => {
-        deletePostById(postId);
+        const init = {
+            method: "DELETE",
+            headers: {
+                "Authorization": `Bearer ${auth.currentUser.token}`
+            }
+        };
+
+        fetch(`${process.env.REACT_APP_API_URL}/api/post/${postId}`, init)
+            .then((response) => {
+                if (response.status !== 204) {
+                    return Promise.reject("response is not 204 NO_CONTENT");
+                }
+            });
+
         deletePostByPostId(postId);
         hideModal();
     }
@@ -24,7 +38,7 @@ function DeletePost( {postId, deletePostByPostId} ) {
         <button onClick={showModal} className="btn btn-success">Delete</button>
         <Modal show={show} onHide={hideModal}>
             <Modal.Header>
-            <Modal.Title>Stop!</Modal.Title>
+            <Modal.Title><div className="text-center">⚠️ Caution! ⚠️</div></Modal.Title>
             </Modal.Header>
             <Modal.Body>Are you sure you want to delete this post?</Modal.Body>
             <Modal.Footer>

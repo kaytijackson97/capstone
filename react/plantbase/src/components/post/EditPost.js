@@ -88,14 +88,14 @@ function EditPost({post, plants, editPostByPostId}) {
                 <form>
                     <div className="form-group">
                         <label htmlFor="caption" className="form-label mt-3">Caption:</label>
-                        <input type="text" placeholder="Show off your plant!" defaultValue={post.caption} onChange={(event) => setNewCaption(event.target.value)}></input>
+                        <input type="text" placeholder="Show off your plant!" defaultValue={post.caption} onChange={(event) => setNewCaption(event.target.value)} required></input>
                     </div>
                     <div className="form-group">
                         <label htmlFor="plants" className="form-label mt-3">Plants</label>
-                        {/* <select className="form-select" id="plants" onChange={(event) => (setNewPlantId(event.target.value))}>
+                        <select className="form-select" id="plants" onChange={(event) => (setNewPlantId(event.target.value))}>
                             <option value={0}>None</option>
                             {plants.map(p => <option key={p.plantId} value={p.plantId}>{p.plantName}</option>)}
-                        </select> */}
+                        </select>
                     </div>
                     <div className="form-group">
                         <label htmlFor="photo" className="form-label mt-3">Photo:</label>
