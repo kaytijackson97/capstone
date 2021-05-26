@@ -105,8 +105,8 @@ function Post( {post, plants, deletePostByPostId, editPostByPostId} ) {
                     <div className="row">
                         <div className="col">
                             <h4 className="card-title">
-                            <Link to={`/my-garden/${planter.username}`} className="text-dark text-decoration-none">{planter.firstName} {planter.lastName}</Link>|
-                            <Link to={`/plantprofile/${plant.plantId}`} className="text-dark text-decoration-none">{plant.plantName}</Link></h4>
+                            <Link to={`/my-garden/${planter.username}`} className="text-dark text-decoration-none">{planter.firstName} {planter.lastName}</Link>
+                            <Link to={`/plantprofile/${plant.plantId}`} className="text-dark text-decoration-none"> | {plant.plantName}</Link></h4>
                         </div>
                         {planter.username === auth.currentUser.username ? (
                             <div className="col d-flex flex-row-reverse">
