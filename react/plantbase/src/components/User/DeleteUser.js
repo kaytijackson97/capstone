@@ -50,8 +50,8 @@ function DeleteUser( ) {
       </Modal.Header>
       <Modal.Body>Are you sure you want to delete your account {auth.currentUser.firstName}?</Modal.Body>
       <Modal.Footer>
-          <button onClick={hideModal} className="btn btn-outline-warning">No</button>
-          <button onClick={deleteByUsername} className="btn btn-warning">Yes</button>
+          <button onClick={hideModal} className="btn" style={{color: 'rgba(150, 51, 42, 1)', borderColor: 'rgba(150, 51, 42, 1)'}}>No</button>
+          <button onClick={deleteByUsername} className="btn text-white" style={{backgroundColor: 'rgba(150, 51, 42, 1)'}}>Yes</button>
       </Modal.Footer>
   </Modal>
   </>
