@@ -26,7 +26,7 @@ function GardenApp() {
             <Messages messages={messages} />
                 <div className="row">
                 <div className="card text-dark mt-3" style={{backgroundColor: 'rgba(255, 255, 255, 0.5)', backdropFilter: 'blur(3px)'}}>
-                    <h2 className="card-header card-title" style={{color: 'white'}}>Related Posts</h2>
+                    <h2 className="card-header card-title" style={{color: 'white'}}>Feed</h2>
                 <PostApp/>
                 </div>
             </div>
