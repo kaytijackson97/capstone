@@ -99,16 +99,18 @@ function AddPlant({plants =[], setPlants, setShowAddForm, myGardenId}) {
 
     return (
       <>
-        <button onClick={showModal} className="btn btn-success" style={{width: '1080px', height: '40px', marginLeft: '30px'}}>+</button>
+      <div className="text-center"><button onClick={showModal} className="btn" style={{backgroundColor: 'rgba(133, 166, 141, 1)', color: 'white'}}>
+          +
+        </button></div>
         <Modal show={show} onHide={hideModal} >
-            <Modal.Header style={{backgroundColor: 'rgba(255, 255, 255, 0.5)', backdropFilter: 'blur(3px)', color: 'green', alignSelf: 'center', width: '500px'}}>
-                <Modal.Title style={{backgroundColor: 'rgba(255, 255, 255, 0.5)', backdropFilter: 'blur(3px)', color: 'green', alignSelf: 'center', width: '500px'}}>
+            <Modal.Header style={{backgroundColor: 'rgba(255, 255, 255, 0.5)', backdropFilter: 'blur(3px)', color: 'rgba(133, 166, 141, 1)', alignSelf: 'center', width: '500px'}}>
+                <Modal.Title style={{backgroundColor: 'rgba(255, 255, 255, 0.5)', backdropFilter: 'blur(3px)', color: 'rgba(133, 166, 141, 1)', alignSelf: 'center', width: '500px'}}>
                     <h4 className="card-title" >
                     Add a Plant
                     </h4>
                 </Modal.Title>
             </Modal.Header>
-            <Modal.Body style={{backgroundColor: 'rgba(255, 255, 255, 0.5)', backdropFilter: 'blur(3px)', color: 'green', alignSelf: 'center', width: '500px'}}>
+            <Modal.Body style={{backgroundColor: 'rgba(255, 255, 255, 0.5)', backdropFilter: 'blur(3px)', color: 'rgba(133, 166, 141, 1)', alignSelf: 'center', width: '500px'}}>
         <div className="container">
             <div className="card text-center  mb-3" >
       <div className="card-body">
@@ -146,18 +148,15 @@ function AddPlant({plants =[], setPlants, setShowAddForm, myGardenId}) {
         <div className="text-center row">
         <div className="col">
         </div>
-        {/* <div className="col">
-        <button onClick={() => setShowAddForm(false)} className="btn btn-lg btn-warning mt-3 mb-3">Cancel</button>
-        </div> */}
         </div>
       </form>
       </div>
     </div>
         </div>
         </Modal.Body>
-            <Modal.Footer style={{backgroundColor: 'rgba(255, 255, 255, 0.5)', backdropFilter: 'blur(3px)', color: 'green', alignSelf: 'center', width: '500px'}}>
-                <button onClick={hideModal} className="btn btn-outline-success">Cancel</button>
-                <button onClick={handleAddPlant} className="btn btn-success">Add Plant</button>
+            <Modal.Footer style={{backgroundColor: 'rgba(255, 255, 255, 0.5)', backdropFilter: 'blur(3px)', color: 'rgba(133, 166, 141, 1)', alignSelf: 'center', width: '500px'}}>
+                <button onClick={hideModal} className="btn" style={{borderColor: 'rgba(133, 166, 141, 1)', color: 'rgba(133, 166, 141, 1)'}}>Cancel</button>
+                <button onClick={handleAddPlant} className="btn text-white" style={{backgroundColor: 'rgba(133, 166, 141, 1)'}}>Add Plant</button>
             </Modal.Footer>
         </Modal>
         </>

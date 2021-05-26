@@ -40,7 +40,7 @@ function DeleteUser( ) {
 
  return (
   <>
-  <button onClick={showModal} className="dropdown-item flex-row" style={{color: 'green', textDecoration: 'none'}}>Delete</button>
+  <button onClick={showModal} className="btn btn-light nav-link nav-item dropdown" style={{color: 'rgba(133, 166, 141, 1)', textDecoration: 'none', width: '115px'}}>Delete</button>
   <Modal show={show} onHide={hideModal}>
       <Modal.Header>
       <Modal.Title>

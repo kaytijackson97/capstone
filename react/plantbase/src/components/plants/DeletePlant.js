@@ -19,7 +19,7 @@ function DeletePlant( {plantId, deletePlant} ) {
 
     return(
         <>
-        <button onClick={showModal} className="btn btn-success"><img src="https://gis.littleelm.org/gismaps/images/close-icon.png" width="20px" alt='cancel'></img></button>
+        <button onClick={showModal} className="btn" style={{backgroundColor: 'rgba(150, 51, 42, 1)'}}><img src="https://gis.littleelm.org/gismaps/images/close-icon.png" width="20px" alt='cancel'></img></button>
         <Modal show={show} onHide={hideModal}>
             <Modal.Header>
             <Modal.Title><div className="text-center">⚠️ Caution! ⚠️</div></Modal.Title>

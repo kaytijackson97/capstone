@@ -16,7 +16,7 @@ function Logout () {
 
     return (
         <div>
-            <Link onClick={handleLogout}className="btn btn-light nav-link nav-item dropdown" style={{color: 'green', textDecoration: 'none'}}>Logout 🍂</Link>
+            <Link onClick={handleLogout}className="btn btn-light nav-link nav-item dropdown" style={{color: 'rgba(133, 166, 141, 1)', textDecoration: 'none'}}>Logout 🍂</Link>
         </div>
     );
 }

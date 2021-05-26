@@ -100,7 +100,7 @@ const hideModal = () => {
 
   return (
     <>
-      <button onClick={showModal} className="btn btn-light" style={{color: 'green'}}>Edit Account</button>
+      <button onClick={showModal} className="btn btn-light" style={{color: 'rgba(133, 166, 141, 1)'}}>Edit Account</button>
         <Modal show={show} onHide={hideModal}>
             <Modal.Header>
                 <Modal.Title>

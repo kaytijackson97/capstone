@@ -12,10 +12,10 @@ import DeleteUser from './user/DeleteUser';
 function Nav() {
     const auth = useContext(CurrentUser);
 
-    const navStyle = {fontFamily: 'Century Gothic', color: 'white', textDecoration: 'none'};
+    const navStyle = {fontFamily: 'Century Gothic', color: 'white', textDecoration: 'none', paddingRight: '10px',  borderRight: '1px solid #ffffff'};
 
     return (
-    <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
+    <nav className="navbar navbar-expand-lg" style={{backgroundColor: 'rgba(133, 166, 141, 0.7)'}}>
         <div className="container-fluid">
             <Link style={navStyle} to="/" ><strong>🌱 Plantbase</strong>
             </Link>
@@ -25,7 +25,7 @@ function Nav() {
             <div className="collapse navbar-collapse" id="navbarColor03">
             <ul  className=" navbar-nav me-auto nav-links">
                 {auth.currentUser && auth.currentUser.isValid() ? (
-                <Link style={navStyle} to="/garden" className="nav-link">
+                <Link to="/garden" className="nav-link">
                     <li style={navStyle} >Garden</li>
                 </Link>
                 ) : (
@@ -40,11 +40,11 @@ function Nav() {
                                         ""
                                     )}
                     </strong>
-                    <Dropdown.Toggle split variant="success" id="dropdown-split-basic" />
-                    <Dropdown.Menu  style={{backgroundColor: 'rgba(255, 255, 255, 0.5)', backdropFilter: 'blur(3px)'}}>
-                    <Dropdown.Item><Link style={{color: 'green', textDecoration: 'none'}} className="btn btn-light nav-link nav-item dropdown" to={`/my-garden/${auth.currentUser.username}`}>My Garden</Link></Dropdown.Item>
-                    <Dropdown.Item><button style={{color: 'green', textDecoration: 'none'}} className="btn btn-light nav-link nav-item dropdown"><li><UserApp/></li></button></Dropdown.Item>
-                    <Dropdown.Item><button style={{color: 'green', textDecoration: 'none'}} className="btn btn-light nav-link nav-item dropdown"><li><DeleteUser /></li></button></Dropdown.Item>
+                    <Dropdown.Toggle split variant="none" style={{ marginLeft: '7px', color: 'white'}} id="dropdown-split-basic" />
+                    <Dropdown.Menu  style={{backgroundColor: 'rgba(133, 166, 141, 0.5)', backdropFilter: 'blur(3px)'}}>
+                    <Dropdown.Item><Link style={{color: 'rgba(133, 166, 141, 1)', textDecoration: 'none'}} className="btn btn-light nav-link nav-item dropdown" to={`/my-garden/${auth.currentUser.username}`}>My Garden</Link></Dropdown.Item>
+                    <Dropdown.Item><button style={{color: 'rgba(133, 166, 141, 1)', textDecoration: 'none'}} className="btn btn-light nav-link nav-item dropdown"><li><UserApp/></li></button></Dropdown.Item>
+                    <Dropdown.Item><button style={{color: 'rgba(133, 166, 141, 1)', textDecoration: 'none'}} className="btn btn-light nav-link nav-item dropdown"><li><DeleteUser /></li></button></Dropdown.Item>
                     <Dropdown.Item><li><Logout /></li></Dropdown.Item>
                     </Dropdown.Menu>
                 </Dropdown>
