@@ -12,7 +12,7 @@ function GardenApp() {
         <div
             className="bg-image"
             style={{
-                'backgroundImage': 'url(https://wallpapercave.com/wp/wp4465057.jpg)',
+                'backgroundImage': 'url(https://media.istockphoto.com/vectors/horizontal-vector-illustration-of-an-empty-light-smoky-blue-gray-vector-id1177688756?b=1&k=6&m=1177688756&s=170667a&w=0&h=t3dpwnpMAT4jWgrrRbd47Umv4y-XI7mVUPtKzux5p04=)',
                 'height': 'auto',
                 'backgroundAttachment': 'fixed'
             }}>
@@ -21,7 +21,7 @@ function GardenApp() {
         <div className="row">
           <div className="col">
           <div className="text-center" >
-          <h1 className="mt-2" style={{color: 'rgba(89, 107, 93, 1)', fontFamily: 'Century Gothic', position: 'relative', bottom: '4rem'}}>Welcome {auth.currentUser.username}! 🌿</h1>
+          <h1 className="mt-2" style={{color: 'rgba(89, 107, 93, 1)', fontFamily: 'Century Gothic'}}>Welcome {auth.currentUser.username}! 🌿</h1>
           </div>
                 <div className="row">
                 <div className="col" style={{maxWidth: '15%'}}>
