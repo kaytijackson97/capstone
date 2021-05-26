@@ -3,7 +3,7 @@ import AddPlant from './AddPlant';
 import { useState, useContext } from 'react';
 import CurrentUser from '../contexts/CurrentUser';
 
-function PlantList({plants = [], setPlants, myGardenId }) {
+function PlantList({plants = [], setPlants, myGardenId, editPlantByPlantId }) {
     const auth = useContext(CurrentUser);
     const [showAddForm, setShowAddForm] = useState(false);
 
@@ -19,7 +19,7 @@ function PlantList({plants = [], setPlants, myGardenId }) {
                 </div>
             </div>
                 <div className="row text-center">
-                {plants.map(p => (<Plant key={p.plantId} plants={plants} plant={p} myGardenId={myGardenId}/> ))}
+                {plants.map(p => (<Plant key={p.plantId} plants={plants} plant={p} myGardenId={myGardenId} editPlantByPlantId={editPlantByPlantId}/> ))}
                 </div>
             </div>
         </div>

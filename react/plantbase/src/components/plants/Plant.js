@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import EditPlant from './EditPlant';
 
-function Plant({plants = [], plant, editPlant, myGardenId}) {
+function Plant({plants = [], plant, editPlant, myGardenId, editPlantByPlantId}) {
     const plantStyle = {
         'width': '18rem',
         'marginBottom': '10px',

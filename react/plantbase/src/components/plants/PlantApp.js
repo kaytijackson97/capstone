@@ -21,9 +21,22 @@ function PlantApp({myGarden}) {
             .catch(console.log);
     }, [myGarden.myGardenId]);
 
+    function editPlantByPlantId(plant) {
+        const newPlants = [];
+        for(const p of plants ) {
+            if (p.plantId !== plant.plantId) {
+                newPlants.push(p);
+            } else {
+                newPlants.push(plant)
+            }
+        }
+
+        setPlants(newPlants);
+    }
+
     return (
         <div className="mt-3 mb-3">
-            <PlantList plants={plants} setPlants={setPlants} myGardenId={myGarden.myGardenId}/>
+            <PlantList plants={plants} setPlants={setPlants} myGardenId={myGarden.myGardenId} editPlantByPlantId={editPlantByPlantId}/>
         </div>
     );
 }

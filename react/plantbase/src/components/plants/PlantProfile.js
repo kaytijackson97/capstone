@@ -92,31 +92,7 @@ function PlantProfile() {
         }
     }
 
-    function editPostByPostId(post) {
-        const newPosts = [];
-        for(const p of posts ) {
-            if (p.postId !== post.postId) {
-                newPosts.push(p);
-            } else {
-                newPosts.push(post)
-            }
-        }
-
-        setPosts(newPosts);
-    }
-
-    function deletePostByPostId(postId) {
-        const newPosts = [];
-        for(const post of posts ) {
-            if (post.postId !== postId) {
-                newPosts.push(post);
-            }
-        }
-
-        setPosts(newPosts);
-    }
-
-    const defaultPlantProfile = (plant) => {
+    const defaultForm = (plant) => {
         if (showEditForm === false) {
             return (
                 <div className="row">
@@ -126,9 +102,7 @@ function PlantProfile() {
                     {((auth.currentUser.username === myGarden.username) || (auth.currentUser && auth.currentUser.hasRole("ROLE_ADMIN"))) ? (
                     <>
                     <DeletePlant plantId={plant.plantId} deletePlant={deletePlant}/>
-                    <button className="btn" style={{backgroundColor: 'rgba(133, 166, 141, 1)', marginLeft: '0.5%'}} onClick={() => setShowEditForm(true)} title="Edit an Agent">
-                        <img  src={EditIcon} alt="edit" width="20px"></img>
-                    </button>
+                    <button onClick={() => setShowEditForm(true)} className="btn" style={{backgroundColor: 'rgba(133, 166, 141, 1)', marginLeft: '0.5%'}}><img src={EditIcon} alt="back-arrow" width="20px"></img></button>
                     </>
                     ):("")}
                     
@@ -155,6 +129,31 @@ function PlantProfile() {
         }
     }
 
+    function editPostByPostId(post) {
+        const newPosts = [];
+        for(const p of posts ) {
+            if (p.postId !== post.postId) {
+                newPosts.push(p);
+            } else {
+                newPosts.push(post)
+            }
+        }
+
+        setPosts(newPosts);
+    }
+
+    function deletePostByPostId(postId) {
+        const newPosts = [];
+        for(const post of posts ) {
+            if (post.postId !== postId) {
+                newPosts.push(post);
+            }
+        }
+
+        setPosts(newPosts);
+    }
+
+
     return (
         <div
             className="bg-image"
@@ -165,10 +164,9 @@ function PlantProfile() {
             }}>
         <div className="container">
             <div className="row">
-
             </div>
-            {defaultPlantProfile(plant)}
-            {editForm(plant)}
+           {defaultForm(plant)}
+           {editForm(plant)} 
             <div className="row">
                 <div className="card mt-3 mb-3" style={{backgroundColor: 'rgba(255, 255, 255, 0.5)', backdropFilter: 'blur(3px)', color: 'rgba(89, 107, 93, 1)'}}>
                     <h2 className="text-center card-title">Related Posts</h2>

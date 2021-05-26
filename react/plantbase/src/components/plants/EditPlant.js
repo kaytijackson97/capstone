@@ -57,7 +57,7 @@ function EditPlant({plant, setShowEditForm}) {
         // auth.currentUser && auth.currentUser.hasRole("ADMIN") ? (
         console.log(plant);
         editPlant(plant)
-        history.push(from);
+        // history.push(from);
         setShowEditForm(false);
 
         // ) : (console.log("denied"))
@@ -85,7 +85,7 @@ function EditPlant({plant, setShowEditForm}) {
                 }
             })
             .then(() => { 
-              history.push(from, setMessages("Confirmation ✅ - Plant edited successfully 👍🏻"));
+              history.push('/edit-confirmation', setMessages("Confirmation ✅ - Plant edited successfully 👍🏻"));
             })
               .catch((err) => {
                 history.push(setMessages("Error - Plant was not edited 👎🏻 " + err));
@@ -125,7 +125,7 @@ function EditPlant({plant, setShowEditForm}) {
     return (
         <div>
             <div className="container">
-            <div className="card  text-center border-success mb-3" style={{backgroundColor: 'rgba(255, 255, 255, 0.5)', backdropFilter: 'blur(3px)', color: 'white'}}>
+            <div className="card  text-center mb-3" style={{backgroundColor: 'rgba(255, 255, 255, 0.5)', backdropFilter: 'blur(3px)', color: 'white'}}>
             <Messages messages={messages}/>
       <h2 className="card-title" style={{color: 'rgba(89, 107, 93, 1)'}}>Edit {oldPlant.plantName}</h2>
       <div className="card-body">

@@ -1,10 +1,10 @@
 import Snake from './snake-plant.png';
 import Login from './Login';
 import ReactRoundedImage from "react-rounded-image";
+import Logo from './plantbase-logo.png';
 
 function Welcome() {
     return (
-        
         <div
             className="bg-image"
             style={{
@@ -16,7 +16,7 @@ function Welcome() {
             <div className="row">
                 <div className="col">
                     <div className="card text-white mt-3 mb-3 text-center" style={{backgroundColor: 'rgba(255, 255, 255, 0.5)', backdropFilter: 'blur(3px)', paddingTop: '20px'}}>
-                        <h1 className="text-center" style={{color: 'rgba(89, 107, 93, 1)', fontFamily: 'Century Gothic'}}>Plantbase 🌱</h1>
+                        <h1 className="text-center" style={{color: 'rgba(89, 107, 93, 1)', fontFamily: 'Century Gothic'}}>Plantbase <img src={Logo} alt="logo" width="50px"/></h1>
                         <p className="card-body" style={{color: 'rgba(133, 166, 141, 1)', fontFamily: 'Century Gothic'}}>A social media specifically for the plant community</p>
                         <div className="text-center">
                         <img src={Snake} alt="snake plant" style={{justifyContent: 'center', alignItems: 'center', marginBottom: '50px', maxWidth: '300px'}}/>
