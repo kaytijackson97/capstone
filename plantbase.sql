@@ -107,6 +107,7 @@ create table app_user_role (
          references app_role(app_role_id)
 );
 
+
 -- password is set to "P@ssw0rd!"
 insert into app_user (app_user_id, username, password_hash, disabled)
     values
