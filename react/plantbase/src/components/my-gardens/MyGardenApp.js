@@ -39,7 +39,7 @@ function MyGardenApp({previousMyGarden}) {
     }, [username])
 
     const editForm = (myGarden) => {
-        if (showEditForm === true && (auth.currentUser.username === myGarden.username || auth.currentUser.hasRole("ADMIN"))) {
+        if (showEditForm === true) {
             return (
                 <EditMyGarden myGarden={myGarden} setShowEditForm={setShowEditForm}/>
             );
