@@ -1,7 +1,9 @@
 import { useState, useContext } from 'react';
+import { useHistory } from 'react-router-dom';
 import CurrentUser from '../contexts/CurrentUser';
+import Modal from 'react-bootstrap/Modal';
 
-function AddPlant({addPlant, setShowAddForm, myGardenId}) {
+function AddPlant({plants =[], setPlants, setShowAddForm, myGardenId}) {
     const auth = useContext(CurrentUser);
     const [plantDescription, setPlantDescription] = useState("");
     const [photo, setPhoto] = useState("");
@@ -9,6 +11,9 @@ function AddPlant({addPlant, setShowAddForm, myGardenId}) {
     const [plantType, setPlantType] = useState("");
     const [gotchaDate, setGotchaDate] = useState();
     const [posts, setPosts] = useState([]);
+    const [show, setShow] = useState(false);
+    const [messages, setMessages] = useState("");
+    const history = useHistory();
 
     const handleAddPlant = (event) => {
         event.preventDefault();
@@ -53,20 +58,61 @@ function AddPlant({addPlant, setShowAddForm, myGardenId}) {
         setPosts(event.target.value);
     }
 
-    // const disableAddFormInputs = () => {
-    //   return ((!auth.currentUser.hasRole("ADMIN")))
-    // }
+    //add plant fetch
+    const addPlant = async (plant) => {
+      const init = {
+          method: "POST",
+          headers: {
+              'Content-Type': 'application/json',
+              'Accept': 'application/json',
+              "Authorization": `Bearer ${auth.currentUser.token}`
+          },
+          body: JSON.stringify(plant)
+      };
+      await fetch(`${process.env.REACT_APP_API_URL}/api/plants`, init)
+      .then(response => {
+          if (response.status !== 201) {
+              return Promise.reject("response is not 201 CREATED.");
+          }
+          return response.json();
+          })
+          .then(json => setPlants([...plants, json]))
+          .then(() => {
+              history.push( setMessages("Confirmation ✅ - Plant added successfully 👍🏻"));
+            })
+            .catch(() => {
+              history.push( setMessages("Error - Plant was not added 👎🏻" ));
+            })
+          // .then(() => {
+          //     history.push(`/my-garden/${auth.currentUser.userId}`);
+          hideModal();
+          
+  }
+
+    const showModal = () => {
+      setShow(true);
+  };
+  
+  const hideModal = () => {
+      setShow(false);
+  };
 
     return (
-        <div className="container" style={{maxwidth: + 20}}>
-            <div className="card text-center border-success mb-3" style={{color: 'green'}}>
-      <h2 className="card-header card-title">
-      <div className="col d-flex flex-row-reverse"><button onClick={() => setShowAddForm(false)} className="btn btn-lg btn-light mt-3 mb-3" style={{backgroundColor: 'green'}}>
-      <img src="https://gis.littleelm.org/gismaps/images/close-icon.png" width="20px" alt='cancel'></img>
-      </button></div>
-      Add a Plant</h2>
+      <>
+        <button onClick={showModal} className="btn btn-success" style={{width: '1080px', height: '40px', marginLeft: '30px'}}>+</button>
+        <Modal show={show} onHide={hideModal} >
+            <Modal.Header style={{backgroundColor: 'rgba(255, 255, 255, 0.5)', backdropFilter: 'blur(3px)', color: 'green', alignSelf: 'center', width: '500px'}}>
+                <Modal.Title style={{backgroundColor: 'rgba(255, 255, 255, 0.5)', backdropFilter: 'blur(3px)', color: 'green', alignSelf: 'center', width: '500px'}}>
+                    <h4 className="card-title" >
+                    Add a Plant
+                    </h4>
+                </Modal.Title>
+            </Modal.Header>
+            <Modal.Body style={{backgroundColor: 'rgba(255, 255, 255, 0.5)', backdropFilter: 'blur(3px)', color: 'green', alignSelf: 'center', width: '500px'}}>
+        <div className="container">
+            <div className="card text-center  mb-3" >
       <div className="card-body">
-      <form onSubmit={handleAddPlant}>
+      <form>
         <div className="row form-group">
         <div className="form-floating mb-3 col">
             <input className="form-control" type="text" id="plantNameTextBox" placeholder="Plant Name:" onChange={handlePlantNameChange}/>
@@ -99,7 +145,6 @@ function AddPlant({addPlant, setShowAddForm, myGardenId}) {
         </div>
         <div className="text-center row">
         <div className="col">
-        <button type="submit" className="btn btn-lg btn-success">Add Plant</button>
         </div>
         {/* <div className="col">
         <button onClick={() => setShowAddForm(false)} className="btn btn-lg btn-warning mt-3 mb-3">Cancel</button>
@@ -109,6 +154,13 @@ function AddPlant({addPlant, setShowAddForm, myGardenId}) {
       </div>
     </div>
         </div>
+        </Modal.Body>
+            <Modal.Footer style={{backgroundColor: 'rgba(255, 255, 255, 0.5)', backdropFilter: 'blur(3px)', color: 'green', alignSelf: 'center', width: '500px'}}>
+                <button onClick={hideModal} className="btn btn-outline-success">Cancel</button>
+                <button onClick={handleAddPlant} className="btn btn-success">Add Plant</button>
+            </Modal.Footer>
+        </Modal>
+        </>
     );
 }
 

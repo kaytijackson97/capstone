@@ -138,41 +138,69 @@ const handleUsernameChange = (event) => {
   
 
   return (
+    <div
+            className="bg-image"
+            style={{
+                'backgroundImage': 'url(https://static.vecteezy.com/system/resources/previews/000/142/515/non_2x/leafy-background-daun-vector.jpg)',
+                'height': '110vh',
+                'backgroundAttachment': 'fixed'
+            }}>
     <div className="container">
-    <div className="card bg-success" style={{padding: '30px'}}>
-      <h2 className="text-white text-center">Register New Account</h2>
+    <div className="card" style={{backgroundColor: 'rgba(255, 255, 255, 0.5)', backdropFilter: 'blur(3px)', padding: '30px'}}>
+      <h2 className="text-center mb-4" style={{color: 'green'}}>Register New Account</h2>
       <Errors errors={error} />
       <form onSubmit={handleSubmit}>
+      <div className="row">
+      <div className="col">
           <div className="form-floating mb-3">
             <input className="form-control" type="text" placeholder="Username:" onChange={handleUsernameChange} />
             <label>Username:</label>
           </div>
+      </div>
+      <div className="col">
           <div className="form-floating mb-3">
-            <input className="form-control" type="password" placeholder="Password:" onChange={(event) => setPassword(event.target.value)} />
+            <input required className="form-control" type="password" placeholder="Password:" onChange={(event) => setPassword(event.target.value)} />
             <label>Password:</label>
           </div>
+      </div>
+      </div>
+      <div className="row">
+      <div className="col">
           <div className="form-floating mb-3">
-            <input className="form-control" type="text" placeholder="First Name:" onChange={(event) => setFirstName(event.target.value)} />
+            <input required className="form-control" type="text" placeholder="First Name:" onChange={(event) => setFirstName(event.target.value)} />
             <label>First Name:</label>
           </div>
+      </div>
+      <div className="col">
           <div className="form-floating mb-3">
-            <input className="form-control" type="text" placeholder="Last Name:" onChange={(event) => setLastName(event.target.value)} />
+            <input required className="form-control" type="text" placeholder="Last Name:" onChange={(event) => setLastName(event.target.value)} />
             <label>Last Name:</label>
           </div>
+      </div>
+      <div className="col">
           <div className="form-floating mb-3">
-            <input className="form-control" type="text" placeholder="Email:" onChange={(event) => setEmail(event.target.value)} />
-            <label>Email:</label>
-          </div>
-          <div className="form-floating mb-3">
-            <input className="form-control" type="text" placeholder="Garden Name:" onChange={(event) => setGardenName(event.target.value)} />
+            <input required className="form-control" type="text" placeholder="Garden Name:" onChange={(event) => setGardenName(event.target.value)} />
             <label>Garden Name:</label>
           </div>
-          <div className="text-center">
-            <button className="btn btn-lg btn-light text-center" type="submit">Register</button>
-            <Link to={'/'} className="btn btn-lg btn-warning text-center">I already have an account</Link>
+      </div>
+      </div>
+      <div className="row">
+          <div className="form-floating mb-3">
+            <input required className="form-control" type="text" placeholder="Email:" onChange={(event) => setEmail(event.target.value)} />
+            <label>Email:</label>
           </div>
+      </div>
+      <div className="row">
+        <div className="col text-center">
+          <button className="btn btn-lg btn-light text-center" type="submit">Register</button>
+        </div>
+        <div className="col  text-center">
+          <Link to={'/'} className="btn btn-lg btn-warning text-center">I already have an account</Link>
+        </div>
+      </div>
       </form>
       </div>
+    </div>
     </div>
   );
 

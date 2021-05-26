@@ -1,7 +1,7 @@
 function Messages({messages}) {
     // const auth = useContext(CurrentUser);
       return (
-        <div className="alert alert-success mt-2">
+        <div className="alert alert-success mt-2" style={{fontFamily: 'Century Gothic'}}>
           <h4 className="alert-heading text-center">Messages</h4>
           <div className="card-body text-center">
               {messages}

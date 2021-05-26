@@ -61,7 +61,7 @@ function EditMyGarden({myGarden, setShowEditForm}) {
             headers: {
                 "Content-Type": "application/json",
                 "Accept": "application/json",
-                "Authorization": `Bearer ${auth.token}`
+                "Authorization": `Bearer ${auth.currentUser.token}`
             },
             body: JSON.stringify(myGarden)
         };
