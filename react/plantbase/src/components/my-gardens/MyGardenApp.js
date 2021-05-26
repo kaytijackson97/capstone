@@ -56,28 +56,19 @@ function MyGardenApp({previousMyGarden}) {
                 <div>
                     <div className="row">
                     <div className="card-header">
-                    <button onClick={() => backButton()} className="btn btn-success"><img src={BackArrow} alt="back-arrow" width="10px"></img></button>|
-                    <button className="btn btn-success" onClick={() => setShowEditForm(true)} title="Edit MyGarden">
+                    <button onClick={() => backButton()} className="btn" style={{backgroundColor: 'rgba(133, 166, 141, 1)'}}><img src={BackArrow} alt="back-arrow" width="10px"></img></button>|
+                    <button className="btn" style={{backgroundColor: 'rgba(133, 166, 141, 1)'}} onClick={() => setShowEditForm(true)} title="Edit MyGarden">
                         <img  src={EditIcon} alt="edit" width="20px"></img>
-                    </button>- <strong style={{fontSize: '30px', fontFamily: 'Century Gothic'}}>{myGarden.gardenName} 🌿</strong>
+                    </button>- <strong style={{fontSize: '30px', fontFamily: 'Century Gothic', color: 'rgba(89, 107, 93, 1)'}}>{myGarden.gardenName} 🌿</strong>
                     </div>
                         <div className="col" >
                             <p className="card-body" style={{fontFamily: 'Century Gothic'}}>My Garden Name: 
-                            <div className="card bg-light" style={{color: 'green'}}><strong>{myGarden.gardenName}</strong></div></p>
-                            <p className="card-body" style={{fontFamily: 'Century Gothic'}}>Bio: <div className="card bg-light" style={{color: 'green'}}><strong>{myGarden.bio}</strong></div></p>
+                            <div className="card bg-light" style={{color: 'rgba(65, 69, 66, 1)'}}><strong>{myGarden.gardenName}</strong></div></p>
+                            <p className="card-body" style={{fontFamily: 'Century Gothic'}}>Bio: <div className="card bg-light" style={{color: 'rgba(65, 69, 66, 1)'}}><strong>{myGarden.bio}</strong></div></p>
                             <Messages messages={messages}/>
                         </div>
                         <div className="col">
-                        <div style={{ display: "flex" }}>
-                            <ReactRoundedImage
-                            image={myGarden.photo}
-                            roundedColor=""
-                            imageWidth="650"
-                            imageHeight="350"
-                            roundedSize="8"
-                            borderRadius="30"
-                            />
-                        </div>
+                            <img src={myGarden.photo} alt="my garden" style={{alignSelf: 'center', maxWidth: '80%', marginTop: '5%', marginLeft: '10%'}}/>
                         </div>
                     </div>
                 </div>
@@ -89,14 +80,14 @@ function MyGardenApp({previousMyGarden}) {
         <div
             className="bg-image"
             style={{
-                backgroundImage: 'url(https://www.colourbox.com/preview/4787766-soil-background.jpg)',
+                backgroundImage: 'url(https://wallpapercave.com/wp/wp4465057.jpg)',
                 height: ' 110vh auto',
                 backgroundAttachment: 'fixed'
             }}>
         <div className="container">
         {console.log(myGarden.myGardenId)}
             <div className="row">
-                <div className="card mt-3"  style={{backgroundColor: 'rgba(255, 255, 255, 0.5)', backdropFilter: 'blur(3px)', color: 'white'}}>
+                <div className="card mt-3"  style={{backgroundColor: 'rgba(255, 255, 255, 0.5)', backdropFilter: 'blur(3px)', color: 'rgba(133, 166, 141, 1)'}}>
                     {defaultMyGardenForm(myGarden)}
                     {editForm(myGarden)}
                     <div className="row">

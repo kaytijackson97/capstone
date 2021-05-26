@@ -11,7 +11,7 @@ function PlantList({plants = [], setPlants, myGardenId }) {
     return (
         <div>
             <div>
-                <h2 className="text-center" style={{color: 'white', fontFamily: 'Century Gothic'}}>Plant List</h2>
+                <h2 className="text-center" style={{color: 'rgba(133, 166, 141, 1)', fontFamily: 'Century Gothic'}}>Plant List</h2>
                 <div className="row text-center">
                 <AddPlant plants={plants} setPlants={setPlants} setShowAddForm={setShowAddForm} myGardenId={myGardenId}/>
                 {plants.map(p => (<Plant key={p.plantId} plants={plants} plant={p} myGardenId={myGardenId}/> ))}
