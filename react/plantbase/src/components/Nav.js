@@ -4,6 +4,7 @@ import Logout from './Logout';
 import CurrentUser from './contexts/CurrentUser';
 import AmongUsAlex from './among-us-green.png';
 import EditUser from './user/EditUser';
+import Logo from './plantbase-logo.png'
 import Dropdown from 'react-bootstrap/Dropdown';
 import UserApp from './user/UserApp';
 import DeleteUser from './user/DeleteUser';

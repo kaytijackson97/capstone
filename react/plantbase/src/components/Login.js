@@ -31,15 +31,7 @@ function Login() {
                 setMessages("Login failed! ")
                 return;
             };
-            //// history.push("/garden");
-
             setMessages("Login successful! 😊")
-
-            // (auth.currentUser && auth.currentUser.isValid() ? (
-            //     setMessages("Login successful! 😊")
-            //   ) : (
-            //     setMessages("Login failed! ")
-            //     ))
             history.push(from);
         } catch (err) {
             setMessages([err.message] + ", try again. ");
@@ -47,9 +39,9 @@ function Login() {
     }
 
     return (
-        <div className="card mt-3" style={{backgroundColor: 'rgba(255, 255, 255, 0.5)', backdropFilter: 'blur(3px)', maxwidth: + 20}}>
+        <div className="card mt-3 text-center" style={{backgroundColor: 'rgba(255, 255, 255, 0.5)', backdropFilter: 'blur(3px)', maxwidth: + 20}}>
                         <div className="card-body">
-                            <h2 className="card-header" style={{color: 'rgba(89, 107, 93, 1)', fontFamily: 'Century Gothic'}}>Login</h2>
+                            <h2 className="" style={{color: 'rgba(89, 107, 93, 1)', fontFamily: 'Century Gothic'}}>Login</h2>
                             <form onSubmit={LoginUser}>
                             <div className="form-group mt-3">
                                 <div className="form-floating mb-3">
