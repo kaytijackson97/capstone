@@ -59,12 +59,12 @@ function MyGardenApp({previousMyGarden}) {
                     <button onClick={() => backButton()} className="btn btn-success"><img src={BackArrow} alt="back-arrow" width="10px"></img></button>|
                     <button className="btn btn-success" onClick={() => setShowEditForm(true)} title="Edit MyGarden">
                         <img  src={EditIcon} alt="edit" width="20px"></img>
-                    </button>- {myGarden.gardenName} 🌿
+                    </button>- <strong style={{fontSize: '30px', fontFamily: 'Century Gothic'}}>{myGarden.gardenName} 🌿</strong>
                     </div>
-                        <div className="col">
-                            <p className="card-body">My Garden Name: 
+                        <div className="col" >
+                            <p className="card-body" style={{fontFamily: 'Century Gothic'}}>My Garden Name: 
                             <div className="card bg-light" style={{color: 'green'}}><strong>{myGarden.gardenName}</strong></div></p>
-                            <p className="card-body">Bio: <div className="card bg-light" style={{color: 'green'}}><strong>{myGarden.bio}</strong></div></p>
+                            <p className="card-body" style={{fontFamily: 'Century Gothic'}}>Bio: <div className="card bg-light" style={{color: 'green'}}><strong>{myGarden.bio}</strong></div></p>
                             <Messages messages={messages}/>
                         </div>
                         <div className="col">
@@ -72,7 +72,7 @@ function MyGardenApp({previousMyGarden}) {
                             <ReactRoundedImage
                             image={myGarden.photo}
                             roundedColor=""
-                            imageWidth="500"
+                            imageWidth="650"
                             imageHeight="350"
                             roundedSize="8"
                             borderRadius="30"
@@ -89,16 +89,14 @@ function MyGardenApp({previousMyGarden}) {
         <div
             className="bg-image"
             style={{
-                backgroundImage: 'url(https://static.vecteezy.com/system/resources/previews/000/142/515/non_2x/leafy-background-daun-vector.jpg)',
+                backgroundImage: 'url(https://www.colourbox.com/preview/4787766-soil-background.jpg)',
                 height: ' 110vh auto',
                 backgroundAttachment: 'fixed'
             }}>
         <div className="container">
         {console.log(myGarden.myGardenId)}
             <div className="row">
-            </div>
-            <div className="row">
-                <div className="card text-white bg-success mt-3">
+                <div className="card mt-3"  style={{backgroundColor: 'rgba(255, 255, 255, 0.5)', backdropFilter: 'blur(3px)', color: 'white'}}>
                     {defaultMyGardenForm(myGarden)}
                     {editForm(myGarden)}
                     <div className="row">

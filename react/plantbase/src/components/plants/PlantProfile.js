@@ -70,7 +70,9 @@ function PlantProfile() {
     }
 
     const deletePlant = async () => {
-        await fetch(`${process.env.REACT_APP_API_URL}/api/plants/${plantId}`, { method: "DELETE" })
+        await fetch(`${process.env.REACT_APP_API_URL}/api/plants/${plantId}`, { method: "DELETE", headers: {
+            "Authorization": `Bearer ${auth.currentUser.token}`
+        } })
         .then(response => {
           if (response.status === 204 || response.status === 404) {
             
@@ -93,20 +95,20 @@ function PlantProfile() {
         if (showEditForm === false) {
             return (
                 <div className="row">
-                    <div className="card text-white bg-success mt-3">
+                    <div className="card mt-3" style={{backgroundColor: 'rgba(255, 255, 255, 0.5)', backdropFilter: 'blur(3px)', color: 'white', fontFamily: 'Century Gothic'}}>
                     <div className="card-header">
                     <button onClick={() => backButton()} className="btn btn-success"><img src={BackArrow} alt="back-arrow" width="10px"></img></button>
                     |<DeletePlant plantId={plant.plantId} deletePlant={deletePlant}/>
                     |<button className="btn btn-success" onClick={() => setShowEditForm(true)} title="Edit an Agent">
                         <img  src={EditIcon} alt="edit" width="20px"></img>
-                    </button>- {plant.plantName} 🌿
+                    </button>- <strong style={{fontSize: '30px'}}>{plant.plantName} 🌿</strong>
                     </div>
                         <div className="row">
                             <div className="col">
-                                <p className="card text-dark bg-light mt-3">Plant Name: <strong>{plant.plantName}</strong></p>
-                                <p className="card text-dark bg-light mt-3">Plant Type: <strong>{plant.plantType}</strong></p>
-                                <p className="card text-dark bg-light mt-3">Gotcha Date: <strong>{plant.gotchaDate}</strong></p>
-                                <p className="card text-dark bg-light mt-3">Plant Description: <strong>{plant.plantDescription}</strong></p>
+                                <p className="card text-dark bg-light mt-3" style={{fontFamily: 'Century Gothic'}}>Plant Name: <strong>{plant.plantName}</strong></p>
+                                <p className="card text-dark bg-light mt-3" style={{fontFamily: 'Century Gothic'}}>Plant Type: <strong>{plant.plantType}</strong></p>
+                                <p className="card text-dark bg-light mt-3" style={{fontFamily: 'Century Gothic'}}>Gotcha Date: <strong>{plant.gotchaDate}</strong></p>
+                                <p className="card text-dark bg-light mt-3" style={{fontFamily: 'Century Gothic'}}>Plant Description: <strong>{plant.plantDescription}</strong></p>
                                 <Messages messages={messages}/>
                             </div>
                             <div className="col">
@@ -114,8 +116,8 @@ function PlantProfile() {
                                 <ReactRoundedImage
                                 image={plant.photo}
                                 roundedColor=""
-                                imageWidth="500"
-                                imageHeight="350"
+                                imageWidth="630"
+                                imageHeight="400"
                                 roundedSize="8"
                                 borderRadius="30"
                                 />
@@ -129,6 +131,13 @@ function PlantProfile() {
     }
 
     return (
+        <div
+            className="bg-image"
+            style={{
+                backgroundImage: 'url(https://www.colourbox.com/preview/4787766-soil-background.jpg)',
+                height: ' 110vh auto',
+                backgroundAttachment: 'fixed'
+            }}>
         <div className="container">
             <div className="row">
 
@@ -136,11 +145,12 @@ function PlantProfile() {
             {defaultPlantProfile(plant)}
             {editForm(plant)}
             <div className="row">
-                <div className="card bg-success mt-3 mb-3">
-                    <h2 className="card-header text-white card-title">Related Posts</h2>
+                <div className="card mt-3 mb-3" style={{backgroundColor: 'rgba(255, 255, 255, 0.5)', backdropFilter: 'blur(3px)', color: 'white'}}>
+                    <h2 className="card-header card-title">Related Posts</h2>
                     <PostApp/>
                 </div>
             </div>
+        </div>
         </div>
     );
 }

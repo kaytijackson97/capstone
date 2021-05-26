@@ -12,10 +12,7 @@ import DeleteUser from './user/DeleteUser';
 function Nav() {
     const auth = useContext(CurrentUser);
 
-    const navStyle = {
-        color: 'white',
-        'textDecoration': 'none'
-    };
+    const navStyle = {fontFamily: 'Century Gothic', color: 'white', textDecoration: 'none'};
 
     return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -44,7 +41,7 @@ function Nav() {
                                     )}
                     </strong>
                     <Dropdown.Toggle split variant="success" id="dropdown-split-basic" />
-                    <Dropdown.Menu>
+                    <Dropdown.Menu  style={{backgroundColor: 'rgba(255, 255, 255, 0.5)', backdropFilter: 'blur(3px)'}}>
                     <Dropdown.Item><Link style={{color: 'green', textDecoration: 'none'}} className="btn btn-light nav-link nav-item dropdown" to={`/my-garden/${auth.currentUser.username}`}>My Garden</Link></Dropdown.Item>
                     <Dropdown.Item><button style={{color: 'green', textDecoration: 'none'}} className="btn btn-light nav-link nav-item dropdown"><li><UserApp/></li></button></Dropdown.Item>
                     <Dropdown.Item><button style={{color: 'green', textDecoration: 'none'}} className="btn btn-light nav-link nav-item dropdown"><li><DeleteUser /></li></button></Dropdown.Item>

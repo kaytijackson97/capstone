@@ -70,7 +70,7 @@ function EditPlant({plant, setShowEditForm}) {
             headers: {
                 "Content-Type": "application/json",
                 "Accept": "application/json",
-                "Authorization": `Bearer ${auth.token}`
+                "Authorization": `Bearer ${auth.currentUser.token}`
             },
             body: JSON.stringify(plant)
         };
@@ -125,39 +125,39 @@ function EditPlant({plant, setShowEditForm}) {
     return (
         <div>
             <div className="container">
-            <div className="card  text-center border-success mb-3">
+            <div className="card  text-center border-success mb-3" style={{backgroundColor: 'rgba(255, 255, 255, 0.5)', backdropFilter: 'blur(3px)', color: 'white'}}>
             <Messages messages={messages}/>
       <h2 className="card-header card-title">Edit {oldPlant.plantName}</h2>
       <div className="card-body">
       <form onSubmit={handleEditPlant}>
         <div className="row form-group">
         <div className="form-floating mb-3 col">
-            <input className="form-control" type="text" id="plantNameTextBox" defaultValue={oldPlant.plantName} onChange={handlePlantNameChange}/>
-            <label htmlFor="plantNameTextBox">Plant Name:</label>
+            <input style={{color: 'green'}} className="form-control" type="text" id="plantNameTextBox" defaultValue={oldPlant.plantName} onChange={handlePlantNameChange}/>
+            <label style={{color: 'green'}} htmlFor="plantNameTextBox">Plant Name:</label>
           </div> 
           <div className="form-floating mb-3 col">
-            <input className="form-control" type="text" id="plantTypeTextBox" defaultValue={oldPlant.plantType} onChange={handlePlantTypeChange}/>
-            <label htmlFor="plantTypeTextBox">Plant Type:</label>
+            <input style={{color: 'green'}} className="form-control" type="text" id="plantTypeTextBox" defaultValue={oldPlant.plantType} onChange={handlePlantTypeChange}/>
+            <label style={{color: 'green'}} htmlFor="plantTypeTextBox">Plant Type:</label>
           </div>
         </div>
         <div className="row form-group">
         <div className="form-floating mb-3 col">
-            <textarea className="form-control" type="textarea" id="plantDescriptionTextBox" defaultValue={oldPlant.plantDescription} onChange={handlePlantDescriptionChange}/>
-            <label htmlFor="plantDescriptionTextBox">Plant Description:</label>
+            <textarea style={{color: 'green'}} className="form-control" type="textarea" id="plantDescriptionTextBox" defaultValue={oldPlant.plantDescription} onChange={handlePlantDescriptionChange}/>
+            <label style={{color: 'green'}} htmlFor="plantDescriptionTextBox">Plant Description:</label>
           </div>
         </div>
         <div className="row">
         <div className="form-floating mb-3 col">
-            <input className="form-control" type="text" id="photoTextBox" defaultValue={oldPlant.photo} onChange={handlePhotoChange}/>
-            <label htmlFor="photoTextBox">Photo:</label>
+            <input style={{color: 'green'}} className="form-control" type="text" id="photoTextBox" defaultValue={oldPlant.photo} onChange={handlePhotoChange}/>
+            <label style={{color: 'green'}} htmlFor="photoTextBox">Photo:</label>
           </div>
           <div className="form-floating mb-3 col">
-            <input className="form-control" type="text" id="gotchaDateTextBox" defaultValue={oldPlant.gotchaDate} onChange={handleGotchaDateChange}/>
-            <label htmlFor="gotchaDateTextBox">Gotcha Date:</label>
+            <input style={{color: 'green'}} className="form-control" type="text" id="gotchaDateTextBox" defaultValue={oldPlant.gotchaDate} onChange={handleGotchaDateChange}/>
+            <label style={{color: 'green'}} htmlFor="gotchaDateTextBox">Gotcha Date:</label>
           </div>
           <div className="form-floating mb-3 col">
-            <input className="form-control" type="text" id="myGardenIdTextBox" value={oldPlant.myGardenId} disabled={true} onChange={handleMyGardenIdChange}/>
-            <label htmlFor="myGardenIdTextBox">My Garden Id:</label>
+            <input style={{color: 'green'}} className="form-control" type="text" id="myGardenIdTextBox" value={oldPlant.myGardenId} disabled={true} onChange={handleMyGardenIdChange}/>
+            <label style={{color: 'green'}} htmlFor="myGardenIdTextBox">My Garden Id:</label>
           </div>
         </div>
         <div className="text-center d-grid gap-2">

@@ -62,30 +62,30 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
                 .antMatchers("/authenticate", "/create_account").permitAll()
                 .antMatchers(HttpMethod.GET, "/api/plants", /*Get by id*/ "/api/plants/*", "/api/plants/byMyGarden/*").permitAll() // anybody is able to hit this endpoint
-                .antMatchers(HttpMethod.POST, "/api/plants").hasAnyRole("USER")
-                .antMatchers(HttpMethod.PUT, "/api/plants/*").permitAll()
-                .antMatchers(HttpMethod.DELETE, "/api/plants/*").permitAll()
+                .antMatchers(HttpMethod.POST, "/api/plants").hasAnyRole("USER", "ADMIN")
+                .antMatchers(HttpMethod.PUT, "/api/plants/*").hasAnyRole("USER", "ADMIN")
+                .antMatchers(HttpMethod.DELETE, "/api/plants/*").hasAnyRole("USER", "ADMIN")
 
                 //my garden
                 .antMatchers(HttpMethod.GET, "/api/my-garden", /*Get by id*/ "/api/my-garden/*", "/api/my-garden/from-planter/*").permitAll() // anybody is able to hit this endpoint
                 .antMatchers(HttpMethod.POST, "/api/my-garden").permitAll()
-                .antMatchers(HttpMethod.PUT, "/api/my-garden/*").permitAll()
-                .antMatchers(HttpMethod.DELETE, "/api/my-garden/*").permitAll()
+                .antMatchers(HttpMethod.PUT, "/api/my-garden/*").hasAnyRole("USER", "ADMIN")
+                .antMatchers(HttpMethod.DELETE, "/api/my-garden/*").hasAnyRole("USER", "ADMIN")
 
                 //garden
                 .antMatchers(HttpMethod.GET, "/api/garden", /*Get by id*/ "/api/garden/*").permitAll() // anybody is able to hit this endpoint
 
                 //post
                 .antMatchers(HttpMethod.GET, "/api/post", /*Get by id*/ "/api/post/*", "/api/post/planter/*", "/api/post/plant/*").permitAll() // anybody is able to hit this endpoint
-                .antMatchers(HttpMethod.POST, "/api/post").permitAll()
-                .antMatchers(HttpMethod.PUT, "/api/post/*").permitAll()
-                .antMatchers(HttpMethod.DELETE, "/api/post/*").permitAll()
+                .antMatchers(HttpMethod.POST, "/api/post").hasAnyRole("USER", "ADMIN")
+                .antMatchers(HttpMethod.PUT, "/api/post/*").hasAnyRole("USER", "ADMIN")
+                .antMatchers(HttpMethod.DELETE, "/api/post/*").hasAnyRole("USER", "ADMIN")
 
                 //reply
                 .antMatchers(HttpMethod.GET, "/api/reply", /*Get by id*/ "/api/reply/*", "/api/reply/post/*").permitAll() // anybody is able to hit this endpoint
-                .antMatchers(HttpMethod.POST, "/api/reply").permitAll()
-                .antMatchers(HttpMethod.PUT, "/api/reply/*").permitAll()
-                .antMatchers(HttpMethod.DELETE, "/api/reply/*").permitAll()
+                .antMatchers(HttpMethod.POST, "/api/reply").hasAnyRole("USER", "ADMIN")
+                .antMatchers(HttpMethod.PUT, "/api/reply/*").hasAnyRole("USER", "ADMIN")
+                .antMatchers(HttpMethod.DELETE, "/api/reply/*").hasAnyRole("USER", "ADMIN")
 
                 //role
                 .antMatchers(HttpMethod.GET, "/api/role", /*Get by id*/ "/api/role/*").permitAll() // anybody is able to hit this endpoint
@@ -93,8 +93,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 //planter
                 .antMatchers(HttpMethod.GET, "/api/planter", /*Get by id*/ "/api/planter/*").permitAll() // anybody is able to hit this endpoint
                 .antMatchers(HttpMethod.POST, "/api/planter").permitAll()
-                .antMatchers(HttpMethod.PUT, "/api/planter/*").hasAnyRole("USER")
-                .antMatchers(HttpMethod.DELETE, "/api/planter/*").hasAnyRole("USER")
+                .antMatchers(HttpMethod.PUT, "/api/planter/*").hasAnyRole("USER", "ADMIN")
+                .antMatchers(HttpMethod.DELETE, "/api/planter/*").hasAnyRole("USER", "ADMIN")
 
                 .antMatchers("/**" /* any route in this path not explicitly defined above is denied */).denyAll()
                 .and()
