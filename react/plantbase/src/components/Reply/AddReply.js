@@ -58,7 +58,7 @@ function AddReply( {postId, addReplyToArray} ) {
                 <div className="card-body">
                     <form onSubmit={handleSubmit}>
                         <div className="input-group mb-3">
-                            <input type="text" className="form-control" onChange={(event) => setReply(event.target.value)} placeholder="Water the garden with words of love! <3" aria-label="comment" aria-describedby="basic-addon2"/>
+                            <input type="text" className="form-control" onChange={(event) => setReply(event.target.value)} placeholder="Water the garden with words of love! <3" aria-label="comment" aria-describedby="basic-addon2" required/>
                             <div className="input-group-append">
                                 <button type="submit" className="btn text-white" style={{backgroundColor: 'rgba(133, 166, 141, 1)', marginLeft: '2%'}}>
                                 <img src={Send} alt="send" width='30px'/>

@@ -11,23 +11,10 @@ function PostApp({}) {
     const auth = useContext(CurrentUser);
 
     useEffect(() => {
-        // findAllPosts()
-        //     .then((data) => setPosts(data))
-        //     .catch(console.log)
-        fetch(`${process.env.REACT_APP_API_URL}/api/post`)
-            .then(response => {
-                if (response.status !== 200) {
-                    return Promise.reject("Plants fetch failed.")
-                }
-                return response.json();
-            })
-            .then(json => setPosts(json))
-            .catch(console.log);
-            // console.log(posts);
+        findAllPosts()
+            .then((data) => setPosts(data))
+            .catch(console.log)
     }, []);
-
-        // console.log(posts);
-    // }, []);
 
     useEffect(() => {
         findPlantsByMyGardenId(auth.currentUser.myGarden.myGardenId)

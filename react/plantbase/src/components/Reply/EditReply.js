@@ -85,7 +85,7 @@ function EditReply({reply, editReplyByReplyId}) {
                     <form>
                         <div className="form-group">
                             <label htmlFor="caption" className="form-label mt-3">Reply:</label>
-                            <input type="text" placeholder="Show off your plant!" defaultValue={reply.reply} onChange={(event) => setNewReply(event.target.value)}></input>
+                            <input type="text" placeholder="Show off your plant!" defaultValue={reply.reply} onChange={(event) => setNewReply(event.target.value)} required></input>
                         </div>
                     </form>
                 </Modal.Body>

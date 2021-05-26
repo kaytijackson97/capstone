@@ -31,6 +31,7 @@ function AddPost({addPostToArray, plants}) {
         }
 
         console.log(newPost);
+
         const init = {
             method: "POST",
             headers: {
@@ -84,7 +85,7 @@ function AddPost({addPostToArray, plants}) {
                 <form>
                     <div className="form-group">
                         <label htmlFor="caption" className="form-label mt-3">Caption:</label>
-                        <input type="text" placeholder="Show off your plant!" onChange={(event) => setCaption(event.target.value)}></input>
+                        <input type="text" placeholder="Show off your plant!" onChange={(event) => setCaption(event.target.value)} required></input>
                     </div>
                     <div className="form-group">
                         <label htmlFor="plants" className="form-label mt-3">Plants:</label>
