@@ -1,6 +1,7 @@
 import { useContext, useEffect, useState } from 'react';
 import Modal from 'react-bootstrap/Modal';
 import { findPlanterByUsername } from '../../services/planter-api';
+import EditIcon from '../plants/edit-icon.png';
 
 import CurrentUser from "../contexts/CurrentUser";
 
@@ -71,7 +72,9 @@ function EditReply({reply, editReplyByReplyId}) {
 
     return (
         <>
-        <button onClick={showModal} className="btn text-white" style={{backgroundColor: 'rgba(133, 166, 141, 1)', marginLeft: '2%'}}>Edit</button>
+        <button onClick={showModal} className="btn text-white" style={{backgroundColor: 'rgba(133, 166, 141, 1)', marginLeft: '2%', maxHeight: '50px'}}>
+        <img src={EditIcon} alt="edit" width='20px'/>
+        </button>
         <form onSubmit={handleSubmit}>
             <Modal show={show} onHide={hideModal}>
                 <Modal.Header>

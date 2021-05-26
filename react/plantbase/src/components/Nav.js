@@ -43,8 +43,8 @@ function Nav() {
                     </strong>
                     <Dropdown.Toggle split variant="none" style={{ marginLeft: '7px', color: 'white'}} id="dropdown-split-basic" />
                     <Dropdown.Menu  style={{backgroundColor: 'rgba(133, 166, 141, 0.5)', backdropFilter: 'blur(3px)'}}>
-                    <Dropdown.Item><Link style={{color: 'rgba(133, 166, 141, 1)', textDecoration: 'none'}} className="btn btn-light nav-link nav-item dropdown" to={`/my-garden/${auth.currentUser.username}`}>My Garden</Link></Dropdown.Item>
-                    <Dropdown.Item><button style={{color: 'rgba(133, 166, 141, 1)', textDecoration: 'none'}} className="btn btn-light nav-link nav-item dropdown"><li><UserApp/></li></button></Dropdown.Item>
+                    <Dropdown.Item><Link style={{color: 'rgba(89, 107, 93, 1)', fontFamily: 'Century Gothic'}} className="btn btn-light nav-link nav-item dropdown" to={`/my-garden/${auth.currentUser.username}`}>My Garden</Link></Dropdown.Item>
+                    <Dropdown.Item><button style={{color: 'rgba(89, 107, 93, 1)', fontFamily: 'Century Gothic'}} className="btn btn-light nav-link nav-item dropdown"><li><UserApp/></li></button></Dropdown.Item>
                     <Dropdown.Item><button style={{color: 'rgba(133, 166, 141, 1)', textDecoration: 'none'}} className="btn btn-light nav-link nav-item dropdown"><li><DeleteUser /></li></button></Dropdown.Item>
                     <Dropdown.Item><li><Logout /></li></Dropdown.Item>
                     </Dropdown.Menu>
@@ -54,8 +54,8 @@ function Nav() {
                 )}
             </ul>
             <form className="d-flex">
-                <input className="form-control me-sm-2" type="text" placeholder="Search"/>
-                <button className="btn btn-light my-2 my-sm-0" type="submit"><strong>Search</strong></button>
+                <input style={{color: 'rgba(89, 107, 93, 1)', fontFamily: 'Century Gothic'}} className="form-control me-sm-2" type="text" placeholder="Search"/>
+                <button style={{color: 'rgba(89, 107, 93, 1)', fontFamily: 'Century Gothic'}} className="btn btn-light btn-md" type="submit"><strong>Search</strong></button>
             </form>
             </div>
         </div>

@@ -21,7 +21,7 @@ function DeleteReply( {replyId, deleteReplyByReplyId} ) {
 
     return(
         <>
-        <button onClick={showModal} className="btn text-white" style={{backgroundColor: 'rgba(133, 166, 141, 1)', marginLeft: '2%'}}>Delete</button>
+        <button onClick={showModal} className="btn text-white" style={{backgroundColor: 'rgba(150, 51, 42, 1)', marginLeft: '2%', maxHeight: '50px'}}><img src="https://gis.littleelm.org/gismaps/images/close-icon.png" width="20px" alt='cancel'></img></button>
         <Modal show={show} onHide={hideModal}>
             <Modal.Header>
             <Modal.Title>Stop!</Modal.Title>

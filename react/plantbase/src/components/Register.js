@@ -141,61 +141,61 @@ const handleUsernameChange = (event) => {
     <div
             className="bg-image"
             style={{
-                'backgroundImage': 'url(https://static.vecteezy.com/system/resources/previews/000/142/515/non_2x/leafy-background-daun-vector.jpg)',
+                'backgroundImage': 'url(https://media.istockphoto.com/vectors/horizontal-vector-illustration-of-an-empty-light-smoky-blue-gray-vector-id1177688756?b=1&k=6&m=1177688756&s=170667a&w=0&h=t3dpwnpMAT4jWgrrRbd47Umv4y-XI7mVUPtKzux5p04=)',
                 'height': '110vh',
                 'backgroundAttachment': 'fixed'
             }}>
-    <div className="container">
+    <div className="container-fluid">
     <div className="card" style={{backgroundColor: 'rgba(255, 255, 255, 0.5)', backdropFilter: 'blur(3px)', padding: '30px'}}>
-      <h2 className="text-center mb-4" style={{color: 'green'}}>Register New Account</h2>
+      <h2 className="text-center mb-4" style={{color: 'rgba(89, 107, 93, 1)', fontFamily: 'Century Gothic'}}>Register New Account</h2>
       <Errors errors={error} />
       <form onSubmit={handleSubmit}>
       <div className="row">
       <div className="col">
           <div className="form-floating mb-3">
-            <input className="form-control" type="text" placeholder="Username:" onChange={handleUsernameChange} />
-            <label>Username:</label>
+            <input style={{color: 'rgba(89, 107, 93, 1)', fontFamily: 'Century Gothic'}} required className="form-control" type="text" placeholder="Username:" onChange={handleUsernameChange} />
+            <label style={{color: 'rgba(133, 166, 141, 1)', fontFamily: 'Century Gothic'}}>Username:</label>
           </div>
       </div>
       <div className="col">
           <div className="form-floating mb-3">
-            <input required className="form-control" type="password" placeholder="Password:" onChange={(event) => setPassword(event.target.value)} />
-            <label>Password:</label>
+            <input style={{color: 'rgba(89, 107, 93, 1)', fontFamily: 'Century Gothic'}} required className="form-control" type="password" placeholder="Password:" onChange={(event) => setPassword(event.target.value)} />
+            <label style={{color: 'rgba(133, 166, 141, 1)', fontFamily: 'Century Gothic'}}>Password:</label>
           </div>
       </div>
       </div>
       <div className="row">
       <div className="col">
           <div className="form-floating mb-3">
-            <input required className="form-control" type="text" placeholder="First Name:" onChange={(event) => setFirstName(event.target.value)} />
-            <label>First Name:</label>
+            <input style={{color: 'rgba(89, 107, 93, 1)', fontFamily: 'Century Gothic'}} required className="form-control" type="text" placeholder="First Name:" onChange={(event) => setFirstName(event.target.value)} />
+            <label style={{color: 'rgba(133, 166, 141, 1)', fontFamily: 'Century Gothic'}}>First Name:</label>
           </div>
       </div>
       <div className="col">
           <div className="form-floating mb-3">
-            <input required className="form-control" type="text" placeholder="Last Name:" onChange={(event) => setLastName(event.target.value)} />
-            <label>Last Name:</label>
+            <input style={{color: 'rgba(89, 107, 93, 1)', fontFamily: 'Century Gothic'}} required className="form-control" type="text" placeholder="Last Name:" onChange={(event) => setLastName(event.target.value)} />
+            <label style={{color: 'rgba(133, 166, 141, 1)', fontFamily: 'Century Gothic'}}>Last Name:</label>
           </div>
       </div>
       <div className="col">
           <div className="form-floating mb-3">
-            <input required className="form-control" type="text" placeholder="Garden Name:" onChange={(event) => setGardenName(event.target.value)} />
-            <label>Garden Name:</label>
+            <input style={{color: 'rgba(89, 107, 93, 1)', fontFamily: 'Century Gothic'}} required className="form-control" type="text" placeholder="Garden Name:" onChange={(event) => setGardenName(event.target.value)} />
+            <label style={{color: 'rgba(133, 166, 141, 1)', fontFamily: 'Century Gothic'}}>Garden Name:</label>
           </div>
       </div>
       </div>
       <div className="row">
           <div className="form-floating mb-3">
-            <input required className="form-control" type="text" placeholder="Email:" onChange={(event) => setEmail(event.target.value)} />
-            <label>Email:</label>
+            <input style={{color: 'rgba(89, 107, 93, 1)', fontFamily: 'Century Gothic'}} required className="form-control" type="text" placeholder="Email:" onChange={(event) => setEmail(event.target.value)} />
+            <label style={{color: 'rgba(133, 166, 141, 1)', fontFamily: 'Century Gothic'}}>Email:</label>
           </div>
       </div>
       <div className="row">
         <div className="col text-center">
-          <button className="btn btn-lg btn-light text-center" type="submit">Register</button>
+          <button className="btn btn-lg text-white" style={{backgroundColor: 'rgba(133, 166, 141, 1)'}} type="submit">Register</button>
         </div>
         <div className="col  text-center">
-          <Link to={'/'} className="btn btn-lg btn-warning text-center">I already have an account</Link>
+          <Link to={'/'} className="btn btn-lg" style={{borderColor: 'rgba(133, 166, 141, 1)', color: 'rgba(133, 166, 141, 1)'}}>I already have an account</Link>
         </div>
       </div>
       </form>

@@ -106,10 +106,19 @@ create table app_user_role (
          foreign key (app_role_id)
          references app_role(app_role_id)
 );
+
+-- password is set to "P@ssw0rd!"
+insert into app_user (app_user_id, username, password_hash, disabled)
+    values
+    (1, 'john_smith', '$2a$10$ntB7CsRKQzuLoKY3rfoAQen5nNyiC/U60wBsWnnYrtQQi8Z3IZzQa', 0);
+
 insert into app_role (`name`) values
     ('USER'),
     ('ADMIN');
-
+    
+insert into app_user_role
+    values
+    (1, 1);
 
 insert into plantbase_role (role_name)
 	values
