@@ -42,8 +42,8 @@ function DeletePost( {postId, deletePostByPostId} ) {
             </Modal.Header>
             <Modal.Body>Are you sure you want to delete this post?</Modal.Body>
             <Modal.Footer>
-                <button onClick={hideModal} className="btn btn-outline-success">Cancel</button>
-                <button onClick={handleDelete} className="btn btn-success">Delete</button>
+                <button onClick={hideModal} className="btn" style={{borderColor: 'rgba(133, 166, 141, 1)', color: 'rgba(133, 166, 141, 1)'}}>Cancel</button>
+                <button onClick={handleDelete} className="btn text-white" style={{backgroundColor: 'rgba(133, 166, 141, 1)'}}>Delete</button>
             </Modal.Footer>
         </Modal>
         </>

@@ -88,13 +88,13 @@ function EditReply({reply, editReplyByReplyId}) {
                     <form>
                         <div className="form-group">
                             <label htmlFor="caption" className="form-label mt-3">Reply:</label>
-                            <input type="text" placeholder="Show off your plant!" defaultValue={reply.reply} onChange={(event) => setNewReply(event.target.value)} required></input>
+                            <input className="form-control" type="text" placeholder="Show off your plant!" defaultValue={reply.reply} onChange={(event) => setNewReply(event.target.value)} required></input>
                         </div>
                     </form>
                 </Modal.Body>
                 <Modal.Footer>
-                    <button onClick={hideModal}>Cancel</button>
-                    <button type="submit" onClick={handleSubmit}>Save</button>
+                    <button onClick={hideModal} className="btn" style={{borderColor: 'rgba(133, 166, 141, 1)', color: 'rgba(133, 166, 141, 1)'}}>Cancel</button>
+                    <button type="submit" onClick={handleSubmit} className="btn text-white" style={{backgroundColor: 'rgba(133, 166, 141, 1)'}}>Save</button>
                 </Modal.Footer>
             </Modal>
         </form>

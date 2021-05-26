@@ -97,7 +97,7 @@ function EditPost({post, plants, editPostByPostId}) {
                         <label htmlFor="plants" className="form-label mt-3">Plants</label>
                         <select className="form-select" id="plants" onChange={(event) => (setNewPlantId(event.target.value))}>
                             <option value={0}>None</option>
-                            {plants.map(p => <option key={p.plantId} value={p.plantId}>{p.plantName}</option>)}
+                            {/* {plants.map(p => <option key={p.plantId} value={p.plantId}>{p.plantName}</option>)} */}
                         </select>
                     </div>
                     <div className="form-group">
@@ -107,8 +107,8 @@ function EditPost({post, plants, editPostByPostId}) {
                 </form>
             </Modal.Body>
             <Modal.Footer>
-                <button onClick={hideModal} className="btn btn-outline-success">Cancel</button>
-                <button onClick={handleSubmit} className="btn btn-success">Save</button>
+                <button onClick={hideModal} className="btn" style={{borderColor: 'rgba(133, 166, 141, 1)', color: 'rgba(133, 166, 141, 1)'}}>Cancel</button>
+                <button onClick={handleSubmit} className="btn text-white" style={{backgroundColor: 'rgba(133, 166, 141, 1)'}}>Save</button>
             </Modal.Footer>
         </Modal>
         </>

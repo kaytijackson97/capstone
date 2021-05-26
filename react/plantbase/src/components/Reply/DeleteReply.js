@@ -43,8 +43,8 @@ function DeleteReply( {replyId, deleteReplyByReplyId} ) {
             </Modal.Header>
             <Modal.Body>Are you sure you want to delete this reply?</Modal.Body>
             <Modal.Footer>
-                <button onClick={hideModal}>No</button>
-                <button onClick={handleDelete}>Yes</button>
+                <button onClick={hideModal} className="btn" style={{borderColor: 'rgba(133, 166, 141, 1)', color: 'rgba(133, 166, 141, 1)'}}>No</button>
+                <button onClick={handleDelete} className="btn text-white" style={{backgroundColor: 'rgba(133, 166, 141, 1)'}}>Yes</button>
             </Modal.Footer>
         </Modal>
         </>
