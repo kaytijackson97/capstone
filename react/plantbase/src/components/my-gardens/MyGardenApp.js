@@ -39,7 +39,7 @@ function MyGardenApp({previousMyGarden}) {
     }, [username])
 
     const editForm = (myGarden) => {
-        if (showEditForm === true) {
+        if (showEditForm === true && (auth.currentUser.username === myGarden.username || auth.currentUser.hasRole("ADMIN"))) {
             return (
                 <EditMyGarden myGarden={myGarden} setShowEditForm={setShowEditForm}/>
             );
@@ -57,9 +57,12 @@ function MyGardenApp({previousMyGarden}) {
                     <div className="row">
                     <div className="card-header">
                     <button onClick={() => backButton()} className="btn" style={{backgroundColor: 'rgba(133, 166, 141, 1)'}}><img src={BackArrow} alt="back-arrow" width="10px"></img></button>
+                  {((auth.currentUser.username === myGarden.username) || (auth.currentUser && auth.currentUser.hasRole("ROLE_ADMIN"))) ? (
                     <button className="btn" style={{backgroundColor: 'rgba(133, 166, 141, 1)', marginLeft: '0.5%'}} onClick={() => setShowEditForm(true)} title="Edit MyGarden">
                         <img  src={EditIcon} alt="edit" width="20px"></img>
-                    </button><strong style={{fontSize: '30px', fontFamily: 'Century Gothic', color: 'rgba(89, 107, 93, 1)', marginLeft: '2%'}}>{myGarden.gardenName} 🌿</strong>
+                    
+                    </button>
+                  ) : ("")} <strong style={{fontSize: '30px', fontFamily: 'Century Gothic', color: 'rgba(89, 107, 93, 1)', marginLeft: '2%'}}>{myGarden.gardenName} 🌿</strong>
                     </div>
                         <div className="col" >
                             <p className="card-body" style={{fontFamily: 'Century Gothic'}}>My Garden Name: 

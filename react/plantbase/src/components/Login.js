@@ -46,11 +46,11 @@ function Login() {
                             <div className="form-group mt-3">
                                 <div className="form-floating mb-3">
                                     <input type="text" className="form-control" id="floatingInput" placeholder="Username" onChange={updateUsername}></input>
-                                    <label htmlFor="floatingInput">Username</label>
+                                    <label style={{color: 'rgba(133, 166, 141, 1)'}} htmlFor="floatingInput">Username</label>
                                 </div>
                                 <div className="form-floating">
                                     <input type="password" className="form-control" id="floatingPassword" placeholder="Password" onChange={updatePassword}></input>
-                                    <label htmlFor="floatingPassword">Password</label>
+                                    <label style={{color: 'rgba(133, 166, 141, 1)'}} htmlFor="floatingPassword">Password</label>
                                 </div>
                                 </div>
                                     <div className="d-grid gap-2">
