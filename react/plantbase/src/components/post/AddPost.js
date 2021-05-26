@@ -69,7 +69,7 @@ function AddPost({addPostToArray, plants}) {
         <>
         <div className="d-flex justify-content-center">
             <div className="d-grid gap-2" style={postStyle}>
-                <button onClick={showModal} className="btn btn-light btn-lg mt-3">Add New Post</button>
+                <button onClick={showModal} className="btn btn-lg text-white mt-3" style={{backgroundColor: 'rgba(133, 166, 141, 1)'}}>Add New Post</button>
             </div>
         </div>
         <Modal show={show} onHide={hideModal}>
@@ -105,8 +105,8 @@ function AddPost({addPostToArray, plants}) {
                 </form>
             </Modal.Body>
             <Modal.Footer>
-                <button onClick={hideModal} className="btn btn-outline-success">Cancel</button>
-                <button onClick={handleSubmit} className="btn btn-success">Save</button>
+                <button onClick={hideModal} className="btn" style={{borderColor: 'rgba(133, 166, 141, 1)', color: 'rgba(133, 166, 141, 1)', marginLeft: '2%'}}>Cancel</button>
+                <button onClick={handleSubmit} className="btn text-white" style={{backgroundColor: 'rgba(133, 166, 141, 1)', marginLeft: '2%'}}>Save</button>
             </Modal.Footer>
         </Modal>
         </>

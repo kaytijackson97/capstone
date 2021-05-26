@@ -99,7 +99,7 @@ function AddPlant({plants =[], setPlants, setShowAddForm, myGardenId}) {
 
     return (
       <>
-      <div className="text-center"><button onClick={showModal} className="btn" style={{backgroundColor: 'rgba(133, 166, 141, 1)', color: 'white'}}>
+      <div className="col"><button onClick={showModal} className="btn" style={{backgroundColor: 'rgba(133, 166, 141, 1)', color: 'white'}}>
           +
         </button></div>
         <Modal show={show} onHide={hideModal} >

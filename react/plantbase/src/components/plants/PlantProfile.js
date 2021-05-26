@@ -9,6 +9,7 @@ import EditIcon from './edit-icon.png';
 import BackArrow from './back-arrow-icon.png';
 import DeletePlant from './DeletePlant';
 import PostApp from '../post/PostApp';
+import PostList from '../post/PostList';
 import MyGardenApp from '../my-gardens/MyGardenApp';
 
 function PlantProfile() {
@@ -96,31 +97,24 @@ function PlantProfile() {
             return (
                 <div className="row">
                     <div className="card mt-3" style={{backgroundColor: 'rgba(255, 255, 255, 0.5)', backdropFilter: 'blur(3px)', color: 'white', fontFamily: 'Century Gothic'}}>
-                    <div className="card-header">
+                    <div className="">
                     <button onClick={() => backButton()} className="btn" style={{backgroundColor: 'rgba(133, 166, 141, 1)'}}><img src={BackArrow} alt="back-arrow" width="10px"></img></button>
-                    |<DeletePlant plantId={plant.plantId} deletePlant={deletePlant}/>
-                    |<button className="btn" style={{backgroundColor: 'rgba(133, 166, 141, 1)'}} onClick={() => setShowEditForm(true)} title="Edit an Agent">
+                    <DeletePlant plantId={plant.plantId} deletePlant={deletePlant}/>
+                    <button className="btn" style={{backgroundColor: 'rgba(133, 166, 141, 1)', marginLeft: '0.5%'}} onClick={() => setShowEditForm(true)} title="Edit an Agent">
                         <img  src={EditIcon} alt="edit" width="20px"></img>
-                    </button>- <strong style={{fontSize: '30px', color: 'rgba(133, 166, 141, 1)'}}>{plant.plantName} 🌿</strong>
+                    </button><strong style={{color: 'rgba(89, 107, 93, 1)', fontFamily: 'Century Gothic', fontSize: '30px', marginLeft: '2%'}}>{plant.plantName} 🌿</strong>
                     </div>
                         <div className="row">
                             <div className="col">
-                                <p className="card bg-light mt-3" style={{fontFamily: 'Century Gothic', color: 'rgba(133, 166, 141, 1)'}}>Plant Name: <strong>{plant.plantName}</strong></p>
-                                <p className="card bg-light mt-3" style={{fontFamily: 'Century Gothic', color: 'rgba(133, 166, 141, 1)'}}>Plant Type: <strong>{plant.plantType}</strong></p>
-                                <p className="card bg-light mt-3" style={{fontFamily: 'Century Gothic', color: 'rgba(133, 166, 141, 1)'}}>Gotcha Date: <strong>{plant.gotchaDate}</strong></p>
-                                <p className="card bg-light mt-3" style={{fontFamily: 'Century Gothic', color: 'rgba(133, 166, 141, 1)'}}>Plant Description: <strong>{plant.plantDescription}</strong></p>
+                                <p className="card bg-light mt-3" style={{fontFamily: 'Century Gothic', color: 'rgba(89, 107, 93, 1)'}}>Plant Name: <strong>{plant.plantName}</strong></p>
+                                <p className="card bg-light mt-3" style={{fontFamily: 'Century Gothic', color: 'rgba(89, 107, 93, 1)'}}>Plant Type: <strong>{plant.plantType}</strong></p>
+                                <p className="card bg-light mt-3" style={{fontFamily: 'Century Gothic', color: 'rgba(89, 107, 93, 1)'}}>Gotcha Date: <strong>{plant.gotchaDate}</strong></p>
+                                <p className="card bg-light mt-3" style={{fontFamily: 'Century Gothic', color: 'rgba(89, 107, 93, 1)'}}>Plant Description: <strong>{plant.plantDescription}</strong></p>
                                 <Messages messages={messages}/>
                             </div>
                             <div className="col">
-                            <div style={{ display: "flex" }}>
-                                <ReactRoundedImage
-                                image={plant.photo}
-                                roundedColor=""
-                                imageWidth="630"
-                                imageHeight="400"
-                                roundedSize="8"
-                                borderRadius="30"
-                                />
+                            <div>
+                                <img src={plant.photo} alt="plant profile" width="630"/>
                             </div>
                             </div>
                         </div>
@@ -134,7 +128,7 @@ function PlantProfile() {
         <div
             className="bg-image"
             style={{
-                backgroundImage: 'url(https://wallpapercave.com/wp/wp4465057.jpg)',
+                backgroundImage: 'url(https://media.istockphoto.com/vectors/horizontal-vector-illustration-of-an-empty-light-smoky-blue-gray-vector-id1177688756?b=1&k=6&m=1177688756&s=170667a&w=0&h=t3dpwnpMAT4jWgrrRbd47Umv4y-XI7mVUPtKzux5p04=)',
                 height: ' 110vh auto',
                 backgroundAttachment: 'fixed'
             }}>
@@ -145,9 +139,9 @@ function PlantProfile() {
             {defaultPlantProfile(plant)}
             {editForm(plant)}
             <div className="row">
-                <div className="card mt-3 mb-3" style={{backgroundColor: 'rgba(255, 255, 255, 0.5)', backdropFilter: 'blur(3px)', color: 'rgba(133, 166, 141, 1)'}}>
-                    <h2 className="card-header card-title">Related Posts</h2>
-                    <PostApp/>
+                <div className="card mt-3 mb-3" style={{backgroundColor: 'rgba(255, 255, 255, 0.5)', backdropFilter: 'blur(3px)', color: 'rgba(89, 107, 93, 1)'}}>
+                    <h2 className="text-center card-title">Related Posts</h2>
+                    <PostList posts={posts} />
                 </div>
             </div>
         </div>
