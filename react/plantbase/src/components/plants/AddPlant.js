@@ -130,8 +130,10 @@ function AddPlant({plants =[], setPlants, myGardenId}) {
                           <input className="form-control" type="text" id="photoTextBox" placeholder="Photo:" onChange={handlePhotoChange}/>
                           <label htmlFor="photoTextBox">Photo:</label>
                         </div>
+                      </div>
+                      <div className="row">
                         <div className="form-floating mb-3 col">
-                          <input className="form-control" type="text" id="gotchaDateTextBox" placeholder="Gotcha Date:" onChange={handleGotchaDateChange}/>
+                          <input className="form-control" type="date" id="gotchaDateTextBox" placeholder="Gotcha Date:" onChange={handleGotchaDateChange}/>
                           <label htmlFor="gotchaDateTextBox" style={{fontSize: '14px'}}>Gotcha Date:</label>
                         </div>
                         <div className="form-floating mb-3 col">
