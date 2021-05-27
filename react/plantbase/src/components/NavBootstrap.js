@@ -3,12 +3,8 @@ import React, { useContext } from "react";
 import Logout from "./Logout";
 import CurrentUser from "./contexts/CurrentUser";
 import Logo from "./images/plantbase-logo2.png";
-import Dropdown from "react-bootstrap/Dropdown";
 import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
-import Button from "react-bootstrap/Button";
-import Form from "react-bootstrap/Form";
-import FormControl from "react-bootstrap/FormControl";
 import Nav from "react-bootstrap/Nav";
 import DeleteUser from "./user/DeleteUser";
 import EditUser from "./user/EditUser";
@@ -16,19 +12,6 @@ import EditUser from "./user/EditUser";
 function NavBootstrap() {
 
     const auth = useContext(CurrentUser);
-
-
-    // const userTag = () => {
-    //         return (
-    //         <strong style={{color: 'white'}}>
-    //                             @{auth.currentUser && auth.currentUser.isValid() ? (
-    //                                         auth.currentUser.username
-    //                                     ) : (
-    //                                         ""
-    //                                     )}
-    //                     </strong>
-    //                     );
-    // }
 
   return (
     <Navbar expand="lg" fixed="top" style={{backgroundColor: 'rgba(133, 166, 141, 1)'}}>

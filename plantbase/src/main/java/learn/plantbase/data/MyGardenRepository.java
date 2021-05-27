@@ -1,6 +1,7 @@
 package learn.plantbase.data;
 
 import learn.plantbase.models.MyGarden;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -15,5 +16,6 @@ public interface MyGardenRepository {
 
     boolean editMyGarden(MyGarden myGarden);
 
+    @Transactional
     boolean deleteById(int myGardenId);
 }

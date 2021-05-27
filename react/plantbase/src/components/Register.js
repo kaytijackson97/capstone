@@ -22,36 +22,37 @@ function Register() {
     event.preventDefault(); 
 
     try {
-      const response = await fetch(`${process.env.REACT_APP_API_URL}/create_account`, {
-        method: 'POST',
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-          username,
-          password
-        })
-      });
-
-      if (response.status === 201) {
-        try {
-          const token = await auth.authenticateRegistration(username, password)
-          
-            await addPlanter(token);
-            await addMyGarden(token);
-            history.push('/garden');
-
-        } catch (err) {
+        const response = await fetch(`${process.env.REACT_APP_API_URL}/create_account`, {
+          method: 'POST',
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            username,
+            password
+          })
+        });
+  
+        if (response.status === 201) {
+          try {
+            const token = await auth.authenticateRegistration(username, password)
+            
+              await addPlanter(token);
+              await addMyGarden(token);
+              history.push('/garden');
+  
+          } catch (err) {
+            throw new Error('Unknown Error');
+          }     
+        } else if (response.status === 400) {
+          throw new Error('Password must be at least length 8, contain a digit, character, and a symbol.');
+        } else {
           throw new Error('Unknown Error');
-        }     
-      } else if (response.status === 400) {
-        throw new Error('Password must be at least length 8, contain a digit, character, and a symbol.');
-      } else {
-        throw new Error('Unknown Error');
-      }
-    } catch (err) {
+        }
+      } catch (err) {
       setError([err.message]);
     }
+
   }
   
   const addPlanter = async (token) => {
@@ -84,7 +85,6 @@ function Register() {
     })
     .then(json => {
       setUsers([...users, json]);
-      // setMessages("");
     })
     .catch(console.log);
 }
@@ -114,7 +114,6 @@ function Register() {
       })
       .then(json => {
         setUsers([...users, json]);
-        // setMessages("");
       })
       .catch(console.log);
   }
@@ -140,13 +139,13 @@ const handleUsernameChange = (event) => {
       <div className="row">
       <div className="col">
           <div className="form-floating mb-3">
-            <input style={{color: 'rgba(89, 107, 93, 1)', fontFamily: 'Century Gothic'}} required className="form-control" type="text" placeholder="Username:" onChange={handleUsernameChange} />
+            <input style={{color: 'rgba(89, 107, 93, 1)', fontFamily: 'Century Gothic'}} required className="form-control" type="text" placeholder="Username:" onChange={handleUsernameChange} required/>
             <label style={{color: 'rgba(133, 166, 141, 1)', fontFamily: 'Century Gothic', fontSize: '14px'}}>Username:</label>
           </div>
       </div>
       <div className="col">
           <div className="form-floating mb-3">
-            <input style={{color: 'rgba(89, 107, 93, 1)', fontFamily: 'Century Gothic'}} required className="form-control" type="password" placeholder="Password:" onChange={(event) => setPassword(event.target.value)} />
+            <input style={{color: 'rgba(89, 107, 93, 1)', fontFamily: 'Century Gothic'}} required className="form-control" type="password" placeholder="Password:" onChange={(event) => setPassword(event.target.value)} required/>
             <label style={{color: 'rgba(133, 166, 141, 1)', fontFamily: 'Century Gothic', fontSize: '14px'}}>Password:</label>
           </div>
       </div>
@@ -154,26 +153,26 @@ const handleUsernameChange = (event) => {
       <div className="row">
       <div className="col">
           <div className="form-floating mb-3">
-            <input style={{color: 'rgba(89, 107, 93, 1)', fontFamily: 'Century Gothic'}} required className="form-control" type="text" placeholder="First Name:" onChange={(event) => setFirstName(event.target.value)} />
+            <input style={{color: 'rgba(89, 107, 93, 1)', fontFamily: 'Century Gothic'}} required className="form-control" type="text" placeholder="First Name:" onChange={(event) => setFirstName(event.target.value)} required/>
             <label style={{color: 'rgba(133, 166, 141, 1)', fontFamily: 'Century Gothic', fontSize: '14px'}}>First Name:</label>
           </div>
       </div>
       <div className="col">
           <div className="form-floating mb-3">
-            <input style={{color: 'rgba(89, 107, 93, 1)', fontFamily: 'Century Gothic'}} required className="form-control" type="text" placeholder="Last Name:" onChange={(event) => setLastName(event.target.value)} />
+            <input style={{color: 'rgba(89, 107, 93, 1)', fontFamily: 'Century Gothic'}} required className="form-control" type="text" placeholder="Last Name:" onChange={(event) => setLastName(event.target.value)} required/>
             <label style={{color: 'rgba(133, 166, 141, 1)', fontFamily: 'Century Gothic', fontSize: '14px'}}>Last Name:</label>
           </div>
       </div>
       <div className="col">
           <div className="form-floating mb-3">
-            <input style={{color: 'rgba(89, 107, 93, 1)', fontFamily: 'Century Gothic'}} required className="form-control" type="text" placeholder="Garden Name:" onChange={(event) => setGardenName(event.target.value)} />
+            <input style={{color: 'rgba(89, 107, 93, 1)', fontFamily: 'Century Gothic'}} required className="form-control" type="text" placeholder="Garden Name:" onChange={(event) => setGardenName(event.target.value)} required/>
             <label style={{color: 'rgba(133, 166, 141, 1)', fontFamily: 'Century Gothic', fontSize: '14px'}}>Garden Name:</label>
           </div>
       </div>
       </div>
       <div className="row">
           <div className="form-floating mb-3">
-            <input style={{color: 'rgba(89, 107, 93, 1)', fontFamily: 'Century Gothic'}} required className="form-control" type="text" placeholder="Email:" onChange={(event) => setEmail(event.target.value)} />
+            <input style={{color: 'rgba(89, 107, 93, 1)', fontFamily: 'Century Gothic'}} required className="form-control" type="email" placeholder="Email:" onChange={(event) => setEmail(event.target.value)} required/>
             <label style={{color: 'rgba(133, 166, 141, 1)', fontFamily: 'Century Gothic', fontSize: '14px'}}>Email:</label>
           </div>
       </div>
