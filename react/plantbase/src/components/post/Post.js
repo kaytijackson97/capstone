@@ -90,7 +90,7 @@ function Post( {post, plants, deletePostByPostId, editPostByPostId} ) {
     }
 
     const postStyle = {
-        "width": "1000px"
+        "width": "1000px", 'backgroundColor': 'rgba(255, 255, 255, 0.5)', 'backdropFilter': 'blur(3px)'
     }
 
     return(
