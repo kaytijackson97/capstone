@@ -9,13 +9,13 @@ function Welcome() {
       style={{
         backgroundImage:
           "url(https://media.istockphoto.com/vectors/horizontal-vector-illustration-of-an-empty-light-smoky-blue-gray-vector-id1177688756?b=1&k=6&m=1177688756&s=170667a&w=0&h=t3dpwnpMAT4jWgrrRbd47Umv4y-XI7mVUPtKzux5p04=)",
-        height: "200rem",
+        height: "100rem",
         backgroundAttachment: "fixed",
       }}
     >
-      <div className="container-fluid">
-        <div className="col">
-          {/* <div className="col"> */}
+    <div className="large-screen" id='welcome-page'>
+      <div className="container-fluid" style={{flexWrap: 'wrap'}}>
+        <div className="col" id='welcome-page'>
             <div
               className="card text-white mt-3 mb-3 text-center"
               style={{
@@ -69,13 +69,11 @@ function Welcome() {
                 />
               </div>
             </div>
-          {/* </div> */}
         </div>
-        {/* <div className="row text-center"> */}
-          <div className="col">
+          <div className="col" id="welcome-page">
             <Login />
           </div>
-        {/* </div> */}
+          </div>
       </div>
     </div>
   );

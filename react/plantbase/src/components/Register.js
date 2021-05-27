@@ -173,7 +173,7 @@ const handleUsernameChange = (event) => {
       </div>
       <div className="row">
           <div className="form-floating mb-3">
-            <input style={{color: 'rgba(89, 107, 93, 1)', fontFamily: 'Century Gothic'}} required className="form-control" type="text" placeholder="Email:" onChange={(event) => setEmail(event.target.value)} />
+            <input style={{color: 'rgba(89, 107, 93, 1)', fontFamily: 'Century Gothic'}} required className="form-control" type="email" placeholder="Email:" onChange={(event) => setEmail(event.target.value)} />
             <label style={{color: 'rgba(133, 166, 141, 1)', fontFamily: 'Century Gothic', fontSize: '14px'}}>Email:</label>
           </div>
       </div>
