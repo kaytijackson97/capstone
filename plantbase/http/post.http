@@ -45,7 +45,7 @@ POST /api/post HTTP/1.1
 Host: localhost:8080
 Origin: http://localhost:3000
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJwbGFudGJhc2UiLCJzdWIiOiJyY3VjY2lhIiwiYXV0aG9yaXRpZXMiOiJST0xFX1VTRVIiLCJleHAiOjE2MjIwODAyMjJ9.q0yx6lNxHffjcxAkU6GOhADNJuOzFJ7g31UWZ24Nu8E
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJwbGFudGJhc2UiLCJzdWIiOiJyY3VjY2lhIiwiYXV0aG9yaXRpZXMiOiJST0xFX1VTRVIiLCJleHAiOjE2MjIwOTIzNzB9.q-L6fR8gRD49EIFU4bQTVv1Sxz1kGShEcnommYvdWhE
 
 {
     "username": "rcuccia",

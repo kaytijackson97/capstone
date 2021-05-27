@@ -81,12 +81,43 @@ create table reply (
         references post(post_id)
 );
 
+drop table if exists app_user_role;
+drop table if exists app_role;
+drop table if exists app_user;
+create table app_user (
+    app_user_id int primary key auto_increment,
+    username varchar(50) not null unique,
+    password_hash varchar(2048) not null,
+    disabled boolean not null default(0)
+);
+create table app_role (
+    app_role_id int primary key auto_increment,
+    `name` varchar(50) not null unique
+);
+create table app_user_role (
+    app_user_id int not null,
+    app_role_id int not null,
+    constraint pk_app_user_role
+        primary key (app_user_id, app_role_id),
+    constraint fk_app_user_role_user_id
+        foreign key (app_user_id)
+         references app_user(app_user_id),
+    constraint fk_app_user_role_role_id
+         foreign key (app_role_id)
+         references app_role(app_role_id)
+);
+
 
 delimiter //
 create procedure set_known_good_state()
 begin
 	
     set sql_safe_updates = 0;
+    delete from app_user_role;
+    delete from app_user;
+    alter table app_user auto_increment = 1;
+    delete from app_role;
+    alter table app_role auto_increment = 1;
 	delete from reply;
     alter table reply auto_increment = 1;
 	delete from post;
@@ -103,6 +134,18 @@ begin
     alter table garden auto_increment = 1;
     set sql_safe_updates = 1;
 
+insert into app_user (app_user_id, username, password_hash, disabled)
+		values
+		(1, 'john_smith', '$2a$10$ntB7CsRKQzuLoKY3rfoAQen5nNyiC/U60wBsWnnYrtQQi8Z3IZzQa', 0);
+
+	insert into app_role (`name`) values
+		('USER'),
+		('ADMIN');
+		
+	insert into app_user_role
+		values
+		(1, 1);
+        
 	insert into plantbase_role (role_name)
 		values
 		('ADMIN'),
@@ -146,18 +189,6 @@ begin
 		('john_smith', 1, 'test reply', '2021-05-18 10:43:18', 0),
         ('john_smith', 1, 'second test reply', '2021-05-18 10:43:18', 0),
         ('john_smith', 1, 'third test reply', '2021-05-18 10:43:18', 0);
-        
-	insert into app_user (app_user_id, username, password_hash, disabled)
-		values
-		(1, 'john_smith', '$2a$10$ntB7CsRKQzuLoKY3rfoAQen5nNyiC/U60wBsWnnYrtQQi8Z3IZzQa', 0);
-
-	insert into app_role (`name`) values
-		('USER'),
-		('ADMIN');
-		
-	insert into app_user_role
-		values
-		(1, 1);
         
 end //
 delimiter ;

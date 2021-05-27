@@ -1,6 +1,5 @@
 import { useContext, useState } from 'react';
 import Modal from 'react-bootstrap/Modal';
-import { deleteReplyById } from '../../services/reply-api';
 import CurrentUser from '../contexts/CurrentUser';
 
 function DeleteReply( {replyId, deleteReplyByReplyId} ) {

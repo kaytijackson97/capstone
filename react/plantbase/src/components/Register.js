@@ -1,9 +1,7 @@
-import AddUser from './user/AddUser';
 import { useContext, useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import Errors from './Errors';
 import CurrentUser from './contexts/CurrentUser';
-import jwt_decode from 'jwt-decode';
 
 function Register() {
   const auth = useContext(CurrentUser);
@@ -15,7 +13,6 @@ function Register() {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
-  const [messages, setMessages] = useState(" ");
   const [error, setError] = useState([]);
   const [gardenName, setGardenName] = useState('');
 
@@ -36,35 +33,28 @@ function Register() {
         })
       });
 
-    if (response.status === 201) {
-      try {
-        const token = await auth.authenticateRegistration(username, password)
-        // const { id, sub: username, authorities: rolesString } = await jwt_decode(token);
-        
-        console.log(token);
-          await addPlanter(token);
-          await addMyGarden(token);
-          history.push('/garden');
-      } catch (err) {
+      if (response.status === 201) {
+        try {
+          const token = await auth.authenticateRegistration(username, password)
+          
+            await addPlanter(token);
+            await addMyGarden(token);
+            history.push('/garden');
+
+        } catch (err) {
+          throw new Error('Unknown Error');
+        }     
+      } else if (response.status === 400) {
+        throw new Error('Password must be at least length 8, contain a digit, character, and a symbol.');
+      } else {
         throw new Error('Unknown Error');
-      }     
-    } else if (response.status === 400) {
-      throw new Error('Password must be at least length 8, contain a digit, character, and a symbol.');
-    } else {
-      throw new Error('Unknown Error');
+      }
+    } catch (err) {
+      setError([err.message]);
     }
-  } catch (err) {
-    setError([err.message]);
-  }
   }
   
-const addPlanter = async (token) => {
-  debugger
-  console.log(username);
-    console.log(firstName);
-    console.log(lastName);
-    console.log(email);
-
+  const addPlanter = async (token) => {
     const planter = {
       roleId: roleId, 
       username: username, 
@@ -72,6 +62,7 @@ const addPlanter = async (token) => {
       lastName: lastName,
       email: email
     };
+
   const init = {
     method: "POST",
     headers: {
@@ -83,7 +74,6 @@ const addPlanter = async (token) => {
       planter
     )
   };
-  console.log(init);
 
   await fetch(`${process.env.REACT_APP_API_URL}/api/planter`, init)
     .then(response => {
@@ -94,48 +84,45 @@ const addPlanter = async (token) => {
     })
     .then(json => {
       setUsers([...users, json]);
-      setMessages("");
+      // setMessages("");
     })
     .catch(console.log);
 }
 
-const addMyGarden = async (token) => {
-  const myGarden = {
-    username: username,
-    gardenName: gardenName
-  };
-  const init = {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      "Accept": "application/json",
-      "Authorization": `Bearer ${token}`
-    },
-    body: JSON.stringify(
-      myGarden
-    )
-  };
-  await fetch(`${process.env.REACT_APP_API_URL}/api/my-garden`, init)
-    .then(response => {
-      if (response.status !== 201) {
-        return Promise.reject("ERROR");
-      }
-      return response.json();
-    })
-    .then(json => {
-      setUsers([...users, json]);
-      setMessages("");
-    })
-    .catch(console.log);
-}
+  const addMyGarden = async (token) => {
+    const myGarden = {
+      username: username,
+      gardenName: gardenName
+    };
+    const init = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Accept": "application/json",
+        "Authorization": `Bearer ${token}`
+      },
+      body: JSON.stringify(
+        myGarden
+      )
+    };
+    await fetch(`${process.env.REACT_APP_API_URL}/api/my-garden`, init)
+      .then(response => {
+        if (response.status !== 201) {
+          return Promise.reject("ERROR");
+        }
+        return response.json();
+      })
+      .then(json => {
+        setUsers([...users, json]);
+        // setMessages("");
+      })
+      .catch(console.log);
+  }
   
 const handleUsernameChange = (event) => {
   setUsername(event.target.value);
   
 }
-
-
-  
 
   return (
     <div

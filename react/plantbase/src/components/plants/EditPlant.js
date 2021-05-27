@@ -1,5 +1,5 @@
 import { useState, useContext, useEffect } from 'react';
-import { useHistory, useParams, useLocation } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import CurrentUser from '../contexts/CurrentUser';
 import Messages from '../Messages';
 
@@ -27,11 +27,7 @@ function EditPlant({plant, setShowEditForm}) {
     const [plantType, setPlantType] = useState(oldPlant.plantType);
     const [gotchaDate, setGotchaDate] = useState(oldPlant.gotchaDate);
     const [myGardenId, setMyGardenId] = useState(oldPlant.myGardenId);
-    const [posts, setPosts] = useState(oldPlant.posts);
     const history = useHistory();
-    const location = useLocation();
-
-    const { state: { from } = { from : `/plantprofile/${plantId}` } } = location;
 
     useEffect(() => {
         fetch(`${process.env.REACT_APP_API_URL}/api/plants/${plantId}`)
@@ -39,7 +35,6 @@ function EditPlant({plant, setShowEditForm}) {
             .then(data => setOldPlant(data))
             .catch(error => console.log(error));
     }, [plantId])
-
 
     const handleEditPlant = (event) => {
         event.preventDefault();
@@ -54,13 +49,9 @@ function EditPlant({plant, setShowEditForm}) {
         plant["gotchaDate"] = gotchaDate;
         plant["myGardenId"] = myGardenId;
         plant["posts"] = oldPlant.posts;
-        // auth.currentUser && auth.currentUser.hasRole("ADMIN") ? (
-        console.log(plant);
-        editPlant(plant)
-        // history.push(from);
-        setShowEditForm(false);
 
-        // ) : (console.log("denied"))
+        editPlant(plant)
+        setShowEditForm(false);
     }
 
     //update fetch
@@ -94,7 +85,6 @@ function EditPlant({plant, setShowEditForm}) {
 
     const returnToList = () => {
       setShowEditForm(false);
-        // history.push(from);
     }
 
     const handlePlantDescriptionChange = (event) => {
@@ -123,52 +113,52 @@ function EditPlant({plant, setShowEditForm}) {
 
 
     return (
-        <div>
-            <div className="container">
-            <div className="card  text-center mb-3" style={{backgroundColor: 'rgba(255, 255, 255, 0.5)', backdropFilter: 'blur(3px)', color: 'white'}}>
+      <div>
+        <div className="container">
+          <div className="card  text-center mb-3" style={{backgroundColor: 'rgba(255, 255, 255, 0.5)', backdropFilter: 'blur(3px)', color: 'white'}}>
             <Messages messages={messages}/>
-      <h2 className="card-title" style={{color: 'rgba(89, 107, 93, 1)'}}>Edit {oldPlant.plantName}</h2>
-      <div className="card-body">
-      <form onSubmit={handleEditPlant}>
-        <div className="row form-group">
-        <div className="form-floating mb-3 col">
-            <input style={{color: 'rgba(89, 107, 93, 1)'}} className="form-control" type="text" id="plantNameTextBox" defaultValue={oldPlant.plantName} onChange={handlePlantNameChange}/>
-            <label style={{color: 'rgba(133, 166, 141, 1)'}} htmlFor="plantNameTextBox">Plant Name:</label>
-          </div> 
-          <div className="form-floating mb-3 col">
-            <input style={{color: 'rgba(89, 107, 93, 1)'}} className="form-control" type="text" id="plantTypeTextBox" defaultValue={oldPlant.plantType} onChange={handlePlantTypeChange}/>
-            <label style={{color: 'rgba(133, 166, 141, 1)'}} htmlFor="plantTypeTextBox">Plant Type:</label>
+            <h2 className="card-title" style={{color: 'rgba(89, 107, 93, 1)'}}>Edit {oldPlant.plantName}</h2>
+            <div className="card-body">
+              <form onSubmit={handleEditPlant}>
+                <div className="row form-group">
+                  <div className="form-floating mb-3 col">
+                    <input style={{color: 'rgba(89, 107, 93, 1)'}} className="form-control" type="text" id="plantNameTextBox" defaultValue={oldPlant.plantName} onChange={handlePlantNameChange}/>
+                    <label style={{color: 'rgba(133, 166, 141, 1)'}} htmlFor="plantNameTextBox">Plant Name:</label>
+                  </div> 
+                  <div className="form-floating mb-3 col">
+                    <input style={{color: 'rgba(89, 107, 93, 1)'}} className="form-control" type="text" id="plantTypeTextBox" defaultValue={oldPlant.plantType} onChange={handlePlantTypeChange}/>
+                    <label style={{color: 'rgba(133, 166, 141, 1)'}} htmlFor="plantTypeTextBox">Plant Type:</label>
+                  </div>
+                </div>
+                <div className="row form-group">
+                  <div className="form-floating mb-3 col">
+                    <textarea style={{color: 'rgba(89, 107, 93, 1)'}} className="form-control" type="textarea" id="plantDescriptionTextBox" defaultValue={oldPlant.plantDescription} onChange={handlePlantDescriptionChange}/>
+                    <label style={{color: 'rgba(133, 166, 141, 1)'}} htmlFor="plantDescriptionTextBox">Plant Description:</label>
+                  </div>
+                </div>
+                <div className="row">
+                  <div className="form-floating mb-3 col">
+                    <input style={{color: 'rgba(89, 107, 93, 1)'}} className="form-control" type="text" id="photoTextBox" defaultValue={oldPlant.photo} onChange={handlePhotoChange}/>
+                    <label style={{color: 'rgba(133, 166, 141, 1)'}} htmlFor="photoTextBox">Photo:</label>
+                  </div>
+                  <div className="form-floating mb-3 col">
+                    <input style={{color: 'rgba(89, 107, 93, 1)'}} className="form-control" type="text" id="gotchaDateTextBox" defaultValue={oldPlant.gotchaDate} onChange={handleGotchaDateChange}/>
+                    <label style={{color: 'rgba(133, 166, 141, 1)'}} htmlFor="gotchaDateTextBox">Gotcha Date:</label>
+                  </div>
+                  <div className="form-floating mb-3 col">
+                    <input style={{color: 'rgba(89, 107, 93, 1)'}} className="form-control" type="text" id="myGardenIdTextBox" value={oldPlant.myGardenId} disabled={true} onChange={handleMyGardenIdChange}/>
+                    <label style={{color: 'rgba(133, 166, 141, 1)'}} htmlFor="myGardenIdTextBox">My Garden Id:</label>
+                  </div>
+                </div>
+                <div className="text-center d-grid gap-2">
+                  <button type="submit" className="btn btn-lg text-white" style={{backgroundColor: 'rgba(133, 166, 141, 1)'}}>Edit Plant</button>
+                  <button onClick={returnToList} type="button" className="btn btn-lg btn-warning">Cancel</button>
+                </div>
+              </form>
+            </div>
           </div>
         </div>
-        <div className="row form-group">
-        <div className="form-floating mb-3 col">
-            <textarea style={{color: 'rgba(89, 107, 93, 1)'}} className="form-control" type="textarea" id="plantDescriptionTextBox" defaultValue={oldPlant.plantDescription} onChange={handlePlantDescriptionChange}/>
-            <label style={{color: 'rgba(133, 166, 141, 1)'}} htmlFor="plantDescriptionTextBox">Plant Description:</label>
-          </div>
-        </div>
-        <div className="row">
-        <div className="form-floating mb-3 col">
-            <input style={{color: 'rgba(89, 107, 93, 1)'}} className="form-control" type="text" id="photoTextBox" defaultValue={oldPlant.photo} onChange={handlePhotoChange}/>
-            <label style={{color: 'rgba(133, 166, 141, 1)'}} htmlFor="photoTextBox">Photo:</label>
-          </div>
-          <div className="form-floating mb-3 col">
-            <input style={{color: 'rgba(89, 107, 93, 1)'}} className="form-control" type="text" id="gotchaDateTextBox" defaultValue={oldPlant.gotchaDate} onChange={handleGotchaDateChange}/>
-            <label style={{color: 'rgba(133, 166, 141, 1)'}} htmlFor="gotchaDateTextBox">Gotcha Date:</label>
-          </div>
-          <div className="form-floating mb-3 col">
-            <input style={{color: 'rgba(89, 107, 93, 1)'}} className="form-control" type="text" id="myGardenIdTextBox" value={oldPlant.myGardenId} disabled={true} onChange={handleMyGardenIdChange}/>
-            <label style={{color: 'rgba(133, 166, 141, 1)'}} htmlFor="myGardenIdTextBox">My Garden Id:</label>
-          </div>
-        </div>
-        <div className="text-center d-grid gap-2">
-          <button type="submit" className="btn btn-lg text-white" style={{backgroundColor: 'rgba(133, 166, 141, 1)'}}>Edit Plant</button>
-          <button onClick={returnToList} type="button" className="btn btn-lg btn-warning">Cancel</button>
-        </div>
-      </form>
       </div>
-    </div>
-        </div>
-        </div>
     );
 }
 

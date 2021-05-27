@@ -26,7 +26,6 @@ function Login() {
         try {
 
             const validUser = await auth.authenticate(username, password);
-             console.log(validUser);
             if (validUser === null) {
                 setMessages("Login failed! ")
                 return;

@@ -1,6 +1,6 @@
-import Snake from './snake-plant.png';
+// import Snake from './snake-plant.png';
 import Login from './Login';
-import ReactRoundedImage from "react-rounded-image";
+// import ReactRoundedImage from "react-rounded-image";
 import Logo from './plantbase-logo2.png';
 import WelcomeImage from './welcome-image (2).png';
 

@@ -1,12 +1,12 @@
 import EditUser from './EditUser';
 
-function User( { user }) {
+function User() {
 
 
   return (
     <>
     <div>
-      <EditUser user = {user} />  
+      <EditUser />  
     </div>
   </>
 

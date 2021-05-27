@@ -5,7 +5,7 @@ import AddPost from "./AddPost";
 import CurrentUser from "../contexts/CurrentUser";
 import { findPlantsByMyGardenId } from "../../services/plant-api";
 
-function PostApp({}) {
+function PostApp() {
     const [posts, setPosts] = useState([]);
     const [plants, setPlants] = useState([]);
     const auth = useContext(CurrentUser);

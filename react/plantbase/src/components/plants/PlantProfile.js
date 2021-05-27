@@ -1,16 +1,12 @@
-import Post from '../post/Post';
 import { useEffect, useState, useContext } from 'react';
-import { useHistory, useParams, Link, useLocation } from "react-router-dom";
+import { useHistory, useParams, useLocation } from "react-router-dom";
 import CurrentUser from '../contexts/CurrentUser';
-import ReactRoundedImage from "react-rounded-image";
 import EditPlant from './EditPlant';
 import Messages from '../Messages';
 import EditIcon from './edit-icon.png';
 import BackArrow from './back-arrow-icon.png';
 import DeletePlant from './DeletePlant';
-import PostApp from '../post/PostApp';
 import PostList from '../post/PostList';
-import MyGardenApp from '../my-gardens/MyGardenApp';
 
 function PlantProfile() {
     const defaultPlant = {
@@ -58,14 +54,6 @@ function PlantProfile() {
             .catch(error => console.log(error));
     })
 
-    const imageStyle = {
-        alignSelf: 'center',
-        'margin-bottom': '10px',
-        'margin-left': '30px',
-        'margin-top': '10px',
-        'borderRadius': '10'
-    }
-
     const backButton = () => {
         history.push(from);
     }
@@ -75,11 +63,11 @@ function PlantProfile() {
             "Authorization": `Bearer ${auth.currentUser.token}`
         } })
         .then(response => {
-          if (response.status === 204 || response.status === 404) {
+            if (response.status === 204 || response.status === 404) {
             
-          } else {
-            return Promise.reject(`delete found with status ${response.status}`);
-          }
+            } else {
+                return Promise.reject(`delete found with status ${response.status}`);
+            }
         });
         history.push(from);
     }
