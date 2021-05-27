@@ -10,7 +10,7 @@ function Welcome() {
             className="bg-image"
             style={{
                 'backgroundImage': 'url(https://media.istockphoto.com/vectors/horizontal-vector-illustration-of-an-empty-light-smoky-blue-gray-vector-id1177688756?b=1&k=6&m=1177688756&s=170667a&w=0&h=t3dpwnpMAT4jWgrrRbd47Umv4y-XI7mVUPtKzux5p04=)',
-                'height': 'auto',
+                'height': '1100px auto',
                 'backgroundAttachment': 'fixed'
             }}>
         <div className="container-fluid" >
