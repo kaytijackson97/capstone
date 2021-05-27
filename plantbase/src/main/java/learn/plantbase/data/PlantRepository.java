@@ -6,16 +6,16 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 public interface PlantRepository {
-    public List<Plant> findAll();
+    List<Plant> findAll();
 
-    public Plant findByPlantId(int postId);
+    Plant findByPlantId(int postId);
 
-    public List<Plant> findByMyGardenId(int myGardenId);
+    List<Plant> findByMyGardenId(int myGardenId);
 
-    public Plant addPlant(Plant plant);
+    Plant addPlant(Plant plant);
 
-    public boolean editPlant(Plant plant);
+    boolean editPlant(Plant plant);
 
     @Transactional
-    public boolean deleteById(int plantId);
+    boolean deleteById(int plantId);
 }

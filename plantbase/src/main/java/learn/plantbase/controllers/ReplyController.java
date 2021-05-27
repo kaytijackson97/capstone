@@ -3,7 +3,6 @@ package learn.plantbase.controllers;
 import learn.plantbase.domain.ReplyService;
 import learn.plantbase.domain.Result;
 import learn.plantbase.domain.ResultType;
-import learn.plantbase.models.Post;
 import learn.plantbase.models.Reply;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

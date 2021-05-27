@@ -5,7 +5,7 @@ import learn.plantbase.models.Garden;
 import java.util.List;
 
 public interface GardenRepository {
-    public List<Garden> findAll();
+    List<Garden> findAll();
 
-    public Garden findById(int gardenId);
+    Garden findById(int gardenId);
 }

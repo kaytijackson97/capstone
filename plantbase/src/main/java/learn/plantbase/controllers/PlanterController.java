@@ -2,7 +2,6 @@ package learn.plantbase.controllers;
 
 import learn.plantbase.domain.Result;
 import learn.plantbase.domain.PlanterService;
-import learn.plantbase.models.Plant;
 import learn.plantbase.models.Planter;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

@@ -2,7 +2,6 @@ package learn.plantbase.controllers;
 
 import learn.plantbase.domain.GardenService;
 import learn.plantbase.models.Garden;
-import learn.plantbase.models.MyGarden;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
