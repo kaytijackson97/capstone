@@ -1,0 +1,23 @@
+version: "3.9"
+services:
+  frontend:
+    # update this to the name of your react image
+    # but leave the `:dev` suffix
+    image: dev10cohort3dreamteam.azurecr.io/capstone-client:v2
+    ports:
+      - "80:80"
+    depends_on:
+      - api
+      - db
+    domainname: "cohort-3-dream-team"
+  api:
+    image: dev10cohort3dreamteam.azurecr.io/capstone-server:v2
+    environment:
+      DB_URL: jdbc:mysql://db:3306/plantbase
+      DB_USERNAME: root
+      DB_PASSWORD: Password!
+    depends_on:
+      - db
+  db:
+    # update this to the name of your database image
+    image: dev10cohort3dreamteam.azurecr.io/capstone-db:v2
