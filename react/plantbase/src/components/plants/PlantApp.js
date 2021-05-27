@@ -1,13 +1,8 @@
-import { useState, useEffect, useContext } from 'react';
-import { useHistory } from 'react-router-dom';
-import CurrentUser from '../contexts/CurrentUser';
+import { useState, useEffect } from 'react';
 import PlantList from './PlantList';
 
 function PlantApp({myGarden}) {
     const [plants, setPlants] = useState([]);
-    const auth = useContext(CurrentUser);
-
-    const history = useHistory();
 
     useEffect(() => {
         fetch(`${process.env.REACT_APP_API_URL}/api/plants/byMyGarden/${myGarden.myGardenId}`)

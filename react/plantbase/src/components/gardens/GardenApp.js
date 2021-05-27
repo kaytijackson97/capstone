@@ -1,12 +1,7 @@
-import { useState, useContext } from 'react';
 import Messages from '../Messages';
 import PostApp from '../post/PostApp';
-import CurrentUser from '../contexts/CurrentUser';
 
 function GardenApp() {
-    const [messages, setMessages] = useState("");
-
-    const auth = useContext(CurrentUser);
 
     return (
         <div
@@ -16,27 +11,26 @@ function GardenApp() {
                 'height': 'auto',
                 'backgroundAttachment': 'fixed'
             }}>
-        <div>
-            <div className="App container-fluid">
-        <div className="row">
-          <div className="col">
-          <div className="text-center" >
-          </div>
-                <div className="row">
-                <div className="col" style={{maxWidth: '15rem'}}>
-                <Messages messages={messages} />
-                </div>
-                <div className="col">
-                <div className="card text-dark mt-3" style={{backgroundColor: 'rgba(255, 255, 255, 0.5)', backdropFilter: 'blur(3px)'}}>
-                    <h2 className="card-header card-title" style={{color: 'rgba(89, 107, 93, 1)', fontFamily: 'Century Gothic'}}>Garden</h2>
-                <PostApp/>
-                </div>
+            <div>
+                <div className="App container-fluid">
+                    <div className="row">
+                        <div className="col">
+                            <div className="text-center"></div>
+                            <div className="row">
+                                <div className="col" style={{maxWidth: '15rem'}}>
+                                    <Messages messages="" />
+                                </div>
+                                <div className="col">
+                                    <div className="card text-dark mt-3" style={{backgroundColor: 'rgba(255, 255, 255, 0.5)', backdropFilter: 'blur(3px)'}}>
+                                        <h2 className="card-header card-title" style={{color: 'rgba(89, 107, 93, 1)', fontFamily: 'Century Gothic'}}>Garden</h2>
+                                        <PostApp/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-          </div>
-        </div>
-    </div>
-        </div>
         </div>
     );
 }

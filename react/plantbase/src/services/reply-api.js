@@ -27,11 +27,3 @@ export async function findReplyById(replyId) {
 
     return response.json();
 }
-
-export async function deleteReplyById(replyId) {
-    const response = await fetch(`${process.env.REACT_APP_API_URL}/api/reply/${replyId}`, {method: "DELETE"});
-
-    if (response.status !== 204) {
-        return Promise.reject("response is not 204 NO_CONTENT");
-    }
-}

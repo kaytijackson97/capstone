@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import EditPlant from './EditPlant';
+// import EditPlant from './EditPlant';
 
 function Plant({plants = [], plant, editPlant, myGardenId, editPlantByPlantId}) {
     const plantStyle = {

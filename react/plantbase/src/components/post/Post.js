@@ -1,6 +1,5 @@
 import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import ReactRoundedImage from 'react-rounded-image';
 
 import { findPlanterByUsername } from '../../services/planter-api';
 import { findPlantById } from '../../services/plant-api';

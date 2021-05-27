@@ -1,13 +1,7 @@
 import Plant from './Plant';
 import AddPlant from './AddPlant';
-import { useState, useContext } from 'react';
-import CurrentUser from '../contexts/CurrentUser';
 
 function PlantList({plants = [], setPlants, myGardenId, editPlantByPlantId }) {
-    const auth = useContext(CurrentUser);
-    const [showAddForm, setShowAddForm] = useState(false);
-
-
     return (
         <div>
             <div>
@@ -15,7 +9,7 @@ function PlantList({plants = [], setPlants, myGardenId, editPlantByPlantId }) {
             <h2 className="col" style={{color: 'rgba(89, 107, 93, 1)', fontFamily: 'Century Gothic', marginLeft: '40%', maxWidth: '13%'}}>Plant List 
                 </h2>
                 <div className="col">
-                <AddPlant plants={plants} setPlants={setPlants} setShowAddForm={setShowAddForm} myGardenId={myGardenId}/>
+                <AddPlant plants={plants} setPlants={setPlants} myGardenId={myGardenId}/>
                 </div>
             </div>
                 <div className="row text-center">

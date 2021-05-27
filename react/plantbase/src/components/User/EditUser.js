@@ -1,39 +1,17 @@
-import { useEffect, useContext, useState } from 'react';
+import { useContext, useState } from 'react';
 import CurrentUser from '../contexts/CurrentUser';
-import { useHistory } from 'react-router-dom';
 import Modal from 'react-bootstrap/Modal';
 
-
-function EditUser( { user }  ) {
+function EditUser() {
   const auth = useContext(CurrentUser);
   const [show, setShow] = useState(false);
-
-  const defaultUser = {
-    username: user.username,
-    roleId: user.roleId,
-    firstName: user.firstName,
-    lastName: user.lastName,
-    email: user.email
-  };
-
-  const [oldUser, setOldUser] = useState(defaultUser);
 
   const [firstName, setFirstName] = useState(auth.currentUser.firstName);
   const [lastName, setLastName] = useState(auth.currentUser.lastName);
   const [email, setEmail] = useState(auth.currentUser.email);
   const [password, setPassword] = useState('');
 
-  // const { username } = useParams();
-  const history = useHistory();
-
-    useEffect(() => {
-      fetch(`${process.env.REACT_APP_API_URL}/api/planter/${user.username}`)
-        .then(response => response.json())
-        .then(data => setOldUser(data))
-        .catch(error => console.log(error))
-    }, [user.username]);
-
-  const handleEdit = async (evt) => { 
+  const handleEdit = async () => { 
 
     const newUser = {
       roleId: 2,
@@ -54,7 +32,7 @@ function EditUser( { user }  ) {
     };
   
     // 3. create fetch
-     await fetch(`${process.env.REACT_APP_API_URL}/api/planter/${auth.currentUser.username}`, init)
+      await fetch(`${process.env.REACT_APP_API_URL}/api/planter/${auth.currentUser.username}`, init)
       .then(response => {
         if (response.status !== 204) {
           return Promise.reject("couldn't update user");
@@ -65,73 +43,68 @@ function EditUser( { user }  ) {
       .catch(console.log);
 
       hideModal();
-      // login again?
-      console.log(auth.currentUser.firstName);
-
   }
 
   const showModal = () => {
     setShow(true);
     };
 
-const hideModal = () => {
+  const hideModal = () => {
     setShow(false);
-    };
+  };
 
   const handleFirstNameChange = (event) => {
-      setFirstName(event.target.value);
+    setFirstName(event.target.value);
   }
 
   const handleLastNameChange = (event) => {
-      setLastName(event.target.value);
+    setLastName(event.target.value);
   }
 
   const handleEmailChange = (event) => {
-      setEmail(event.target.value);
+    setEmail(event.target.value);
   }
 
   const handlePasswordChange = (event) => {
     setPassword(event.target.value);
-}
-
-
+  }
 
   return (
     <>
       <button onClick={showModal} className="btn btn-light" style={{color: 'rgba(89, 107, 93, 1)', fontFamily: 'Century Gothic'}}>Edit Account</button>
-        <Modal show={show} onHide={hideModal}>
-            <Modal.Header>
-                <Modal.Title>
-                    <h4 className="card-title">
-                    Edit Account Information: @{auth.currentUser.username}</h4>
-                </Modal.Title>
-            </Modal.Header>
-            <Modal.Body>
-        <form>
-          <div className="form-group">
-            <label htmlFor="firstNameTextBox">First Name:</label>
-            <input type="text" id="firstNameTextBox" className="form-control" onChange={handleFirstNameChange} defaultValue={firstName}/>
-          </div>
-          <div className="form-group">
-            <label htmlFor="lastNameTextBox">Last Name:</label>
-            <input type="text" id="lastNameTextBox" className="form-control" onChange={handleLastNameChange} defaultValue={lastName}/>
-          </div>
-          <div className="form-group">
-            <label htmlFor="emailTextBox">Email:</label>
-            <input type="text" id="emailTextBox" className="form-control" onChange={handleEmailChange} defaultValue={email}/>
-          </div>
-          <div className="form-group">
-            <label htmlFor="PasswordTextBox">Please re-enter your password:</label>
-            <input type="password" id="PasswordTextBox" className="form-control" onChange={handlePasswordChange}/>
-          </div>
-        </form>
-        </Modal.Body>
-            <Modal.Footer>
-                <button onClick={hideModal} className="btn" style={{color: 'rgba(133, 166, 141, 1)', borderColor: 'rgba(133, 166, 141, 1)'}}>Cancel</button>
-                <button onClick={handleEdit} className="btn text-white" style={{backgroundColor: 'rgba(133, 166, 141, 1)'}}>Save</button>
-            </Modal.Footer>
-        </Modal>
-  </>
+      <Modal show={show} onHide={hideModal}>
+          <Modal.Header>
+              <Modal.Title>
+                  <h4 className="card-title">
+                  Edit Account Information: @{auth.currentUser.username}</h4>
+              </Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+      <form onSubmit={handleEdit}>
+        <div className="form-group">
+          <label htmlFor="firstNameTextBox">First Name:</label>
+          <input type="text" id="firstNameTextBox" className="form-control" onChange={handleFirstNameChange} defaultValue={firstName}/>
+        </div>
+        <div className="form-group">
+          <label htmlFor="lastNameTextBox">Last Name:</label>
+          <input type="text" id="lastNameTextBox" className="form-control" onChange={handleLastNameChange} defaultValue={lastName}/>
+        </div>
+        <div className="form-group">
+          <label htmlFor="emailTextBox">Email:</label>
+          <input type="text" id="emailTextBox" className="form-control" onChange={handleEmailChange} defaultValue={email}/>
+        </div>
+        <div className="form-group">
+          <label htmlFor="PasswordTextBox">Please re-enter your password:</label>
+          <input type="password" id="PasswordTextBox" className="form-control" onChange={handlePasswordChange}/>
+        </div>
+      </form>
+      </Modal.Body>
+          <Modal.Footer>
+              <button onClick={hideModal} className="btn" style={{color: 'rgba(133, 166, 141, 1)', borderColor: 'rgba(133, 166, 141, 1)'}}>Cancel</button>
+              <button onClick={handleEdit} className="btn text-white" style={{backgroundColor: 'rgba(133, 166, 141, 1)'}}>Save</button>
+          </Modal.Footer>
+      </Modal>
+    </>
   );
 }
 

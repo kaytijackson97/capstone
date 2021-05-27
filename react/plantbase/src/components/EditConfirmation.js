@@ -1,9 +1,8 @@
-import { useHistory, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import CurrentUser from './contexts/CurrentUser';
 import { useContext } from 'react';
 
 function EditConfirmation() {
-  const history = useHistory();
   const auth = useContext(CurrentUser);
 
   return (

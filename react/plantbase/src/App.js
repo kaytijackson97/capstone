@@ -6,7 +6,11 @@ import Register from "./components/Register";
 import PlantProfile from "./components/plants/PlantProfile";
 import PostApp from "./components/post/PostApp";
 import CurrentUser from "./components/contexts/CurrentUser";
-import { useContext, useState, useEffect } from "react";
+import { 
+  // useContext, 
+  useState 
+  // , useEffect 
+  } from "react";
 import jwt_decode from "jwt-decode";
 import NotFound from "./components/NotFound";
 import Confirmation from "./components/Confirmation";

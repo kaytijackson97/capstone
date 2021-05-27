@@ -15,10 +15,11 @@ function AddUser({ addUser }) {
     }
 
     if (canAdd) {
-      let user = {};
-      user["firstName"] = firstName;
-      user["lastName"] = lastName;
-      user["email"] = email;
+      const user = {
+        firstName: firstName,
+        lastName: lastName,
+        email: email
+      };
       addUser(user);
     }
   }
