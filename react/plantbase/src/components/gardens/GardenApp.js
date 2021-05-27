@@ -23,7 +23,7 @@ function GardenApp() {
           <div className="text-center" >
           </div>
                 <div className="row">
-                <div className="col" style={{maxWidth: '15%'}}>
+                <div className="col" style={{maxWidth: '15rem'}}>
                 <Messages messages={messages} />
                 </div>
                 <div className="col">
