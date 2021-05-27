@@ -14,6 +14,7 @@ import {
 import jwt_decode from "jwt-decode";
 import NotFound from "./components/NotFound";
 import Confirmation from "./components/Confirmation";
+import NavBootstrap from './components/NavBootstrap';
 
 import {
   BrowserRouter as Router,
@@ -132,6 +133,7 @@ function App() {
       <CurrentUser.Provider value={auth}>
         <Router>
           <Nav />
+          <NavBootstrap/>
           <Switch>
             <Route path="/" exact>
               <Welcome />

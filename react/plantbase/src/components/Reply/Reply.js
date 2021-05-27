@@ -4,7 +4,7 @@ import { findPlanterByUsername } from "../../services/planter-api";
 import DeleteReply from "./DeleteReply";
 import EditReply from "./EditReply";
 
-import LikeButton from "../like-button.png";
+import LikeButton from '../images/like-button.png';
 import CurrentUser from "../contexts/CurrentUser";
 
 function Reply({reply, deleteReplyByReplyId, editReplyByReplyId,}) {

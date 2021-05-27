@@ -6,11 +6,12 @@ function PlantList({plants = [], setPlants, myGardenId, editPlantByPlantId }) {
         <div>
             <div>
             <div className="row">
-            <h2 className="col" style={{color: 'rgba(89, 107, 93, 1)', fontFamily: 'Century Gothic', marginLeft: '40%', maxWidth: '13%'}}>Plant List 
-                </h2>
-                <div className="col">
+            <h2 className="text-center d-inline" style={{color: 'rgba(89, 107, 93, 1)', fontFamily: 'Century Gothic', maxWidth: 'auto'}}>Plant List 
+            <div className="d-inline">
                 <AddPlant plants={plants} setPlants={setPlants} myGardenId={myGardenId}/>
-                </div>
+            </div>
+            </h2>
+                
             </div>
                 <div className="row text-center">
                 {plants.map(p => (<Plant key={p.plantId} plants={plants} plant={p} myGardenId={myGardenId} editPlantByPlantId={editPlantByPlantId}/> ))}

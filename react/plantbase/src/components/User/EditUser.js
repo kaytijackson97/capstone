@@ -71,7 +71,7 @@ function EditUser() {
 
   return (
     <>
-      <button onClick={showModal} className="btn btn-light" style={{color: 'rgba(89, 107, 93, 1)', fontFamily: 'Century Gothic'}}>Edit Account</button>
+      <button onClick={showModal} className="btn btn-light text-center" style={{color: 'rgba(89, 107, 93, 1)', fontFamily: 'Century Gothic'}}>Edit Account</button>
       <Modal show={show} onHide={hideModal}>
           <Modal.Header>
               <Modal.Title>
