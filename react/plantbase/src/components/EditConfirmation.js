@@ -1,7 +1,10 @@
-import { useHistory } from "react-router-dom";
+import { useHistory, Link } from "react-router-dom";
+import CurrentUser from './contexts/CurrentUser';
+import { useContext } from 'react';
 
 function EditConfirmation() {
   const history = useHistory();
+  const auth = useContext(CurrentUser);
 
   return (
     <div
@@ -18,6 +21,14 @@ function EditConfirmation() {
           <h1 className="card-header">Edit Status:</h1>
           <div className="card-body">
             <h2 className="card-text">Success ✅</h2>
+            <div className="row mt-4">
+              <div className="col">
+                <Link type="button" className="btn text-white" style={{borderColor: 'white'}} to={`/my-garden/${auth.currentUser.username}`}>Back to My Garden</Link>
+              </div>
+              <div className="col">
+                <Link className="btn text-white" style={{borderColor: 'white'}}  to='/garden'>Go to Garden</Link>
+              </div>
+            </div>
           </div>
         </div>
       </div>
