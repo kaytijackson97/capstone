@@ -4,11 +4,6 @@ import Logout from './Logout';
 import CurrentUser from './contexts/CurrentUser';
 import Logo from './images/plantbase-logo2.png'
 import Dropdown from 'react-bootstrap/Dropdown';
-import Navbar from 'react-bootstrap/Navbar';
-import NavDropdown from 'react-bootstrap/NavDropdown';
-import Button from 'react-bootstrap/Button';
-import Form from 'react-bootstrap/Form';
-import FormControl from 'react-bootstrap/FormControl';
 import DeleteUser from './user/DeleteUser';
 import EditUser from './user/EditUser';
 

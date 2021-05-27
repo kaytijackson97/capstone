@@ -1,5 +1,4 @@
 import { useState, useContext } from 'react';
-// import { useHistory } from 'react-router-dom';
 import CurrentUser from '../contexts/CurrentUser';
 import Modal from 'react-bootstrap/Modal';
 
@@ -10,10 +9,7 @@ function AddPlant({plants =[], setPlants, myGardenId}) {
     const [plantName, setPlantName] = useState("");
     const [plantType, setPlantType] = useState("");
     const [gotchaDate, setGotchaDate] = useState();
-    const [posts, setPosts] = useState([]);
     const [show, setShow] = useState(false);
-    // const [messages, setMessages] = useState("");
-    // const history = useHistory();
 
     const handleAddPlant = (event) => {
         event.preventDefault();
@@ -27,7 +23,6 @@ function AddPlant({plants =[], setPlants, myGardenId}) {
         plant["plantType"] = plantType;
         plant["gotchaDate"] = gotchaDate;
         plant["myGardenId"] = myGardenId;
-        plant["posts"] = posts;
         addPlant(plant)
     }
 
@@ -51,10 +46,6 @@ function AddPlant({plants =[], setPlants, myGardenId}) {
         setGotchaDate(event.target.value);
     }
 
-    // const handlePostsChange = (event) => {
-    //     setPosts(event.target.value);
-    // }
-
     //add plant fetch
     const addPlant = async (plant) => {
       const init = {
@@ -74,12 +65,7 @@ function AddPlant({plants =[], setPlants, myGardenId}) {
           return response.json();
           })
           .then(json => setPlants([...plants, json]))
-          // .then(() => {
-          //     history.push( setMessages("Confirmation ✅ - Plant added successfully 👍🏻"));
-          //   })
-          //   .catch(() => {
-          //     history.push( setMessages("Error - Plant was not added 👎🏻" ));
-          //   })
+
       hideModal();
     }
 
