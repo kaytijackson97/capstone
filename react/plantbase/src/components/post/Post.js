@@ -6,7 +6,7 @@ import { findPlantById } from '../../services/plant-api';
 
 import ReplyApp from '../reply/ReplyApp';
 import DeletePost from './DeletePost';
-import LikeButton from '../like-button.png';
+import LikeButton from '../images/like-button.png';
 import CurrentUser from "../contexts/CurrentUser";
 import EditPost from "./EditPost";
 
@@ -137,7 +137,7 @@ function Post( {post, plants, deletePostByPostId, editPostByPostId} ) {
                     </div>
                     <ReplyApp postId={post.postId}/>
                     <div className="">
-                        <div style={{fontFamily: 'Century Gothic'}}>posted: {post.datetimePosted}</div>
+                        <div style={{fontFamily: 'Century Gothic', marginLeft: '2%'}}>posted: {post.datetimePosted}</div>
                     </div>
                 </div>
             </div>

@@ -2,9 +2,13 @@ import { Link } from 'react-router-dom';
 import React, { useContext } from 'react';
 import Logout from './Logout';
 import CurrentUser from './contexts/CurrentUser';
-import Logo from './plantbase-logo2.png'
+import Logo from './images/plantbase-logo2.png'
 import Dropdown from 'react-bootstrap/Dropdown';
-// import UserApp from './user/UserApp';
+import Navbar from 'react-bootstrap/Navbar';
+import NavDropdown from 'react-bootstrap/NavDropdown';
+import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
+import FormControl from 'react-bootstrap/FormControl';
 import DeleteUser from './user/DeleteUser';
 import EditUser from './user/EditUser';
 
@@ -14,7 +18,8 @@ function Nav() {
 
     const navStyle = {fontFamily: 'Century Gothic', color: 'white', textDecoration: 'none', paddingRight: '10px',  borderRight: '1px solid #ffffff'};
 
-    return (
+    return ( 
+        <>
         <nav className="navbar navbar-expand-lg" style={{backgroundColor: 'rgba(133, 166, 141, 0.7)'}}>
             <div className="container-fluid">
                 <Link style={navStyle} to="/" ><strong><img src={Logo} alt="logo" width="20px" style={{position: 'relative', bottom: '4px'}}/>lantbase</strong>
@@ -49,7 +54,6 @@ function Nav() {
                             <button style={{color: 'rgba(89, 107, 93, 1)', fontFamily: 'Century Gothic'}} className="btn btn-light nav-link nav-item dropdown">
                                 <li>
                                     <EditUser />
-                                    {/* <UserApp/> */}
                                 </li>
                             </button>
                         </Dropdown.Item>
@@ -77,7 +81,10 @@ function Nav() {
                 </form>
                 </div>
             </div>
+            
+  
         </nav>
+</>
     );
 }
 

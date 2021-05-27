@@ -4,7 +4,7 @@ import PlantApp from "../plants/PlantApp";
 import CurrentUser from "../contexts/CurrentUser";
 import EditMyGarden from './EditMyGarden';
 import EditIcon from '../plants/edit-icon.png';
-import BackArrow from '../plants/back-arrow-icon.png';
+import BackArrow from '../images/back-arrow-icon.png';
 import Messages from '../Messages';
 
 

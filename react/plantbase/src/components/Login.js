@@ -38,7 +38,7 @@ function Login() {
     }
 
     return (
-        <div className="card mt-3 text-center" style={{backgroundColor: 'rgba(255, 255, 255, 0.5)', backdropFilter: 'blur(3px)', maxwidth: + 20}}>
+        <div className="card text-white mt-3 mb-3 text-center" style={{backgroundColor: 'rgba(255, 255, 255, 0.5)', backdropFilter: 'blur(3px)'}}>
                         <div className="card-body">
                             <h2 className="" style={{color: 'rgba(89, 107, 93, 1)', fontFamily: 'Century Gothic'}}>Login</h2>
                             <form onSubmit={LoginUser}>

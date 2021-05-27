@@ -1,6 +1,6 @@
 import { useContext, useState } from "react";
 import CurrentUser from "../contexts/CurrentUser";
-import Send from '../send-arrow.png';
+import Send from '../images/send-arrow.png';
 
 import Modal from 'react-bootstrap/Modal';
 

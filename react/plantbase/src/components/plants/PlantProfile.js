@@ -4,7 +4,7 @@ import CurrentUser from '../contexts/CurrentUser';
 import EditPlant from './EditPlant';
 import Messages from '../Messages';
 import EditIcon from './edit-icon.png';
-import BackArrow from './back-arrow-icon.png';
+import BackArrow from '../images/back-arrow-icon.png';
 import DeletePlant from './DeletePlant';
 import PostList from '../post/PostList';
 
@@ -107,7 +107,7 @@ function PlantProfile() {
                             </div>
                             <div className="col">
                             <div>
-                                <img src={plant.photo} alt="plant profile" width="630"/>
+                                <img style={{width: '100%', objectFit: 'cover', marginTop: '2%', marginBottom: '2%'}} src={plant.photo} alt="plant profile" width="630"/>
                             </div>
                             </div>
                         </div>
