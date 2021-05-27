@@ -43,6 +43,10 @@ public class ReplyJDBCTemplateRepository implements ReplyRepository {
             return null;
         }
 
+        if (reply.getUsername() == null || reply.getDatetimePosted() == null) {
+            return null;
+        }
+
         final String sql = "insert into reply (username, post_id, reply, datetime_posted, like_count) " +
                 "values (?, ?, ?, ?, ?);";
         KeyHolder keyHolder = new GeneratedKeyHolder();
@@ -68,6 +72,10 @@ public class ReplyJDBCTemplateRepository implements ReplyRepository {
     @Override
     public boolean editReply(Reply reply) {
         if (reply == null) {
+            return false;
+        }
+
+        if (reply.getUsername() == null || reply.getDatetimePosted() == null) {
             return false;
         }
 

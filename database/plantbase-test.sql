@@ -49,7 +49,7 @@ create table plant (
 create table post (
 	post_id int primary key auto_increment,
     username varchar(25) not null,
-    plant_id int not null,
+    plant_id int null,
     garden_id int not null,
     caption varchar(250) not null,
     photo varchar(1000) default "",
@@ -146,6 +146,18 @@ begin
 		('john_smith', 1, 'test reply', '2021-05-18 10:43:18', 0),
         ('john_smith', 1, 'second test reply', '2021-05-18 10:43:18', 0),
         ('john_smith', 1, 'third test reply', '2021-05-18 10:43:18', 0);
+        
+	insert into app_user (app_user_id, username, password_hash, disabled)
+		values
+		(1, 'john_smith', '$2a$10$ntB7CsRKQzuLoKY3rfoAQen5nNyiC/U60wBsWnnYrtQQi8Z3IZzQa', 0);
+
+	insert into app_role (`name`) values
+		('USER'),
+		('ADMIN');
+		
+	insert into app_user_role
+		values
+		(1, 1);
         
 end //
 delimiter ;

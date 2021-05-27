@@ -64,6 +64,14 @@ class ReplyJDBCTemplateRepositoryTest {
     }
 
     @Test
+    void shouldNotAddIfNullFields() {
+        Reply reply = makeReply(4);
+        reply.setUsername(null);
+        Reply actual = repository.addReply(reply);
+        assertNull(actual);
+    }
+
+    @Test
     void shouldEditIfValidId() {
         Reply reply = repository.findById(2);
         reply.setReply("new test reply");
@@ -83,7 +91,13 @@ class ReplyJDBCTemplateRepositoryTest {
     @Test
     void shouldNotEditIfNull() {
         assertFalse(repository.editReply(null));
+    }
 
+    @Test
+    void shouldNotEditIfNullFields() {
+        Reply reply = repository.findById(2);
+        reply.setUsername(null);
+        assertFalse(repository.editReply(reply));
     }
 
     @Test

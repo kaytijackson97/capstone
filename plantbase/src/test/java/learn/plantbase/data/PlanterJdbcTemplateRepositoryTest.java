@@ -47,8 +47,6 @@ public class PlanterJdbcTemplateRepositoryTest {
     void shouldAddPlanter() {
         Planter planter = makeNewPlanter("bob_riley");
         Planter actual = repository.addPlanter(planter);
-        System.out.println(planter);
-        System.out.println(actual);
         assertEquals(actual, planter);
 
         List<Planter> planters = repository.findAll();
@@ -56,10 +54,19 @@ public class PlanterJdbcTemplateRepositoryTest {
     }
 
     @Test
-
     void shouldNotAddNullPlanter() {
         Planter planter = repository.addPlanter(null);
         assertNull(planter);
+    }
+
+    @Test
+    void shouldNotAddPlanterIfNullField() {
+        Planter planter = makeNewPlanter(null);
+        Planter actual = repository.addPlanter(planter);
+        assertNull(actual);
+
+        List<Planter> planters = repository.findAll();
+        assertTrue(planters.size() >= 2);
     }
 
     @Test
@@ -84,6 +91,13 @@ public class PlanterJdbcTemplateRepositoryTest {
     @Test
     void shouldNotEditIfNull() {
         assertFalse(repository.editPlanter(null));
+    }
+
+    @Test
+    void shouldEditPlanterWithInvalidFields() {
+        Planter planter = repository.findByUsername("john_smith");
+        planter.setFirstName(null);
+        assertFalse(repository.editPlanter(planter));
     }
 
     @Test

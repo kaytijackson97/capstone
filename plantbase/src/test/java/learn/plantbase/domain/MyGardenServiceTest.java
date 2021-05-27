@@ -28,6 +28,22 @@ class MyGardenServiceTest {
     // finds are pass-through, don't need domain testing.
 
     @Test
+    void shouldAdd() {
+        MyGarden myGarden = makeMyGarden();
+        MyGarden mockOut = makeMyGarden();
+        mockOut.setMyGardenId(1);
+
+        Planter planter = makeNewPlanter();
+        when(planterRepository.findAll()).thenReturn(List.of(planter));
+
+        when(repository.addMyGarden(myGarden)).thenReturn(mockOut);
+
+
+        Result<MyGarden> result = service.add(myGarden);
+        assertEquals(ResultType.SUCCESS, result.getType());
+    }
+
+    @Test
     void shouldNotAddNullGardenName() {
         MyGarden myGarden = makeMyGarden();
         myGarden.setGardenName(null);
@@ -72,19 +88,16 @@ class MyGardenServiceTest {
     }
 
     @Test
-    void shouldAdd() {
+    void shouldNotAddIfMyGardenIdIsSet() {
         MyGarden myGarden = makeMyGarden();
-        MyGarden mockOut = makeMyGarden();
-        mockOut.setMyGardenId(1);
+        myGarden.setMyGardenId(1);
 
         Planter planter = makeNewPlanter();
         when(planterRepository.findAll()).thenReturn(List.of(planter));
 
-        when(repository.addMyGarden(myGarden)).thenReturn(mockOut);
-
-
         Result<MyGarden> result = service.add(myGarden);
-        assertEquals(ResultType.SUCCESS, result.getType());
+        assertEquals(ResultType.INVALID, result.getType());
+        assertEquals("myGardenId cannot be set for 'add' to work.", result.getMessages().get(0));
     }
 
     @Test
@@ -151,6 +164,41 @@ class MyGardenServiceTest {
 
         Result<MyGarden> actual = service.edit(myGarden);
         assertEquals(ResultType.INVALID, actual.getType());
+    }
+
+    @Test
+    void shouldNotEditIfMyGardenIsNull() {
+        Result<MyGarden> result = service.edit(null);
+        assertEquals(ResultType.INVALID, result.getType());
+        assertEquals("myGarden cannot be null.", result.getMessages().get(0));
+    }
+
+
+    @Test
+    void shouldNotEditIfMyGardenIdIs0() {
+        MyGarden myGarden = makeMyGarden();
+        myGarden.setMyGardenId(0);
+
+        Planter planter = makeNewPlanter();
+        when(planterRepository.findAll()).thenReturn(List.of(planter));
+
+        Result<MyGarden> result = service.edit(myGarden);
+        assertEquals(ResultType.INVALID, result.getType());
+        assertEquals("myGardenId must be set for 'update' to work.", result.getMessages().get(0));
+    }
+
+    @Test
+    void shouldNotEditIfRepositoryEditFails() {
+        MyGarden myGarden = makeMyGarden();
+        myGarden.setMyGardenId(1);
+
+        Planter planter = makeNewPlanter();
+        when(planterRepository.findAll()).thenReturn(List.of(planter));
+
+        when(repository.editMyGarden(myGarden)).thenReturn(false);
+
+        Result<MyGarden> actual = service.edit(myGarden);
+        assertEquals(ResultType.NOT_FOUND, actual.getType());
     }
 
     @Test

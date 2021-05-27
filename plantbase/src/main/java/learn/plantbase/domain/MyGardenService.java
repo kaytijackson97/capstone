@@ -63,16 +63,20 @@ public class MyGardenService {
     private Result<MyGarden> validate(MyGarden myGarden) {
         Result<MyGarden> result = new Result<>();
         boolean planterExists = false;
+
         if (myGarden == null) {
             result.addMessage("myGarden cannot be null.", ResultType.INVALID);
             return result;
         }
+
         List<Planter> planters = planterRepository.findAll();
+
         for (Planter planter : planters) {
             if (planter.getUsername().equals(myGarden.getUsername())) {
                 planterExists = true;
             }
         }
+
         if (!planterExists) {
             result.addMessage("myGarden must have an existing planter attached.", ResultType.INVALID);
             return result;

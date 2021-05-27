@@ -51,6 +51,15 @@ class PlantServiceTest {
     }
 
     @Test
+    void shouldNotAddPlantIfIdIsSet() {
+        Plant plant = makePlant();
+        plant.setPlantId(1);
+
+        Result<Plant> result = service.add(plant);
+        assertEquals(ResultType.INVALID, result.getType());
+    }
+
+    @Test
     void shouldNotAddNullPlantName() {
         Plant plant = makePlant();
         plant.setPlantName(null);
@@ -149,6 +158,21 @@ class PlantServiceTest {
     }
 
     @Test
+    void shouldNotEditIfPlantIsNull() {
+        Result<Plant> result = service.edit(null);
+        assertEquals(ResultType.INVALID, result.getType());
+    }
+
+    @Test
+    void shouldNotEditIfPlantIdIs0() {
+        Plant plant = makePlant();
+        plant.setPlantId(0);
+
+        Result<Plant> result = service.edit(plant);
+        assertEquals(ResultType.INVALID, result.getType());
+    }
+
+    @Test
     void shouldNotEditNullPlantName() {
         Plant plant = makePlant();
         plant.setPlantId(1);
@@ -216,6 +240,20 @@ class PlantServiceTest {
         Set<ConstraintViolation<Plant>> violations = validator.validate(plant);
 
         assertEquals(1, violations.size());
+    }
+
+    @Test
+    void shouldNotEditRepositoryEditFails() {
+        Plant plant = makePlant();
+        plant.setPlantId(1);
+
+        MyGarden myGarden = makeMyGarden();
+        when(myGardenRepository.findAll()).thenReturn(List.of(myGarden));
+
+        when(repository.editPlant(plant)).thenReturn(false);
+
+        Result<Plant> result = service.edit(plant);
+        assertEquals(ResultType.NOT_FOUND, result.getType());
     }
 
     @Test

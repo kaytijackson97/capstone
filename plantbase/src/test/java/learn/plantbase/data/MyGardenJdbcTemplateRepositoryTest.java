@@ -2,6 +2,7 @@ package learn.plantbase.data;
 
 import learn.plantbase.models.MyGarden;
 import learn.plantbase.models.Plant;
+import learn.plantbase.models.Post;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -76,6 +77,33 @@ class MyGardenJdbcTemplateRepositoryTest {
     void shouldNotAddNullMyGarden() {
         MyGarden actual = repository.addMyGarden(null);
         assertNull(actual);
+    }
+
+    @Test
+    void shouldNotAddMyGardenIfFailedInDB() {
+        MyGarden myGarden = makeMyGarden();
+        myGarden.setUsername(null);
+        MyGarden actual = repository.addMyGarden(myGarden);
+        assertNull(actual);
+    }
+
+    @Test
+    void shouldEditIfValidMyGarden() {
+        MyGarden myGarden = repository.findById(2);
+        myGarden.setBio("new test bio");
+        assertTrue(repository.editMyGarden(myGarden));
+    }
+
+    @Test
+    void shouldNotEditIfInvalidMyGarden() {
+        MyGarden myGarden = repository.findById(2);
+        myGarden.setUsername(null);
+        assertFalse(repository.editMyGarden(myGarden));
+    }
+
+    @Test
+    void shouldNotEditIfMyGardenIdNull() {
+        assertFalse(repository.editMyGarden(null));
     }
 
     @Test

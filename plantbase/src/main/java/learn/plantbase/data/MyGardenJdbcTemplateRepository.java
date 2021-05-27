@@ -33,9 +33,11 @@ public class MyGardenJdbcTemplateRepository implements MyGardenRepository {
     public MyGarden findById(int myGardenId) {
         final String sql = "select my_garden_id, username, garden_name, bio, photo from my_garden where my_garden_id = ?;";
         MyGarden myGarden = jdbcTemplate.query(sql, new MyGardenMapper(), myGardenId).stream().findAny().orElse(null);
+
         if (myGarden != null) {
             addPlants(myGarden);
         }
+
         return myGarden;
     }
 
@@ -43,9 +45,11 @@ public class MyGardenJdbcTemplateRepository implements MyGardenRepository {
     public MyGarden findByPlanter(String username) {
         final String sql = "select my_garden_id, username, garden_name, bio, photo from my_garden where username = ?;";
         MyGarden myGarden = jdbcTemplate.query(sql, new MyGardenMapper(), username).stream().findFirst().orElse(null);
+
         if (myGarden != null) {
             addPlants(myGarden);
         }
+
         return myGarden;
     }
 
@@ -55,8 +59,13 @@ public class MyGardenJdbcTemplateRepository implements MyGardenRepository {
             return null;
         }
 
+        if (myGarden.getUsername() == null) {
+            return null;
+        }
+
         final String sql = "insert into my_garden (username, garden_name, bio, photo) " +
                 "values (?,?,?,?);";
+
         KeyHolder keyHolder = new GeneratedKeyHolder();
         int rowsAffected = jdbcTemplate.update(connection -> {
             PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
@@ -66,20 +75,31 @@ public class MyGardenJdbcTemplateRepository implements MyGardenRepository {
             ps.setString(4, myGarden.getPhoto());
             return ps;
         }, keyHolder);
+
         if (rowsAffected <= 0) {
             return null;
         }
+
         myGarden.setMyGardenId(keyHolder.getKey().intValue());
         return myGarden;
     }
 
     @Override
     public boolean editMyGarden(MyGarden myGarden) {
+        if (myGarden == null) {
+            return false;
+        }
+
+        if (myGarden.getUsername() == null) {
+            return false;
+        }
+
         final String sql = "update my_garden set " +
                 "garden_name = ?, " +
                 "bio = ?, " +
                 "photo = ? " +
                 "where my_garden_id = ?;";
+
         return jdbcTemplate.update(sql,
                 myGarden.getGardenName(),
                 myGarden.getBio(),
@@ -97,12 +117,14 @@ public class MyGardenJdbcTemplateRepository implements MyGardenRepository {
                 "inner join plant pl on p.plant_id = pl.plant_id " +
                 "inner join my_garden g on pl.my_garden_id = g.my_garden_id " +
                 "where g.my_garden_id = ?;";
+
         jdbcTemplate.update(sql, myGardenId);
         // delete posts
         final String sql2 = "delete p from post p " +
                 "inner join plant pl on p.plant_id = pl.plant_id " +
                 "inner join my_garden g on pl.my_garden_id = g.my_garden_id " +
                 "where g.my_garden_id = ?;";
+
         jdbcTemplate.update(sql2, myGardenId);
 
         jdbcTemplate.update("set sql_safe_updates = 1;");
@@ -115,6 +137,7 @@ public class MyGardenJdbcTemplateRepository implements MyGardenRepository {
         final String sql = "select plant_id, my_garden_id, plant_description, photo, plant_name, plant_type, gotcha_date " +
                 "from plant " +
                 "where my_garden_id = ?;";
+
         var plants = jdbcTemplate.query(sql, new PlantMapper(), myGarden.getMyGardenId());
         myGarden.setPlants(plants);
     }

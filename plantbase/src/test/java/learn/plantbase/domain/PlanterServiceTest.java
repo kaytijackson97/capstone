@@ -129,8 +129,13 @@ public class PlanterServiceTest {
     void shouldNotEditIfInvalidEmail() {
         Planter planter = makeNewPlanter();
         planter.setEmail("ashley.org");
+        Role role = new Role();
+        role.setRoleId(1);
+        when(roleRepository.findAll()).thenReturn(List.of(role));
+
         Result<Planter> actual = service.editPlanter(planter);
         assertEquals(ResultType.INVALID, actual.getType());
+        assertEquals("invalid email", actual.getMessages().get(0));
     }
 
     @Test
@@ -148,6 +153,20 @@ public class PlanterServiceTest {
         planter.setUsername("invalid_username");
         actual = service.editPlanter(planter);
         assertEquals(ResultType.INVALID, actual.getType());
+    }
+
+    @Test
+    void shouldNotEditValidPlanterIfRepositoryEditFails() {
+        Planter planter = makeNewPlanter();
+        Role role = new Role();
+        role.setRoleId(1);
+        when(roleRepository.findAll()).thenReturn(List.of(role));
+        when(repository.editPlanter(planter)).thenReturn(false);
+        when(repository.findByUsername("robert_fall")).thenReturn(planter);
+        planter.setFirstName("Molly");
+
+        Result<Planter> actual = service.editPlanter(planter);
+        assertEquals(1, actual.getMessages().size());
     }
 
     @Test
