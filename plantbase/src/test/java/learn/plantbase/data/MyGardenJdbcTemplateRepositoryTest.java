@@ -1,8 +1,7 @@
 package learn.plantbase.data;
 
 import learn.plantbase.models.MyGarden;
-import learn.plantbase.models.Plant;
-import learn.plantbase.models.Post;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

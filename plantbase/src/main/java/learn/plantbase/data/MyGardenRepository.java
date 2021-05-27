@@ -5,15 +5,15 @@ import learn.plantbase.models.MyGarden;
 import java.util.List;
 
 public interface MyGardenRepository {
-    public List<MyGarden> findAll();
+    List<MyGarden> findAll();
 
-    public MyGarden findById(int myGardenId);
+    MyGarden findById(int myGardenId);
 
-    public MyGarden findByPlanter(String username);
+    MyGarden findByPlanter(String username);
 
-    public MyGarden addMyGarden(MyGarden myGarden);
+    MyGarden addMyGarden(MyGarden myGarden);
 
-    public boolean editMyGarden(MyGarden myGarden);
+    boolean editMyGarden(MyGarden myGarden);
 
-    public boolean deleteById(int myGardenId);
+    boolean deleteById(int myGardenId);
 }

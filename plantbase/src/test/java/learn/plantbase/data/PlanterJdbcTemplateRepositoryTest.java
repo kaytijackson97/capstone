@@ -1,6 +1,5 @@
 package learn.plantbase.data;
 
-import learn.plantbase.models.MyGarden;
 import learn.plantbase.models.Planter;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

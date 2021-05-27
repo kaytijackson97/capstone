@@ -1,10 +1,6 @@
 package learn.plantbase.data;
 
-import learn.plantbase.data.mappers.MyGardenMapper;
-import learn.plantbase.data.mappers.PlanterMapper;
 import learn.plantbase.models.AppUser;
-import learn.plantbase.models.MyGarden;
-import learn.plantbase.models.Planter;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.stereotype.Repository;
