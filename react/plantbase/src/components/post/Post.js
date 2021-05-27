@@ -96,11 +96,6 @@ function Post( {post, plants, deletePostByPostId, editPostByPostId} ) {
     return(
         <div className="d-flex justify-content-center">
             <div className="card bg-light mt-3 mb-3" style={postStyle}>
-                {/* <div className="">
-                    <div className="d-flex flex-row-reverse">
-                        <div style={{fontFamily: 'Century Gothic'}}>{post.datetimePosted}</div>
-                    </div>
-                </div> */}
                 <div className="card-body">
                     <div className="row">
                         <div className="col">
@@ -140,21 +135,13 @@ function Post( {post, plants, deletePostByPostId, editPostByPostId} ) {
                             <Link to={`/my-garden/${planter.username}`} style={{fontFamily: 'Century Gothic'}} className="text-dark text-decoration-none">{planter.firstName} {planter.lastName}</Link>
                             <Link to={`/plantprofile/${plant.plantId}`} style={{fontFamily: 'Century Gothic'}} className="text-dark text-decoration-none"> | {plant.plantName}</Link></strong>
                     : {post.caption}</p>
-                    {/* <div className="d-flex flex-row-reverse">
-                        <button onClick={handleClick} className="btn btn-outline-light">
-                            <img src={LikeButton} width="30px" alt="like"></img>
-                        </button>
-                    <div className="ml-3">
-                        <p style={{fontFamily: 'Century Gothic'}}>{newCount}</p>
                     </div>
-                    </div> */}
                     <ReplyApp postId={post.postId}/>
                     <div className="">
                         <div style={{fontFamily: 'Century Gothic'}}>posted: {post.datetimePosted}</div>
                     </div>
                 </div>
             </div>
-        </div>
     );
 }
 
