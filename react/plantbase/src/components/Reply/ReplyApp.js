@@ -42,7 +42,7 @@ function ReplyApp( {postId} ) {
     }
 
     return(
-    <div className="card bg-light mb-3">
+    <div className="mb-3" style={{fontFamily: 'Century Gothic'}}>
         <ReplyList replies={replies} deleteReplyByReplyId={deleteReplyByReplyId} editReplyByReplyId={editReplyByReplyId}/>
         <AddReply postId={postId} addReplyToArray={addReplyToArray}/>
     </div>

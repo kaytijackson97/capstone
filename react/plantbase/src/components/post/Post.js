@@ -96,17 +96,17 @@ function Post( {post, plants, deletePostByPostId, editPostByPostId} ) {
     return(
         <div className="d-flex justify-content-center">
             <div className="card bg-light mt-3 mb-3" style={postStyle}>
-                <div className="card-header">
+                {/* <div className="">
                     <div className="d-flex flex-row-reverse">
-                        <div>{post.datetimePosted}</div>
+                        <div style={{fontFamily: 'Century Gothic'}}>{post.datetimePosted}</div>
                     </div>
-                </div>
+                </div> */}
                 <div className="card-body">
                     <div className="row">
                         <div className="col">
                             <h4 className="card-title">
-                            <Link to={`/my-garden/${planter.username}`} className="text-dark text-decoration-none">{planter.firstName} {planter.lastName}</Link>
-                            <Link to={`/plantprofile/${plant.plantId}`} className="text-dark text-decoration-none"> | {plant.plantName}</Link></h4>
+                            <Link to={`/my-garden/${planter.username}`} style={{fontFamily: 'Century Gothic'}} className="text-dark text-decoration-none">{planter.firstName} {planter.lastName}</Link>
+                            <Link to={`/plantprofile/${plant.plantId}`} style={{fontFamily: 'Century Gothic'}} className="text-dark text-decoration-none"> | {plant.plantName}</Link></h4>
                         </div>
                         {((auth.currentUser.username === planter.username) || (auth.currentUser && auth.currentUser.hasRole("ROLE_ADMIN")))? (
                             <div className="col d-flex flex-row-reverse">
@@ -118,33 +118,40 @@ function Post( {post, plants, deletePostByPostId, editPostByPostId} ) {
                             </>
                         )}
                     </div>
-                    <p className="card-text">{post.caption}</p>
                     <div className="d-flex justify-content-center">
                         <div style={{ display: "flex" }}>
                         {post.photo == null || post.photo.trim().length === 0 ? (
                             <>
                             </>
                         ) : (
-                            <ReactRoundedImage
-                                image={post.photo}
-                                roundedColor=""
-                                imageWidth="500"
-                                imageHeight="350"
-                                roundedSize="8"
-                                borderRadius="30"
-                            />
+                            <img src={post.photo} alt="post" style={{width: '100%', objectFit: 'cover', marginTop: '2%', marginBottom: '2%'}}/>
                         )}
                         </div>
                     </div>
-                    <div className="d-flex flex-row-reverse">
+                    <div className="">
                         <button onClick={handleClick} className="btn btn-outline-light">
                             <img src={LikeButton} width="30px" alt="like"></img>
                         </button>
                     <div className="ml-3">
-                        <p>{newCount}</p>
+                        <p style={{fontFamily: 'Century Gothic'}}>Liked by {newCount} people</p>
                     </div>
                     </div>
+                    <p className="card-title" style={{fontFamily: 'Century Gothic'}}><strong>
+                            <Link to={`/my-garden/${planter.username}`} style={{fontFamily: 'Century Gothic'}} className="text-dark text-decoration-none">{planter.firstName} {planter.lastName}</Link>
+                            <Link to={`/plantprofile/${plant.plantId}`} style={{fontFamily: 'Century Gothic'}} className="text-dark text-decoration-none"> | {plant.plantName}</Link></strong>
+                    : {post.caption}</p>
+                    {/* <div className="d-flex flex-row-reverse">
+                        <button onClick={handleClick} className="btn btn-outline-light">
+                            <img src={LikeButton} width="30px" alt="like"></img>
+                        </button>
+                    <div className="ml-3">
+                        <p style={{fontFamily: 'Century Gothic'}}>{newCount}</p>
+                    </div>
+                    </div> */}
                     <ReplyApp postId={post.postId}/>
+                    <div className="">
+                        <div style={{fontFamily: 'Century Gothic'}}>posted: {post.datetimePosted}</div>
+                    </div>
                 </div>
             </div>
         </div>

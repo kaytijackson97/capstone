@@ -67,7 +67,7 @@ function Reply({reply, deleteReplyByReplyId, editReplyByReplyId,}) {
     };
 
     return (
-        <div className="card bg-light mb-3">
+        <div className="card bg-light mb-3" >
             <div className="card-header">
                 <div className="row">
                     <div className="col">{reply.datetimePosted}</div>
@@ -89,7 +89,7 @@ function Reply({reply, deleteReplyByReplyId, editReplyByReplyId,}) {
                 </div>
             <div className="card-body">
                 <div className="row">
-                    <div className="col">
+                    <div className="col" style={{fontFamily: 'Century Gothic'}}>
                         <Link
                         to={`/my-garden/${planter.myGardenId}`}
                         className="text-dark text-decoration-none"
@@ -101,13 +101,13 @@ function Reply({reply, deleteReplyByReplyId, editReplyByReplyId,}) {
                     </div>
                 </div>
                 <div className="row">
-                    <p className="col card-text">{reply.reply}</p>
+                    <p className="col card-text" style={{fontFamily: 'Century Gothic'}}>{reply.reply}</p>
                     <div className="col d-flex flex-row-reverse">
                         <button onClick={handleClick} className="btn btn-outline-light">
                         <img src={LikeButton} width="30px" alt="like"></img>
                         </button>
                         <div className="ml-3">
-                        <p>{newCount}</p>
+                        <p style={{fontFamily: 'Century Gothic'}}>{newCount}</p>
                         </div>
                     </div>
                 </div>

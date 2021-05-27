@@ -1,7 +1,8 @@
 import Snake from './snake-plant.png';
 import Login from './Login';
 import ReactRoundedImage from "react-rounded-image";
-import Logo from './plantbase-logo.png';
+import Logo from './plantbase-logo2.png';
+import WelcomeImage from './welcome-image (2).png';
 
 function Welcome() {
     return (
@@ -16,11 +17,10 @@ function Welcome() {
             <div className="row">
                 <div className="col">
                     <div className="card text-white mt-3 mb-3 text-center" style={{backgroundColor: 'rgba(255, 255, 255, 0.5)', backdropFilter: 'blur(3px)', paddingTop: '20px'}}>
-                        <h1 className="text-center" style={{color: 'rgba(89, 107, 93, 1)', fontFamily: 'Century Gothic'}}>Plantbase <img src={Logo} alt="logo" width="50px"/></h1>
+                        <h1 className="text-center" style={{color: 'rgba(89, 107, 93, 1)', fontFamily: 'Century Gothic'}}><img src={Logo} alt="logo" width="50px" style={{position: 'relative', bottom: '8px'}}/>lantbase </h1>
                         <p className="card-body" style={{color: 'rgba(133, 166, 141, 1)', fontFamily: 'Century Gothic'}}>A social media specifically for the plant community</p>
                         <div className="text-center">
-                        <img src={Snake} alt="snake plant" style={{justifyContent: 'center', alignItems: 'center', marginBottom: '50px', maxWidth: '300px'}}/>
-                        <img src="https://images.vexels.com/media/users/3/208691/isolated/preview/59155c4f2bba13e0aeeec8867113f8bf-cute-plant-in-pot-by-vexels.png" alt="pretty plant" style={{justifyContent: 'center', alignItems: 'center', marginBottom: '50px', maxWidth: '375px'}}/>
+                        <img src={WelcomeImage} alt="welcome" style={{justifyContent: 'center', alignItems: 'center', marginBottom: '50px', maxWidth: '600px'}}/>
                         </div>
                     </div>
                 </div>
