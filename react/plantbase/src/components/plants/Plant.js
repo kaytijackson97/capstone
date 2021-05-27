@@ -24,7 +24,7 @@ function Plant({plants = [], plant, editPlant, myGardenId, editPlantByPlantId}) 
                 </div>
                 <div className="col" style={{fontFamily: 'Century Gothic', color: 'rgba(89, 107, 93, 1)'}}><strong>{plant.plantName}</strong></div>
                 <div className="col" style={{fontFamily: 'Century Gothic', color: 'rgba(89, 107, 93, 1)'}}>{plant.plantType}</div>
-                <div className="col"><img src={plant.photo} style={{ alignSelf: 'center', marginBottom: '10px', marginTop: '10px', maxHeight: '200px', maxWidth: '200px' }} alt="plant list item"></img></div>
+                <div className="col"><img src={plant.photo} style={{ alignSelf: 'center', marginBottom: '10px', marginTop: '10px', width: '100%', height: '11rem', objectFit: 'contain'}} alt="plant list item"></img></div>
                 <div className="col"></div>
             </div>
         </Link>

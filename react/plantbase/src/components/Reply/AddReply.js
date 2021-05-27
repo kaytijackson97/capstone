@@ -68,7 +68,7 @@ function AddReply( {postId, addReplyToArray} ) {
         <>
         <div className="d-flex justify-content-center">
             <div className="d-grid gap-2" style={postStyle}>
-                <button onClick={showModal} className="btn btn-lg text-white mt-3" style={{backgroundColor: 'rgba(133, 166, 141, 1)'}}>Add New Reply</button>
+                <button onClick={showModal} className="btn btn-lg text-white mt-3" style={{backgroundColor: 'rgba(133, 166, 141, 1)', margin: '2%'}}>Add New Reply</button>
             </div>
         </div>
         <Modal show={show} onHide={hideModal}>

@@ -18,7 +18,7 @@ function Nav() {
     return (
     <nav className="navbar navbar-expand-lg" style={{backgroundColor: 'rgba(133, 166, 141, 0.7)'}}>
         <div className="container-fluid">
-            <Link style={navStyle} to="/" ><strong><img src={Logo} alt="logo" width="20px" style={{position: 'relative', bottom: '3px'}}/> Plantbase</strong>
+            <Link style={navStyle} to="/" ><strong><img src={Logo} alt="logo" width="20px" style={{position: 'relative', bottom: '4px'}}/>lantbase</strong>
             </Link>
             <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor03" aria-controls="navbarColor03" aria-expanded="false" aria-label="Toggle navigation">
                 <span className="navbar-toggler-icon"></span>

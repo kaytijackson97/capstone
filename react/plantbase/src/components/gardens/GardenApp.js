@@ -28,7 +28,7 @@ function GardenApp() {
                 </div>
                 <div className="col">
                 <div className="card text-dark mt-3" style={{backgroundColor: 'rgba(255, 255, 255, 0.5)', backdropFilter: 'blur(3px)'}}>
-                    <h2 className="card-header card-title" style={{color: 'rgba(89, 107, 93, 1)'}}>Garden</h2>
+                    <h2 className="card-header card-title" style={{color: 'rgba(89, 107, 93, 1)', fontFamily: 'Century Gothic'}}>Garden</h2>
                 <PostApp/>
                 </div>
                 </div>
