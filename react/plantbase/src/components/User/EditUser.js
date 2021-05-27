@@ -1,9 +1,7 @@
 import { useEffect, useContext, useState } from 'react';
 import CurrentUser from '../contexts/CurrentUser';
-import { Link, useHistory, useParams } from 'react-router-dom';
-import User from './User';
+import { useHistory } from 'react-router-dom';
 import Modal from 'react-bootstrap/Modal';
-import UserApp from './UserApp';
 
 
 function EditUser( { user }  ) {
@@ -56,7 +54,7 @@ function EditUser( { user }  ) {
     };
   
     // 3. create fetch
-     await fetch(`http://localhost:8080/api/planter/${auth.currentUser.username}`, init)
+     await fetch(`${process.env.REACT_APP_API_URL}/api/planter/${auth.currentUser.username}`, init)
       .then(response => {
         if (response.status !== 204) {
           return Promise.reject("couldn't update user");

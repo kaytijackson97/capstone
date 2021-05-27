@@ -2,8 +2,11 @@ import { useContext, useState } from "react";
 import CurrentUser from "../contexts/CurrentUser";
 import Send from '../send-arrow.png';
 
+import Modal from 'react-bootstrap/Modal';
+
 function AddReply( {postId, addReplyToArray} ) {
     const [reply, setReply] = useState("");
+    const [show, setShow] = useState(false);
     const auth = useContext(CurrentUser);
     const now = new Date();
 
@@ -45,30 +48,51 @@ function AddReply( {postId, addReplyToArray} ) {
             return response.json();
         })
         .then((json) => addReplyToArray(json));
-        setReply('');
+        
+        hideModal();
     }
+
+    const showModal = async () => {
+        setShow(true);
+    };
+    
+    const hideModal = () => {
+        setShow(false);
+    };
 
     const postStyle = {
         "width": "1000px"
     }
 
     return (
+        <>
         <div className="d-flex justify-content-center">
-            <div className="bg-light mt-3" style={postStyle}>
-                <div className="">
-                    <form onSubmit={handleSubmit}>
+            <div className="d-grid gap-2" style={postStyle}>
+                <button onClick={showModal} className="btn btn-lg text-white mt-3" style={{backgroundColor: 'rgba(133, 166, 141, 1)'}}>Add New Reply</button>
+            </div>
+        </div>
+        <Modal show={show} onHide={hideModal}>
+            <Modal.Header>
+                <Modal.Title>
+                    <h4 className="card-title">
+                        Send your thoughts!
+                    </h4>
+                </Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+                <form onSubmit={handleSubmit}>
                         <div className="input-group mb-3">
-                            <input type="text" className="form-control" onChange={(event) => setReply(event.target.value)} placeholder="Water the garden with words of love! <3" aria-label="comment" aria-describedby="basic-addon2" required/>
+                            <input type="text" className="form-control" onChange={(event) => setReply(event.target.value)} defaultValue=" " placeholder="Water the garden with words of love! <3" aria-label="comment" aria-describedby="basic-addon2" required/>
                             <div className="input-group-append">
-                                <button type="submit" className="btn text-white" style={{backgroundColor: 'rgba(133, 166, 141, 1)', marginLeft: '2%'}}>
+                                <button type="submit" className="btn text-white" style={{backgroundColor: 'rgba(133, 166, 141, 1)', marginLeft: '2%'}} onClick={handleSubmit}>
                                 <img src={Send} alt="send" width='30px'/>
                                 </button>
                             </div>
                         </div>
                     </form>
-                </div>
-            </div>
-        </div>
+            </Modal.Body>
+        </Modal>
+        </>
     );
 }
 

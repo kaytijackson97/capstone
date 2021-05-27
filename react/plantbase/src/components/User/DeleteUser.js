@@ -1,4 +1,4 @@
-import { useState, useContext, useHistory } from 'react';
+import { useState, useContext } from 'react';
 import CurrentUser from '../contexts/CurrentUser';
 import Modal from 'react-bootstrap/Modal';
 
@@ -38,7 +38,7 @@ function DeleteUser( ) {
   
     }
 
- return (
+  return (
   <>
   <button onClick={showModal} className="btn btn-light nav-link nav-item dropdown" style={{color: 'rgba(89, 107, 93, 1)', fontFamily: 'Century Gothic', width: '125px'}}>Delete</button>
   <Modal show={show} onHide={hideModal}>
