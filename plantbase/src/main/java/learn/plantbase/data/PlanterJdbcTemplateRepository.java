@@ -8,6 +8,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.PreparedStatement;
 import java.sql.Statement;
@@ -106,13 +107,15 @@ public class PlanterJdbcTemplateRepository implements PlanterRepository {
                 planter.getUsername()) > 0;
     }
 
+    @Transactional
     @Override
     public boolean deleteByUsername(String username) {
 
-
+        jdbcTemplate.update("set sql_safe_updates = 0;");
         jdbcTemplate.update("delete from reply where username = ?;", username);
         jdbcTemplate.update("delete from post where username = ?;", username);
         jdbcTemplate.update("delete from my_garden where username = ?;", username);
+        jdbcTemplate.update("set sql_safe_updates = 1;");
 
         return jdbcTemplate.update(
                 "delete from planter where username = ?", username) > 0;

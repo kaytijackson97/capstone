@@ -150,3 +150,9 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJwbGFudGJhc2UiLCJzdWIiOiJhc
 
 ### 
 DELETE {{url}}/100 HTTP/1.1
+
+###
+
+DELETE {{url}}/kayti.wiita10 HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJwbGFudGJhc2UiLCJzdWIiOiJyY3VjY2lhIiwiYXV0aG9yaXRpZXMiOiJST0xFX1VTRVIiLCJleHAiOjE2MjIxNDcyNjZ9.e7SUCPeqz3XPd2kf8lsIZoapLphEQTrvE-PzjO0u6zo
+
