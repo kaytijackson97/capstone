@@ -142,7 +142,7 @@ function EditPlant({plant, setShowEditForm}) {
                     <label style={{color: 'rgba(133, 166, 141, 1)'}} htmlFor="photoTextBox">Photo:</label>
                   </div>
                   <div className="form-floating mb-3 col">
-                    <input style={{color: 'rgba(89, 107, 93, 1)'}} className="form-control" type="text" id="gotchaDateTextBox" defaultValue={oldPlant.gotchaDate} onChange={handleGotchaDateChange}/>
+                    <input style={{color: 'rgba(89, 107, 93, 1)'}} className="form-control" type="date" id="gotchaDateTextBox" defaultValue={oldPlant.gotchaDate} onChange={handleGotchaDateChange}/>
                     <label style={{color: 'rgba(133, 166, 141, 1)'}} htmlFor="gotchaDateTextBox">Gotcha Date:</label>
                   </div>
                   <div className="form-floating mb-3 col">

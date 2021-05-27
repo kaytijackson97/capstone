@@ -132,7 +132,7 @@ function App() {
     <div className="App">
       <CurrentUser.Provider value={auth}>
         <Router>
-          <Nav />
+          <Nav/>
           <NavBootstrap/>
           <Switch>
             <Route path="/" exact>

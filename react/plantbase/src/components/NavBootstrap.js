@@ -14,7 +14,7 @@ function NavBootstrap() {
     const auth = useContext(CurrentUser);
 
   return (
-    <Navbar expand="lg" fixed="top" style={{backgroundColor: 'rgba(133, 166, 141, 1)'}}>
+    <Navbar expand="lg" fixed="top" style={{backgroundColor: 'rgba(133, 166, 141,1)'}}>
       <Navbar.Brand className="text-white" href="#home">
       <Link style={{textDecoration: 'none', color: 'white'}} to="/" ><strong><img src={Logo} alt="logo" width="20px" style={{position: 'relative', bottom: '4px'}}/>lantbase</strong></Link>
       </Navbar.Brand>
@@ -64,10 +64,6 @@ function NavBootstrap() {
             ""
           )}
         </Nav>
-        {/* <Form inline>
-          <FormControl type="text" placeholder="Search" className="mr-sm-2" />
-          <Button variant="outline-success" style={{borderColor: 'white', color: 'white'}}>Search</Button>
-        </Form> */}
       </Navbar.Collapse>
     </Navbar>
   );
