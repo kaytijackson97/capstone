@@ -3,7 +3,7 @@ services:
   frontend:
     # update this to the name of your react image
     # but leave the `:dev` suffix
-    image: dev10cohort3dreamteam.azurecr.io/capstone-client:v2
+    image: dev10cohort3dreamteam.azurecr.io/capstone-client:v3
     ports:
       - "80:80"
     depends_on:

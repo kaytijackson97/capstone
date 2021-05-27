@@ -66,7 +66,8 @@ public class PlanterController {
 
     @DeleteMapping("/{username}")
     public ResponseEntity<Void> deleteById(@PathVariable String username) {
-        if (service.deleteByPlanter(username)) {
+        boolean result = service.deleteByPlanter(username);
+        if (result) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
