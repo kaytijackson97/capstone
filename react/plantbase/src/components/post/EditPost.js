@@ -19,7 +19,7 @@ function EditPost({post, plants, editPostByPostId}) {
     }
 
     const [show, setShow] = useState(false);
-    const [newPlantId, setNewPlantId] = useState(post.plantId);
+    // const [newPlantId, setNewPlantId] = useState(post.plantId);
     const [planter, setPlanter] = useState(defaultPlanter);
     const [newCaption, setNewCaption] = useState(post.caption);
     const [newPhoto, setNewPhoto] = useState(post.photo);
@@ -33,7 +33,7 @@ function EditPost({post, plants, editPostByPostId}) {
         const newPost = {
             postId: post.postId,
             username: post.username,
-            plantId: parseInt(newPlantId),
+            plantId: post.plantId,
             gardenId: post.gardenId,
             caption: newCaption,
             photo: newPhoto,
@@ -93,13 +93,13 @@ function EditPost({post, plants, editPostByPostId}) {
                         <label htmlFor="caption" className="form-label mt-3">Caption:</label>
                         <input type="text" placeholder="Show off your plant!" defaultValue={post.caption} onChange={(event) => setNewCaption(event.target.value)} required></input>
                     </div>
-                    <div className="form-group">
+                    {/* <div className="form-group">
                         <label htmlFor="plants" className="form-label mt-3">Plants</label>
                         <select className="form-select" id="plants" onChange={(event) => (setNewPlantId(event.target.value))}>
                             <option value={0}>None</option>
-                            {/* {plants.map(p => <option key={p.plantId} value={p.plantId}>{p.plantName}</option>)} */}
+                            {plants.map(p => <option key={p.plantId} value={p.plantId}>{p.plantName}</option>)}
                         </select>
-                    </div>
+                    </div> */}
                     <div className="form-group">
                         <label htmlFor="photo" className="form-label mt-3">Photo:</label>
                         <input type="text" placeholder="Add photo url" defaultValue={post.photo} onChange={(event) => setNewPhoto(event.target.value)}></input>
