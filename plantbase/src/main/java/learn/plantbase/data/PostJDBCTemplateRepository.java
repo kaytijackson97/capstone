@@ -70,6 +70,11 @@ public class PostJDBCTemplateRepository implements PostRepository {
             return null;
         }
 
+        if (post.getUsername() == null || post.getCaption() == null
+        || post.getDatetimePosted() == null) {
+            return null;
+        }
+
         if (post.getPlantId() == 0) {
             final String nullSql = "insert into post (username, plant_id, garden_id, caption, photo, datetime_posted, like_count) " +
                     "values (?, null, ?, ?, ?, ?, ?);";
@@ -123,6 +128,11 @@ public class PostJDBCTemplateRepository implements PostRepository {
     @Override
     public boolean editPost(Post post) {
         if (post == null) {
+            return false;
+        }
+
+        if (post.getUsername() == null || post.getCaption() == null
+                || post.getDatetimePosted() == null) {
             return false;
         }
 

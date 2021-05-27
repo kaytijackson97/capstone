@@ -52,11 +52,14 @@ public class PlanterJdbcTemplateRepository implements PlanterRepository {
 
     @Override
     public Planter addPlanter(Planter planter) {
-
         if (planter == null) {
             return null;
         }
 
+        if (planter.getUsername() == null || planter.getFirstName() == null
+        || planter.getLastName() == null || planter.getEmail() == null) {
+            return null;
+        }
 
         final String sql = "insert into planter (role_id, username, first_name, last_name, email) "
                 + "values (?, ?, ?, ?, ?);";
@@ -81,8 +84,12 @@ public class PlanterJdbcTemplateRepository implements PlanterRepository {
 
     @Override
     public boolean editPlanter(Planter planter) {
-
         if (planter == null) {
+            return false;
+        }
+
+        if (planter.getUsername() == null || planter.getFirstName() == null
+                || planter.getLastName() == null || planter.getEmail() == null) {
             return false;
         }
 

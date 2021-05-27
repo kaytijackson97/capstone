@@ -34,7 +34,9 @@ public class PlantJdbcTemplateRepository implements PlantRepository{
     public Plant findByPlantId(int plantId) {
         final String sql = "select plant_id, my_garden_id, plant_description, photo, plant_name, plant_type, gotcha_date " +
                 "from plant where plant_id = ?";
+
         Plant plant = jdbcTemplate.query(sql, new PlantMapper(), plantId).stream().findFirst().orElse(null);
+
         if (plant != null) {
             addPosts(plant);
         }
@@ -46,7 +48,9 @@ public class PlantJdbcTemplateRepository implements PlantRepository{
     public List<Plant> findByMyGardenId(int myGardenId) {
         final String sql = "select plant_id, my_garden_id, plant_description, photo, plant_name, plant_type, gotcha_date " +
                 "from plant where my_garden_id = ?";
+
         List<Plant> plants = jdbcTemplate.query(sql, new PlantMapper(), myGardenId);
+
         if (plants.size() > 0) {
             for (Plant plant : plants) {
                 addPosts(plant);
@@ -60,8 +64,14 @@ public class PlantJdbcTemplateRepository implements PlantRepository{
         if (plant == null) {
             return null;
         }
+
+        if (plant.getPlantDescription() == null || plant.getGotchaDate() == null) {
+            return null;
+        }
+
         final String sql = "insert into plant (my_garden_id, plant_description, photo, plant_name, plant_type, gotcha_date) " +
                 " values (?,?,?,?,?,?);";
+
         KeyHolder keyHolder = new GeneratedKeyHolder();
         int rowsAffected = jdbcTemplate.update(connection -> {
             PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
@@ -77,12 +87,17 @@ public class PlantJdbcTemplateRepository implements PlantRepository{
         if (rowsAffected <= 0) {
             return null;
         }
+
         plant.setPlantId(keyHolder.getKey().intValue());
         return plant;
     }
 
     @Override
     public boolean editPlant(Plant plant) {
+        if (plant.getPlantDescription() == null || plant.getGotchaDate() == null) {
+            return false;
+        }
+
         final String sql = "update plant set " +
                 "my_garden_id = ?, " +
                 "plant_description = ?, " +
@@ -91,6 +106,7 @@ public class PlantJdbcTemplateRepository implements PlantRepository{
                 "plant_type = ?, " +
                 "gotcha_date = ? " +
                 "where plant_id = ?;";
+
         return jdbcTemplate.update(sql,
                 plant.getMyGardenId(),
                 plant.getPlantDescription(),

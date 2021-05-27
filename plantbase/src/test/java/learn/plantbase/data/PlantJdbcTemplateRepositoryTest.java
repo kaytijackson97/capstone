@@ -21,7 +21,9 @@ class PlantJdbcTemplateRepositoryTest {
     KnownGoodState knownGoodState;
 
     @BeforeEach
-    void setup() { knownGoodState.set(); }
+    void setup() {
+        knownGoodState.set();
+    }
 
     @Test
     void shouldFindValidId() {
@@ -67,9 +69,18 @@ class PlantJdbcTemplateRepositoryTest {
     }
 
     @Test
-    void shouldEditPlantWithValidId() {
+    void shouldNotAddPlantIfNullDescription() {
         Plant plant = makePlant();
-        plant.setPlantId(1);
+        plant.setPlantDescription(null);
+        Plant actual = repository.addPlant(plant);
+        assertNull(actual);
+    }
+
+    @Test
+    void shouldEditPlantWithValidId() {
+        Plant plant = repository.findByPlantId(2);
+        plant.setPlantDescription("test description");
+        assertTrue(repository.editPlant(plant));
     }
 
     @Test
@@ -86,10 +97,17 @@ class PlantJdbcTemplateRepositoryTest {
         assertFalse(success);
     }
 
+    @Test
+    void shouldNotEditPlantWithNullFields() {
+        Plant plant = repository.findByPlantId(2);
+        plant.setPlantDescription(null);
+        assertFalse(repository.editPlant(plant));
+    }
+
 
     @Test
     void shouldDeleteByValidId() {
-        assertTrue(repository.deleteById(2));
+        assertTrue(repository.deleteById(3));
     }
 
     @Test
